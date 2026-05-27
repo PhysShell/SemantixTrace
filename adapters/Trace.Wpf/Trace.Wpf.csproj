@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;net8.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <PackageId>Trace.Wpf</PackageId>
+    <Description>
+      WPF adapter for SemantxTrace: [TraceCommand], [ScreenId],
+      AutoAutomationId, TracedRelayCommand, JSONL sink. Targets WPF
+      on both .NET Framework 4.7.2 and .NET 8.0-windows. See ADR-0013.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trace.Abstractions\Trace.Abstractions.csproj" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>

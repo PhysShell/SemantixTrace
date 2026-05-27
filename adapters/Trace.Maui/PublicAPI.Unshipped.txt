@@ -1,0 +1,3 @@
+#nullable enable
+SemantxTrace.Maui.PlaceholderS0
+static SemantxTrace.Maui.PlaceholderS0.Marker() -> string!

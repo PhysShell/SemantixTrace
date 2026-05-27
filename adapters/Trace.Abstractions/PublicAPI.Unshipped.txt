@@ -1,0 +1,3 @@
+#nullable enable
+SemantxTrace.Abstractions.PlaceholderS0
+static SemantxTrace.Abstractions.PlaceholderS0.Marker() -> string!

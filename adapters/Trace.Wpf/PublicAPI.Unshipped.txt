@@ -1,0 +1,3 @@
+#nullable enable
+SemantxTrace.Wpf.PlaceholderS0
+static SemantxTrace.Wpf.PlaceholderS0.Marker() -> string!

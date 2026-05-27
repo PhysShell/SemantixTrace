@@ -21,14 +21,20 @@ Elevator pitch: **semantic metrics, not contextless counters.** Counting
 success or `ErrorModal`") is the same event answering product, UX,
 support, and test questions at once.
 
-This repository is currently **documentation only**. Code lands stage by stage
-starting at S0 (see [`docs/stages/`](docs/stages/)).
+Code lands stage by stage starting at S0 (see [`docs/stages/`](docs/stages/)).
 
 ## Status
 
-Pre-S0. The workspace, lint policy, CI, and crates listed below do not exist
-yet — they are scoped in stage S0 / S1. The documentation in `docs/` is the
-binding contract for what gets built.
+**S0 landed.** The Cargo workspace, lint policy
+(`clippy::pedantic -D warnings`, `missing_docs`, `cargo doc -D warnings`,
+`cargo deny`), CI workflow (Rust + .NET jobs), `.NET` adapter skeletons
+(`adapters/Trace.{Abstractions,Wpf,Avalonia,Maui}/` with shared
+`Directory.Build.props` enabling `AnalysisMode=AllEnabledByDefault` +
+`TreatWarningsAsErrors=true` + `EnablePackageValidation` +
+`PublicApiAnalyzers`), the isolated `fuzz/` scaffold, and the
+placeholder `trace-cli` (`trace version`, `trace completions <shell>`,
+sysexits-style exit codes, `trycmd` snapshots) are in place. Domain
+code lands in S1 onward.
 
 ## Planned workspace
 
@@ -70,12 +76,28 @@ binding contract for what gets built.
 
 ## Build
 
-Nothing to build yet. After S0:
-
 ```
-cargo test --workspace
-cargo clippy --all-targets -- -D warnings
+# Rust workspace
+cargo build --workspace
+cargo test  --workspace --all-features
+cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo fmt --all --check
+cargo doc --workspace --all-features --no-deps   # RUSTDOCFLAGS=-D warnings
+
+# Try the placeholder CLI
+cargo run -p trace-cli -- version
+cargo run -p trace-cli -- version --output json
+cargo run -p trace-cli -- completions bash
+
+# .NET adapters (requires .NET 8.0 SDK)
+dotnet build adapters/Trace.Abstractions/Trace.Abstractions.csproj -c Release -warnaserror
+dotnet build adapters/Trace.Avalonia/Trace.Avalonia.csproj         -c Release -warnaserror
+dotnet build adapters/Trace.Maui/Trace.Maui.csproj                 -c Release -warnaserror
+# Trace.Wpf is Windows-only:
+# dotnet build adapters/Trace.Wpf/Trace.Wpf.csproj                 -c Release -warnaserror
+
+# Isolated fuzz/ crate (nightly)
+cargo build --manifest-path fuzz/Cargo.toml
 ```
 
 ## License

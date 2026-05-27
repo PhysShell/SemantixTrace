@@ -1,0 +1,62 @@
+<Project>
+
+  <!--
+    Shared properties for every NuGet published from adapters/Trace.*/
+    See ADR-0013 §3 for the full rationale.
+  -->
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- ADR-0013 §3: .NET analog of clippy::pedantic -D warnings. -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- Deterministic + source-link + symbol packages. -->
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <!-- ADR-0013 §3: built-in binary-compat check (cargo-public-api analog). -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>
+
+    <!-- Package metadata (FDG: C-METADATA equivalent). -->
+    <Authors>SemantxTrace contributors</Authors>
+    <Company>SemantxTrace</Company>
+    <Copyright>Copyright (c) 2026 SemantxTrace contributors</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/PhysShell/SemantixTrace</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PhysShell/SemantixTrace</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>observability;ui-testing;tracing;wpf;avalonia;maui;regression</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      ADR-0013 §4: PublicAPI baseline tracking. Each project commits
+      PublicAPI.Shipped.txt and PublicAPI.Unshipped.txt; the analyzer
+      blocks PRs that change the public surface without updating
+      the unshipped file.
+    -->
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+</Project>

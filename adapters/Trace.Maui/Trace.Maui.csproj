@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <PackageId>Trace.Maui</PackageId>
+    <Description>
+      MAUI adapter for SemantxTrace. Marked experimental in v1.0 — MAUI
+      automation peers are still maturing. See ADR-0013.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trace.Abstractions\Trace.Abstractions.csproj" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>
