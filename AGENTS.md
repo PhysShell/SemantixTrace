@@ -142,8 +142,27 @@ Property invariants that must always hold (more in
   `cargo doc --no-deps -D warnings`, `missing_docs`, `cargo
   public-api` diff against the previous tag. See the checklist at
   <https://rust-lang.github.io/api-guidelines/checklist.html> when
-  reviewing public-API changes. The .NET boundary is *out of scope* —
-  its contract is the JSON Schema (ADR-0006).
+  reviewing public-API changes.
+- **Published .NET adapters follow the Microsoft Framework Design
+  Guidelines + .NET Library Guidance** (ADR-0013). Every NuGet
+  package under `adapters/Trace.*/` enables
+  `AnalysisMode=AllEnabledByDefault` + `TreatWarningsAsErrors=true`
+  + `EnablePackageValidation=true` +
+  `Microsoft.CodeAnalysis.PublicApiAnalyzers` with committed
+  `PublicAPI.Shipped.txt`. Package layout: `Trace.Abstractions`
+  (contract, zero third-party deps, ABI-frozen) +
+  per-framework adapters. Multi-target per ADR-0013 §6. See
+  <https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/>
+  and <https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/>.
+- **`trace-cli` binary surface follows clig.dev + POSIX + GNU +
+  sysexits.h + Vector precedent** (ADR-0014). Noun-verb subcommands;
+  `-o {text,json,wide}`; data→stdout / diag→stderr; `--no-color` +
+  `NO_COLOR`; `-q` / `-v...`; sysexits.h exit codes (notably `78`
+  `EX_CONFIG` for config-validation failure, matching Vector);
+  versioned `--output json` schemas through the same upcaster
+  chain as event data (ADR-0006); help text snapshot-tested via
+  `trycmd`. See <https://clig.dev/> and
+  <https://rust-cli-recommendations.sunshowers.io/>.
 
 ## Anti-patterns (block in review)
 
@@ -179,3 +198,21 @@ Property invariants that must always hold (more in
     Internal invariants where the panic is genuinely impossible may
     use `expect("invariant: …")` with a `# Panics` doc section
     explaining why.
+11. **A NuGet `.csproj` under `adapters/Trace.*/` without the
+    `Directory.Build.props` properties from ADR-0013 §3** —
+    `EnableNETAnalyzers`, `AnalysisMode`, `TreatWarningsAsErrors`,
+    `EnablePackageValidation`. The lint discipline is opt-out by
+    omission, which makes "I forgot" a class of bug.
+12. **Adding a third-party dependency to `Trace.Abstractions`.**
+    The contract package stays dependency-free post-v1.0 (the .NET
+    analog of `trace-core` discipline). If a downstream feature
+    genuinely needs the dep, it goes into the implementation
+    package, never the contract.
+13. **A `trace` subcommand that prints data on `stderr` or
+    diagnostics on `stdout`.** Breaks every `|` pipeline. clig.dev
+    §output rule, ADR-0014 §5.
+14. **An exit code outside the `sysexits.h` table** (or `0`/`1`/`2`
+    per ADR-0014 §6). Scripts depend on these; do not improvise.
+15. **A `--output json` payload without a published versioned
+    schema.** ADR-0014 §11 requires every machine-output shape to
+    travel through the same upcaster chain as event data (ADR-0006).

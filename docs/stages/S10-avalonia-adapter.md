@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S7
-ADRs: ADR-0005
+ADRs: ADR-0005, ADR-0013
 
 ## Goal
 
@@ -47,6 +47,15 @@ Ship `Trace.Avalonia`: the same `[TraceCommand]` / `[ScreenId]` /
 - Running the v1.0-MVP pipeline against an Avalonia-recorded session
   catches the same three intentional bugs as the WPF version.
 - The capability matrix calls out any divergences explicitly.
+- `Trace.Avalonia` `.csproj` inherits `adapters/Directory.Build.props`
+  (ADR-0013 §3); analyzers green, `dotnet build -warnaserror`
+  passes on Linux + macOS + Windows.
+- `PublicAPI.Shipped.txt` baseline committed for `Trace.Avalonia`
+  (ADR-0013 §4); CI checks the unshipped delta on every PR.
+- `dotnet pack -c Release` produces a `.nupkg` + `.snupkg` that
+  `PackageValidation` accepts (S10 introduces v0.3 of the package
+  — no previous Avalonia baseline yet, so the v1.0 baseline is
+  recorded at S12).
 
 ## Open questions
 
@@ -59,4 +68,5 @@ Ship `Trace.Avalonia`: the same `[TraceCommand]` / `[ScreenId]` /
 ## See also
 
 - [`../adr/0005-semantic-action-map-not-physical-ui-map.md`](../adr/0005-semantic-action-map-not-physical-ui-map.md)
-- [`../glossary.md`](../glossary.md) §9
+- [`../adr/0013-follow-dotnet-framework-design-guidelines.md`](../adr/0013-follow-dotnet-framework-design-guidelines.md)
+- [`../glossary.md`](../glossary.md) §9, §11 (.NET conventions)

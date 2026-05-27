@@ -174,6 +174,35 @@ Major milestones:
     public-api` diffs. Pre-v1.0 audit is a blocking S12 acceptance
     item. The cross-language (.NET) boundary is governed by ADR-0006
     + JSON Schema, not by Rust API Guidelines.
+19. **Published .NET adapters follow the [Microsoft Framework Design
+    Guidelines](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/)
+    + [.NET Library Guidance](https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/)**
+    (ADR-0013). Every NuGet published from `adapters/Trace.*/`
+    enables `AnalysisMode=AllEnabledByDefault` +
+    `TreatWarningsAsErrors=true` + `EnablePackageValidation=true` +
+    `Microsoft.CodeAnalysis.PublicApiAnalyzers` with committed
+    `PublicAPI.Shipped.txt` baselines (the .NET analogs of clippy
+    pedantic + `cargo public-api` from hard rule 18). Package layout
+    follows the Sentry / OpenTelemetry split:
+    `Trace.Abstractions` is the ABI-frozen contract (zero
+    third-party deps; the .NET analog of `trace-core` discipline),
+    per-framework adapters (`Trace.Wpf`, `Trace.Avalonia`,
+    `Trace.Maui`) carry implementations. Multi-targeting:
+    `netstandard2.0` for the contract; `net472;net8.0-windows` for
+    WPF; `net8.0` for Avalonia / MAUI.
+20. **`trace-cli` binary ergonomics follow
+    [clig.dev](https://clig.dev/) + POSIX + GNU + `sysexits.h`**
+    (ADR-0014). Noun-verb subcommand grammar (`trace plan generate`,
+    `trace report workflows`, `trace oracle run`); `-o {text,json,
+    wide}` global output mode; data → stdout, diagnostics → stderr,
+    `-` = stdin/stdout; `--no-color` + honour `NO_COLOR`; `-q` /
+    `-v...`; exit codes from `sysexits.h` (`0`, `64` `EX_USAGE`,
+    `65` `EX_DATAERR`, `66` `EX_NOINPUT`, `70` `EX_SOFTWARE`,
+    `78` `EX_CONFIG` — matches Vector's precedent); `--output json`
+    payloads carry their own versioned schemas through the same
+    upcaster chain as event data (ADR-0006); help text and example
+    invocations snapshot-tested via `trycmd`. The library API of
+    `trace-cli` remains bound by hard rule 18 (ADR-0012).
 
 ## Current state
 

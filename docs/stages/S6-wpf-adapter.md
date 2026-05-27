@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S5
-ADRs: ADR-0005, ADR-0007
+ADRs: ADR-0005, ADR-0007, ADR-0013
 
 ## Goal
 
@@ -13,9 +13,15 @@ compatible JSONL stream with minimal boilerplate. Implement
 
 ## Inputs / Outputs
 
-- In: the published `trace-schema` v1 JSON Schema; the JSONL wire format.
+- In: the published `trace-schema` v1 JSON Schema; the JSONL wire
+  format; the `adapters/Directory.Build.props` from S0 (ADR-0013 §3).
 - Out:
-  - `Trace.Wpf` NuGet (.NET 8 + .NET Framework 4.7.2 for legacy WPF):
+  - `Trace.Abstractions` NuGet (NetStandard 2.0, ABI-frozen post-v1.0
+    per ADR-0013): `ITraceContext`, `ValuePolicy`,
+    `[TraceCommand]`, `[ScreenId]`, `[TraceField]`. Zero
+    third-party dependencies (the .NET analog of `trace-core`
+    discipline from ADR-0002 / ADR-0012).
+  - `Trace.Wpf` NuGet (`net472;net8.0-windows`):
     - `TraceCommandAttribute(string commandId)` on `ICommand`
       properties;
     - `ScreenIdAttribute(string screenId)` on `UserControl`s;
@@ -31,6 +37,13 @@ compatible JSONL stream with minimal boilerplate. Implement
   - .NET unit tests asserting emitted JSONL parses against the published
     JSON Schema.
   - WPF capability matrix in the adapter's README.
+  - `PublicAPI.Shipped.txt` baselines for both
+    `Trace.Abstractions` and `Trace.Wpf` (ADR-0013 §4); CI
+    blocks PRs that change the public surface without updating
+    the unshipped file.
+  - Per-package `README.md` packed into each `.nupkg` (ADR-0013
+    §12); each Quick start sample is built in CI from
+    `examples/`.
 
 ## Approach
 
@@ -60,6 +73,15 @@ compatible JSONL stream with minimal boilerplate. Implement
   against `trace-event-v1.schema.json`.
 - No memory leaks across 10 000 cycles of view create/destroy (tested
   with dotMemory or equivalent).
+- `dotnet build -c Release -warnaserror` green on Linux (libraries
+  + reference-assembly check for `Trace.Wpf`) and Windows (full
+  build + UI tests). All CA-rules from
+  `AnalysisMode=AllEnabledByDefault` clean or explicitly suppressed
+  in `.editorconfig` with a justification comment.
+- `dotnet pack -c Release` produces `.nupkg` + `.snupkg` for
+  `Trace.Abstractions` and `Trace.Wpf`; `PackageValidation` (built
+  into the .NET SDK per ADR-0013 §3) green against an empty
+  baseline for v1.0.0.
 
 ## Open questions
 
@@ -75,4 +97,5 @@ compatible JSONL stream with minimal boilerplate. Implement
 
 - [`../adr/0005-semantic-action-map-not-physical-ui-map.md`](../adr/0005-semantic-action-map-not-physical-ui-map.md)
 - [`../adr/0007-privacy-by-default-mask-and-bucket.md`](../adr/0007-privacy-by-default-mask-and-bucket.md)
-- [`../glossary.md`](../glossary.md) §10
+- [`../adr/0013-follow-dotnet-framework-design-guidelines.md`](../adr/0013-follow-dotnet-framework-design-guidelines.md)
+- [`../glossary.md`](../glossary.md) §10, §11 (.NET conventions)

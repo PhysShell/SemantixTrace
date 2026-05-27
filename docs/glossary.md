@@ -773,6 +773,58 @@ calls are needed.
 Alternative to in-process FFI. Higher latency, cleaner separation.
 Considered for offline analysis later; out of scope for MVP.
 
+### Framework Design Guidelines (FDG)
+Microsoft's canonical conventions for .NET library authors: Naming,
+Type Design, Member Design, Designing for Extensibility, Exceptions,
+Usage Guidelines, Common Design Patterns. Online at
+<https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/>.
+Mandatory baseline for every NuGet SemantxTrace publishes (ADR-0013).
+
+### .NET Library Guidance
+Microsoft's practical companion to FDG, specifically for NuGet
+authors: multi-targeting, versioning, breaking changes, source
+linking, package metadata, deterministic builds. Online at
+<https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/>.
+
+### CA-rule
+A single rule emitted by the built-in .NET code analyzers. The set
+is enabled wholesale via `AnalysisMode=AllEnabledByDefault` per
+ADR-0013. Examples: `CA1062` (validate args of public methods),
+`CA1063` (implement IDisposable correctly), `CA1303` (no string
+literals as localizable), `CA2007` (use `ConfigureAwait`).
+
+### `AnalysisMode=AllEnabledByDefault`
+The `.csproj` property that turns on every CA-rule as a build
+warning. Combined with `TreatWarningsAsErrors=true` it becomes the
+.NET analog of the Rust workspace's `clippy::pedantic -D warnings`
+(ADR-0012 + ADR-0013).
+
+### `EnablePackageValidation`
+Microsoft's built-in binary-compatibility checker. Compares the
+about-to-be-packed assembly against the previously published version
+and fails the build on accidental ABI/API breaks. The .NET analog
+of `cargo-public-api` / `cargo-semver-checks` from ADR-0012.
+
+### `Microsoft.CodeAnalysis.PublicApiAnalyzers`
+Roslyn analyzer that tracks the public surface of an assembly via
+two checked-in text files: `PublicAPI.Shipped.txt` (released surface)
+and `PublicAPI.Unshipped.txt` (next-release deltas). Any change to a
+`public` member fails CI until the unshipped file is updated.
+Mandatory per ADR-0013 §4.
+
+### `Trace.Abstractions`
+The contract-only NuGet package. Holds `ITraceContext`,
+`ValuePolicy`, `[TraceCommand]`, `[ScreenId]`, `[TraceField]`.
+Zero third-party dependencies, ABI-frozen after v1.0 — the .NET
+analog of `trace-core` discipline (ADR-0002, ADR-0013).
+
+### Sentry-style package split
+The package layout pattern: a small contract package plus
+per-framework / per-sink implementation packages
+(`Sentry` + `Sentry.AspNetCore` + `Sentry.Serilog`;
+`OpenTelemetry.Api` + `OpenTelemetry`). Adopted for `Trace.*`
+per ADR-0013 §5.
+
 ## 12. Rust and workspace
 
 ### Rust workspace
@@ -935,6 +987,60 @@ workspace-wide at S0 per ADR-0012.
 The `clippy::pedantic` lint group. Enabled workspace-wide as `warn`
 (promoted to `deny` in CI via `-D warnings`). Per-item `#[allow(...)]`
 requires a comment.
+
+### clig.dev
+The Command Line Interface Guidelines (<https://clig.dev/>). The
+canonical modern philosophy reference for CLI design. Authoritative
+for `trace-cli` (ADR-0014).
+
+### POSIX Utility Conventions
+The formal standard for CLI argument parsing and stream behaviour
+(XBD §12, <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>).
+What `-x`, `--`, `-`, short-flag clustering mean.
+
+### GNU CLI Standards
+Long-options style (`--help`, `--version`), `--help` output format,
+mandatory information items
+(<https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html>).
+
+### `sysexits.h`
+The standard exit-code table from BSD (`EX_USAGE=64`,
+`EX_DATAERR=65`, `EX_NOINPUT=66`, `EX_SOFTWARE=70`,
+`EX_CONFIG=78`, …). Adopted by SemantxTrace per ADR-0014 §6.
+Vector uses `78` for `vector validate` failures, which is the
+direct precedent for our `trace` command exit shape.
+
+### Rain's Rust CLI recommendations
+Practical Rust-specific CLI gradient document by Rain Sunshowers
+(maintainer of `cargo-nextest`), at
+<https://rust-cli-recommendations.sunshowers.io/>. Covers handling
+arguments / subcommands, exit codes, versioning, configuration.
+
+### noun-verb subcommand
+The subcommand structure pattern adopted from kubectl / gh / docker
+/ Vector: `trace <noun> <verb>` (`trace plan generate`,
+`trace oracle run`, `trace report workflows`). ADR-0014 §3.
+
+### `NO_COLOR`
+The de-facto environment-variable standard (<https://no-color.org/>)
+for disabling ANSI colour in terminal output. Honoured by
+`trace-cli` per ADR-0014 §4.
+
+### `trycmd`
+Rust crate for snapshot-testing CLI behaviour from `*.md` /
+`*.toml` files. Used in `crates/trace-cli/tests/` to bless help
+text, success / error outputs, and example invocations
+(ADR-0014 §12).
+
+### `miette`
+Rust crate for rich, span-aware diagnostics (errors that point at a
+position in source/input text). Used at the `trace-cli` binary
+boundary to wrap typed `thiserror` errors per ADR-0014 §10.
+
+### `clap_complete`
+Companion crate to `clap` that generates shell-completion scripts
+(`bash`, `zsh`, `fish`, `powershell`). Powers
+`trace completions <shell>` per ADR-0014 §8.
 
 ## 13. TDD, property tests, fuzzing
 
@@ -1200,6 +1306,18 @@ order). Required for snapshot tests.
   `cargo-semver-checks`, `missing_docs`, `pedantic clippy` →
   cross-cutting; defined in §12, fixed by ADR-0012; enforced from S0,
   audited at S12.
+- `Framework Design Guidelines`, `.NET Library Guidance`, `CA-rule`,
+  `AnalysisMode=AllEnabledByDefault`, `EnablePackageValidation`,
+  `Microsoft.CodeAnalysis.PublicApiAnalyzers`, `Trace.Abstractions`,
+  `Sentry-style package split` → .NET adapter surface; defined in
+  §11, fixed by ADR-0013; enforced from S6 (`Trace.Wpf`), audited
+  at S12.
+- `clig.dev`, `POSIX Utility Conventions`, `GNU CLI Standards`,
+  `sysexits.h`, `Rain's Rust CLI recommendations`,
+  `noun-verb subcommand`, `NO_COLOR`, `trycmd`, `miette`,
+  `clap_complete` → `trace-cli` binary surface; defined in §12,
+  fixed by ADR-0014; enforced from S2 (CLI skeleton), audited at
+  S12.
 - `CLI subcommands`, `trace analyze`, `trace graph`, `trace oracle run`
   → `trace-cli`.
 - `[TraceCommand]`, `[ScreenId]`, `AutoAutomationId`,

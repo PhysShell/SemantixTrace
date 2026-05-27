@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S10
-ADRs: ADR-0005, ADR-0006, ADR-0011
+ADRs: ADR-0005, ADR-0006, ADR-0011, ADR-0014
 
 ## Goal
 
@@ -44,7 +44,14 @@ because they share infrastructure and split clumsily otherwise:
     `#[serde(tag = "mode")]` discriminant inside the plan.
   - `trace plan generate --mode {strict,relaxed} …`,
     `trace plan explore …` (semantic-monkey),
-    `trace plan mutate …` CLI subcommands.
+    `trace plan mutate …` CLI subcommands. All three follow
+    the noun-verb grammar from ADR-0014 §3 (`trace plan <verb>`);
+    each supports `--output {text,json,wide}`; each ships with
+    a versioned JSON schema for its `--output json` payload
+    chained through the same upcaster pattern as event data
+    (ADR-0014 §11 / ADR-0006); exit codes per ADR-0014 §6 — a
+    plan that hits an oracle failure during dry-run exits `1` or
+    `2` by severity, sysexits codes for CLI-layer issues.
   - `ReplayAdapter` reference implementation in `Trace.Wpf` consuming
     both modes and exposing the mutation-provenance metadata in HTML
     reports.

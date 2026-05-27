@@ -113,3 +113,42 @@ Architectural decisions go to [`adr/`](adr/) instead.
   comment from S0) and a pre-release audit cost (S12). The .NET wire
   boundary is explicitly out of scope and continues to be governed by
   ADR-0006 plus the published JSON Schema.
+
+- 2026-05-27 — In the context of conventions for our published .NET
+  NuGet adapters (`Trace.Abstractions`, `Trace.Wpf`,
+  `Trace.Avalonia`, `Trace.Maui`), facing the choice between writing
+  a project-local style guide vs adopting the Microsoft Framework
+  Design Guidelines + .NET Library Guidance wholesale, we decided
+  for **wholesale adoption + the Sentry / OpenTelemetry package
+  split** (ADR-0013): `Trace.Abstractions` is the contract package
+  (zero third-party deps, ABI-frozen after v1.0), per-framework
+  adapters carry implementations, `AnalysisMode=AllEnabledByDefault`
+  + `TreatWarningsAsErrors=true` + `EnablePackageValidation` +
+  `Microsoft.CodeAnalysis.PublicApiAnalyzers` are the .NET analog of
+  the Rust-side clippy-pedantic + cargo-public-api gates from
+  ADR-0012, and against a local style guide / a monolithic single
+  NuGet, to give .NET consumers an idiomatic Sentry-shaped surface
+  they recognise immediately and to outsource the rulebook
+  maintenance to Microsoft. Accepting an upfront cost in `.csproj`
+  boilerplate (mitigated by a shared `Directory.Build.props`) and
+  the need to track `PublicAPI.Shipped.txt` baselines in PRs.
+  Strong-naming intentionally deferred — modern guidance has shifted
+  to "only if a downstream needs it" and Sentry / OTel follow suit.
+
+- 2026-05-27 — In the context of `trace-cli` binary ergonomics
+  (subcommand grammar, exit codes, output streams, JSON mode,
+  configuration), facing the choice between inventing a SemantxTrace
+  CLI style vs adopting an established standard, we decided for
+  **clig.dev + POSIX + GNU + sysexits.h + Rain's Rust CLI
+  recommendations**, with **Vector as the architectural precedent**
+  (ADR-0014). Noun-verb subcommands (kubectl / gh / docker style),
+  `-o {text,json,wide}` global output mode, data→stdout /
+  diag→stderr, `--no-color` + `NO_COLOR`, sysexits.h exit codes
+  (`78` `EX_CONFIG` matching Vector's `vector validate` precedent),
+  shell completions via `clap_complete`, snapshot-tested help via
+  `trycmd`, versioned `--output json` schemas through the same
+  upcaster chain as event data (ADR-0006), and against improvising
+  any of these, to meet users in the CLI category they already work
+  in (kubectl / gh / cargo / vector / fly), accepting a non-trivial
+  `miette` dependency in the binary crate and the cost of
+  maintaining versioned schemas for every JSON-emitting subcommand.

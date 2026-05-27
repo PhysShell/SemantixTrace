@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S4
-ADRs: ADR-0002
+ADRs: ADR-0002, ADR-0014
 
 ## Goal
 
@@ -64,9 +64,12 @@ producing an HTML report.
   domain oracles ship (post-v1.0). Working answer: YAML only for
   parameterising built-ins (e.g. choosing which commands the
   `CommandMustSucceed` rule applies to).
-- Per-severity exit codes for `trace oracle run`. Working answer: `0`
-  for all-pass, `1` for any `Warning`, `2` for any `Error`, `3` for any
-  `Critical`.
+- Per-severity exit codes for `trace oracle run`. Resolved per
+  ADR-0014 §6: `0` for all-pass, `1` for any `Warning` /
+  `Error` severity, `2` for any `Critical`; sysexits-style codes
+  (`64`, `65`, `66`, `70`) reserved for CLI-layer failures (bad
+  args / bad input / I/O / internal bug). Documented in
+  `trace oracle run --help` under `EXIT CODES:`.
 
 ## See also
 

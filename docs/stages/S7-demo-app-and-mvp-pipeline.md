@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S6
-ADRs: ADR-0005, ADR-0007
+ADRs: ADR-0005, ADR-0007, ADR-0013, ADR-0014
 
 ## Goal
 
@@ -77,10 +77,17 @@ walkthroughs in the demo video.
 - The top-N workflows report ranks the demo's "happy path" first and
   surfaces the bug-3 (async-validation) chain as a rare-but-failing
   workflow.
-- `trace export --diagnostic <session_id>` produces a single archive
+- `trace export diagnostic <session_id>` produces a single archive
   (trace + app/schema/dependency versions + oracle evidence) that a
   second machine can re-import via `trace analyze` and reproduce the
-  same oracle verdicts.
+  same oracle verdicts. Subcommand follows the noun-verb grammar
+  from ADR-0014 §3 (note: `trace export diagnostic`, not
+  `trace export --diagnostic`).
+- `trycmd` snapshots cover the demo's end-to-end pipeline (every
+  subcommand invoked has its success-shape + at least one
+  error-shape snapshot blessed), per ADR-0014 §12.
+- `dotnet pack -c Release` for `Trace.Abstractions` and `Trace.Wpf`
+  passes `PackageValidation` against the previous (S6) baseline.
 - mdBook builds locally with `mdbook build` and renders without dead
   links.
 - README contains the GIF and a "Quickstart" section that copies and

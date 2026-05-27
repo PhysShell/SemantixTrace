@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: S1
-ADRs: ADR-0002, ADR-0003
+ADRs: ADR-0002, ADR-0003, ADR-0014
 
 ## Goal
 
@@ -19,8 +19,16 @@ recorder can append events and an operator can inspect them.
     `trace_schema::read_event`, optional zstd decompression on read.
   - `trace-cli`: clap 4.x derive, subcommands `version` (prints schema
     + binary version) and `analyze <file>` (summary stats: session
-    count, event count per kind, error rate).
-  - Snapshot tests for `analyze` output, blessed via `TRACE_BLESS=1`.
+    count, event count per kind, error rate). Both subcommands honour
+    the global flags from ADR-0014 §4 — `-o {text,json,wide}`,
+    `--no-color`, `-q/-v`, `--manifest-path`.
+  - `trycmd` snapshot tests for `analyze` text + json outputs and
+    for the help text (ADR-0014 §12). Blessing via `TRACE_BLESS=1`.
+  - Versioned JSON schemas for `trace version --output json` and
+    `trace analyze --output json` published alongside the wire
+    schema under `crates/trace-cli/schema/` (ADR-0014 §11). Identity
+    upcaster chains for now; they bump exactly like the event
+    schema (ADR-0006).
 
 ## Approach
 
@@ -39,9 +47,15 @@ recorder can append events and an operator can inspect them.
 
 - Property test: `iter(append(events)) == events` for all event-kind
   enumerations.
-- `trace version` prints `{ binary: "<semver>", schema: 1 }`.
+- `trace version` prints `{ binary: "<semver>", schema: 1 }`,
+  exit code `0`; `--output json` validates against the published
+  `trace-version-v1.schema.json` (ADR-0014 §11).
 - `trace analyze fixtures/multi_session.jsonl` produces the blessed
-  golden output.
+  golden output; exit codes per ADR-0014 §6 — `66 EX_NOINPUT` on
+  missing file, `65 EX_DATAERR` on parser failure, `0` on success.
+- `trace analyze` writes data to stdout, diagnostics to stderr
+  (clig.dev / ADR-0014 §5); a `--quiet` flag suppresses
+  diagnostics; piping `… | jq` works without contamination.
 - CI fuzz smoke runs `jsonl_parse_v1` (60s bounded) and the regression
   corpus from S1.
 - The `JsonlBackend` does not depend on anything beyond `trace-core`,

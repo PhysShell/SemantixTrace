@@ -101,6 +101,55 @@ deploy the mdBook docs site.
 - [ ] CI gates from S0 (clippy pedantic, `cargo doc -D warnings`,
       `missing_docs`, `cargo deny`) remain green on the release
       commit.
+- [ ] **.NET Framework Design Guidelines audit (ADR-0013)
+      complete**, signed off per-package
+      (`Trace.Abstractions`, `Trace.Wpf`, `Trace.Avalonia`):
+  - [ ] `dotnet build -c Release -warnaserror` green on Linux,
+        macOS, Windows; `AnalysisMode=AllEnabledByDefault` produces
+        no warnings (or each suppression is justified in
+        `.editorconfig` with a comment).
+  - [ ] `PackageValidation` green for each package against the
+        previous published version; baseline files in
+        `CompatibilitySuppressions.xml` reviewed.
+  - [ ] `PublicAPI.Shipped.txt` files committed and consistent
+        with the released surface;
+        `PublicAPI.Unshipped.txt` empty at release tag.
+  - [ ] `dotnet pack` produces `.nupkg` + `.snupkg` with full
+        metadata (description, license expression, repository URL,
+        readme, tags, icon, source-link).
+  - [ ] Per-package `README.md` packed into the `.nupkg`; the
+        Quick start sample under `examples/` builds in CI.
+  - [ ] `Trace.Abstractions` has zero third-party dependencies
+        (verified via `dotnet list package` + manifest review).
+  - [ ] Multi-targeting matrix passes:
+        `netstandard2.0` for `Trace.Abstractions`,
+        `net472;net8.0-windows` for `Trace.Wpf`,
+        `net8.0` for `Trace.Avalonia`.
+- [ ] **`trace-cli` ergonomics audit (ADR-0014) complete**:
+  - [ ] Noun-verb grammar walk-test passes: every subcommand
+        matches the inventory in ADR-0014 §3; no three-level
+        depth without an ADR.
+  - [ ] Exit-code smoke test passes: each error class produces
+        the documented `sysexits.h` code (`0`/`1`/`2`/`64`/`65`/
+        `66`/`70`/`73`/`74`/`78`).
+  - [ ] `trycmd` snapshots green for every subcommand's
+        success-shape, every named error-shape, and every
+        `--help` page.
+  - [ ] `--output json` payloads for every emitting subcommand
+        validate against their published versioned schemas
+        (`crates/trace-cli/schema/`); the upcaster chains for
+        those schemas are exercised by their own property tests.
+  - [ ] Stdout/stderr discipline test passes: piping every
+        `--output json` invocation through `jq` yields zero
+        diagnostic contamination on stdout.
+  - [ ] `--no-color` + `NO_COLOR` env var both disable ANSI
+        codes; `isatty(stdout) == false` autodetect works.
+  - [ ] `trace completions {bash,zsh,fish,powershell}` emit
+        scripts that source cleanly in each shell.
+  - [ ] `EXIT CODES:` section present in every subcommand's
+        `--help`.
+  - [ ] mdBook installation chapter documents the shell-completion
+        install paths.
 
 ## Open questions
 
@@ -113,8 +162,17 @@ deploy the mdBook docs site.
 
 - [`../adr/README.md`](../adr/README.md) — all decisions.
 - [`../adr/0012-follow-rust-api-guidelines-on-public-surfaces.md`](../adr/0012-follow-rust-api-guidelines-on-public-surfaces.md)
-  — the API-Guidelines audit acceptance items above come from here.
+  — the Rust API Guidelines audit acceptance items above come from
+  here.
+- [`../adr/0013-follow-dotnet-framework-design-guidelines.md`](../adr/0013-follow-dotnet-framework-design-guidelines.md)
+  — the .NET adapter audit acceptance items come from here.
+- [`../adr/0014-trace-cli-ergonomics-clig-posix-sysexits-vector.md`](../adr/0014-trace-cli-ergonomics-clig-posix-sysexits-vector.md)
+  — the CLI ergonomics audit acceptance items come from here.
 - [`../upcasters.md`](../upcasters.md) — proven across two bumps by
   S12.
 - [`../glossary.md`](../glossary.md) §0 (project terms), §15 (quality).
-- External: <https://rust-lang.github.io/api-guidelines/checklist.html>.
+- External: <https://rust-lang.github.io/api-guidelines/checklist.html>,
+  <https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/>,
+  <https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/>,
+  <https://clig.dev/>,
+  <https://rust-cli-recommendations.sunshowers.io/>.

@@ -2,7 +2,7 @@
 
 Status: planned
 Depends on: —
-ADRs: ADR-0001, ADR-0002, ADR-0004, ADR-0009, ADR-0010
+ADRs: ADR-0001, ADR-0002, ADR-0004, ADR-0009, ADR-0010, ADR-0012, ADR-0013, ADR-0014
 
 ## Goal
 
@@ -58,6 +58,21 @@ so the discipline does not have to be retrofitted later.
   `rust-toolchain.toml` pinning nightly; no targets land here. The
   `fuzz/` crate is **out of scope** for the API Guidelines lints
   (ADR-0012 §1).
+- Stand up `adapters/Directory.Build.props` per ADR-0013 §3 (the
+  shared `<PropertyGroup>` enabling analyzers, treat-warnings-as-
+  errors, package validation, deterministic builds, snupkg symbols)
+  plus a placeholder `Directory.Packages.props` for central package
+  management. Adapter directories (`adapters/Trace.Abstractions/`,
+  `adapters/Trace.Wpf/`, `adapters/Trace.Avalonia/`) carry empty
+  `.csproj` files that inherit the props and pass `dotnet build`
+  with `-warnaserror`.
+- Stand up the `trace-cli` binary entry point per ADR-0014: `clap`
+  derive subcommand skeleton (single placeholder `trace version`
+  for now), `sysexits` crate for typed exit codes, `miette` wiring
+  at the binary boundary, `trycmd` fixture for the placeholder
+  `--help` and `version` outputs, `clap_complete`-driven
+  `trace completions <shell>` subcommand. Snapshot-blessing
+  happens via `TRACE_BLESS=1` per griff's pattern.
 
 ## Acceptance criteria
 
@@ -78,6 +93,19 @@ so the discipline does not have to be retrofitted later.
 - CI runs all the above on every PR.
 - The `fuzz/` crate builds on `cargo +nightly fuzz build`; no targets
   defined yet.
+- `dotnet build adapters/ -c Release -warnaserror` is green on Linux
+  (and Windows for the `Trace.Wpf` target subset). The shared
+  `Directory.Build.props` from ADR-0013 §3 is applied; analyzers are
+  active; `PublicAPI.Shipped.txt` files exist (empty) in each
+  adapter project.
+- `cargo run -p trace-cli -- version` returns exit code `0`,
+  prints binary + schema version on stdout, validates against the
+  v1 `trace version --output json` schema (placeholder, drafted in
+  S0 and frozen at S12).
+- `cargo run -p trace-cli -- completions bash` emits a valid bash
+  completion script to stdout, exit code `0`.
+- `cargo test -p trace-cli` runs the placeholder `trycmd` snapshot
+  suite green.
 
 ## Open questions
 
@@ -93,4 +121,7 @@ so the discipline does not have to be retrofitted later.
 - [`../adr/0004-forbid-unsafe-code.md`](../adr/0004-forbid-unsafe-code.md)
 - [`../adr/0010-fuzz-storage-parsers-and-upcaster-chain.md`](../adr/0010-fuzz-storage-parsers-and-upcaster-chain.md)
 - [`../adr/0012-follow-rust-api-guidelines-on-public-surfaces.md`](../adr/0012-follow-rust-api-guidelines-on-public-surfaces.md)
-- [`../glossary.md`](../glossary.md) §12
+- [`../adr/0013-follow-dotnet-framework-design-guidelines.md`](../adr/0013-follow-dotnet-framework-design-guidelines.md)
+- [`../adr/0014-trace-cli-ergonomics-clig-posix-sysexits-vector.md`](../adr/0014-trace-cli-ergonomics-clig-posix-sysexits-vector.md)
+- [`../glossary.md`](../glossary.md) §11 (.NET conventions),
+  §12 (Rust + CLI conventions)
