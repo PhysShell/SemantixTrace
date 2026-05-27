@@ -159,6 +159,21 @@ Major milestones:
     step, repeat a command, navigate back) and every mutated scenario
     runs through the same oracle engine the recorded scenario does
     (S11).
+18. **Public Rust API surfaces follow the
+    [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)**
+    (ADR-0012). Every `pub` item in a crate published to crates.io
+    obeys the relevant `C-*` rules: naming (`C-CONV`, `C-GETTER`,
+    `C-ITER`), common traits (`C-COMMON-TRAITS`, `C-SEND-SYNC`,
+    `C-DEBUG`), errors (`C-GOOD-ERR`), sealing (`C-SEALED` — mandatory
+    for `Upcaster`), forward-compatibility (`C-NON-EXHAUSTIVE` on
+    enums that may grow — but **not** on per-version event enums,
+    which are frozen by ADR-0006), input validation (`C-VALIDATE`),
+    documentation (`C-DOC`, `C-EXAMPLE`, `C-FAILURE`). CI enforces
+    `cargo clippy -- -D warnings -W clippy::pedantic`, `cargo doc
+    --no-deps -D warnings`, `missing_docs` lint, and `cargo
+    public-api` diffs. Pre-v1.0 audit is a blocking S12 acceptance
+    item. The cross-language (.NET) boundary is governed by ADR-0006
+    + JSON Schema, not by Rust API Guidelines.
 
 ## Current state
 

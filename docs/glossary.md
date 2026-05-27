@@ -854,6 +854,88 @@ keep the set of schema versions closed.
 A zero-sized type used as a type parameter to encode state (e.g.
 `Trace<Raw>` vs `Trace<Normalized>` vs `Trace<Analyzed>`).
 
+### Rust API Guidelines
+The Rust project's official checklist of conventions for crate
+authors, hosted at <https://rust-lang.github.io/api-guidelines/>.
+Mandatory for every `pub` item in a SemantxTrace crate published to
+crates.io (ADR-0012). Each rule has the form `C-<SHORTNAME>` (e.g.
+`C-CONV`, `C-SEALED`, `C-NON-EXHAUSTIVE`).
+
+### C-* check
+A single rule in the API Guidelines. Pre-v1.0 audit walks the full
+checklist crate-by-crate.
+
+### `C-COMMON-TRAITS`
+"Eagerly implement common traits": every public type derives `Debug`,
+`Clone`, `PartialEq`, `Eq`, `Hash` where the data permits, `Default`
+where meaningful, `Display` for stringly-rendered newtypes. Project
+baseline.
+
+### `C-GOOD-ERR`
+"Error types are meaningful and well-behaved": error types implement
+`std::error::Error`, are `Send + Sync + 'static`, expose `source` via
+`#[from]` / `#[source]`. We satisfy via `thiserror`.
+
+### `C-SEALED`
+"Sealed traits protect against downstream implementations." Mandatory
+for `trace_schema::Upcaster` (downstream impls would break the
+version-dispatch invariant); recommended for any closed-set trait.
+The pattern: a `pub` trait with a `pub(crate)` `Sealed` supertrait.
+
+### `C-NON-EXHAUSTIVE`
+"Data structures do not duplicate derived trait bounds." For us the
+practical rule: public enums that may grow post-v1.0 carry
+`#[non_exhaustive]` (`Outcome`, `OracleSchedule`, `Severity`,
+`MutationKind`, `ReplayMode`). Per-version event enums
+(`v1::TraceEventKind`, …) do **not** carry it — they are frozen
+forever by ADR-0006 and the attribute would impose a downstream
+default-arm cost for no benefit.
+
+### `C-NEWTYPE`
+"Newtypes encapsulate implementation details." Already baseline for
+domain identifiers (`SessionId`, `CommandId`, `ScreenId`, `FieldId`,
+`EventSeq`).
+
+### `C-VALIDATE`
+"Functions validate their arguments." Wire-boundary functions
+(`read_event`, `JsonlBackend::iter`, `OracleRule::evaluate`,
+`plan_from`) validate and return typed errors; no `unwrap()` on
+user-controlled data outside `fuzz/`.
+
+### `C-DEBUG` / `C-DEBUG-NONEMPTY`
+"All public types implement `Debug`" and "`Debug` representation is
+never empty." Both enforced by the `missing_debug_implementations`
+lint plus review.
+
+### `C-DOC` / `C-EXAMPLE` / `C-FAILURE` / `C-PANIC-DOC`
+"All items have a rustdoc example" / "Function docs include error /
+panic / safety considerations" / "Hyperlinks point to other rustdoc
+items." Enforced by `missing_docs` lint and `cargo doc -D warnings`.
+
+### `C-METADATA`
+"Cargo.toml includes all common metadata." Inherited via
+`[workspace.package]` from S0; per-crate manifests override only
+`description`.
+
+### cargo-public-api
+External tool that diffs the public API of a crate between two builds
+or git revisions. Used in CI from S12 onwards to catch accidental
+semver-breaking changes (ADR-0012 §4).
+
+### cargo-semver-checks
+External tool that lints intended version bumps for semver
+compatibility against the previous release. Used at S12 release
+ritual.
+
+### missing_docs
+`rustc` lint that warns when a `pub` item has no doc comment. Enabled
+workspace-wide at S0 per ADR-0012.
+
+### pedantic clippy
+The `clippy::pedantic` lint group. Enabled workspace-wide as `warn`
+(promoted to `deny` in CI via `-D warnings`). Per-item `#[allow(...)]`
+requires a comment.
+
 ## 13. TDD, property tests, fuzzing
 
 ### TDD
@@ -1113,6 +1195,11 @@ order). Required for snapshot tests.
   → cross-cutting; defined in §0, fixed by ADR-0011.
 - `diagnostic package` → `trace-cli` (`trace export`); semantics fixed
   in [`../privacy.md`](privacy.md).
+- `Rust API Guidelines`, `C-* check`, `C-SEALED`, `C-NON-EXHAUSTIVE`,
+  `C-COMMON-TRAITS`, `C-GOOD-ERR`, `C-VALIDATE`, `cargo-public-api`,
+  `cargo-semver-checks`, `missing_docs`, `pedantic clippy` →
+  cross-cutting; defined in §12, fixed by ADR-0012; enforced from S0,
+  audited at S12.
 - `CLI subcommands`, `trace analyze`, `trace graph`, `trace oracle run`
   → `trace-cli`.
 - `[TraceCommand]`, `[ScreenId]`, `AutoAutomationId`,
@@ -1155,6 +1242,19 @@ order). Required for snapshot tests.
    `ButtonClicked` is a code smell; introduce a `CommandId` instead.
 10. **Never start implementation on a stage whose docs are not green.**
     Update `docs/stages/SN-*.md` first; commit it; then write the code.
+11. **Never add a `pub` item to a published crate without a doc
+    comment** — `missing_docs` will fail CI. If the item is genuinely
+    internal, mark it `pub(crate)`.
+12. **Never un-seal `Upcaster` or remove `#[non_exhaustive]`** from a
+    published enum without an ADR. Both are semver-relevant per
+    ADR-0012 (`C-SEALED`, `C-NON-EXHAUSTIVE`).
+13. **Never silence a clippy `pedantic` lint with a bare `#[allow]`.**
+    Add a comment explaining why; reviewers may push back.
+14. **Never put a non-`Send + Sync` type on a `pub` trait method
+    signature** in a port crate (`trace-core`, `trace-oracle`,
+    `trace-storage`) without explicit doc justification. The
+    project's downstream consumers expect to fan oracles / backends /
+    upcasters across threads.
 
 ## 18. Preferred naming
 

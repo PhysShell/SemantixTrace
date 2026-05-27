@@ -132,6 +132,18 @@ Property invariants that must always hold (more in
   feature is *domain-aware* mutation guided by oracles and the action
   graph, not a random clicker. The word `smart` is banned per
   glossary §19; the working name is `semantic-monkey`.
+- **Public Rust surfaces follow the Rust API Guidelines** (ADR-0012).
+  Every `pub` item in a published crate obeys `C-CONV`, `C-GETTER`,
+  `C-ITER`, `C-COMMON-TRAITS`, `C-SEND-SYNC`, `C-DEBUG`,
+  `C-GOOD-ERR`, `C-SEALED` (mandatory for `Upcaster`),
+  `C-NON-EXHAUSTIVE` (on growable enums; **not** on per-version event
+  enums frozen by ADR-0006), `C-VALIDATE`, `C-DOC`, `C-EXAMPLE`.
+  CI gates: `cargo clippy -- -D warnings -W clippy::pedantic`,
+  `cargo doc --no-deps -D warnings`, `missing_docs`, `cargo
+  public-api` diff against the previous tag. See the checklist at
+  <https://rust-lang.github.io/api-guidelines/checklist.html> when
+  reviewing public-API changes. The .NET boundary is *out of scope* —
+  its contract is the JSON Schema (ADR-0006).
 
 ## Anti-patterns (block in review)
 
@@ -155,3 +167,15 @@ Property invariants that must always hold (more in
    projection reads the same `Current` schema (ADR-0011). A "lighter"
    second wire format is not an optimisation; it is a parallel source
    of truth, and parallel sources of truth diverge.
+8. **A `pub` item without a doc comment in a published crate.**
+   Blocked by the `missing_docs` lint (ADR-0012). If a type is
+   genuinely internal, mark it `pub(crate)`; do not silence the lint.
+9. **Opening a previously sealed trait or removing
+   `#[non_exhaustive]`** on a published type without an ADR. Both are
+   semver-relevant (`C-SEALED`, `C-NON-EXHAUSTIVE`) and need explicit
+   reasoning.
+10. **`unwrap()` / `expect()` on user-controlled data in a public
+    library function.** Replace with typed errors (`C-GOOD-ERR`).
+    Internal invariants where the panic is genuinely impossible may
+    use `expect("invariant: …")` with a `# Panics` doc section
+    explaining why.

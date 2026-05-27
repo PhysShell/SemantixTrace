@@ -96,3 +96,20 @@ Architectural decisions go to [`adr/`](adr/) instead.
   `--ignore-timing` flags, to make the determinism contract part of
   the type, not an option bag the caller has to remember to set,
   accepting two reduction paths in the planner.
+
+- 2026-05-27 — In the context of style and conventions on the public
+  Rust API surface, facing the choice between adopting the official
+  [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
+  wholesale vs writing a SemantxTrace-local style guide, we decided
+  for **wholesale adoption** with project-specific commitments
+  enumerated in ADR-0012 (mandatory `C-SEALED` on `Upcaster`,
+  selective `C-NON-EXHAUSTIVE` rules accommodating the per-version
+  event freeze from ADR-0006, `missing_docs` + pedantic clippy +
+  `cargo doc -D warnings` from S0, full checklist audit at S12), and
+  against a local style guide, to give downstream consumers the
+  conventions they already expect from idiomatic Rust crates and to
+  outsource the maintenance of the rulebook to the Rust project,
+  accepting upfront discipline (every `pub` item carries a doc
+  comment from S0) and a pre-release audit cost (S12). The .NET wire
+  boundary is explicitly out of scope and continues to be governed by
+  ADR-0006 plus the published JSON Schema.
