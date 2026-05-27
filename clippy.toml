@@ -1,0 +1,2 @@
+msrv = "1.85"
+allow-private-module-inception = false

@@ -1,0 +1,108 @@
+name: ci
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  rust-fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85
+        with:
+          components: rustfmt
+      - run: cargo fmt --all --check
+
+  rust-clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: clippy (pedantic + nursery + cargo) -D warnings
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  rust-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --workspace --all-features
+
+  rust-doc:
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo doc --workspace --all-features --no-deps
+
+  rust-deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-deny
+      - run: cargo deny --all-features check
+
+  fuzz-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: fuzz
+      - name: cargo build (isolated fuzz/ crate)
+        run: cargo build --manifest-path fuzz/Cargo.toml
+
+  dotnet-adapters:
+    # ADR-0013: cross-platform adapters (Abstractions, Avalonia, Maui)
+    # build on Linux. Trace.Wpf has a separate Windows-only job below
+    # because UseWPF=true requires the Windows SDK.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: dotnet build Trace.Abstractions
+        run: dotnet build adapters/Trace.Abstractions/Trace.Abstractions.csproj -c Release -warnaserror
+      - name: dotnet build Trace.Avalonia
+        run: dotnet build adapters/Trace.Avalonia/Trace.Avalonia.csproj -c Release -warnaserror
+      - name: dotnet build Trace.Maui
+        run: dotnet build adapters/Trace.Maui/Trace.Maui.csproj -c Release -warnaserror
+
+  dotnet-wpf:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: dotnet build Trace.Wpf (net472;net8.0-windows)
+        run: dotnet build adapters/Trace.Wpf/Trace.Wpf.csproj -c Release -warnaserror
+
+  fuzz-smoke:
+    # Placeholder fuzz-smoke job per ADR-0010 CI policy. No real targets
+    # land in S0, so this is a no-op skip; the job exists so adding the
+    # first target in S1 only updates the script body.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: no targets yet — see ADR-0010 / docs/fuzzing.md
+        run: echo "S0: no fuzz targets yet"

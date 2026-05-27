@@ -1,0 +1,10 @@
+```
+$ trace not-a-command
+? 2
+error: unrecognized subcommand 'not-a-command'
+
+[..]
+
+For more information, try '--help'.
+
+```

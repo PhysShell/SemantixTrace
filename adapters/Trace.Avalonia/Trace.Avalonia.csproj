@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <PackageId>Trace.Avalonia</PackageId>
+    <Description>
+      Avalonia adapter for SemantxTrace. Same [TraceCommand] / [ScreenId]
+      pattern as Trace.Wpf, cross-platform. Lands in S10. See ADR-0013.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trace.Abstractions\Trace.Abstractions.csproj" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>

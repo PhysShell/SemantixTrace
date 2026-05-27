@@ -1,0 +1,33 @@
+[package]
+name        = "trace-cli"
+description = "The `trace` command-line interface for SemantxTrace."
+version.workspace       = true
+edition.workspace       = true
+rust-version.workspace  = true
+license.workspace       = true
+authors.workspace       = true
+repository.workspace    = true
+homepage.workspace      = true
+documentation.workspace = true
+readme.workspace        = true
+keywords.workspace      = true
+categories.workspace    = true
+
+[[bin]]
+name = "trace"
+path = "src/main.rs"
+
+[dependencies]
+clap          = { workspace = true }
+clap_complete = { workspace = true }
+miette        = { workspace = true }
+serde         = { workspace = true }
+serde_json    = { workspace = true }
+sysexits      = { workspace = true }
+thiserror     = { workspace = true }
+
+[dev-dependencies]
+trycmd = { workspace = true }
+
+[lints]
+workspace = true

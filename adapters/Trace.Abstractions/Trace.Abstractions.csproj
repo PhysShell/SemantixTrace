@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Trace.Abstractions</PackageId>
+    <Description>
+      Contract-only NuGet for SemantxTrace: ITraceContext, ValuePolicy,
+      [TraceCommand], [ScreenId], [TraceField]. Zero third-party
+      dependencies. ABI-frozen after v1.0. See ADR-0013.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>

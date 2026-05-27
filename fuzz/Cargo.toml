@@ -1,0 +1,25 @@
+[package]
+name      = "trace-fuzz"
+version   = "0.0.0"
+edition   = "2021"
+publish   = false
+license   = "MIT"
+
+[package.metadata]
+cargo-fuzz = true
+
+# Per ADR-0010 the fuzz/ crate is isolated from the main workspace,
+# pins its own nightly toolchain (see rust-toolchain.toml), and is
+# the only place where `unsafe_code = "forbid"` does not apply
+# (libFuzzer harness requires extern "C" glue).
+
+[dependencies]
+# Fuzz targets land per ADR-0010 / docs/fuzzing.md target catalogue.
+# S0 only stands up the crate skeleton; no targets defined here.
+
+[[bin]]
+name              = "_placeholder"
+path              = "fuzz_targets/_placeholder.rs"
+test              = false
+doc               = false
+bench             = false

@@ -1,7 +1,11 @@
 # Rust
 /target/
+**/target/
 **/*.rs.bk
 Cargo.lock.bak
+
+# trycmd dump dirs (created when TRYCMD=dump)
+**/dump/
 
 # .NET (adapters/trace-wpf, etc.)
 **/bin/
