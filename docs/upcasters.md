@@ -295,7 +295,7 @@ specific upcaster(s), not to retroactively change the pattern.
 ## Where upcasters apply beyond `TraceEvent`
 
 The `ReplayPlan` document carries its own `schema_version` and its own
-upcaster chain (see [`stages/S11-replay-planner-and-smart-monkey.md`](stages/S11-replay-planner-and-smart-monkey.md)).
+upcaster chain (see [`stages/S11-replay-planner-semantic-monkey-and-trace-mutation.md`](stages/S11-replay-planner-semantic-monkey-and-trace-mutation.md)).
 The pattern generalises to anything serialised and stored. The rule is
 identical: storage keeps every version intact; reads chain `V_n →
 Current`; the runtime never rewrites a past artefact.

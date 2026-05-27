@@ -11,11 +11,56 @@
 ## 0. Project terms
 
 ### SemantxTrace
-The production-informed UI regression testing project: a system that records
-named semantic actions from a running desktop app, normalizes them into
-scenarios, mines an action graph, evaluates oracles, and emits replay plans.
-Work-title; the GitHub repository is `PhysShell/SemantixTrace` for legacy
-reasons.
+The behavioral observability project for desktop UI apps: a system that
+records named semantic actions with scenario context, fans them out into
+seven projections (analytics, diagnostic, regression test, UX, product,
+support replay, exploration — see §0/`behavioral observability` and
+ADR-0011), and never depends on physical UI selectors at the schema
+layer. Work-title; the GitHub repository is `PhysShell/SemantixTrace`
+for legacy reasons.
+
+### behavioral observability
+The frame the project occupies. Observability for *how users actually
+behave* inside a desktop UI — not server-side tracing (OpenTelemetry's
+domain) and not contextless counters ("button clicked 123 times"). One
+canonical artefact (the semantic trace) feeds seven projections; see
+the projection table below and ADR-0011.
+
+### scenario observability
+Synonym for `behavioral observability` used in user-facing copy where
+"behavioral" sounds too clinical. Both terms refer to the same thing.
+
+### semantic metric
+A measurement derived from semantic traces that preserves scenario
+context: not just *how many*, but *in which scenario*, *after which
+steps*, *with which outcome*. Opposite of `contextless counter`.
+Examples: "Top-N workflows by frequency", "Average steps to
+`Graph47.Recalculate` post-redesign vs pre-redesign", "Sessions
+ending in `ErrorModal` after `Export`".
+
+### contextless counter
+The anti-pattern SemantxTrace replaces. A count of an action with no
+record of the scenario it sat in (`btnExport.clicked: 1200`). Useful
+for capacity planning, useless for understanding behaviour. Banned as
+a recording shape inside the trace; aggregate counts may be derived
+from traces post-hoc by the analytics projection.
+
+### projection (of a trace)
+A named consumer of the canonical semantic trace, fixed by ADR-0011.
+Seven exist at v1.0:
+
+| Projection | Question it answers |
+|---|---|
+| `analytics` | Which scenarios run in production, and how often? |
+| `diagnostic` | What did the user do before this crash? |
+| `regression-test` | Can we replay this scenario and assert what should happen? |
+| `ux` | Where do users back out, retry, or get stuck? |
+| `product` | Which features are dead? Which got worse after the redesign? |
+| `support-replay` | Reproduce the customer's bug step-by-step. |
+| `exploration` | What neighbouring scenarios might also be broken? |
+
+A projection is *not* a new schema; every projection reads `Current`
+through `read_event` (ADR-0006).
 
 ### semantic action map
 The model of an application as a set of named domain actions
@@ -112,9 +157,13 @@ Avalonia adapter stage. `Trace.Avalonia` library: same `[TraceCommand]` /
 Closes v0.3.
 
 ### S11
-Replay planner + smart-monkey stage. `trace-replay-planner`: scenario →
-`ReplayPlan` JSON; smart-monkey traversal over the action graph for
-coverage-guided exploration. Closes v0.4.
+Replay planner + semantic-monkey + trace mutation stage.
+`trace-replay-planner`: scenario → `ReplayPlan` JSON with two explicit
+modes (`strict` for bug reproduction and regression assertions,
+`relaxed` / `normalized` for analytics and test-candidate selection);
+semantic-monkey traversal over the action graph for coverage-guided
+exploration; domain-aware trace mutation as a generation path. Closes
+v0.4.
 
 ### S12
 v1.0 stable release stage. API freeze on `trace-core` and `trace-schema`,
@@ -170,8 +219,10 @@ Crate hosting the `OracleRule` trait, the `OracleContext`, scheduling,
 composition, and the built-in rules.
 
 ### `trace-replay-planner`
-Crate (v0.4) that turns a scenario into a `ReplayPlan` JSON document and
-provides smart-monkey exploration over the action graph.
+Crate (v0.4) that turns a scenario into a `ReplayPlan` JSON document
+(with explicit `strict` / `relaxed` modes), provides semantic-monkey
+exploration over the action graph, and hosts the trace-mutation
+generators (S11).
 
 ### `trace-cli`
 Binary `trace`. Subcommands: `analyze`, `normalize`, `graph`,
@@ -462,10 +513,64 @@ comparison.
 The allowed deviation for non-deterministic timings (`expectedDuration ±
 tolerance_pct`) and for expected modals (`expectedModals: [...]`).
 
-### smart-monkey exploration
-v0.4 feature: random or coverage-guided walks over the `ActionGraph`,
-optionally constrained by oracles, producing fresh scenarios that
-exercise rarely-visited transitions.
+### replay mode
+A `ReplayPlan` carries a `mode: ReplayMode` field. Two values exist:
+
+- **`strict`** — reproduce the recorded scenario step-by-step in the
+  recorded order. Used for bug reproduction, regression assertions,
+  and customer-support replay. Failure to reach the expected state is
+  the test result.
+- **`relaxed`** (a.k.a. **`normalized`**) — collapse irrelevant
+  orderings (e.g. fill order of independent fields) according to the
+  normalizer's equivalence classes. Used for analytics, clustering,
+  and test-candidate selection — operations that care about the
+  *shape* of the scenario, not its byte-exact reproduction.
+
+The two modes are not the same code path with a flag flipped; they are
+distinct operations with distinct determinism contracts. SPEC hard
+rule 16 forbids merging them.
+
+### strict replay
+See `replay mode`. The mode for "reproduce *this* recorded session".
+
+### relaxed replay
+See `replay mode`. The mode for "execute *a* scenario equivalent to
+this recorded class of sessions". Also called `normalized replay`.
+
+### semantic-monkey exploration
+v0.4 feature: coverage-guided walks over the `ActionGraph`, optionally
+constrained by oracles, producing fresh scenarios that exercise
+rarely-visited transitions. "Semantic" because the walks operate on
+canonical actions, not on physical UI selectors, and respect the
+domain-meaning of each transition. (The name `smart-monkey` is banned
+per §19; `semantic-monkey` is the canonical term.)
+
+### trace mutation
+A first-class generation path (S11): take a recorded scenario, apply
+a domain-aware mutation, run the result through the same oracle engine
+that judged the original. Mutations are typed and named — `swap_field
+_order`, `replace_with_boundary_value`, `skip_optional_step`,
+`repeat_command`, `navigate_back`, `replace_document_type`,
+`shuffle_independent_blocks` — and they live in the planner's own
+versioned schema (its own upcaster chain). Distinguished from
+`semantic-monkey` exploration: the monkey *walks the graph* generating
+fresh sequences; mutation *transforms an existing sequence* preserving
+the bulk of its structure.
+
+### domain-aware mutation testing
+The broader name for what `trace mutation` does: mutate inputs in ways
+that make sense in the domain (not random byte-flipping), then check
+whether oracle rules still hold. Borrowed terminology from mutation
+testing of code (Stryker, PIT, cargo-mutants), but the artefact being
+mutated is a *scenario*, not a source-code AST.
+
+### diagnostic package
+The bundle a user, support engineer, or operator exports for offline
+analysis: a trace file plus app version, schema version, dependency
+versions, and any attached `OracleResult` evidence. The
+support-projection equivalent of a `ReplayPlan`. Always built through
+the same `--raw` consent / audit-log path documented in
+[`privacy.md`](privacy.md).
 
 ## 7. Storage tiering
 
@@ -1000,7 +1105,14 @@ order). Required for snapshot tests.
 - `OracleRule`, `OracleResult`, `OracleSchedule`, built-in rules →
   `trace-oracle`.
 - `ReplayPlan`, `Step`, `precondition`, `data dependency`,
-  `smart-monkey exploration` → `trace-replay-planner`.
+  `replay mode`, `strict replay`, `relaxed replay`,
+  `semantic-monkey exploration`, `trace mutation`,
+  `domain-aware mutation testing` → `trace-replay-planner`.
+- `behavioral observability`, `scenario observability`,
+  `semantic metric`, `contextless counter`, `projection (of a trace)`
+  → cross-cutting; defined in §0, fixed by ADR-0011.
+- `diagnostic package` → `trace-cli` (`trace export`); semantics fixed
+  in [`../privacy.md`](privacy.md).
 - `CLI subcommands`, `trace analyze`, `trace graph`, `trace oracle run`
   → `trace-cli`.
 - `[TraceCommand]`, `[ScreenId]`, `AutoAutomationId`,
@@ -1053,14 +1165,20 @@ Use these as defaults until an ADR decides otherwise:
 `CorrelationId`, `Outcome`, `ValuePolicy`, `Upcaster`, `Current`,
 `StorageBackend`, `JsonlBackend`, `ActionGraph`, `ActionNode`,
 `Transition`, `OracleRule`, `OracleSchedule`, `OracleResult`,
-`OracleContext`, `ReplayPlan`, `Step`, `ReplayAdapter`,
+`OracleContext`, `ReplayPlan`, `ReplayMode`, `Step`, `ReplayAdapter`,
+`TraceMutation`, `SemanticMonkey`, `Projection`,
 `TracedRelayCommand`, `AutoAutomationId`, `ITraceContext`.
 
 ## 19. Terms to avoid or use carefully
 
 ### "AI" / "smart"
-Banned in marketing copy unless concretely backed. `smart-monkey
-exploration` is an exception (it's a named algorithm).
+Banned in marketing copy unless concretely backed. The historical
+working name `smart-monkey` is **renamed to `semantic-monkey`**
+(decision log 2026-05-27) — there is no exception any longer.
+
+### "smart-monkey"
+**Renamed**. Use **`semantic-monkey`** everywhere. Old occurrences in
+the literature (if any) refer to the same construct.
 
 ### "works fine"
 Banned as self-soothing. If it works fine, show tests, fixtures,
@@ -1077,17 +1195,35 @@ copy-paste from griff docs.
 ### "session replay"
 Used in the literature primarily for web/mobile (rrweb, Datadog Session
 Replay). SemantxTrace's `Session` is structurally similar but the
-delivery shape differs. Prefer **scenario** when talking about
-post-normalization artefacts.
+recording layer differs (semantic actions, not DOM mutations). Prefer
+**scenario** when talking about post-normalization artefacts;
+**session replay** is acceptable for the `support-replay` and
+`diagnostic` projections (ADR-0011) when the audience expects the
+phrase.
 
 ### "process mining"
-Used in literature for business-analyst dashboards. SemantxTrace
-borrows algorithms but markets to Tech Leads, not COOs. Prefer
-**workflow mining** in user-facing copy.
+Used in literature for business-analyst dashboards (Celonis, PM4Py,
+ProM). SemantxTrace borrows the algorithms (Heuristics miner,
+Inductive miner) and the goal (understanding real workflows) but its
+artefacts are technical (action graphs, replay plans, oracle reports)
+rather than spreadsheet-shaped KPI panels. Prefer **workflow mining**
+in user-facing copy when the audience is developer-centric;
+**process mining** is fine when the audience expects it.
 
 ### "model-based testing"
 Academically loaded. Use **scenario replay** or **plan-driven testing**
 in user-facing copy. ADRs and stage docs may use the precise term.
+
+### "contextless counter"
+The anti-pattern term, see §0. Use it pejoratively in user-facing
+copy: it is the foil for SemantxTrace's `semantic metric` framing.
+Never describe a SemantxTrace artefact *as* a contextless counter;
+that would be a self-own.
+
+### "click tracking" / "button-press metrics"
+Avoid. These phrases place SemantxTrace in the category it explicitly
+rejects (counters without scenarios). Use **scenario-aware metrics**,
+**workflow metrics**, **semantic metrics** instead.
 
 ### "schema migration"
 Banned as a phrase when describing how SemantxTrace evolves the wire

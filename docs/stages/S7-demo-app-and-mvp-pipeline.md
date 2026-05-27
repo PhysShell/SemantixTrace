@@ -8,8 +8,17 @@ ADRs: ADR-0005, ADR-0007
 
 Close the v1.0-MVP / PH-launch milestone. Ship `DeclarationApp.Demo`
 (a fake customs application), the end-to-end pipeline
-`record → analyze → graph → oracle → report`, a 3–5-minute demo video,
-a README GIF, and the mdBook docs site at v0.x.
+`record → analyze → graph → oracle → report → diagnostic-package`,
+a 3–5-minute demo video, a README GIF, and the mdBook docs site at v0.x.
+
+The pipeline must materialise **at least four of the seven projections
+named in ADR-0011** end-to-end on the recorded fixture: `analytics`
+(top-N + rare-but-failing reports from S4), `regression-test` (oracle
+results), `support-replay` (diagnostic package export), and
+`diagnostic` (HTML report jumping from oracle failure to the offending
+events). `ux` / `product` / `exploration` projections are read-throughs
+on the same data and ship in S11 (`exploration`) and as user-facing
+walkthroughs in the demo video.
 
 ## Inputs / Outputs
 
@@ -29,8 +38,13 @@ a README GIF, and the mdBook docs site at v0.x.
        submit, caught by `ValidationsPassBeforeSubmit`.
   - A scripted recording producing a `.jsonl.zst` session file.
   - End-to-end demo: `trace analyze`, `trace graph --format mermaid`,
-    `trace oracle run`, `trace report --format html` against the
-    recording.
+    `trace report workflows --format json`, `trace oracle run`,
+    `trace report --format html`, `trace export --diagnostic
+    <session_id>` against the recording.
+  - A README section titled **"Semantic metrics, not contextless
+    counters"** showing the top-N / rare-but-failing JSON output
+    side-by-side with a strawman "btnExport.clicked: 1200" counter to
+    make the positioning concrete.
   - mdBook docs site published at v0.x (deployable to GitHub Pages or
     similar).
   - README GIF (15–30 s, looped, < 5 MB) plus a 3–5-minute walkthrough
@@ -60,6 +74,13 @@ a README GIF, and the mdBook docs site at v0.x.
   is Windows-only but the file is checked in).
 - Running the full pipeline against the recorded fixture catches all
   three intentional bugs as `Error`-severity oracle results.
+- The top-N workflows report ranks the demo's "happy path" first and
+  surfaces the bug-3 (async-validation) chain as a rare-but-failing
+  workflow.
+- `trace export --diagnostic <session_id>` produces a single archive
+  (trace + app/schema/dependency versions + oracle evidence) that a
+  second machine can re-import via `trace analyze` and reproduce the
+  same oracle verdicts.
 - mdBook builds locally with `mdbook build` and renders without dead
   links.
 - README contains the GIF and a "Quickstart" section that copies and

@@ -7,7 +7,9 @@ ADRs: ADR-0008
 ## Goal
 
 Build the `ActionGraph` from normalized scenarios, implement a Heuristics
-miner, and ship Mermaid + DOT exporters. Add anomaly detection via
+miner, ship Mermaid + DOT exporters, and produce the first **analytics
+projection** outputs (ADR-0011): top-N workflows by frequency, rare-but-
+failing scenarios, dead-feature candidates. Add anomaly detection via
 frequency thresholds.
 
 ## Inputs / Outputs
@@ -19,6 +21,15 @@ frequency thresholds.
     `anomaly_transitions`, Mermaid / DOT exporters.
   - PrefixSpan implementation for motif discovery.
   - `trace graph <file> --format {mermaid,dot}` CLI subcommand.
+  - `trace report workflows <file>` CLI subcommand emitting:
+    - **Top-N workflows** by frequency (default N=20),
+    - **Rare-but-failing workflows** (frequency ≤ 1% AND error_rate ≥
+      5% on any edge, configurable),
+    - **Dead-feature candidates** (graph nodes referenced by the
+      adapter's published `CommandId` catalogue but absent from the
+      corpus, or present below a configurable floor).
+  - The same reports re-emitted as JSON for downstream tooling
+    (`--format json`).
 
 ## Approach
 
@@ -44,6 +55,10 @@ frequency thresholds.
 
 - Heuristics miner reproduces a published fixture's expected paths
   byte-identically.
+- `trace report workflows fixtures/multi_session.jsonl --format json`
+  produces a blessed snapshot containing top-N, rare-but-failing, and
+  dead-feature sections — i.e. the first concrete analytics-projection
+  output (ADR-0011).
 - Mermaid output for a 5-scenario fixture matches a blessed snapshot.
 - DOT output renders to SVG without warnings via `dot -Tsvg`.
 - `graph_build` fuzz target (structure-aware: arbitrary scenarios) green

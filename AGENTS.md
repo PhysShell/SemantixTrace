@@ -2,12 +2,20 @@
 
 ## Why
 
-`SemantxTrace` records and analyses **semantic** user actions in desktop apps
-(`Graph47.Recalculate`, `Declaration.Validate`) — not physical UI events
-(`Button.Click` on `Window > Grid > StackPanel[1]`). Real production sessions
-get normalized into scenarios, mined into action graphs, checked by oracles,
-and turned into replay plans that survive UI redesigns. The unique angle is
-the **semantic action map**, decoupled from the physical UI map (ADR-0005).
+`SemantxTrace` is a **behavioral observability platform** for desktop UI
+apps. It records **semantic** user actions (`Graph47.Recalculate`,
+`Declaration.Validate`) with scenario context — not physical UI events
+(`Button.Click` on `Window > Grid > StackPanel[1]`) and not contextless
+counters ("button pressed 123 times"). One canonical trace fans out
+into seven projections (ADR-0011): **analytics** (top-N workflows,
+rare-but-failing scenarios), **diagnostic** (support packages),
+**regression test** (replay plans), **UX** (where users back out /
+retry), **product** (dead features, redesign deltas), **support
+replay** (reproduce a user's bug step-by-step), and **exploration**
+(domain-aware trace mutation). The unique architectural angle is the
+**semantic action map**, decoupled from the physical UI map (ADR-0005);
+the unique product angle is **semantic metrics, not contextless
+counters**.
 
 ## What (project map)
 
@@ -110,6 +118,20 @@ Property invariants that must always hold (more in
 - **Fuzzing is mandatory** for the JSONL parser, the upcaster chain, the
   WPF-adapter event ingest, and selected normalizer transforms (ADR-0010,
   [`docs/fuzzing.md`](docs/fuzzing.md)).
+- **One trace, seven projections** (ADR-0011). Analytics, diagnostic,
+  regression test, UX, product, support replay, and exploration are
+  consumers of the same canonical artefact. **Never** introduce a
+  parallel "lightweight analytics event log" with its own format —
+  every consumer reads the same wire format through the same upcaster
+  chain.
+- **Strict vs relaxed replay are distinct operations** (glossary §6).
+  Bug reproduction and regression assertions use strict; analytics,
+  clustering, and test-candidate selection use relaxed / normalized.
+  Do not collapse them into one flag-controlled code path.
+- **`semantic-monkey`, not `smart-monkey`.** The v0.4 exploration
+  feature is *domain-aware* mutation guided by oracles and the action
+  graph, not a random clicker. The word `smart` is banned per
+  glossary §19; the working name is `semantic-monkey`.
 
 ## Anti-patterns (block in review)
 
@@ -124,3 +146,12 @@ Property invariants that must always hold (more in
    See `docs/glossary.md` §19.
 5. **Pulling in `rusqlite`, `parquet`, or any non-serde dependency in
    `trace-core`.** That crate stays minimal forever.
+6. **Recording a contextless click counter.** "Button pressed 123
+   times" is the anti-pattern the project exists to replace.
+   `CommandExecuted { command_id, screen, args, outcome, previous_step
+   (implicit via session order) }` is the right shape. If the event
+   has no domain meaning, it has no place in the trace.
+7. **Splitting analytics into a separate event format.** Every
+   projection reads the same `Current` schema (ADR-0011). A "lighter"
+   second wire format is not an optimisation; it is a parallel source
+   of truth, and parallel sources of truth diverge.

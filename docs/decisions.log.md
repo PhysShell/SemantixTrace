@@ -55,3 +55,44 @@ Architectural decisions go to [`adr/`](adr/) instead.
   and concise per ADR-0009 while allowing the pattern reference to
   evolve as the chain grows, accepting that two files must be kept in
   sync.
+
+- 2026-05-27 — In the context of positioning SemantxTrace, facing the
+  original framing as "UI regression testing for Tech Leads, not COOs"
+  vs the broader behavioral-observability framing, we decided for
+  **trace-as-multi-projection** (ADR-0011): one canonical semantic
+  trace, seven projections (analytics, diagnostic, regression test,
+  UX, product, support replay, exploration), no second wire format,
+  and against splitting the system across separate analytics /
+  testing / support backends, to anchor the project's central pitch
+  ("semantic metrics, not contextless counters") in the architecture
+  itself, accepting a slightly heavier per-event schema than a
+  counter-only model would carry.
+
+- 2026-05-27 — In the context of naming the v0.4 exploration feature,
+  facing the existing working name `smart-monkey` vs alternatives in
+  the project's own vocabulary, we decided to **rename it to
+  `semantic-monkey`** and against keeping the `smart-` prefix, to
+  comply with glossary §19's ban on the word "smart" in user-facing
+  copy and to align with the project's emphasis on semantic actions,
+  accepting one global rename across docs, code, and CLI surface (now
+  in S11). The S11 file is renamed accordingly.
+
+- 2026-05-27 — In the context of v0.4's exploration / generation
+  surface, facing the choice between a single "exploration" feature
+  (random / coverage-guided walks) vs splitting generation into two
+  distinct paths, we decided for **`semantic-monkey` walks + first-
+  class `trace-mutation`** as separate operations in S11, and against
+  collapsing mutation into "another monkey strategy", to keep the
+  distinction visible — the monkey *walks the graph* generating fresh
+  sequences, mutation *transforms an existing scenario* preserving
+  most of its structure — accepting a slightly larger S11 surface in
+  exchange for honest semantics.
+
+- 2026-05-27 — In the context of replay determinism, facing the choice
+  between a single replay mode with tolerance knobs vs two explicit
+  named modes, we decided for **`strict` vs `relaxed` / `normalized`
+  as distinct `ReplayMode` values** (SPEC hard rule 16, glossary §6,
+  S11), and against a single mode with `--allow-reorder` /
+  `--ignore-timing` flags, to make the determinism contract part of
+  the type, not an option bag the caller has to remember to set,
+  accepting two reduction paths in the planner.

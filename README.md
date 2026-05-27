@@ -1,13 +1,25 @@
 # SemantxTrace
 
-> Production-informed UI regression testing for desktop apps.
-> Rust core. Framework-agnostic adapters. Semantic action model, not pixel diff.
+> Behavioral observability for desktop UI applications.
+> One canonical semantic trace, seven projections: analytics, UX, product,
+> support, regression tests, replay, exploration.
+> Rust core. Framework-agnostic adapters. Semantic action model, not pixel
+> diff and not contextless click counters.
 
-SemantxTrace records what *actually* happens in a running desktop app at the
-level of named domain actions (`Graph47.Recalculate`, not
-`Window.Grid.Button[3].Click`), mines workflows from those traces, evaluates
-oracles against them, and turns them into replay plans that survive UI
-redesigns.
+SemantxTrace records what *actually* happens in a running desktop app at
+the level of named domain actions (`Graph47.Recalculate`, not
+`Window.Grid.Button[3].Click`) **with the scenario context attached**
+(which document, which screen, what came before, what came after). The
+same trace then fans out into analytics over real user workflows,
+diagnostic packages for support, regression test candidates, replay
+plans that survive UI redesigns, and domain-aware mutations for guided
+exploration — see ADR-0011.
+
+Elevator pitch: **semantic metrics, not contextless counters.** Counting
+"Export clicked 1200 times" is bookkeeping; recording the scenario
+("open declaration → edit goods → recalculate → export, ending in
+success or `ErrorModal`") is the same event answering product, UX,
+support, and test questions at once.
 
 This repository is currently **documentation only**. Code lands stage by stage
 starting at S0 (see [`docs/stages/`](docs/stages/)).
