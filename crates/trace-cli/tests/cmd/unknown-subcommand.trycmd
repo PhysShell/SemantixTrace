@@ -1,6 +1,6 @@
 ```
 $ trace not-a-command
-? 2
+? 64
 error: unrecognized subcommand 'not-a-command'
 
 [..]

@@ -10,6 +10,7 @@
 use std::io::{self, Write};
 use std::process::ExitCode;
 
+use clap::error::ErrorKind;
 use clap::{Args, CommandFactory, Parser, Subcommand, ValueEnum};
 use clap_complete::{generate, Shell};
 use serde::Serialize;
@@ -24,17 +25,16 @@ const SCHEMA_VERSION: u32 = 1;
 #[derive(Parser, Debug)]
 #[command(
     name = "trace",
-    version,
     about = "SemantxTrace — behavioral observability for desktop UI applications",
     long_about = None,
-    propagate_version = true,
+    disable_version_flag = true,
 )]
 struct Cli {
     #[command(flatten)]
     global: GlobalOptions,
 
     #[command(subcommand)]
-    command: Command,
+    command: Option<Command>,
 }
 
 #[derive(Args, Debug)]
@@ -60,6 +60,13 @@ struct GlobalOptions {
     /// Disable ANSI colour output (also honoured: `NO_COLOR` env var).
     #[arg(long = "no-color", global = true)]
     no_color: bool,
+
+    /// Print binary and schema versions and exit.
+    ///
+    /// Same payload as `trace version`; honours `--output {text,json,wide}`
+    /// per ADR-0014 §4 / §11.
+    #[arg(short = 'V', long = "version", global = true)]
+    version: bool,
 }
 
 #[derive(Subcommand, Debug)]
@@ -91,16 +98,57 @@ struct VersionOutput {
 }
 
 fn main() -> ExitCode {
-    let cli = Cli::parse();
-    match dispatch(&cli) {
+    match Cli::try_parse() {
+        Ok(cli) => run(&cli),
+        Err(err) => handle_clap_error(&err),
+    }
+}
+
+/// Map a `clap` parse error to the right sysexits code per ADR-0014 §6.
+///
+/// - `DisplayHelp` / `DisplayHelpOnMissingArgumentOrSubcommand` /
+///   `DisplayVersion` print to stdout and exit `0`.
+/// - All other parse errors (unknown arg, missing required, bad value, …)
+///   print to stderr and exit `64` `EX_USAGE`.
+fn handle_clap_error(err: &clap::Error) -> ExitCode {
+    let _ = err.print();
+    match err.kind() {
+        ErrorKind::DisplayHelp
+        | ErrorKind::DisplayHelpOnMissingArgumentOrSubcommand
+        | ErrorKind::DisplayVersion => ExitCode::SUCCESS,
+        _ => ExitCode::from(u8::from(SysExit::Usage)),
+    }
+}
+
+fn run(cli: &Cli) -> ExitCode {
+    // Global `--version` flag short-circuits the subcommand path, per
+    // ADR-0014 §4: `-V` / `--version` honours `--output {text,json,wide}`
+    // and emits the same payload as `trace version`.
+    if cli.global.version {
+        return into_exit_code(print_version(cli.global.output));
+    }
+
+    let Some(command) = cli.command.as_ref() else {
+        // No subcommand and no `--version` — print the long help on
+        // stdout, exit `64` per ADR-0014 §6 (missing required argument).
+        let mut cmd = Cli::command();
+        let _ = cmd.print_help();
+        return ExitCode::from(u8::from(SysExit::Usage));
+    };
+
+    into_exit_code(dispatch(command, cli.global.output))
+}
+
+fn into_exit_code(result: Result<(), SysExit>) -> ExitCode {
+    match result {
         Ok(()) => ExitCode::SUCCESS,
         Err(code) => ExitCode::from(u8::from(code)),
     }
 }
 
-fn dispatch(cli: &Cli) -> Result<(), SysExit> {
-    match cli.command {
-        Command::Version => print_version(cli.global.output),
+fn dispatch(command: &Command, output: OutputFormat) -> Result<(), SysExit> {
+    match *command {
+        Command::Version => print_version(output),
         Command::Completions { shell } => {
             emit_completions(shell);
             Ok(())
