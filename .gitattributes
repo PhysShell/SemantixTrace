@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+*.rs       text diff=rust
+*.toml     text
+*.md       text
+*.json     text
+*.jsonl    text
+*.yaml     text
+*.yml      text
+*.cs       text diff=csharp
+*.xaml     text
+*.csproj   text
+*.sln      text eol=crlf
+
+# Binary fixtures
+*.sqlite   binary
+*.parquet  binary
+*.png      binary
+*.gif      binary
+*.jpg      binary
+*.zstd     binary

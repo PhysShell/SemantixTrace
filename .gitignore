@@ -1,0 +1,39 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# .NET (adapters/trace-wpf, etc.)
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local secrets and scratch
+.env
+.env.local
+/scratch/
+/notes-local/
+
+# Trace artefacts (corpora and captured sessions stay out of git;
+# only fixtures under `tests/fixtures/` are committed; see ADR-0007)
+/corpus/
+*.jsonl.gz
+*.parquet
+*.sqlite
+*.sqlite-journal
+
+# Build artefacts
+/dist/
+/coverage/
