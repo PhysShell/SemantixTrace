@@ -17,5 +17,15 @@ categories.workspace    = true
 default          = []
 inductive-miner  = []
 
+[dependencies]
+trace-core = { path = "../trace-core", version = "0.0.0" }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+petgraph   = { workspace = true }
+uuid       = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }
+
 [lints]
 workspace = true
