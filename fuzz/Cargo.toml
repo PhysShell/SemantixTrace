@@ -14,12 +14,20 @@ cargo-fuzz = true
 # (libFuzzer harness requires extern "C" glue).
 
 [dependencies]
-# Fuzz targets land per ADR-0010 / docs/fuzzing.md target catalogue.
-# S0 only stands up the crate skeleton; no targets defined here.
+libfuzzer-sys = "0.4"
+trace-schema  = { path = "../crates/trace-schema" }
+trace-core    = { path = "../crates/trace-core" }
 
 [[bin]]
-name              = "_placeholder"
-path              = "fuzz_targets/_placeholder.rs"
+name              = "jsonl_parse_v1"
+path              = "fuzz_targets/jsonl_parse_v1.rs"
+test              = false
+doc               = false
+bench             = false
+
+[[bin]]
+name              = "upcaster_v1_to_current"
+path              = "fuzz_targets/upcaster_v1_to_current.rs"
 test              = false
 doc               = false
 bench             = false
