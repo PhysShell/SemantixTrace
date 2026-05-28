@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/PhysShell/SemantixTrace/schema/cli/trace-analyze-v1.json",
+  "title": "trace analyze --output json (v1)",
+  "description": "Structured output of `trace analyze --output json`. Versioned per ADR-0014 §11; the analytics-projection summary (ADR-0011).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sessions", "events", "errors", "error_rate", "per_kind"],
+  "properties": {
+    "sessions":   { "type": "integer", "minimum": 0, "description": "Distinct session ids." },
+    "events":     { "type": "integer", "minimum": 0, "description": "Total events." },
+    "errors":     { "type": "integer", "minimum": 0, "description": "Events counted as errors." },
+    "error_rate": { "type": "number",  "minimum": 0, "maximum": 1, "description": "errors / events, 3-decimal rounded." },
+    "per_kind": {
+      "type": "object",
+      "description": "Event count keyed by kind name (ScreenOpened, CommandExecuted, …).",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    }
+  }
+}

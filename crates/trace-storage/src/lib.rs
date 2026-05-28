@@ -1,19 +1,16 @@
 //! `trace-storage` — storage backends for `SemantxTrace`.
 //!
-//! Placeholder for stage **S0**. `JsonlBackend` lands in S2; `SqliteBackend`
-//! in S8 (`sqlite` feature); `ParquetBackend` in S9 (`parquet` feature).
-//! See the corresponding stage docs under `docs/stages/`.
+//! Stage **S2** ships [`JsonlBackend`] — the canonical, append-only
+//! JSON Lines backend (ADR-0003). `SqliteBackend` (S8, `sqlite` feature)
+//! and `ParquetBackend` (S9, `parquet` feature) land later behind their
+//! own feature flags.
+//!
+//! All read paths funnel through [`trace_schema::read_event`], so callers
+//! only ever observe [`trace_schema::Current`] regardless of the
+//! on-disk schema version (ADR-0006).
 
-/// Placeholder symbol so the crate builds during S0.
-#[must_use]
-pub const fn placeholder() -> &'static str {
-    "trace-storage (S0 placeholder)"
-}
+#![forbid(unsafe_code)]
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn returns_placeholder_string() {
-        assert_eq!(super::placeholder(), "trace-storage (S0 placeholder)");
-    }
-}
+pub mod jsonl;
+
+pub use jsonl::{JsonlBackend, JsonlError};

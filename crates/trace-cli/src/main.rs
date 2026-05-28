@@ -1,13 +1,15 @@
 //! `trace` — `SemantxTrace` command-line interface.
 //!
-//! S0 placeholder: implements only the `version` and `completions <shell>`
-//! subcommands. The full subcommand inventory specified in ADR-0014 §3
-//! lands stage by stage (S2 ships `analyze`, S4 ships `graph` and
-//! `report workflows`, etc.).
+//! Implemented subcommands: `version`, `analyze`, `completions <shell>`.
+//! The full inventory specified in ADR-0014 §3 lands stage by stage
+//! (S4 ships `graph` and `report workflows`, S11 ships `plan …`, etc.).
 
 #![forbid(unsafe_code)]
 
+mod analyze;
+
 use std::io::{self, Write};
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use clap::error::ErrorKind;
@@ -15,6 +17,9 @@ use clap::{Args, CommandFactory, Parser, Subcommand, ValueEnum};
 use clap_complete::{generate, Shell};
 use serde::Serialize;
 use sysexits::ExitCode as SysExit;
+use trace_core::ports::StorageBackend;
+use trace_schema::Current;
+use trace_storage::{JsonlBackend, JsonlError};
 
 /// Schema version supported by this binary build.
 ///
@@ -73,6 +78,12 @@ struct GlobalOptions {
 enum Command {
     /// Print binary and schema versions.
     Version,
+    /// Summarize a JSONL trace file: session / event counts, error rate.
+    Analyze {
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file. Use `-` for
+        /// stdin is not yet supported; pass a real path.
+        file: PathBuf,
+    },
     /// Emit a shell-completion script for the given shell.
     Completions {
         /// Target shell.
@@ -147,12 +158,53 @@ fn into_exit_code(result: Result<(), SysExit>) -> ExitCode {
 }
 
 fn dispatch(command: &Command, output: OutputFormat) -> Result<(), SysExit> {
-    match *command {
+    match command {
         Command::Version => print_version(output),
+        Command::Analyze { file } => run_analyze(file, output),
         Command::Completions { shell } => {
-            emit_completions(shell);
+            emit_completions(*shell);
             Ok(())
         }
+    }
+}
+
+fn run_analyze(path: &Path, output: OutputFormat) -> Result<(), SysExit> {
+    let backend = JsonlBackend::new(path);
+    let events = collect_events(&backend)?;
+    let report = analyze::analyze_events(events);
+
+    let mut stdout = io::stdout().lock();
+    match output {
+        OutputFormat::Json => {
+            let s = serde_json::to_string(&report).map_err(|_| SysExit::Software)?;
+            writeln!(stdout, "{s}").map_err(|_| SysExit::IoErr)?;
+        }
+        OutputFormat::Text | OutputFormat::Wide => {
+            write!(stdout, "{report}").map_err(|_| SysExit::IoErr)?;
+        }
+    }
+    Ok(())
+}
+
+fn collect_events(backend: &JsonlBackend) -> Result<Vec<Current>, SysExit> {
+    let iter = backend.events().map_err(report_jsonl_error)?;
+    let mut events = Vec::new();
+    for item in iter {
+        events.push(item.map_err(report_jsonl_error)?);
+    }
+    Ok(events)
+}
+
+/// Print a diagnostic to stderr (ADR-0014 §5) and map a storage error to
+/// the right sysexits code (ADR-0014 §6).
+fn report_jsonl_error(err: JsonlError) -> SysExit {
+    eprintln!("error: {err}");
+    match err {
+        JsonlError::Io(source) if source.kind() == io::ErrorKind::NotFound => SysExit::NoInput,
+        JsonlError::Io(_) => SysExit::IoErr,
+        // Schema parse failures, ZstdUnsupported, and any future
+        // non-exhaustive variant are all "bad input data".
+        _ => SysExit::DataErr,
     }
 }
 
