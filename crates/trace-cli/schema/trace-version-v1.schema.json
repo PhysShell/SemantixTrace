@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/PhysShell/SemantixTrace/schema/cli/trace-version-v1.json",
+  "title": "trace version --output json (v1)",
+  "description": "Structured output of `trace version --output json`. Versioned per ADR-0014 §11.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["binary", "schema"],
+  "properties": {
+    "binary": {
+      "type": "string",
+      "description": "Binary semver, e.g. \"0.0.0\"."
+    },
+    "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Highest trace-schema version this binary understands."
+    }
+  }
+}
