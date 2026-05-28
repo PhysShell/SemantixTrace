@@ -80,8 +80,8 @@ enum Command {
     Version,
     /// Summarize a JSONL trace file: session / event counts, error rate.
     Analyze {
-        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file. Use `-` for
-        /// stdin is not yet supported; pass a real path.
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file, or `-` to
+        /// read JSONL from stdin (ADR-0014 §5).
         file: PathBuf,
     },
     /// Emit a shell-completion script for the given shell.
@@ -147,7 +147,7 @@ fn run(cli: &Cli) -> ExitCode {
         return ExitCode::from(u8::from(SysExit::Usage));
     };
 
-    into_exit_code(dispatch(command, cli.global.output))
+    into_exit_code(dispatch(command, &cli.global))
 }
 
 fn into_exit_code(result: Result<(), SysExit>) -> ExitCode {
@@ -157,10 +157,10 @@ fn into_exit_code(result: Result<(), SysExit>) -> ExitCode {
     }
 }
 
-fn dispatch(command: &Command, output: OutputFormat) -> Result<(), SysExit> {
+fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
     match command {
-        Command::Version => print_version(output),
-        Command::Analyze { file } => run_analyze(file, output),
+        Command::Version => print_version(global.output),
+        Command::Analyze { file } => run_analyze(file, global.output, global.quiet),
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
@@ -168,9 +168,18 @@ fn dispatch(command: &Command, output: OutputFormat) -> Result<(), SysExit> {
     }
 }
 
-fn run_analyze(path: &Path, output: OutputFormat) -> Result<(), SysExit> {
-    let backend = JsonlBackend::new(path);
-    let events = collect_events(&backend)?;
+fn run_analyze(path: &Path, output: OutputFormat, quiet: bool) -> Result<(), SysExit> {
+    // `-` reads JSONL from stdin (ADR-0014 §5); otherwise open the file.
+    let events = if path == Path::new("-") {
+        let reader = io::BufReader::new(io::stdin().lock());
+        collect_events(trace_storage::read_events(reader), quiet)?
+    } else {
+        let backend = JsonlBackend::new(path);
+        let iter = backend
+            .events()
+            .map_err(|e| report_jsonl_error(&e, quiet))?;
+        collect_events(iter, quiet)?
+    };
     let report = analyze::analyze_events(events);
 
     let mut stdout = io::stdout().lock();
@@ -186,19 +195,23 @@ fn run_analyze(path: &Path, output: OutputFormat) -> Result<(), SysExit> {
     Ok(())
 }
 
-fn collect_events(backend: &JsonlBackend) -> Result<Vec<Current>, SysExit> {
-    let iter = backend.events().map_err(report_jsonl_error)?;
+fn collect_events<I>(iter: I, quiet: bool) -> Result<Vec<Current>, SysExit>
+where
+    I: IntoIterator<Item = Result<Current, JsonlError>>,
+{
     let mut events = Vec::new();
     for item in iter {
-        events.push(item.map_err(report_jsonl_error)?);
+        events.push(item.map_err(|e| report_jsonl_error(&e, quiet))?);
     }
     Ok(events)
 }
 
-/// Print a diagnostic to stderr (ADR-0014 §5) and map a storage error to
-/// the right sysexits code (ADR-0014 §6).
-fn report_jsonl_error(err: JsonlError) -> SysExit {
-    eprintln!("error: {err}");
+/// Map a storage error to the right sysexits code (ADR-0014 §6), printing
+/// a diagnostic to stderr unless `--quiet` was set (ADR-0014 §4).
+fn report_jsonl_error(err: &JsonlError, quiet: bool) -> SysExit {
+    if !quiet {
+        eprintln!("error: {err}");
+    }
     match err {
         JsonlError::Io(source) if source.kind() == io::ErrorKind::NotFound => SysExit::NoInput,
         JsonlError::Io(_) => SysExit::IoErr,

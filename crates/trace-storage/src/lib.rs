@@ -13,4 +13,4 @@
 
 pub mod jsonl;
 
-pub use jsonl::{JsonlBackend, JsonlError};
+pub use jsonl::{read_events, JsonlBackend, JsonlError};

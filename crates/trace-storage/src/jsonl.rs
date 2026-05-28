@@ -101,13 +101,28 @@ impl StorageBackend for JsonlBackend {
 
     fn events(&self) -> Result<EventStream<'_, Current, JsonlError>, JsonlError> {
         let reader = open_reader(&self.path)?;
-        let iter = reader.lines().filter_map(|line| match line {
-            Ok(line) if line.trim().is_empty() => None,
-            Ok(line) => Some(read_event(&line).map_err(JsonlError::Schema)),
-            Err(io) => Some(Err(JsonlError::Io(io))),
-        });
-        Ok(Box::new(iter))
+        Ok(read_events(reader))
     }
+}
+
+/// Stream events out of any line reader (a file, stdin, an in-memory
+/// buffer), parsing each non-blank line through
+/// [`trace_schema::read_event`].
+///
+/// Shared by [`JsonlBackend::events`] and the CLI's stdin path
+/// (`trace analyze -`). Blank lines are skipped; per-line parse failures
+/// are yielded as [`JsonlError::Schema`], read failures as
+/// [`JsonlError::Io`].
+pub fn read_events<R>(reader: R) -> EventStream<'static, Current, JsonlError>
+where
+    R: BufRead + 'static,
+{
+    let iter = reader.lines().filter_map(|line| match line {
+        Ok(line) if line.trim().is_empty() => None,
+        Ok(line) => Some(read_event(&line).map_err(JsonlError::Schema)),
+        Err(io) => Some(Err(JsonlError::Io(io))),
+    });
+    Box::new(iter)
 }
 
 fn open_reader(path: &Path) -> Result<Box<dyn BufRead>, JsonlError> {
@@ -247,6 +262,22 @@ mod tests {
 
         let read: Result<Vec<Current>, _> = backend.events().expect("open").collect();
         assert_eq!(read.expect("read").len(), 1);
+    }
+
+    #[test]
+    fn read_events_from_in_memory_reader() {
+        // Exercises the shared line-parser used by both the file path and
+        // the CLI's `trace analyze -` stdin path.
+        let events = all_kinds();
+        let mut buf = String::new();
+        for e in &events {
+            buf.push_str(&trace_schema::write_event(e).expect("serialize"));
+        }
+        buf.push('\n'); // trailing blank line must be skipped
+
+        let cursor = std::io::Cursor::new(buf.into_bytes());
+        let read: Result<Vec<Current>, _> = super::read_events(cursor).collect();
+        assert_eq!(read.expect("read"), events);
     }
 
     #[test]

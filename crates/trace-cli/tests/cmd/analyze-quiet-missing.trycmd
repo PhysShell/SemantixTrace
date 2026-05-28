@@ -1,0 +1,4 @@
+```
+$ trace analyze --quiet tests/fixtures/does-not-exist.jsonl
+? 66
+```
