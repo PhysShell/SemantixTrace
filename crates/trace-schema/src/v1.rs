@@ -17,7 +17,7 @@ use trace_core::{
 /// fields (not embedded in `kind`), so [`crate::read_event`] can
 /// dispatch on a probe struct (`VersionProbe`) before deserializing
 /// the full event. ADR-0006 §"Wire format details" fixes this.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct TraceEnvelope {
     /// Always `1` for v1. Future versions ship as `2`, `3`, ….
     pub schema_version: u32,
@@ -53,7 +53,7 @@ impl TraceEnvelope {
 /// list in `docs/glossary.md` §2 ("Trace events"). Domain meaning
 /// dominates physical shape: e.g. there is no `ButtonClicked`, only
 /// `CommandExecuted { command_id: CommandId, … }` (ADR-0005).
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct TraceEvent {
     /// Monotonic per-session counter (gaps indicate dropped events).
     pub seq: EventSeq,
@@ -71,9 +71,13 @@ pub struct TraceEvent {
 }
 
 /// Discriminated payload of a v1 [`TraceEvent`].
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+///
+/// **Not** `#[non_exhaustive]`: this is a per-version event enum frozen
+/// forever by ADR-0006. New variants land in a future `v2` module, not
+/// here, so downstream schema tooling / fixtures / upcaster tests can
+/// match the fixed v1 variants exhaustively (ADR-0012 §3 carve-out).
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "PascalCase")]
-#[non_exhaustive]
 pub enum TraceEventKind {
     /// A screen / view was opened.
     ScreenOpened {

@@ -70,14 +70,29 @@ struct VersionProbe {
 ///   `schema_version` is higher than [`CURRENT_SCHEMA_VERSION`] or
 ///   lower than the oldest known version (`1`).
 pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
-    let probe: VersionProbe = serde_json::from_str(raw).map_err(SchemaError::Parse)?;
+    let probe: VersionProbe = serde_json::from_str(raw).map_err(classify_json_error)?;
     match probe.schema_version {
         1 => {
             let envelope: v1::TraceEnvelope =
-                serde_json::from_str(raw).map_err(SchemaError::Parse)?;
+                serde_json::from_str(raw).map_err(classify_json_error)?;
             Ok(envelope.into_event())
         }
         other => Err(SchemaError::UnsupportedSchemaVersion(other)),
+    }
+}
+
+/// Classify a `serde_json` failure into the right [`SchemaError`].
+///
+/// A `Data` category failure means the bytes are valid JSON of the
+/// wrong shape (missing field, unknown `kind`, bad type) — that is
+/// [`SchemaError::InvalidShape`], the schema-specific diagnostic
+/// callers use to distinguish corrupt-but-parseable JSONL records from
+/// genuinely malformed bytes. Syntax / EOF / IO failures stay
+/// [`SchemaError::Parse`].
+fn classify_json_error(err: serde_json::Error) -> SchemaError {
+    match err.classify() {
+        serde_json::error::Category::Data => SchemaError::InvalidShape(err.to_string()),
+        _ => SchemaError::Parse(err),
     }
 }
 

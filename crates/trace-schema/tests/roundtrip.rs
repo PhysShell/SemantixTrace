@@ -167,3 +167,26 @@ fn malformed_json_rejected() {
         other => panic!("unexpected: {other:?}"),
     }
 }
+
+#[test]
+fn valid_json_wrong_shape_is_invalid_shape() {
+    // Syntactically valid JSON with schema_version=1 but a malformed
+    // envelope (missing `seq`, missing `kind`). Must surface as
+    // InvalidShape, not Parse — see Codex review on PR #3.
+    let raw = r#"{"schema_version":1,"session_id":"00000000-0000-0000-0000-000000000000"}"#;
+    match read_event(raw) {
+        Err(SchemaError::InvalidShape(_)) => {}
+        other => panic!("unexpected: {other:?}"),
+    }
+}
+
+#[test]
+fn valid_json_missing_version_is_invalid_shape() {
+    // Valid JSON, but no schema_version field at all → InvalidShape
+    // (the probe deserialize fails with a Data-category error).
+    let raw = r#"{"hello":"world"}"#;
+    match read_event(raw) {
+        Err(SchemaError::InvalidShape(_)) => {}
+        other => panic!("unexpected: {other:?}"),
+    }
+}

@@ -19,13 +19,6 @@ trace-schema  = { path = "../crates/trace-schema" }
 trace-core    = { path = "../crates/trace-core" }
 
 [[bin]]
-name              = "_placeholder"
-path              = "fuzz_targets/_placeholder.rs"
-test              = false
-doc               = false
-bench             = false
-
-[[bin]]
 name              = "jsonl_parse_v1"
 path              = "fuzz_targets/jsonl_parse_v1.rs"
 test              = false
