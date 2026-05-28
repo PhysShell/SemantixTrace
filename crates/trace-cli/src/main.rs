@@ -1,12 +1,14 @@
 //! `trace` — `SemantxTrace` command-line interface.
 //!
-//! Implemented subcommands: `version`, `analyze`, `completions <shell>`.
-//! The full inventory specified in ADR-0014 §3 lands stage by stage
-//! (S4 ships `graph` and `report workflows`, S11 ships `plan …`, etc.).
+//! Implemented subcommands: `version`, `analyze`, `normalize`,
+//! `completions <shell>`. The full inventory specified in ADR-0014 §3
+//! lands stage by stage (S4 ships `graph` and `report workflows`, S11
+//! ships `plan …`, etc.).
 
 #![forbid(unsafe_code)]
 
 mod analyze;
+mod normalize;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
@@ -83,6 +85,21 @@ enum Command {
         /// Path to a `.jsonl` (or `.jsonl.zst`) trace file, or `-` to
         /// read JSONL from stdin (ADR-0014 §5).
         file: PathBuf,
+    },
+    /// Fold a trace into normalized canonical actions (one JSON per line).
+    Normalize {
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file, or `-` for
+        /// stdin (ADR-0014 §5). Events are grouped by session id.
+        file: PathBuf,
+        /// Write normalized output to this path instead of stdout.
+        /// (`-o` / `--output` is the global format flag, so the output
+        /// file uses `--out`.)
+        #[arg(long = "out")]
+        out: Option<PathBuf>,
+        /// Print the fold report (events / actions / collapses / pauses)
+        /// to stderr.
+        #[arg(long = "report")]
+        report: bool,
     },
     /// Emit a shell-completion script for the given shell.
     Completions {
@@ -161,6 +178,9 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
     match command {
         Command::Version => print_version(global.output),
         Command::Analyze { file } => run_analyze(file, global.output, global.quiet),
+        Command::Normalize { file, out, report } => {
+            normalize::run(file, out.as_deref(), *report, global.quiet)
+        }
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
@@ -169,17 +189,7 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
 }
 
 fn run_analyze(path: &Path, output: OutputFormat, quiet: bool) -> Result<(), SysExit> {
-    // `-` reads JSONL from stdin (ADR-0014 §5); otherwise open the file.
-    let events = if path == Path::new("-") {
-        let reader = io::BufReader::new(io::stdin().lock());
-        collect_events(trace_storage::read_events(reader), quiet)?
-    } else {
-        let backend = JsonlBackend::new(path);
-        let iter = backend
-            .events()
-            .map_err(|e| report_jsonl_error(&e, quiet))?;
-        collect_events(iter, quiet)?
-    };
+    let events = read_all_events(path, quiet)?;
     let report = analyze::analyze_events(events);
 
     let mut stdout = io::stdout().lock();
@@ -193,6 +203,22 @@ fn run_analyze(path: &Path, output: OutputFormat, quiet: bool) -> Result<(), Sys
         }
     }
     Ok(())
+}
+
+/// Read every event from a path (or stdin when `path` is `-`), mapping
+/// storage errors to sysexits codes and printing diagnostics unless
+/// `quiet` (ADR-0014 §5/§6). Shared by `analyze` and `normalize`.
+fn read_all_events(path: &Path, quiet: bool) -> Result<Vec<Current>, SysExit> {
+    if path == Path::new("-") {
+        let reader = io::BufReader::new(io::stdin().lock());
+        collect_events(trace_storage::read_events(reader), quiet)
+    } else {
+        let backend = JsonlBackend::new(path);
+        let iter = backend
+            .events()
+            .map_err(|e| report_jsonl_error(&e, quiet))?;
+        collect_events(iter, quiet)
+    }
 }
 
 fn collect_events<I>(iter: I, quiet: bool) -> Result<Vec<Current>, SysExit>

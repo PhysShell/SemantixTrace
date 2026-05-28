@@ -1117,6 +1117,7 @@ dependencies = [
  "sysexits",
  "thiserror",
  "trace-core",
+ "trace-normalizer",
  "trace-schema",
  "trace-storage",
  "trycmd",
@@ -1142,6 +1143,15 @@ version = "0.0.0"
 [[package]]
 name = "trace-normalizer"
 version = "0.0.0"
+dependencies = [
+ "chrono",
+ "proptest",
+ "serde",
+ "serde_json",
+ "trace-core",
+ "trace-schema",
+ "uuid",
+]
 
 [[package]]
 name = "trace-oracle"

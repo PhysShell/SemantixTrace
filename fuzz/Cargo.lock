@@ -447,6 +447,18 @@ version = "0.0.0"
 dependencies = [
  "libfuzzer-sys",
  "trace-core",
+ "trace-normalizer",
+ "trace-schema",
+]
+
+[[package]]
+name = "trace-normalizer"
+version = "0.0.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+ "trace-core",
  "trace-schema",
 ]
 
