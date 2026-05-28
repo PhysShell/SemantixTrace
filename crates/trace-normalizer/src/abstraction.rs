@@ -39,14 +39,25 @@ pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
     }
 }
 
-/// Returns true only for objects that were actually produced by this abstractor
-/// (i.e. the `_abstract` tag is one of the known internal kinds). Rejects
-/// externally supplied objects that happen to carry the `_abstract` key.
+/// Returns true only for objects whose shape was produced by this abstractor.
+///
+/// Checks both the tag value AND the exact key set so that user-supplied objects
+/// like `{"_abstract":"string","email":"alice@example.com"}` are not treated as
+/// already-abstracted and still go through full masking.
 fn is_abstracted_tag(map: &Map<String, Value>) -> bool {
-    matches!(
-        map.get(TAG).and_then(Value::as_str),
-        Some("numeric" | "string")
-    )
+    match map.get(TAG).and_then(Value::as_str) {
+        Some("numeric") => {
+            // Exact shape: { "_abstract": "numeric", "bucket": <string> }
+            map.len() == 2 && map.get("bucket").is_some_and(Value::is_string)
+        }
+        Some("string") => {
+            // Exact shape: { "_abstract": "string", "class": <string>, "len": <string> }
+            map.len() == 3
+                && map.get("class").is_some_and(Value::is_string)
+                && map.get("len").is_some_and(Value::is_string)
+        }
+        _ => false,
+    }
 }
 
 fn tagged(kind: &str, entries: &[(&str, Value)]) -> Value {
@@ -171,6 +182,28 @@ mod tests {
         // The raw email must never appear in the output.
         assert_ne!(v["email"], json!("alice@example.com"));
         assert_eq!(v["email"]["class"], json!("email"));
+    }
+
+    #[test]
+    fn external_object_with_valid_tag_kind_but_extra_fields_is_masked() {
+        // `_abstract: "string"` with an extra field must NOT bypass masking.
+        let v = abstract_value(
+            &json!({"_abstract": "string", "email": "alice@example.com"}),
+            &cfg(),
+        );
+        assert_ne!(v["email"], json!("alice@example.com"));
+        assert_eq!(v["email"]["class"], json!("email"));
+    }
+
+    #[test]
+    fn external_object_with_numeric_tag_and_extra_field_is_masked() {
+        // `_abstract: "numeric"` with an extra field must NOT bypass masking.
+        let v = abstract_value(
+            &json!({"_abstract": "numeric", "bucket": "11-100", "secret": 42}),
+            &cfg(),
+        );
+        // Three keys — not a valid abstracted shape; secret must be masked.
+        assert!(v["secret"]["bucket"].is_string() || v["secret"][TAG].is_string());
     }
 
     #[test]
