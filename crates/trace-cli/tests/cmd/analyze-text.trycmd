@@ -1,0 +1,12 @@
+```
+$ trace analyze tests/fixtures/multi_session.jsonl
+sessions:   2
+events:     5
+errors:     1
+error_rate: 0.200
+per kind:
+  CommandExecuted          2
+  ExceptionThrown          1
+  ScreenOpened             2
+
+```

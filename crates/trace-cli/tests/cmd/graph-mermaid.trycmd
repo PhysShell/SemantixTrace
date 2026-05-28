@@ -1,0 +1,8 @@
+```
+$ trace graph tests/fixtures/five_scenario.jsonl
+flowchart TD
+    N0["Editor:Graph47.Recalculate"]
+    N1["Editor:Declaration.Save"]
+    N0 -->|"freq=3"| N1
+
+```

@@ -1,0 +1,30 @@
+[package]
+name        = "trace-normalizer"
+description = "Value/temporal abstraction and scenario folding for SemantxTrace."
+version.workspace       = true
+edition.workspace       = true
+rust-version.workspace  = true
+license.workspace       = true
+authors.workspace       = true
+repository.workspace    = true
+homepage.workspace      = true
+documentation.workspace = true
+readme.workspace        = true
+keywords.workspace      = true
+categories.workspace    = true
+
+[dependencies]
+trace-core   = { path = "../trace-core", version = "0.0.0" }
+trace-schema = { path = "../trace-schema", version = "0.0.0" }
+chrono       = { workspace = true }
+serde        = { workspace = true }
+serde_json   = { workspace = true }
+
+[dev-dependencies]
+trace-core = { path = "../trace-core", version = "0.0.0" }
+chrono     = { workspace = true }
+proptest   = { workspace = true }
+uuid       = { workspace = true }
+
+[lints]
+workspace = true

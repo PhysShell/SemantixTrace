@@ -10,6 +10,41 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-28 — In the context of the S3 normalizer's idempotency
+  acceptance criterion (`glossary.md` §3 lists
+  `normalize(normalize(t)) == normalize(t)`), facing the fact that
+  `normalize: Session -> Scenario` is **not** endomorphic (input and
+  output are different types, so the literal self-composition does not
+  type-check), we decided to **realize idempotency in two endomorphic
+  layers** and against forcing an artificial `Session`-shaped output:
+  (1) value abstraction is a fixed point —
+  `abstract_value(abstract_value(v)) == abstract_value(v)` (tagged
+  `_abstract` JSON objects pass through), and (2) `refold: Scenario ->
+  Scenario` is idempotent — `refold(refold(s)) == refold(s)`. Both are
+  property-tested. This achieves the spirit of the criterion (a stable
+  normalized fixed point) while keeping the `Session -> Scenario`
+  projection honest, accepting that the glossary phrasing is satisfied
+  indirectly rather than as a single literal identity.
+
+- 2026-05-28 — In the context of the `trace normalize` output-file flag
+  (the S3 stage doc sketched `-o <file>`), facing the collision with
+  ADR-0014 §4's global `-o` / `--output {text,json,wide}` format flag,
+  we decided to use **`--out <path>`** for the normalize output file and
+  against shadowing the global `-o`, to keep the CLI grammar consistent
+  with the binding ADR-0014 contract, accepting a one-character
+  divergence from the original stage-doc sketch.
+
+- 2026-05-28 — In the context of explicit `BurstAction` / `SessionPause`
+  marker nodes (named in `glossary.md` §4), facing the choice between
+  extending the S1-frozen `Scenario` / `CanonicalAction` types now vs
+  deferring, we decided to **defer marker nodes** and record bursts /
+  pauses as counts in `FoldReport` for S3, and against widening the
+  `Scenario` shape this early, to keep the S4 graph builder's input
+  stable; explicit marker nodes can land later behind their own change
+  if the miner needs them. Burst *collapsing* (deduplicating rapid
+  repeats) is implemented in S3; only the explicit marker representation
+  is deferred.
+
 - 2026-05-27 — In the context of seeding the SemantxTrace knowledge base
   before any code is written, facing the choice between drafting docs
   alongside an initial workspace skeleton vs landing documentation first,

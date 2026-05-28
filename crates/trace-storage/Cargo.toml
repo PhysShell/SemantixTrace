@@ -1,0 +1,39 @@
+[package]
+name        = "trace-storage"
+description = "Storage backends (JSONL, SQLite, Parquet) for SemantxTrace."
+version.workspace       = true
+edition.workspace       = true
+rust-version.workspace  = true
+license.workspace       = true
+authors.workspace       = true
+repository.workspace    = true
+homepage.workspace      = true
+documentation.workspace = true
+readme.workspace        = true
+keywords.workspace      = true
+categories.workspace    = true
+
+[features]
+default = []
+# `.zst` archive read support (ADR-0003). Off by default to keep the
+# base build free of the zstd C toolchain; CI's --all-features enables it.
+zstd    = ["dep:zstd"]
+sqlite  = []
+parquet = []
+
+[dependencies]
+trace-core   = { path = "../trace-core", version = "0.0.0" }
+trace-schema = { path = "../trace-schema", version = "0.0.0" }
+serde_json   = { workspace = true }
+thiserror    = { workspace = true }
+zstd         = { workspace = true, optional = true }
+
+[dev-dependencies]
+trace-core = { path = "../trace-core", version = "0.0.0" }
+chrono     = { workspace = true }
+proptest   = { workspace = true }
+tempfile   = { workspace = true }
+uuid       = { workspace = true }
+
+[lints]
+workspace = true

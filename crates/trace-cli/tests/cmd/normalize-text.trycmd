@@ -1,0 +1,6 @@
+```
+$ trace normalize tests/fixtures/multi_session.jsonl
+{"screen_id":"DeclarationEditor","command_id":"Graph47.Recalculate","abstract_args":{}}
+{"screen_id":"DeclarationEditor","command_id":"Declaration.Save","abstract_args":{}}
+
+```
