@@ -221,7 +221,11 @@ mod tests {
         .unwrap();
 
         let (scenario, report) = normalize(&session, &cfg);
-        assert_eq!(scenario.actions.len(), 2, "out-of-order repeat must not be collapsed");
+        assert_eq!(
+            scenario.actions.len(),
+            2,
+            "out-of-order repeat must not be collapsed"
+        );
         assert_eq!(report.collapsed_bursts, 0);
     }
 
