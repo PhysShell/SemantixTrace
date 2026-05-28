@@ -22,6 +22,7 @@ trace-core       = { path = "../trace-core", version = "0.0.0" }
 trace-schema     = { path = "../trace-schema", version = "0.0.0" }
 trace-storage    = { path = "../trace-storage", version = "0.0.0" }
 trace-normalizer = { path = "../trace-normalizer", version = "0.0.0" }
+trace-graph      = { path = "../trace-graph", version = "0.0.0" }
 clap          = { workspace = true }
 clap_complete = { workspace = true }
 miette        = { workspace = true }
@@ -29,6 +30,7 @@ serde         = { workspace = true }
 serde_json    = { workspace = true }
 sysexits      = { workspace = true }
 thiserror     = { workspace = true }
+uuid          = { workspace = true }
 
 [dev-dependencies]
 trycmd = { workspace = true }

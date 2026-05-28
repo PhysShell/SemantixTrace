@@ -1,0 +1,14 @@
+```
+$ trace report workflows tests/fixtures/five_scenario.jsonl
+=== Top workflows ===
+  1. [Editor:Declaration.Save] (freq=5)
+  2. [Editor:Graph47.Recalculate] (freq=3)
+  3. [Editor:Graph47.Recalculate → Editor:Declaration.Save] (freq=3)
+
+=== Rare failing workflows ===
+  (none)
+
+=== Dead features ===
+  (none)
+
+```

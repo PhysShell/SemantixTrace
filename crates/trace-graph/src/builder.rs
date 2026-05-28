@@ -38,18 +38,18 @@ pub fn from_scenarios(scenarios: &[Scenario]) -> ActionGraph {
     }
 
     // Add edges with Heuristics-miner dependency measure and anomaly score.
+    #[allow(clippy::cast_precision_loss)]
     for ((from, to), freq) in &edge_freq {
         let fwd = *freq as f64;
         let bwd = edge_freq.get(&(*to, *from)).copied().unwrap_or(0) as f64;
-        let (dep, anomaly_score) = if *from == *to {
+        let anomaly_score = if *from == *to {
             // Self-loop: dep = freq / (freq + 1), anomaly = 1 - dep
             let d = fwd / (fwd + 1.0);
-            (d, 1.0 - d)
+            1.0 - d
         } else {
             let d = (fwd - bwd) / (fwd + bwd + 1.0);
-            (d, (1.0 - d) / 2.0)
+            (1.0 - d) / 2.0
         };
-        let _ = dep; // used only for documentation clarity above
         graph.graph.add_edge(
             *from,
             *to,

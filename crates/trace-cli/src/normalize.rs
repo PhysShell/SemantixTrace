@@ -64,7 +64,7 @@ pub(crate) fn run(
 }
 
 /// Group events by session id, preserving first-seen order.
-fn group_by_session(events: Vec<Current>) -> Vec<(SessionId, Vec<Current>)> {
+pub(crate) fn group_by_session(events: Vec<Current>) -> Vec<(SessionId, Vec<Current>)> {
     let mut order: Vec<SessionId> = Vec::new();
     let mut groups: HashMap<SessionId, Vec<Current>> = HashMap::new();
     for event in events {

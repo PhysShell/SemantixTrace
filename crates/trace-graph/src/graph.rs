@@ -26,7 +26,7 @@ pub struct Transition {
     /// How many times this transition was observed across all scenarios.
     pub frequency: u64,
     /// How many times this transition ended in a session that also had
-    /// an [`ExceptionThrown`](trace_schema) event.  Populated by
+    /// an `ExceptionThrown` event.  Populated by
     /// [`crate::builder`] only when error-session data is provided.
     pub failure_count: u64,
     /// Normalised anomaly score: `0.0` = perfectly normal; `1.0` =
@@ -57,7 +57,7 @@ impl fmt::Debug for ActionGraph {
         f.debug_struct("ActionGraph")
             .field("nodes", &self.graph.node_count())
             .field("edges", &self.graph.edge_count())
-            .finish()
+            .finish_non_exhaustive()
     }
 }
 
@@ -86,7 +86,7 @@ impl ActionGraph {
     /// Access the underlying petgraph `DiGraph` for traversal and
     /// algorithm use.
     #[must_use]
-    pub fn graph(&self) -> &DiGraph<ActionNode, Transition> {
+    pub const fn graph(&self) -> &DiGraph<ActionNode, Transition> {
         &self.graph
     }
 
@@ -102,6 +102,7 @@ impl ActionGraph {
     ///
     /// Used for dead-feature detection in [`crate::report`].
     #[must_use]
+    #[allow(clippy::cast_precision_loss)]
     pub fn commands_below_floor(
         &self,
         total_visits: u64,

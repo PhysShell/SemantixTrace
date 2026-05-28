@@ -1,14 +1,16 @@
 //! `trace` — `SemantxTrace` command-line interface.
 //!
 //! Implemented subcommands: `version`, `analyze`, `normalize`,
-//! `completions <shell>`. The full inventory specified in ADR-0014 §3
-//! lands stage by stage (S4 ships `graph` and `report workflows`, S11
-//! ships `plan …`, etc.).
+//! `graph`, `report workflows`, `completions <shell>`. The full
+//! inventory specified in ADR-0014 §3 lands stage by stage (S4 ships
+//! `graph` and `report workflows`, S11 ships `plan …`, etc.).
 
 #![forbid(unsafe_code)]
 
 mod analyze;
+mod graph_cmd;
 mod normalize;
+mod report_cmd;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
@@ -101,10 +103,37 @@ enum Command {
         #[arg(long = "report")]
         report: bool,
     },
+    /// Build and render an action graph from a JSONL trace file.
+    Graph {
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file.
+        file: PathBuf,
+        /// Output format for the graph.
+        #[arg(long = "format", value_enum, default_value_t = graph_cmd::GraphFormat::Mermaid)]
+        format: graph_cmd::GraphFormat,
+    },
+    /// Produce workflow analytics reports from a JSONL trace file.
+    Report {
+        #[command(subcommand)]
+        subcommand: ReportCommand,
+    },
     /// Emit a shell-completion script for the given shell.
     Completions {
         /// Target shell.
         shell: Shell,
+    },
+}
+
+/// Sub-subcommands for `trace report`.
+#[derive(Subcommand, Debug)]
+enum ReportCommand {
+    /// Emit top-N workflows, rare-but-failing scenarios, and dead-feature
+    /// candidates.
+    Workflows {
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file.
+        file: PathBuf,
+        /// Maximum number of top workflows to show.
+        #[arg(long = "top-n", default_value_t = 20)]
+        top_n: usize,
     },
 }
 
@@ -181,9 +210,19 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
         Command::Normalize { file, out, report } => {
             normalize::run(file, out.as_deref(), *report, global.quiet)
         }
+        Command::Graph { file, format } => graph_cmd::run(file, *format, global.quiet),
+        Command::Report { subcommand } => dispatch_report(subcommand, global),
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
+        }
+    }
+}
+
+fn dispatch_report(cmd: &ReportCommand, global: &GlobalOptions) -> Result<(), SysExit> {
+    match cmd {
+        ReportCommand::Workflows { file, top_n } => {
+            report_cmd::run_workflows(file, *top_n, global.output, global.quiet)
         }
     }
 }

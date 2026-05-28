@@ -1,0 +1,5 @@
+```
+$ trace --output json report workflows tests/fixtures/five_scenario.jsonl
+{"top_workflows":[{"actions":[{"screen_id":"Editor","command_id":"Declaration.Save","abstract_args":{}}],"frequency":5},{"actions":[{"screen_id":"Editor","command_id":"Graph47.Recalculate","abstract_args":{}}],"frequency":3},{"actions":[{"screen_id":"Editor","command_id":"Graph47.Recalculate","abstract_args":{}},{"screen_id":"Editor","command_id":"Declaration.Save","abstract_args":{}}],"frequency":3}],"rare_failing":[],"dead_features":[]}
+
+```
