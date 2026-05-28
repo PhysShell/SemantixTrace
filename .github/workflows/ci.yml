@@ -118,3 +118,5 @@ jobs:
         run: cargo +nightly fuzz run jsonl_parse_v1 --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
       - name: bounded smoke (upcaster_v1_to_current)
         run: cargo +nightly fuzz run upcaster_v1_to_current --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
+      - name: bounded smoke (normalize_fold)
+        run: cargo +nightly fuzz run normalize_fold --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048

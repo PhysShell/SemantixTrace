@@ -18,9 +18,10 @@ name = "trace"
 path = "src/main.rs"
 
 [dependencies]
-trace-core    = { path = "../trace-core", version = "0.0.0" }
-trace-schema  = { path = "../trace-schema", version = "0.0.0" }
-trace-storage = { path = "../trace-storage", version = "0.0.0" }
+trace-core       = { path = "../trace-core", version = "0.0.0" }
+trace-schema     = { path = "../trace-schema", version = "0.0.0" }
+trace-storage    = { path = "../trace-storage", version = "0.0.0" }
+trace-normalizer = { path = "../trace-normalizer", version = "0.0.0" }
 clap          = { workspace = true }
 clap_complete = { workspace = true }
 miette        = { workspace = true }
