@@ -72,8 +72,11 @@ pub fn normalize(session: &Session<Current>, cfg: &NormCfg) -> (Scenario, FoldRe
                     abstract_args: abstract_value(args, cfg),
                 };
                 let is_burst = actions.last() == Some(&action)
-                    && last_action_ts
-                        .is_some_and(|t| (event.ts - t).num_milliseconds() < cfg.burst_gap_ms);
+                    && last_action_ts.is_some_and(|t| {
+                        let delta = (event.ts - t).num_milliseconds();
+                        // Negative delta means out-of-order timestamp; treat as non-burst.
+                        delta >= 0 && delta < cfg.burst_gap_ms
+                    });
                 if is_burst {
                     report.collapsed_bursts += 1;
                 } else {
@@ -201,6 +204,25 @@ mod tests {
         let (scenario, report) = normalize(&session, &cfg);
         assert_eq!(scenario.actions.len(), 2);
         assert_eq!(report.collapsed_bursts, 1);
+    }
+
+    #[test]
+    fn out_of_order_timestamps_not_collapsed_as_burst() {
+        // An event with an earlier timestamp than the previous one must NOT
+        // be collapsed: negative delta < burst_gap_ms must not trigger burst logic.
+        let cfg = NormCfg::default();
+        let session = Session::new(
+            SessionId::new(uuid::Uuid::from_u128(1)),
+            vec![
+                ev(0, at(10, 0), cmd("X.Do")),
+                ev(1, at(0, 0), cmd("X.Do")), // out-of-order: earlier timestamp
+            ],
+        )
+        .unwrap();
+
+        let (scenario, report) = normalize(&session, &cfg);
+        assert_eq!(scenario.actions.len(), 2, "out-of-order repeat must not be collapsed");
+        assert_eq!(report.collapsed_bursts, 0);
     }
 
     #[test]

@@ -25,8 +25,8 @@ pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
         Value::String(s) => string_class(s),
         Value::Array(items) => Value::Array(items.iter().map(|v| abstract_value(v, cfg)).collect()),
         Value::Object(map) => {
-            if map.contains_key(TAG) {
-                // Already abstracted — idempotent passthrough.
+            if is_abstracted_tag(map) {
+                // Already abstracted (validated tag shape) — idempotent passthrough.
                 value.clone()
             } else {
                 let mut out = Map::with_capacity(map.len());
@@ -37,6 +37,16 @@ pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
             }
         }
     }
+}
+
+/// Returns true only for objects that were actually produced by this abstractor
+/// (i.e. the `_abstract` tag is one of the known internal kinds). Rejects
+/// externally supplied objects that happen to carry the `_abstract` key.
+fn is_abstracted_tag(map: &Map<String, Value>) -> bool {
+    matches!(
+        map.get(TAG).and_then(Value::as_str),
+        Some("numeric" | "string")
+    )
 }
 
 fn tagged(kind: &str, entries: &[(&str, Value)]) -> Value {
@@ -148,6 +158,19 @@ mod tests {
         let v = abstract_value(&json!({"qty": 7, "note": "hi"}), &cfg());
         assert_eq!(v["qty"]["bucket"], json!("2-10"));
         assert_eq!(v["note"]["class"], json!("free"));
+    }
+
+    #[test]
+    fn external_object_with_abstract_key_is_not_bypassed() {
+        // An externally supplied object carrying `_abstract` must NOT be
+        // treated as already-abstracted; all its values must still be masked.
+        let v = abstract_value(
+            &json!({"_abstract": "x", "email": "alice@example.com"}),
+            &cfg(),
+        );
+        // The raw email must never appear in the output.
+        assert_ne!(v["email"], json!("alice@example.com"));
+        assert_eq!(v["email"]["class"], json!("email"));
     }
 
     #[test]
