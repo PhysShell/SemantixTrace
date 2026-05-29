@@ -1,3 +1,35 @@
 #nullable enable
-SemantxTrace.Wpf.PlaceholderS0
-static SemantxTrace.Wpf.PlaceholderS0.Marker() -> string!
+SemantxTrace.Wpf.AutoAutomationId
+static SemantxTrace.Wpf.AutoAutomationId.GetIsEnabled(System.Windows.DependencyObject! element) -> bool
+static SemantxTrace.Wpf.AutoAutomationId.IsEnabledProperty.get -> System.Windows.DependencyProperty!
+static SemantxTrace.Wpf.AutoAutomationId.SetIsEnabled(System.Windows.DependencyObject! element, bool value) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext
+SemantxTrace.Wpf.FileJsonlTraceContext.Dispose() -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitAsyncOperationCompleted(string! operationId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitCommandExecuted(string! commandId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitExceptionThrown(string! exceptionType, string! message, string? stack = null, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitFieldChanged(string! fieldId, SemantxTrace.Abstractions.ValuePolicy! oldValue, SemantxTrace.Abstractions.ValuePolicy! newValue, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitNavigationOccurred(string! fromScreenId, string! toScreenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.FileJsonlTraceContext(string! filePath) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.FileJsonlTraceContext(System.IO.TextWriter! output) -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.Flush() -> void
+SemantxTrace.Wpf.FileJsonlTraceContext.SessionId.get -> System.Guid
+SemantxTrace.Wpf.NoOpTraceContext
+SemantxTrace.Wpf.NoOpTraceContext.Dispose() -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitAsyncOperationCompleted(string! operationId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitCommandExecuted(string! commandId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitExceptionThrown(string! exceptionType, string! message, string? stack = null, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitFieldChanged(string! fieldId, SemantxTrace.Abstractions.ValuePolicy! oldValue, SemantxTrace.Abstractions.ValuePolicy! newValue, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitNavigationOccurred(string! fromScreenId, string! toScreenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
+SemantxTrace.Wpf.NoOpTraceContext.Flush() -> void
+SemantxTrace.Wpf.NoOpTraceContext.Instance.get -> SemantxTrace.Wpf.NoOpTraceContext!
+SemantxTrace.Wpf.NoOpTraceContext.SessionId.get -> System.Guid
+SemantxTrace.Wpf.TracedRelayCommand
+SemantxTrace.Wpf.TracedRelayCommand.CanExecute(object? parameter) -> bool
+SemantxTrace.Wpf.TracedRelayCommand.CanExecuteChanged -> System.EventHandler?
+SemantxTrace.Wpf.TracedRelayCommand.Execute(object? parameter) -> void
+SemantxTrace.Wpf.TracedRelayCommand.TracedRelayCommand(System.Windows.Input.ICommand! inner, string! commandId, SemantxTrace.Abstractions.ITraceContext! context) -> void

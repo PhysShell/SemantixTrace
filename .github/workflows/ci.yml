@@ -86,6 +86,8 @@ jobs:
         run: dotnet build adapters/Trace.Avalonia/Trace.Avalonia.csproj -c Release -warnaserror
       - name: dotnet build Trace.Maui
         run: dotnet build adapters/Trace.Maui/Trace.Maui.csproj -c Release -warnaserror
+      - name: dotnet test Trace.Abstractions.Tests
+        run: dotnet test adapters/Trace.Abstractions.Tests/Trace.Abstractions.Tests.csproj -c Release --logger "console;verbosity=normal"
 
   dotnet-wpf:
     runs-on: windows-latest
@@ -96,6 +98,8 @@ jobs:
           dotnet-version: '8.0.x'
       - name: dotnet build Trace.Wpf (net472;net8.0-windows)
         run: dotnet build adapters/Trace.Wpf/Trace.Wpf.csproj -c Release -warnaserror
+      - name: dotnet test Trace.Wpf.Tests (net8.0-windows)
+        run: dotnet test adapters/Trace.Wpf.Tests/Trace.Wpf.Tests.csproj -c Release --logger "console;verbosity=normal"
 
   fuzz-smoke:
     # Bounded smoke run of the P0 fuzz targets per ADR-0010 CI policy

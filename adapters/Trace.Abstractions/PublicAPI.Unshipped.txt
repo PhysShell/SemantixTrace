@@ -1,3 +1,55 @@
 #nullable enable
-SemantxTrace.Abstractions.PlaceholderS0
-static SemantxTrace.Abstractions.PlaceholderS0.Marker() -> string!
+SemantxTrace.Abstractions.BucketedValuePolicy
+SemantxTrace.Abstractions.BucketedValuePolicy.Bucket.get -> string!
+SemantxTrace.Abstractions.BucketedValuePolicy.BucketedValuePolicy(string! bucket) -> void
+SemantxTrace.Abstractions.CommandOutcome
+SemantxTrace.Abstractions.CommandOutcome.Cancelled = 2 -> SemantxTrace.Abstractions.CommandOutcome
+SemantxTrace.Abstractions.CommandOutcome.Failure = 1 -> SemantxTrace.Abstractions.CommandOutcome
+SemantxTrace.Abstractions.CommandOutcome.Success = 0 -> SemantxTrace.Abstractions.CommandOutcome
+SemantxTrace.Abstractions.CommandOutcome.TimedOut = 3 -> SemantxTrace.Abstractions.CommandOutcome
+SemantxTrace.Abstractions.HashedValuePolicy
+SemantxTrace.Abstractions.HashedValuePolicy.Algo.get -> string!
+SemantxTrace.Abstractions.HashedValuePolicy.Hash.get -> string!
+SemantxTrace.Abstractions.HashedValuePolicy.HashedValuePolicy(string! hash, string! algo) -> void
+SemantxTrace.Abstractions.ITraceContext
+SemantxTrace.Abstractions.ITraceContext.EmitAsyncOperationCompleted(string! operationId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitCommandExecuted(string! commandId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitExceptionThrown(string! exceptionType, string! message, string? stack = null, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitFieldChanged(string! fieldId, SemantxTrace.Abstractions.ValuePolicy! oldValue, SemantxTrace.Abstractions.ValuePolicy! newValue, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitNavigationOccurred(string! fromScreenId, string! toScreenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
+SemantxTrace.Abstractions.ITraceContext.Flush() -> void
+SemantxTrace.Abstractions.ITraceContext.SessionId.get -> System.Guid
+SemantxTrace.Abstractions.MaskedValuePolicy
+SemantxTrace.Abstractions.MaskedValuePolicy.Display.get -> string!
+SemantxTrace.Abstractions.MaskedValuePolicy.MaskedValuePolicy(string! display) -> void
+SemantxTrace.Abstractions.RawValuePolicy
+SemantxTrace.Abstractions.RawValuePolicy.RawValuePolicy(object? value) -> void
+SemantxTrace.Abstractions.RawValuePolicy.Value.get -> object?
+SemantxTrace.Abstractions.RemovedValuePolicy
+SemantxTrace.Abstractions.RemovedValuePolicy.Instance.get -> SemantxTrace.Abstractions.RemovedValuePolicy!
+SemantxTrace.Abstractions.ScreenIdAttribute
+SemantxTrace.Abstractions.ScreenIdAttribute.ScreenId.get -> string!
+SemantxTrace.Abstractions.ScreenIdAttribute.ScreenIdAttribute(string! screenId) -> void
+SemantxTrace.Abstractions.TraceCommandAttribute
+SemantxTrace.Abstractions.TraceCommandAttribute.CommandId.get -> string!
+SemantxTrace.Abstractions.TraceCommandAttribute.TraceCommandAttribute(string! commandId) -> void
+SemantxTrace.Abstractions.TraceFieldAttribute
+SemantxTrace.Abstractions.TraceFieldAttribute.FieldId.get -> string!
+SemantxTrace.Abstractions.TraceFieldAttribute.Policy.get -> SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.TraceFieldAttribute.Policy.set -> void
+SemantxTrace.Abstractions.TraceFieldAttribute.TraceFieldAttribute(string! fieldId) -> void
+SemantxTrace.Abstractions.ValuePolicy
+static SemantxTrace.Abstractions.ValuePolicy.Bucketed(string! bucket) -> SemantxTrace.Abstractions.ValuePolicy!
+static SemantxTrace.Abstractions.ValuePolicy.DefaultMasked() -> SemantxTrace.Abstractions.ValuePolicy!
+static SemantxTrace.Abstractions.ValuePolicy.Hashed(string! hash, string! algo) -> SemantxTrace.Abstractions.ValuePolicy!
+static SemantxTrace.Abstractions.ValuePolicy.Masked(string! display = "***") -> SemantxTrace.Abstractions.ValuePolicy!
+static SemantxTrace.Abstractions.ValuePolicy.Raw(object? value) -> SemantxTrace.Abstractions.ValuePolicy!
+static SemantxTrace.Abstractions.ValuePolicy.Removed() -> SemantxTrace.Abstractions.ValuePolicy!
+SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.ValuePolicyKind.Bucketed = 2 -> SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.ValuePolicyKind.Hashed = 3 -> SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.ValuePolicyKind.Masked = 0 -> SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.ValuePolicyKind.Raw = 1 -> SemantxTrace.Abstractions.ValuePolicyKind
+SemantxTrace.Abstractions.ValuePolicyKind.Removed = 4 -> SemantxTrace.Abstractions.ValuePolicyKind
