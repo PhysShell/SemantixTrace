@@ -39,14 +39,43 @@ pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
     }
 }
 
-/// Returns true only for objects that were actually produced by this abstractor
-/// (i.e. the `_abstract` tag is one of the known internal kinds). Rejects
-/// externally supplied objects that happen to carry the `_abstract` key.
+/// Returns true only for objects that were actually produced by this
+/// abstractor. The kind alone is not enough: a forged
+/// `{"_abstract":"numeric","bucket":"alice@example.com"}` would otherwise
+/// pass through and leak the raw value, so the full shape is validated —
+/// exact key set plus label-shaped values (bucket made of digits/`-`/`+`,
+/// class/len from the fixed vocabularies). Anything else is recursively
+/// abstracted, preserving the privacy-by-default policy (ADR-0007).
 fn is_abstracted_tag(map: &Map<String, Value>) -> bool {
-    matches!(
-        map.get(TAG).and_then(Value::as_str),
-        Some("numeric" | "string")
-    )
+    let Some(Value::String(kind)) = map.get(TAG) else {
+        return false;
+    };
+    match kind.as_str() {
+        "numeric" => {
+            map.len() == 2
+                && matches!(map.get("bucket"), Some(Value::String(b)) if is_bucket_label(b))
+        }
+        "string" => {
+            map.len() == 3
+                && matches!(map.get("class"), Some(Value::String(c)) if is_known_class(c))
+                && matches!(map.get("len"), Some(Value::String(l)) if is_known_len(l))
+        }
+        _ => false,
+    }
+}
+
+fn is_bucket_label(s: &str) -> bool {
+    !s.is_empty()
+        && s.bytes()
+            .all(|b| b.is_ascii_digit() || b == b'-' || b == b'+')
+}
+
+fn is_known_class(s: &str) -> bool {
+    matches!(s, "email" | "guid" | "numeric" | "free")
+}
+
+fn is_known_len(s: &str) -> bool {
+    matches!(s, "0" | "1-8" | "9-32" | "33-128" | "128+")
 }
 
 fn tagged(kind: &str, entries: &[(&str, Value)]) -> Value {
@@ -171,6 +200,29 @@ mod tests {
         // The raw email must never appear in the output.
         assert_ne!(v["email"], json!("alice@example.com"));
         assert_eq!(v["email"]["class"], json!("email"));
+    }
+
+    #[test]
+    fn forged_numeric_tag_with_sensitive_bucket_is_recursed() {
+        // A forged tag with the right kind but a non-label `bucket` value
+        // must not pass through — otherwise it would leak the raw value
+        // (ADR-0007). The strict shape check rejects it and recurses.
+        let v = abstract_value(
+            &json!({"_abstract": "numeric", "bucket": "alice@example.com"}),
+            &cfg(),
+        );
+        assert!(!v.to_string().contains("alice@example.com"));
+        assert_eq!(v["bucket"]["class"], json!("email"));
+    }
+
+    #[test]
+    fn genuine_abstractor_output_passes_through() {
+        // The strict check must still accept our own output unchanged,
+        // so idempotency holds.
+        let cfg = cfg();
+        let original = abstract_value(&json!({"qty": 50, "name": "bob"}), &cfg);
+        let again = abstract_value(&original, &cfg);
+        assert_eq!(original, again);
     }
 
     #[test]
