@@ -1,6 +1,6 @@
 //! Composition primitives: [`AndRule`], [`OrRule`], [`WithinWindowRule`].
 
-use trace_core::{Session, SessionId};
+use trace_core::Session;
 use trace_schema::Current;
 
 use crate::rule::{OracleResult, OracleSchedule, OracleViolation, Rule};
@@ -132,9 +132,7 @@ impl Rule for WithinWindowRule {
             })
             .cloned()
             .collect();
-        match Session::new(*session.id(), windowed) {
-            Ok(sub) => self.inner.evaluate(&sub),
-            Err(_) => OracleResult::pass(self.name()),
-        }
+        Session::new(*session.id(), windowed)
+            .map_or_else(|_| OracleResult::pass(self.name()), |sub| self.inner.evaluate(&sub))
     }
 }
