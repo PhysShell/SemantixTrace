@@ -18,6 +18,8 @@ libfuzzer-sys    = "0.4"
 trace-schema     = { path = "../crates/trace-schema" }
 trace-core       = { path = "../crates/trace-core" }
 trace-normalizer = { path = "../crates/trace-normalizer" }
+trace-graph      = { path = "../crates/trace-graph" }
+trace-oracle     = { path = "../crates/trace-oracle" }
 
 [[bin]]
 name              = "jsonl_parse_v1"
@@ -39,3 +41,17 @@ path              = "fuzz_targets/normalize_fold.rs"
 test              = false
 doc               = false
 bench             = false
+
+[[bin]]
+name  = "graph_build"
+path  = "fuzz_targets/graph_build.rs"
+test  = false
+doc   = false
+bench = false
+
+[[bin]]
+name  = "oracle_replay"
+path  = "fuzz_targets/oracle_replay.rs"
+test  = false
+doc   = false
+bench = false
