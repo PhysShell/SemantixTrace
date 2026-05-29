@@ -1,15 +1,17 @@
 //! `trace` — `SemantxTrace` command-line interface.
 //!
 //! Implemented subcommands: `version`, `analyze`, `normalize`,
-//! `graph`, `report workflows`, `completions <shell>`. The full
+//! `graph`, `report workflows`, `oracle run`, `completions <shell>`. The full
 //! inventory specified in ADR-0014 §3 lands stage by stage (S4 ships
-//! `graph` and `report workflows`, S11 ships `plan …`, etc.).
+//! `graph` and `report workflows`, S5 ships `oracle run`, S11 ships
+//! `plan …`, etc.).
 
 #![forbid(unsafe_code)]
 
 mod analyze;
 mod graph_cmd;
 mod normalize;
+mod oracle_cmd;
 mod report_cmd;
 
 use std::io::{self, Write};
@@ -116,10 +118,33 @@ enum Command {
         #[command(subcommand)]
         subcommand: ReportCommand,
     },
+    /// Run oracle rule checks against a JSONL trace file.
+    Oracle {
+        #[command(subcommand)]
+        subcommand: OracleCommand,
+    },
     /// Emit a shell-completion script for the given shell.
     Completions {
         /// Target shell.
         shell: Shell,
+    },
+}
+
+/// Sub-subcommands for `trace oracle`.
+#[derive(Subcommand, Debug)]
+enum OracleCommand {
+    /// Run oracle rules against a JSONL trace file.
+    ///
+    /// Exit codes: 0 = all pass, 1 = Warning/Error found, 2 = Critical found.
+    Run {
+        /// Path to a `.jsonl` (or `.jsonl.zst`) trace file.
+        file: PathBuf,
+        /// Rule set to apply.
+        #[arg(long = "rules", value_enum, default_value_t = oracle_cmd::RuleSet::Builtin)]
+        rules: oracle_cmd::RuleSet,
+        /// Write HTML report to this file (otherwise HTML goes to stdout).
+        #[arg(long = "out")]
+        out: Option<PathBuf>,
     },
 }
 
@@ -212,6 +237,11 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
         }
         Command::Graph { file, format } => graph_cmd::run(file, *format, global.quiet),
         Command::Report { subcommand } => dispatch_report(subcommand, global),
+        Command::Oracle { subcommand } => {
+            // Oracle sub-commands return ExitCode directly (exit codes 0/1/2);
+            // map to Ok(()) since the ExitCode is propagated via std::process.
+            dispatch_oracle(subcommand, global)
+        }
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
@@ -223,6 +253,18 @@ fn dispatch_report(cmd: &ReportCommand, global: &GlobalOptions) -> Result<(), Sy
     match cmd {
         ReportCommand::Workflows { file, top_n } => {
             report_cmd::run_workflows(file, *top_n, global.output, global.quiet)
+        }
+    }
+}
+
+fn dispatch_oracle(cmd: &OracleCommand, global: &GlobalOptions) -> Result<(), SysExit> {
+    match cmd {
+        OracleCommand::Run { file, rules, out } => {
+            // Oracle uses exit codes 0/1/2 distinct from the sysexits used by
+            // other sub-commands.  Run the oracle logic, get the u8 exit code,
+            // then exit the process directly so the exact code is preserved.
+            let code = oracle_cmd::run(file, *rules, out.as_deref(), global.output, global.quiet);
+            std::process::exit(i32::from(code));
         }
     }
 }
