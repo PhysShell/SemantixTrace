@@ -1,6 +1,6 @@
 //! Composition primitives: [`AndRule`], [`OrRule`], [`WithinWindowRule`].
 
-use trace_core::Session;
+use trace_core::{Session, SessionId};
 use trace_schema::Current;
 
 use crate::rule::{OracleResult, OracleSchedule, OracleViolation, Rule};
@@ -116,9 +116,25 @@ impl Rule for WithinWindowRule {
     }
 
     fn evaluate(&self, session: &Session<Current>) -> OracleResult {
-        // Collect all violations from the inner rule evaluated on the full
-        // session (window filtering is a scheduling concern handled by the
-        // engine; for direct evaluation we delegate unchanged).
-        self.inner.evaluate(session)
+        let events = session.events();
+        let Some(first) = events.first() else {
+            return OracleResult::pass(self.name());
+        };
+        let t0 = first.ts;
+        let window_ms = i64::try_from(self.window_ms).unwrap_or(i64::MAX);
+        let windowed: Vec<Current> = events
+            .iter()
+            .filter(|e| {
+                let delta = (e.ts - t0).num_milliseconds();
+                // Only include events within [0, window_ms]; negative deltas
+                // (out-of-order timestamps) are excluded.
+                delta >= 0 && delta <= window_ms
+            })
+            .cloned()
+            .collect();
+        match Session::new(*session.id(), windowed) {
+            Ok(sub) => self.inner.evaluate(&sub),
+            Err(_) => OracleResult::pass(self.name()),
+        }
     }
 }

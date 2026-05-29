@@ -263,7 +263,7 @@ fn dispatch_oracle(cmd: &OracleCommand, global: &GlobalOptions) -> Result<(), Sy
             // Oracle uses exit codes 0/1/2 distinct from the sysexits used by
             // other sub-commands.  Run the oracle logic, get the u8 exit code,
             // then exit the process directly so the exact code is preserved.
-            let code = oracle_cmd::run_text(file, *rules, out.as_deref(), global.quiet);
+            let code = oracle_cmd::run(file, *rules, out.as_deref(), global.output, global.quiet);
             std::process::exit(i32::from(code));
         }
     }

@@ -69,10 +69,11 @@ pub fn write_html(reports: &[SessionReport], sink: &mut impl Write) -> io::Resul
          </tr></thead><tbody>"
     )?;
     for report in reports {
-        let sid = report.session_id.to_string();
+        let sid = escape_html(&report.session_id.to_string());
         for result in &report.results {
             let cls = if result.passed { "pass" } else { "fail" };
             let status = if result.passed { "PASS" } else { "FAIL" };
+            let rule_name = escape_html(&result.rule);
             let viols = result
                 .violations
                 .iter()
@@ -81,7 +82,7 @@ pub fn write_html(reports: &[SessionReport], sink: &mut impl Write) -> io::Resul
                     format!(
                         "[{}] {} (seq {})",
                         format_severity(v.severity),
-                        v.message,
+                        escape_html(&v.message),
                         seqs.join(", ")
                     )
                 })
@@ -89,14 +90,29 @@ pub fn write_html(reports: &[SessionReport], sink: &mut impl Write) -> io::Resul
                 .join("<br>");
             writeln!(
                 sink,
-                "<tr><td>{sid}</td><td>{}</td>\
-                 <td class=\"{cls}\">{status}</td><td>{viols}</td></tr>",
-                result.rule
+                "<tr><td>{sid}</td><td>{rule_name}</td>\
+                 <td class=\"{cls}\">{status}</td><td>{viols}</td></tr>"
             )?;
         }
     }
     writeln!(sink, "</tbody></table></body></html>")?;
     Ok(())
+}
+
+/// Escape `s` so it is safe to embed in an HTML element or attribute.
+fn escape_html(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    for c in s.chars() {
+        match c {
+            '&' => out.push_str("&amp;"),
+            '<' => out.push_str("&lt;"),
+            '>' => out.push_str("&gt;"),
+            '"' => out.push_str("&quot;"),
+            '\'' => out.push_str("&#x27;"),
+            c => out.push(c),
+        }
+    }
+    out
 }
 
 const fn format_severity(s: Severity) -> &'static str {

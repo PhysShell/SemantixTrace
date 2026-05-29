@@ -12,7 +12,7 @@ pub struct OracleEngine {
 }
 
 /// The combined results for one session.
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub struct SessionReport {
     /// The session that was evaluated.
     pub session_id: SessionId,
