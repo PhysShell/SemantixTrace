@@ -1,19 +1,26 @@
-//! `trace-oracle` — oracle rule engine for `SemantxTrace`.
+//! `trace-oracle` — oracle rule engine for `SemantxTrace` (S5).
 //!
-//! Placeholder for stage **S0**. The `OracleRule` trait, `OracleSchedule`,
-//! composition primitives, and the five built-in rules land in S5; see
-//! `docs/stages/S5-oracle-engine-and-builtin-rules.md`.
+//! Core types: [`OracleSchedule`], [`Severity`], [`OracleViolation`],
+//! [`OracleResult`], [`Rule`] trait, [`OracleEngine`].
+//! Built-in rules: [`NoUnhandledException`], [`NoErrorModalAfterCommand`],
+//! [`CommandMustSucceed`], [`ScreenMustNavigateForward`],
+//! [`ValidationsPassBeforeSubmit`].
+//! Composition: [`AndRule`], [`OrRule`], [`WithinWindowRule`].
+//! Reporting: [`HtmlReporter`].
 
-/// Placeholder symbol so the crate builds during S0.
-#[must_use]
-pub const fn placeholder() -> &'static str {
-    "trace-oracle (S0 placeholder)"
-}
+#![forbid(unsafe_code)]
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn returns_placeholder_string() {
-        assert_eq!(super::placeholder(), "trace-oracle (S0 placeholder)");
-    }
-}
+pub mod compose;
+pub mod engine;
+pub mod reporter;
+pub mod rule;
+pub mod rules;
+
+pub use compose::{AndRule, OrRule, WithinWindowRule};
+pub use engine::OracleEngine;
+pub use reporter::HtmlReporter;
+pub use rule::{OracleResult, OracleSchedule, OracleViolation, Rule, Severity};
+pub use rules::{
+    CommandMustSucceed, NoErrorModalAfterCommand, NoUnhandledException, ScreenMustNavigateForward,
+    ValidationsPassBeforeSubmit,
+};

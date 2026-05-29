@@ -1,0 +1,15 @@
+```
+$ trace oracle run tests/fixtures/oracle_clean.jsonl
+sessions: 2  passed: 2  failed: 0
+  [PASS] session=00000000-0000-0000-0000-000000000001 rule=NoUnhandledException
+  [PASS] session=00000000-0000-0000-0000-000000000001 rule=NoErrorModalAfterCommand
+  [PASS] session=00000000-0000-0000-0000-000000000001 rule=CommandMustSucceed
+  [PASS] session=00000000-0000-0000-0000-000000000001 rule=ScreenMustNavigateForward
+  [PASS] session=00000000-0000-0000-0000-000000000001 rule=ValidationsPassBeforeSubmit
+  [PASS] session=00000000-0000-0000-0000-000000000002 rule=NoUnhandledException
+  [PASS] session=00000000-0000-0000-0000-000000000002 rule=NoErrorModalAfterCommand
+  [PASS] session=00000000-0000-0000-0000-000000000002 rule=CommandMustSucceed
+  [PASS] session=00000000-0000-0000-0000-000000000002 rule=ScreenMustNavigateForward
+  [PASS] session=00000000-0000-0000-0000-000000000002 rule=ValidationsPassBeforeSubmit
+
+```
