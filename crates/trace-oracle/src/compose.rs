@@ -132,7 +132,9 @@ impl Rule for WithinWindowRule {
             })
             .cloned()
             .collect();
-        Session::new(*session.id(), windowed)
-            .map_or_else(|_| OracleResult::pass(self.name()), |sub| self.inner.evaluate(&sub))
+        Session::new(*session.id(), windowed).map_or_else(
+            |_| OracleResult::pass(self.name()),
+            |sub| self.inner.evaluate(&sub),
+        )
     }
 }
