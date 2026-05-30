@@ -29,6 +29,13 @@ corpora show.
   - `trace slice --by {session-id,command-id,screen-id,domain-entity-id}
     <value> <db>` CLI subcommand: reads the SQLite corpus through the
     standard upcaster chain and writes a JSONL slice to stdout.
+  - `trace report similar --scenario <session-id>/<scenario-index>
+    [--top N] <db>` CLI subcommand: finds the N scenarios in the corpus
+    most similar to the given one by counting shared semantic dimensions
+    (`command_id`, `screen_id`, `domain_entity_id`, `outcome`); emits a
+    ranked JSONL list with a `similarity_score` field (count of matching
+    dimensions, normalised 0–1). Uses the extracted index columns; no
+    full-scan over `payload_json`. Default N=10.
   - `trace-graph` gains the Inductive miner (IMDF variant); CLI flag
     `--miner {heuristics,inductive}` defaults to inductive when the
     feature `inductive-miner` is enabled.
@@ -46,6 +53,14 @@ corpora show.
   payload fields by name; it does not parse the full payload. Columns
   are `NULL` for event kinds that carry no such field. They are never
   read back by the upcaster chain — their only role is SQL filtering.
+- `trace report similar` computes similarity as a Jaccard-like score
+  over the set of (command_id, screen_id, domain_entity_id, outcome)
+  tuples present in each scenario. The query is a two-step SQL: (1) a
+  candidate fetch using the indexed columns to pre-filter sessions that
+  share at least one dimension with the probe scenario; (2) an
+  in-process scoring pass over the candidates. This avoids a full table
+  scan while keeping the scorer outside SQL for correctness and
+  testability. The scoring function is pure and property-tested.
 - The Inductive miner implementation follows the IMDF paper (Leemans et
   al.). The output is a sound process tree; the CLI renders it back to
   the same `ActionGraph` for compatibility, with an optional
@@ -70,6 +85,12 @@ corpora show.
 - Bench: ingesting 1M events from JSONL into SQLite takes < 60 s on
   the reference machine; querying the most-frequent path runs in < 2 s
   on the resulting database.
+- `trace report similar --scenario <id> --top 5 ./corpus.sqlite` returns
+  exactly 5 results (or fewer if the corpus is small), each with a
+  `similarity_score` in [0, 1]; the probe scenario itself is excluded
+  from results; ranking is deterministic for a fixed corpus.
+- Property: `similar(a, b) == similar(b, a)` (symmetry) across 1 000
+  generated corpus pairs.
 - `cargo test --workspace --features sqlite,inductive-miner` is green;
   CI runs both with and without the features.
 

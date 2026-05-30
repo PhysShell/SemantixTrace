@@ -10,6 +10,19 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-30 — In the context of scenario similarity search in S8, facing
+  the choice between embedding-based / ML similarity and a count-of-shared-
+  semantic-dimensions approach, we decided for **Jaccard-like scoring over
+  (command_id, screen_id, domain_entity_id, outcome) tuples** and against
+  vector embeddings or graph-kernel methods, to keep the scorer pure,
+  deterministic, and explainable (a score of 0.75 means "3 of 4 dimensions
+  match"), to avoid any ML dependency through v1.0 (SPEC §"Not a neural-
+  anomaly detector"), and because the four dimensions map directly to the
+  indexed columns added for parametric slicing — no new storage required,
+  accepting that this similarity model is coarser than embedding-based
+  approaches and will not catch semantic equivalence across different command
+  names for the same intent.
+
 - 2026-05-30 — In the context of corpus analysis in S8 (SQLite backend),
   facing the need to query traces by semantic dimensions (command, screen,
   entity) without full-scanning `payload_json` on every filter, we decided
