@@ -110,6 +110,58 @@ public sealed class FileJsonlTraceContextTests
     }
 
     [Fact]
+    public void EmitExceptionThrown_masks_caller_message_at_sink()
+    {
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        ctx.EmitExceptionThrown("System.Exception", "sensitive PII here");
+        ctx.Flush();
+
+        string line = sw.ToString().TrimEnd('\r', '\n');
+        var doc = JsonDocument.Parse(line);
+        Assert.Equal("***", doc.RootElement.GetProperty("message").GetString());
+        Assert.DoesNotContain("sensitive", line, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void EmitCommandExecuted_failure_includes_detail_object()
+    {
+        var schema = LoadSchema();
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        ctx.EmitCommandExecuted("Invoice.Submit", durationMs: 5, CommandOutcome.Failure);
+        ctx.Flush();
+
+        string line = sw.ToString().TrimEnd('\r', '\n');
+        AssertValidSchema(schema, line);
+
+        var doc = JsonDocument.Parse(line);
+        Assert.Equal("failure", doc.RootElement.GetProperty("outcome").GetString());
+        var detail = doc.RootElement.GetProperty("detail");
+        Assert.Equal(JsonValueKind.Object, detail.ValueKind);
+        Assert.Equal("***", detail.GetProperty("message").GetString());
+    }
+
+    [Fact]
+    public void EmitAsyncOperationCompleted_failure_includes_detail_object()
+    {
+        var schema = LoadSchema();
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        ctx.EmitAsyncOperationCompleted("SaveDocument", durationMs: 5, CommandOutcome.Failure);
+        ctx.Flush();
+
+        string line = sw.ToString().TrimEnd('\r', '\n');
+        AssertValidSchema(schema, line);
+
+        var doc = JsonDocument.Parse(line);
+        Assert.Equal("failure", doc.RootElement.GetProperty("outcome").GetString());
+        var detail = doc.RootElement.GetProperty("detail");
+        Assert.Equal(JsonValueKind.Object, detail.ValueKind);
+        Assert.Equal("***", detail.GetProperty("message").GetString());
+    }
+
+    [Fact]
     public void EmitNavigationOccurred_produces_valid_jsonl()
     {
         var schema = LoadSchema();

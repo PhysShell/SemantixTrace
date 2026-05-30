@@ -28,7 +28,7 @@ SemantxTrace.Abstractions.RawValuePolicy
 SemantxTrace.Abstractions.RawValuePolicy.RawValuePolicy(object? value) -> void
 SemantxTrace.Abstractions.RawValuePolicy.Value.get -> object?
 SemantxTrace.Abstractions.RemovedValuePolicy
-SemantxTrace.Abstractions.RemovedValuePolicy.Instance.get -> SemantxTrace.Abstractions.RemovedValuePolicy!
+static SemantxTrace.Abstractions.RemovedValuePolicy.Instance.get -> SemantxTrace.Abstractions.RemovedValuePolicy!
 SemantxTrace.Abstractions.ScreenIdAttribute
 SemantxTrace.Abstractions.ScreenIdAttribute.ScreenId.get -> string!
 SemantxTrace.Abstractions.ScreenIdAttribute.ScreenIdAttribute(string! screenId) -> void

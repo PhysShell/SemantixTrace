@@ -26,7 +26,7 @@ SemantxTrace.Wpf.NoOpTraceContext.EmitNavigationOccurred(string! fromScreenId, s
 SemantxTrace.Wpf.NoOpTraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
 SemantxTrace.Wpf.NoOpTraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
 SemantxTrace.Wpf.NoOpTraceContext.Flush() -> void
-SemantxTrace.Wpf.NoOpTraceContext.Instance.get -> SemantxTrace.Wpf.NoOpTraceContext!
+static SemantxTrace.Wpf.NoOpTraceContext.Instance.get -> SemantxTrace.Wpf.NoOpTraceContext!
 SemantxTrace.Wpf.NoOpTraceContext.SessionId.get -> System.Guid
 SemantxTrace.Wpf.TracedRelayCommand
 SemantxTrace.Wpf.TracedRelayCommand.CanExecute(object? parameter) -> bool

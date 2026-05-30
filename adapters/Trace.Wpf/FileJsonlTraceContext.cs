@@ -26,16 +26,21 @@ namespace SemantxTrace.Wpf;
 public sealed class FileJsonlTraceContext : ITraceContext
 {
     private readonly Guid _sessionId;
-    private long _seq;
     private readonly TextWriter _output;
-    private readonly BlockingCollection<string> _queue;
-    private readonly ConcurrentQueue<ManualResetEventSlim> _pendingFlushes;
+    private readonly BlockingCollection<WorkItem> _queue;
     private readonly Thread _worker;
     private int _disposed;
 
-    // Sentinel that triggers an explicit Flush of the underlying writer.
-    // ReferenceEquals identity check distinguishes it from real payloads.
-    private static readonly string FlushSentinel = string.Empty;
+    // Each WorkItem holds either a line-builder (Func<long,string>) or a
+    // flush signal.  Seq is assigned inside WriteLoop so concurrent callers
+    // cannot interleave sequence numbers.
+    private readonly struct WorkItem
+    {
+        public readonly Func<long, string>? Build;
+        public readonly ManualResetEventSlim? FlushSignal;
+        public WorkItem(Func<long, string> build) { Build = build; FlushSignal = null; }
+        public WorkItem(ManualResetEventSlim flushSignal) { Build = null; FlushSignal = flushSignal; }
+    }
 
     /// <summary>
     /// Initialises a new <see cref="FileJsonlTraceContext"/> that writes to
@@ -64,8 +69,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
     {
         _output = output ?? throw new ArgumentNullException(nameof(output));
         _sessionId = Guid.NewGuid();
-        _queue = new BlockingCollection<string>(boundedCapacity: 8192);
-        _pendingFlushes = new ConcurrentQueue<ManualResetEventSlim>();
+        _queue = new BlockingCollection<WorkItem>(boundedCapacity: 8192);
         _worker = new Thread(WriteLoop)
         {
             IsBackground = true,
@@ -81,7 +85,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void EmitScreenOpened(string screenId, Guid? correlationId = null)
     {
         if (screenId is null) throw new ArgumentNullException(nameof(screenId));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "ScreenOpened");
             writer.WriteString("screen_id", screenId);
@@ -92,12 +96,12 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void EmitCommandExecuted(string commandId, long durationMs, CommandOutcome outcome, Guid? correlationId = null)
     {
         if (commandId is null) throw new ArgumentNullException(nameof(commandId));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "CommandExecuted");
             writer.WriteString("command_id", commandId);
             writer.WriteNumber("duration_ms", durationMs);
-            writer.WriteString("outcome", OutcomeToString(outcome));
+            WriteOutcome(writer, outcome);
         }));
     }
 
@@ -107,7 +111,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
         if (fieldId is null) throw new ArgumentNullException(nameof(fieldId));
         if (oldValue is null) throw new ArgumentNullException(nameof(oldValue));
         if (newValue is null) throw new ArgumentNullException(nameof(newValue));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "FieldChanged");
             writer.WriteString("field_id", fieldId);
@@ -123,13 +127,14 @@ public sealed class FileJsonlTraceContext : ITraceContext
     {
         if (exceptionType is null) throw new ArgumentNullException(nameof(exceptionType));
         if (message is null) throw new ArgumentNullException(nameof(message));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "ExceptionThrown");
             writer.WriteString("exception_type", exceptionType);
-            writer.WriteString("message", message);
+            // Always mask message and stack at the sink level (ADR-0007).
+            writer.WriteString("message", "***");
             if (stack is not null)
-                writer.WriteString("stack", stack);
+                writer.WriteString("stack", "***");
         }));
     }
 
@@ -138,7 +143,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
     {
         if (fromScreenId is null) throw new ArgumentNullException(nameof(fromScreenId));
         if (toScreenId is null) throw new ArgumentNullException(nameof(toScreenId));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "NavigationOccurred");
             writer.WriteString("from", fromScreenId);
@@ -152,7 +157,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
         if (validator is null) throw new ArgumentNullException(nameof(validator));
         if (fieldId is null) throw new ArgumentNullException(nameof(fieldId));
         if (reason is null) throw new ArgumentNullException(nameof(reason));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "ValidationFailed");
             writer.WriteString("validator", validator);
@@ -165,12 +170,12 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void EmitAsyncOperationCompleted(string operationId, long durationMs, CommandOutcome outcome, Guid? correlationId = null)
     {
         if (operationId is null) throw new ArgumentNullException(nameof(operationId));
-        Enqueue(BuildLine(correlationId, writer =>
+        Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "AsyncOperationCompleted");
             writer.WriteString("operation_id", operationId);
             writer.WriteNumber("duration_ms", durationMs);
-            writer.WriteString("outcome", OutcomeToString(outcome));
+            WriteOutcome(writer, outcome);
         }));
     }
 
@@ -178,9 +183,10 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void Flush()
     {
         if (Volatile.Read(ref _disposed) != 0) return;
-        using var signal = new ManualResetEventSlim(initialState: false);
-        _pendingFlushes.Enqueue(signal);
-        _queue.Add(FlushSentinel);
+        // Do NOT use 'using' here: the WorkItem keeps the signal alive until
+        // the writer thread processes it, which may happen after Wait returns.
+        var signal = new ManualResetEventSlim(initialState: false);
+        _queue.TryAdd(new WorkItem(signal), millisecondsTimeout: 100);
         signal.Wait(TimeSpan.FromSeconds(10));
     }
 
@@ -199,29 +205,54 @@ public sealed class FileJsonlTraceContext : ITraceContext
     // Private helpers
     // ----------------------------------------------------------------
 
-    private void Enqueue(string line)
+    private void Enqueue(Func<long, string> build)
     {
         if (Volatile.Read(ref _disposed) != 0) return;
-        _queue.TryAdd(line, millisecondsTimeout: 100);
+        _queue.TryAdd(new WorkItem(build), millisecondsTimeout: 100);
     }
 
-    private string BuildLine(Guid? correlationId, Action<Utf8JsonWriter> writeFields)
+    // Returns a closure that builds the JSONL line given a seq number.
+    // Seq is intentionally NOT assigned here so that WriteLoop assigns it
+    // in strictly-increasing order without any inter-thread races.
+    private static Func<long, string> BuildLine(Guid sessionId, Guid? correlationId, Action<Utf8JsonWriter> writeFields)
     {
-        long seq = Interlocked.Increment(ref _seq) - 1;
-        using var ms = new MemoryStream();
-        using (var writer = new Utf8JsonWriter(ms))
+        return seq =>
         {
-            writer.WriteStartObject();
-            writer.WriteNumber("schema_version", 1);
-            writer.WriteNumber("seq", seq);
-            writer.WriteString("session_id", _sessionId.ToString("D"));
-            writer.WriteString("ts", DateTimeOffset.UtcNow.ToString("O"));
-            if (correlationId.HasValue)
-                writer.WriteString("correlation_id", correlationId.Value.ToString("D"));
-            writeFields(writer);
+            using var ms = new MemoryStream();
+            using (var writer = new Utf8JsonWriter(ms))
+            {
+                writer.WriteStartObject();
+                writer.WriteNumber("schema_version", 1);
+                writer.WriteNumber("seq", seq);
+                writer.WriteString("session_id", sessionId.ToString("D"));
+                writer.WriteString("ts", DateTimeOffset.UtcNow.ToString("O"));
+                if (correlationId.HasValue)
+                    writer.WriteString("correlation_id", correlationId.Value.ToString("D"));
+                writeFields(writer);
+                writer.WriteEndObject();
+            }
+            return Encoding.UTF8.GetString(ms.ToArray());
+        };
+    }
+
+    // Emits "outcome" plus, for Failure, a "detail":{"message":"***"} object
+    // matching the Rust Outcome enum's adjacent-tagged serde representation.
+    private static void WriteOutcome(Utf8JsonWriter writer, CommandOutcome outcome)
+    {
+        writer.WriteString("outcome", outcome switch
+        {
+            CommandOutcome.Success   => "success",
+            CommandOutcome.Failure   => "failure",
+            CommandOutcome.Cancelled => "cancelled",
+            CommandOutcome.TimedOut  => "timed_out",
+            _                        => "failure",
+        });
+        if (outcome == CommandOutcome.Failure)
+        {
+            writer.WriteStartObject("detail");
+            writer.WriteString("message", "***");
             writer.WriteEndObject();
         }
-        return Encoding.UTF8.GetString(ms.ToArray());
     }
 
     private static void WriteValuePolicy(Utf8JsonWriter writer, ValuePolicy policy)
@@ -259,30 +290,20 @@ public sealed class FileJsonlTraceContext : ITraceContext
         writer.WriteEndObject();
     }
 
-    private static string OutcomeToString(CommandOutcome outcome) =>
-        outcome switch
-        {
-            CommandOutcome.Success => "success",
-            CommandOutcome.Failure => "failure",
-            CommandOutcome.Cancelled => "cancelled",
-            CommandOutcome.TimedOut => "timed_out",
-            _ => "failure",
-        };
-
     private void WriteLoop()
     {
+        long seq = 0;
         try
         {
-            foreach (string item in _queue.GetConsumingEnumerable())
+            foreach (WorkItem item in _queue.GetConsumingEnumerable())
             {
-                if (ReferenceEquals(item, FlushSentinel))
+                if (item.FlushSignal is { } signal)
                 {
                     _output.Flush();
-                    while (_pendingFlushes.TryDequeue(out var signal))
-                        signal.Set();
+                    signal.Set();
                     continue;
                 }
-                _output.WriteLine(item);
+                _output.WriteLine(item.Build!(seq++));
             }
         }
         finally
