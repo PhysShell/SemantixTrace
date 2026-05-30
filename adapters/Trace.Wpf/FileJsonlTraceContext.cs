@@ -186,7 +186,18 @@ public sealed class FileJsonlTraceContext : ITraceContext
         // Do NOT use 'using' here: the WorkItem keeps the signal alive until
         // the writer thread processes it, which may happen after Wait returns.
         var signal = new ManualResetEventSlim(initialState: false);
-        _queue.TryAdd(new WorkItem(signal), millisecondsTimeout: 100);
+        try
+        {
+            // Use blocking Add, not TryAdd: if TryAdd returned false (full queue or
+            // 100 ms timeout) the signal would never be enqueued, yet Wait would still
+            // block for 10 s and return silently, breaking the Flush guarantee.
+            _queue.Add(new WorkItem(signal));
+        }
+        catch (InvalidOperationException)
+        {
+            // CompleteAdding was called concurrently (Dispose racing with Flush).
+            return;
+        }
         signal.Wait(TimeSpan.FromSeconds(10));
     }
 
