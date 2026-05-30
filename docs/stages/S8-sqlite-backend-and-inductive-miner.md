@@ -19,8 +19,16 @@ corpora show.
     backed by `rusqlite` 0.31+ (`bundled` feature).
   - Schema: a single `events` table keyed by `(session_id, seq)`, with
     `schema_version`, `ts`, `kind`, `payload_json` columns;
-    `schema_version` indexed.
+    `schema_version` indexed. Three additional extracted columns —
+    `command_id TEXT`, `screen_id TEXT`, `domain_entity_id TEXT` — are
+    populated at ingest time from well-known payload fields and indexed
+    separately. Unknown event kinds leave the columns `NULL`. The columns
+    are query accelerators; `payload_json` remains the authoritative
+    record and is never derived from them.
   - `trace ingest --from jsonl --to sqlite` CLI subcommand.
+  - `trace slice --by {session-id,command-id,screen-id,domain-entity-id}
+    <value> <db>` CLI subcommand: reads the SQLite corpus through the
+    standard upcaster chain and writes a JSONL slice to stdout.
   - `trace-graph` gains the Inductive miner (IMDF variant); CLI flag
     `--miner {heuristics,inductive}` defaults to inductive when the
     feature `inductive-miner` is enabled.
@@ -32,6 +40,12 @@ corpora show.
 - `SqliteBackend` reads pass through `read_event` so the upcaster chain
   still applies. Filtering by `schema_version` is a cheap WHERE clause
   on the indexed column.
+- The three extracted index columns (`command_id`, `screen_id`,
+  `domain_entity_id`) are written by a thin extractor in the
+  `trace ingest` pipeline. The extractor reads well-known top-level
+  payload fields by name; it does not parse the full payload. Columns
+  are `NULL` for event kinds that carry no such field. They are never
+  read back by the upcaster chain — their only role is SQL filtering.
 - The Inductive miner implementation follows the IMDF paper (Leemans et
   al.). The output is a sound process tree; the CLI renders it back to
   the same `ActionGraph` for compatibility, with an optional
@@ -46,6 +60,11 @@ corpora show.
 
 - `trace ingest` is round-trip-safe: JSONL → SQLite → iter() → JSONL
   produces a byte-identical file modulo whitespace.
+- `trace slice --by command-id RecalculateGraph47Command ./corpus.sqlite`
+  produces a non-empty JSONL stream; every event is upcasted to
+  `Current`; the output is byte-identical to filtering the same corpus
+  via `iter()` + a manual command-id predicate (round-trip safety
+  extends to the slice path).
 - The Inductive miner reproduces a published reference output on a
   fixture corpus.
 - Bench: ingesting 1M events from JSONL into SQLite takes < 60 s on
@@ -61,6 +80,12 @@ corpora show.
   multi-tenant deployments arrive.
 - Whether SQLite WAL mode is the default. Working answer: yes for
   `trace ingest`; readers do not enable WAL.
+- Whether oracle candidate mining (`trace oracle mine --min-support 0.95`,
+  deriving frequency-based oracle rule candidates from the corpus)
+  belongs in S8 or a later stage. Working answer: defer past S8; the
+  SQLite corpus is a necessary prerequisite, but S8 is already scoped
+  for ingest + Inductive miner. Add `trace oracle mine` in the stage
+  after S8 feedback from real corpora is available.
 
 ## See also
 

@@ -10,6 +10,30 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-30 — In the context of corpus analysis in S8 (SQLite backend),
+  facing the need to query traces by semantic dimensions (command, screen,
+  entity) without full-scanning `payload_json` on every filter, we decided
+  to **add three extracted index columns** (`command_id`, `screen_id`,
+  `domain_entity_id`) to the `events` table and a `trace slice --by` CLI
+  subcommand, and against JSON path expressions over the raw payload column,
+  to give O(log n) parametric slicing over the corpus without changing the
+  primary wire format or the upcaster chain, accepting a thin extractor at
+  ingest time and the invariant that the indexed columns are always
+  query-only and never the authoritative record.
+
+- 2026-05-30 — In the context of a "corpus meta-graph" pattern (linking
+  traces to external artefacts via relations such as `regression_of`,
+  `fixed_by`, `caused_by`, `validated_by`, as inspired by hypergraph-
+  based context-graph research), facing the appeal of semantic memory
+  connecting traces to commits, tickets, and test cases, we decided to
+  **defer this past v1.0** and against adding a relational meta-store to
+  the current roadmap, because the basic projection pipeline must be
+  battle-tested before adding a second graph layer, accepting that traces
+  cannot be formally linked to the artefacts around them in v1.0; a
+  `labels: Map<String, String>` field on `TraceEvent` (a future minor
+  schema bump) is the smallest seed that could grow toward this if the
+  need proves real.
+
 - 2026-05-28 — In the context of the S3 normalizer's idempotency
   acceptance criterion (`glossary.md` §3 lists
   `normalize(normalize(t)) == normalize(t)`), facing the fact that
