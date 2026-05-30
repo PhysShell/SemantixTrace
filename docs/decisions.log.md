@@ -10,10 +10,23 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-30 — In the context of the S8 extracted index columns, facing the
+  temptation to index `domain_entity_id` alongside `command_id` and
+  `screen_id`, we decided **not to index `domain_entity_id` in v1** and
+  against adding a nested-extraction path into `args`/`params`, because
+  entity ids are buried inside the free-form `args`/`params`
+  `serde_json::Value` blobs with no standard field name, and the extractor
+  explicitly reads only top-level payload fields; indexing it would require
+  either a v2 schema bump (a top-level `domain_entity_id` field) or a
+  fragile adapter-specific extraction mapping. The third indexed column is
+  `outcome TEXT` instead (`CommandExecuted`/`AsyncOperationCompleted` expose
+  it as a top-level field via `#[serde(flatten)]`), accepting that entity-
+  level slicing/similarity is deferred until a schema bump elevates the field.
+
 - 2026-05-30 — In the context of scenario similarity search in S8, facing
   the choice between embedding-based / ML similarity and a count-of-shared-
   semantic-dimensions approach, we decided for **Jaccard-like scoring over
-  (command_id, screen_id, domain_entity_id, outcome) tuples** and against
+  (command_id, screen_id, outcome) tuples** and against
   vector embeddings or graph-kernel methods, to keep the scorer pure,
   deterministic, and explainable (a score of 0.75 means "3 of 4 dimensions
   match"), to avoid any ML dependency through v1.0 (SPEC §"Not a neural-

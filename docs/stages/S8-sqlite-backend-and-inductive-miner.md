@@ -20,19 +20,24 @@ corpora show.
   - Schema: a single `events` table keyed by `(session_id, seq)`, with
     `schema_version`, `ts`, `kind`, `payload_json` columns;
     `schema_version` indexed. Three additional extracted columns —
-    `command_id TEXT`, `screen_id TEXT`, `domain_entity_id TEXT` — are
-    populated at ingest time from well-known payload fields and indexed
-    separately. Unknown event kinds leave the columns `NULL`. The columns
-    are query accelerators; `payload_json` remains the authoritative
-    record and is never derived from them.
+    `command_id TEXT`, `screen_id TEXT`, `outcome TEXT` — are populated
+    at ingest time from well-known **top-level** v1 payload fields and
+    indexed separately. `command_id` is present in `CommandExecuted`;
+    `screen_id` in `ScreenOpened`; `outcome` in `CommandExecuted` and
+    `AsyncOperationCompleted` (via `#[serde(flatten)]`, top-level in
+    JSON). Unknown event kinds leave columns `NULL`. The columns are query
+    accelerators; `payload_json` remains the authoritative record and is
+    never derived from them. Note: `domain_entity_id` is not a top-level
+    v1 field (entity ids live inside `args`/`params`); indexing it
+    requires a future schema bump and is deferred.
   - `trace ingest --from jsonl --to sqlite` CLI subcommand.
-  - `trace slice --by {session-id,command-id,screen-id,domain-entity-id}
+  - `trace slice --by {session-id,command-id,screen-id,outcome}
     <value> <db>` CLI subcommand: reads the SQLite corpus through the
     standard upcaster chain and writes a JSONL slice to stdout.
   - `trace report similar --scenario <session-id>/<scenario-index>
     [--top N] <db>` CLI subcommand: finds the N scenarios in the corpus
     most similar to the given one by counting shared semantic dimensions
-    (`command_id`, `screen_id`, `domain_entity_id`, `outcome`); emits a
+    (`command_id`, `screen_id`, `outcome`); emits a
     ranked JSONL list with a `similarity_score` field (count of matching
     dimensions, normalised 0–1). Uses the extracted index columns; no
     full-scan over `payload_json`. Default N=10.
@@ -48,14 +53,14 @@ corpora show.
   still applies. Filtering by `schema_version` is a cheap WHERE clause
   on the indexed column.
 - The three extracted index columns (`command_id`, `screen_id`,
-  `domain_entity_id`) are written by a thin extractor in the
-  `trace ingest` pipeline. The extractor reads well-known top-level
-  payload fields by name; it does not parse the full payload. Columns
-  are `NULL` for event kinds that carry no such field. They are never
-  read back by the upcaster chain — their only role is SQL filtering.
+  `outcome`) are written by a thin extractor in the `trace ingest`
+  pipeline. The extractor reads well-known top-level payload fields by
+  name; it does not parse `args`/`params`. Columns are `NULL` for event
+  kinds that carry no such field. They are never read back by the
+  upcaster chain — their only role is SQL filtering.
 - `trace report similar` computes similarity as a Jaccard-like score
-  over the set of (command_id, screen_id, domain_entity_id, outcome)
-  tuples present in each scenario. The query is a two-step SQL: (1) a
+  over the set of (command_id, screen_id, outcome) tuples present in
+  each scenario. The query is a two-step SQL: (1) a
   candidate fetch using the indexed columns to pre-filter sessions that
   share at least one dimension with the probe scenario; (2) an
   in-process scoring pass over the candidates. This avoids a full table
