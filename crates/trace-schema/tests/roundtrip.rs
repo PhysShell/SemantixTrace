@@ -1,4 +1,4 @@
-//! Property tests for the v1 wire schema and the (identity) upcaster
+//! Property tests for the v1 and v2 wire schemas and the v1→v2 upcaster
 //! chain, per acceptance criteria in
 //! `docs/stages/S1-trace-core-and-schema-v1.md` and the contract in
 //! `docs/upcasters.md`.
@@ -8,7 +8,7 @@ use proptest::prelude::*;
 use trace_core::{
     CommandId, CorrelationId, EventSeq, FieldId, Outcome, ScreenId, SessionId, ValuePolicy,
 };
-use trace_schema::{read_event, v1, write_event, Current, SchemaError};
+use trace_schema::{read_event, v1, v2, write_event, Current, SchemaError, Upcaster};
 
 // ---------------------------------------------------------------------------
 // Strategies
@@ -107,7 +107,8 @@ fn arb_kind() -> impl Strategy<Value = v1::TraceEventKind> {
     ]
 }
 
-fn arb_event() -> impl Strategy<Value = v1::TraceEvent> {
+/// Generate a v1 event (used for upcaster-chain property tests).
+fn arb_v1_event() -> impl Strategy<Value = v1::TraceEvent> {
     (
         any::<u64>(),
         arb_session_id(),
@@ -123,31 +124,37 @@ fn arb_event() -> impl Strategy<Value = v1::TraceEvent> {
         })
 }
 
+/// Generate a v2 / Current event (used for round-trip property tests).
+fn arb_current_event() -> impl Strategy<Value = Current> {
+    arb_v1_event().prop_map(v2::V1ToV2::upcast)
+}
+
 // ---------------------------------------------------------------------------
 // Invariants — see docs/stages/S1 §"Acceptance criteria" and
 // docs/upcasters.md §"Property tests (mandatory)".
 // ---------------------------------------------------------------------------
 
 proptest! {
-    /// forall e, parse(serialize(e)) == Ok(e)
+    /// forall e: Current, parse(serialize(e)) == Ok(e)
     #[test]
-    fn serialize_then_read_event_round_trips(event in arb_event()) {
+    fn serialize_then_read_event_round_trips(event in arb_current_event()) {
         let raw = write_event(&event).expect("serialize");
-        // Strip trailing newline write_event adds.
         let trimmed = raw.trim_end_matches('\n');
         let parsed: Current = read_event(trimmed).expect("read_event");
         prop_assert_eq!(parsed, event);
     }
 
-    /// Identity upcast chain: upcast_to_current(parse(serialize(e))) ==
-    /// upcast_to_current(e). At S1 the chain is identity (Current = v1),
-    /// so this collapses to the round-trip invariant but the test is
-    /// kept under its own name so the v2 bump only needs to extend it.
+    /// Upcaster chain property: read_event of a v1-serialised event equals
+    /// the direct upcast of that event.
+    ///
+    /// upcast(parse(serialize_v1(e))) == upcast(e)
     #[test]
-    fn upcast_then_serialize_matches_direct_upcast(event in arb_event()) {
-        let raw = write_event(&event).expect("serialize");
-        let parsed: Current = read_event(raw.trim_end_matches('\n')).expect("read_event");
-        prop_assert_eq!(parsed, event);
+    fn upcast_chain_v1_to_current(event in arb_v1_event()) {
+        let raw = serde_json::to_string(&v1::TraceEnvelope::from_event(event.clone()))
+            .expect("serialize v1");
+        let parsed: Current = read_event(&raw).expect("read_event");
+        let expected = v2::V1ToV2::upcast(event);
+        prop_assert_eq!(parsed, expected);
     }
 }
 
@@ -189,4 +196,24 @@ fn valid_json_missing_version_is_invalid_shape() {
         Err(SchemaError::InvalidShape(_)) => {}
         other => panic!("unexpected: {other:?}"),
     }
+}
+
+#[test]
+fn v1_event_upcasted_to_v2_on_read() {
+    // A v1 JSONL line (no domain_entity_id) must be readable as Current
+    // (v2) with domain_entity_id = None.
+    let raw = r#"{"schema_version":1,"seq":0,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-30T00:00:00Z","kind":"ScreenOpened","screen_id":"Editor","params":{}}"#;
+    let event = read_event(raw).expect("read_event");
+    assert!(event.domain_entity_id.is_none());
+}
+
+#[test]
+fn v2_event_with_entity_id_round_trips() {
+    use trace_core::DomainEntityId;
+    let raw = r#"{"schema_version":2,"seq":0,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-30T00:00:00Z","domain_entity_id":"Declaration:doc-123","kind":"ScreenOpened","screen_id":"Editor","params":{}}"#;
+    let event = read_event(raw).expect("read_event");
+    assert_eq!(
+        event.domain_entity_id,
+        Some(DomainEntityId::new("Declaration:doc-123"))
+    );
 }

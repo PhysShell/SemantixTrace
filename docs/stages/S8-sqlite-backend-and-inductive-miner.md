@@ -19,19 +19,20 @@ corpora show.
     backed by `rusqlite` 0.31+ (`bundled` feature).
   - Schema: a single `events` table keyed by `(session_id, seq)`, with
     `schema_version`, `ts`, `kind`, `payload_json` columns;
-    `schema_version` indexed. Three additional extracted columns —
-    `command_id TEXT`, `screen_id TEXT`, `outcome TEXT` — are populated
-    at ingest time from well-known **top-level** v1 payload fields and
-    indexed separately. `command_id` is present in `CommandExecuted`;
-    `screen_id` in `ScreenOpened`; `outcome` in `CommandExecuted` and
-    `AsyncOperationCompleted` (via `#[serde(flatten)]`, top-level in
-    JSON). Unknown event kinds leave columns `NULL`. The columns are query
-    accelerators; `payload_json` remains the authoritative record and is
-    never derived from them. Note: `domain_entity_id` is not a top-level
-    v1 field (entity ids live inside `args`/`params`); indexing it
-    requires a future schema bump and is deferred.
+    `schema_version` indexed. Four additional extracted columns —
+    `command_id TEXT`, `screen_id TEXT`, `outcome TEXT`,
+    `domain_entity_id TEXT` — are populated at ingest time from
+    well-known **top-level** payload fields and indexed separately.
+    `command_id` is present in `CommandExecuted`; `screen_id` in
+    `ScreenOpened`; `outcome` in `CommandExecuted` and
+    `AsyncOperationCompleted` (flattened, top-level in JSON);
+    `domain_entity_id` is a new top-level field added in v2 (see
+    `trace-schema/src/v2.rs` and `trace-event-v2.schema.json`).
+    Unknown event kinds and v1 events (upcasted with `domain_entity_id =
+    NULL`) leave the column `NULL`. The columns are query accelerators;
+    `payload_json` remains the authoritative record.
   - `trace ingest --from jsonl --to sqlite` CLI subcommand.
-  - `trace slice --by {session-id,command-id,screen-id,outcome}
+  - `trace slice --by {session-id,command-id,screen-id,outcome,domain-entity-id}
     <value> <db>` CLI subcommand: reads the SQLite corpus through the
     standard upcaster chain and writes a JSONL slice to stdout.
   - `trace report similar --scenario <session-id>/<scenario-index>
@@ -52,15 +53,16 @@ corpora show.
 - `SqliteBackend` reads pass through `read_event` so the upcaster chain
   still applies. Filtering by `schema_version` is a cheap WHERE clause
   on the indexed column.
-- The three extracted index columns (`command_id`, `screen_id`,
-  `outcome`) are written by a thin extractor in the `trace ingest`
-  pipeline. The extractor reads well-known top-level payload fields by
-  name; it does not parse `args`/`params`. Columns are `NULL` for event
-  kinds that carry no such field. They are never read back by the
+- The four extracted index columns (`command_id`, `screen_id`,
+  `outcome`, `domain_entity_id`) are written by a thin extractor in the
+  `trace ingest` pipeline. The extractor reads well-known top-level
+  payload fields by name; it does not parse `args`/`params`. Columns are
+  `NULL` for event kinds that carry no such field; v1 events upcasted to
+  v2 have `domain_entity_id = NULL`. They are never read back by the
   upcaster chain — their only role is SQL filtering.
 - `trace report similar` computes similarity as a Jaccard-like score
-  over the set of (command_id, screen_id, outcome) tuples present in
-  each scenario. The query is a two-step SQL: (1) a
+  over the set of (command_id, screen_id, outcome, domain_entity_id)
+  tuples present in each scenario. The query is a two-step SQL: (1) a
   candidate fetch using the indexed columns to pre-filter sessions that
   share at least one dimension with the probe scenario; (2) an
   in-process scoring pass over the candidates. This avoids a full table

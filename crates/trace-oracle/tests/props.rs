@@ -45,6 +45,7 @@ fn make_session(kinds: Vec<TraceEventKind>) -> Option<Session<Current>> {
             session_id: sid,
             ts: DateTime::from_timestamp(0, 0).unwrap(),
             correlation_id: None,
+            domain_entity_id: None,
             kind,
         })
         .collect();

@@ -90,6 +90,7 @@ fn arb_session() -> impl Strategy<Value = Session<Current>> {
                 // Deterministic but varied spacing so bursts / pauses occur.
                 ts: base + Duration::milliseconds(i as i64 * 30 + ms as i64),
                 correlation_id: None,
+                domain_entity_id: None,
                 kind,
             })
             .collect();

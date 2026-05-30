@@ -10,6 +10,21 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-30 — In the context of adding `domain_entity_id` as an indexed
+  corpus dimension for parametric slicing and similarity search in S8, facing
+  the choice between (a) deferring to a future schema bump or (b) bumping to
+  v2 now while pre-v1.0, we decided to **bump to schema v2 now** and add
+  `domain_entity_id: Option<DomainEntityId>` as an optional top-level field
+  on `TraceEvent`, and against using outcome as a surrogate or deferring,
+  because `domain_entity_id` (WHAT the action applied to) and `outcome`
+  (HOW it ended) are semantically orthogonal dimensions that both belong in
+  the index, and pre-v1.0 is exactly the right window for schema evolution —
+  once v1.0 ships, the v1 module is frozen. The v1→v2 upcaster (`V1ToV2`)
+  sets `domain_entity_id = None` (lossless). The bump validates the upcaster
+  chain infrastructure end-to-end for the first time on real data. Both S8
+  index columns are now present: `outcome` (from `CommandExecuted`,
+  `AsyncOperationCompleted`) and `domain_entity_id` (from any v2 event).
+
 - 2026-05-30 — In the context of the S8 extracted index columns, facing the
   temptation to index `domain_entity_id` alongside `command_id` and
   `screen_id`, we decided **not to index `domain_entity_id` in v1** and

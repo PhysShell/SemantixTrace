@@ -200,10 +200,13 @@ mod tests {
 
     #[test]
     fn read_event_dispatches_v1() {
-        let env = TraceEnvelope::from_event(sample());
+        use crate::Upcaster;
+        let v1_event = sample();
+        let env = TraceEnvelope::from_event(v1_event.clone());
         let raw = serde_json::to_string(&env).expect("serialize");
-        let event = crate::read_event(&raw).expect("read_event");
-        assert_eq!(event, env.into_event());
+        let got = crate::read_event(&raw).expect("read_event");
+        let expected = crate::v2::V1ToV2::upcast(v1_event);
+        assert_eq!(got, expected);
     }
 
     #[test]

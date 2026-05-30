@@ -28,7 +28,7 @@ pub mod ports;
 pub mod scenario;
 pub mod session;
 
-pub use ids::{CommandId, CorrelationId, EventSeq, FieldId, ScreenId, SessionId};
+pub use ids::{CommandId, CorrelationId, DomainEntityId, EventSeq, FieldId, ScreenId, SessionId};
 pub use outcome::Outcome;
 pub use policy::ValuePolicy;
 pub use scenario::{CanonicalAction, Scenario};

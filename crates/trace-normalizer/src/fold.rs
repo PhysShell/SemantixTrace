@@ -142,6 +142,7 @@ mod tests {
             session_id: SessionId::new(uuid::Uuid::from_u128(1)),
             ts,
             correlation_id: None,
+            domain_entity_id: None,
             kind,
         }
     }

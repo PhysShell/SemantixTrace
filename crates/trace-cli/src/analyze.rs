@@ -123,6 +123,7 @@ mod tests {
             session_id: SessionId::new(uuid::Uuid::from_u128(sid)),
             ts: Utc.with_ymd_and_hms(2026, 5, 27, 12, 0, 0).unwrap(),
             correlation_id: None,
+            domain_entity_id: None,
             kind,
         }
     }

@@ -188,3 +188,34 @@ impl fmt::Display for CorrelationId {
         self.0.fmt(f)
     }
 }
+
+/// Semantic identifier for the primary domain entity a trace event
+/// applies to, e.g. `Declaration:doc-123` or `GoodsItem:47`.
+///
+/// Set by the adapter from the `ViewModel`'s ambient context;
+/// `None` when the current screen has no single entity focus
+/// (e.g. a list view with no row selected). Not masked by default:
+/// entity ids are internal references, not user-supplied text.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct DomainEntityId(pub String);
+
+impl DomainEntityId {
+    /// Wrap a string.
+    #[must_use]
+    pub fn new(id: impl Into<String>) -> Self {
+        Self(id.into())
+    }
+
+    /// Borrow the inner string.
+    #[must_use]
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+
+impl fmt::Display for DomainEntityId {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(&self.0)
+    }
+}

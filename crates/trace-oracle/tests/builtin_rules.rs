@@ -25,6 +25,7 @@ fn make_event(seq: u64, sid: SessionId, kind: TraceEventKind) -> Current {
         session_id: sid,
         ts: DateTime::from_timestamp(seq as i64, 0).unwrap(),
         correlation_id: None,
+        domain_entity_id: None,
         kind,
     }
 }
