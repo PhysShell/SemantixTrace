@@ -193,6 +193,39 @@ public sealed class FileJsonlTraceContextTests
 
         var doc = JsonDocument.Parse(line);
         Assert.Equal("ValidationFailed", doc.RootElement.GetProperty("kind").GetString());
+        Assert.Equal("***", doc.RootElement.GetProperty("reason").GetString());
+    }
+
+    [Fact]
+    public void EmitValidationFailed_masks_reason_at_sink()
+    {
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        ctx.EmitValidationFailed("Required", "InvoiceEditor.Amount", "sensitive user text");
+        ctx.Flush();
+
+        string line = sw.ToString().TrimEnd('\r', '\n');
+        var doc = JsonDocument.Parse(line);
+        Assert.Equal("***", doc.RootElement.GetProperty("reason").GetString());
+        Assert.DoesNotContain("sensitive", line, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void EmitCommandExecuted_negative_duration_throws()
+    {
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            ctx.EmitCommandExecuted("Invoice.Submit", durationMs: -1, CommandOutcome.Success));
+    }
+
+    [Fact]
+    public void EmitAsyncOperationCompleted_negative_duration_throws()
+    {
+        using var sw = new StringWriter();
+        using var ctx = new FileJsonlTraceContext(sw);
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            ctx.EmitAsyncOperationCompleted("SaveDocument", durationMs: -1, CommandOutcome.Success));
     }
 
     [Fact]

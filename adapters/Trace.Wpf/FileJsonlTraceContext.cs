@@ -96,6 +96,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void EmitCommandExecuted(string commandId, long durationMs, CommandOutcome outcome, Guid? correlationId = null)
     {
         if (commandId is null) throw new ArgumentNullException(nameof(commandId));
+        if (durationMs < 0) throw new ArgumentOutOfRangeException(nameof(durationMs), durationMs, "Duration must be non-negative.");
         Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "CommandExecuted");
@@ -162,7 +163,8 @@ public sealed class FileJsonlTraceContext : ITraceContext
             writer.WriteString("kind", "ValidationFailed");
             writer.WriteString("validator", validator);
             writer.WriteString("field_id", fieldId);
-            writer.WriteString("reason", reason);
+            // Mask reason: may contain user-supplied text (ADR-0007).
+            writer.WriteString("reason", "***");
         }));
     }
 
@@ -170,6 +172,7 @@ public sealed class FileJsonlTraceContext : ITraceContext
     public void EmitAsyncOperationCompleted(string operationId, long durationMs, CommandOutcome outcome, Guid? correlationId = null)
     {
         if (operationId is null) throw new ArgumentNullException(nameof(operationId));
+        if (durationMs < 0) throw new ArgumentOutOfRangeException(nameof(durationMs), durationMs, "Duration must be non-negative.");
         Enqueue(BuildLine(_sessionId, correlationId, writer =>
         {
             writer.WriteString("kind", "AsyncOperationCompleted");
@@ -198,7 +201,8 @@ public sealed class FileJsonlTraceContext : ITraceContext
             // CompleteAdding was called concurrently (Dispose racing with Flush).
             return;
         }
-        signal.Wait(TimeSpan.FromSeconds(10));
+        if (!signal.Wait(TimeSpan.FromSeconds(10)))
+            throw new TimeoutException("SemantxTrace.FileJsonlTraceContext: Flush timed out after 10 s. The writer thread may be stalled.");
     }
 
     /// <inheritdoc />
