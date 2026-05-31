@@ -44,17 +44,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--
-      ADR-0013 §4: PublicAPI baseline tracking. Each project commits
-      PublicAPI.Shipped.txt and PublicAPI.Unshipped.txt; the analyzer
-      blocks PRs that change the public surface without updating
-      the unshipped file.
-    -->
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--
+    ADR-0013 §4: PublicAPI baseline tracking for published NuGet packages.
+    Skipped for test projects — they are not published and have no public API contract.
+  -->
+  <ItemGroup Condition="'$(IsTestProject)' != 'true'">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Only track public API for publishable packages, not test projects. -->
+  <ItemGroup Condition="'$(IsTestProject)' != 'true'">
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>

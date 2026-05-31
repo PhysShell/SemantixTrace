@@ -9,11 +9,24 @@
       AutoAutomationId, TracedRelayCommand, JSONL sink. Targets WPF
       on both .NET Framework 4.7.2 and .NET 8.0-windows. See ADR-0013.
     </Description>
+    <!--
+      CA1510 ("Use ArgumentNullException.ThrowIfNull") is suppressed because
+      the project multi-targets net472 where that API is unavailable; the
+      manual null-check pattern is correct for both TFMs.
+    -->
+    <NoWarn>CA1510</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Trace.Abstractions\Trace.Abstractions.csproj" />
     <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <!--
+    System.Text.Json ships inbox on net8.0+; net472 requires the NuGet package.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="System.Text.Json" Version="8.0.*" />
   </ItemGroup>
 
 </Project>
