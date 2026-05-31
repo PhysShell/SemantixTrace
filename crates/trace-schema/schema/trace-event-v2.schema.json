@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/PhysShell/SemantixTrace/schema/trace-event-v2.json",
+  "title": "SemantxTrace TraceEvent v2",
+  "description": "Adds optional domain_entity_id to the v1 envelope. Upcaster: v1 → v2 sets domain_entity_id absent/null. See docs/upcasters.md.",
+  "type": "object",
+  "required": ["schema_version", "seq", "session_id", "ts", "kind"],
+  "properties": {
+    "schema_version":   { "type": "integer", "const": 2 },
+    "seq":              { "type": "integer", "minimum": 0 },
+    "session_id":       { "type": "string",  "format": "uuid" },
+    "ts":               { "type": "string",  "format": "date-time" },
+    "correlation_id":   { "type": "string",  "format": "uuid" },
+    "domain_entity_id": { "type": "string",  "description": "Semantic id of the primary domain entity, e.g. Declaration:doc-123. Absent when the screen has no single-entity focus." },
+    "kind":             { "type": "string" }
+  },
+  "oneOf": [
+    {
+      "title": "ScreenOpened",
+      "properties": {
+        "kind":      { "const": "ScreenOpened" },
+        "screen_id": { "type": "string" },
+        "params":    {}
+      },
+      "required": ["kind", "screen_id"]
+    },
+    {
+      "title": "CommandExecuted",
+      "properties": {
+        "kind":        { "const": "CommandExecuted" },
+        "command_id":  { "type": "string" },
+        "args":        {},
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "outcome":     { "type": "string", "enum": ["success", "failure", "cancelled", "timed_out"] },
+        "detail":      { "type": "object" }
+      },
+      "required": ["kind", "command_id", "duration_ms", "outcome"]
+    },
+    {
+      "title": "FieldChanged",
+      "properties": {
+        "kind":     { "const": "FieldChanged" },
+        "field_id": { "type": "string" },
+        "old":      { "$ref": "#/definitions/ValuePolicy" },
+        "new":      { "$ref": "#/definitions/ValuePolicy" }
+      },
+      "required": ["kind", "field_id", "old", "new"]
+    },
+    {
+      "title": "ExceptionThrown",
+      "properties": {
+        "kind":           { "const": "ExceptionThrown" },
+        "exception_type": { "type": "string" },
+        "message":        { "type": "string" },
+        "stack":          { "type": ["string", "null"] }
+      },
+      "required": ["kind", "exception_type", "message"]
+    },
+    {
+      "title": "NavigationOccurred",
+      "properties": {
+        "kind": { "const": "NavigationOccurred" },
+        "from": { "type": "string" },
+        "to":   { "type": "string" }
+      },
+      "required": ["kind", "from", "to"]
+    },
+    {
+      "title": "ValidationFailed",
+      "properties": {
+        "kind":      { "const": "ValidationFailed" },
+        "validator": { "type": "string" },
+        "field_id":  { "type": "string" },
+        "reason":    { "type": "string" }
+      },
+      "required": ["kind", "validator", "field_id", "reason"]
+    },
+    {
+      "title": "AsyncOperationCompleted",
+      "properties": {
+        "kind":         { "const": "AsyncOperationCompleted" },
+        "operation_id": { "type": "string" },
+        "duration_ms":  { "type": "integer", "minimum": 0 },
+        "outcome":      { "type": "string", "enum": ["success", "failure", "cancelled", "timed_out"] },
+        "detail":       { "type": "object" }
+      },
+      "required": ["kind", "operation_id", "duration_ms", "outcome"]
+    }
+  ],
+  "definitions": {
+    "ValuePolicy": {
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "policy": { "const": "raw" },
+            "value":  {}
+          },
+          "required": ["policy", "value"]
+        },
+        {
+          "properties": {
+            "policy":  { "const": "masked" },
+            "display": { "type": "string" }
+          },
+          "required": ["policy", "display"]
+        },
+        {
+          "properties": {
+            "policy": { "const": "bucketed" },
+            "bucket": { "type": "string" }
+          },
+          "required": ["policy", "bucket"]
+        },
+        {
+          "properties": {
+            "policy": { "const": "hashed" },
+            "hash":   { "type": "string" },
+            "algo":   { "type": "string" }
+          },
+          "required": ["policy", "hash", "algo"]
+        },
+        {
+          "properties": {
+            "policy": { "const": "removed" }
+          },
+          "required": ["policy"]
+        }
+      ]
+    }
+  }
+}

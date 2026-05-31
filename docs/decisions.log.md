@@ -10,6 +10,71 @@ Architectural decisions go to [`adr/`](adr/) instead.
 
 ---
 
+- 2026-05-30 — In the context of adding `domain_entity_id` as an indexed
+  corpus dimension for parametric slicing and similarity search in S8, facing
+  the choice between (a) deferring to a future schema bump or (b) bumping to
+  v2 now while pre-v1.0, we decided to **bump to schema v2 now** and add
+  `domain_entity_id: Option<DomainEntityId>` as an optional top-level field
+  on `TraceEvent`, and against using outcome as a surrogate or deferring,
+  because `domain_entity_id` (WHAT the action applied to) and `outcome`
+  (HOW it ended) are semantically orthogonal dimensions that both belong in
+  the index, and pre-v1.0 is exactly the right window for schema evolution —
+  once v1.0 ships, the v1 module is frozen. The v1→v2 upcaster (`V1ToV2`)
+  sets `domain_entity_id = None` (lossless). The bump validates the upcaster
+  chain infrastructure end-to-end for the first time on real data. Both S8
+  index columns are now present: `outcome` (from `CommandExecuted`,
+  `AsyncOperationCompleted`) and `domain_entity_id` (from any v2 event).
+
+- 2026-05-30 — In the context of the S8 extracted index columns, facing the
+  temptation to index `domain_entity_id` alongside `command_id` and
+  `screen_id`, we decided **not to index `domain_entity_id` in v1** and
+  against adding a nested-extraction path into `args`/`params`, because
+  entity ids are buried inside the free-form `args`/`params`
+  `serde_json::Value` blobs with no standard field name, and the extractor
+  explicitly reads only top-level payload fields; indexing it would require
+  either a v2 schema bump (a top-level `domain_entity_id` field) or a
+  fragile adapter-specific extraction mapping. The third indexed column is
+  `outcome TEXT` instead (`CommandExecuted`/`AsyncOperationCompleted` expose
+  it as a top-level field via `#[serde(flatten)]`), accepting that entity-
+  level slicing/similarity is deferred until a schema bump elevates the field.
+
+- 2026-05-30 — In the context of scenario similarity search in S8, facing
+  the choice between embedding-based / ML similarity and a count-of-shared-
+  semantic-dimensions approach, we decided for **Jaccard-like scoring over
+  (command_id, screen_id, outcome) tuples** and against
+  vector embeddings or graph-kernel methods, to keep the scorer pure,
+  deterministic, and explainable (a score of 0.75 means "3 of 4 dimensions
+  match"), to avoid any ML dependency through v1.0 (SPEC §"Not a neural-
+  anomaly detector"), and because the four dimensions map directly to the
+  indexed columns added for parametric slicing — no new storage required,
+  accepting that this similarity model is coarser than embedding-based
+  approaches and will not catch semantic equivalence across different command
+  names for the same intent.
+
+- 2026-05-30 — In the context of corpus analysis in S8 (SQLite backend),
+  facing the need to query traces by semantic dimensions (command, screen,
+  entity) without full-scanning `payload_json` on every filter, we decided
+  to **add three extracted index columns** (`command_id`, `screen_id`,
+  `domain_entity_id`) to the `events` table and a `trace slice --by` CLI
+  subcommand, and against JSON path expressions over the raw payload column,
+  to give O(log n) parametric slicing over the corpus without changing the
+  primary wire format or the upcaster chain, accepting a thin extractor at
+  ingest time and the invariant that the indexed columns are always
+  query-only and never the authoritative record.
+
+- 2026-05-30 — In the context of a "corpus meta-graph" pattern (linking
+  traces to external artefacts via relations such as `regression_of`,
+  `fixed_by`, `caused_by`, `validated_by`, as inspired by hypergraph-
+  based context-graph research), facing the appeal of semantic memory
+  connecting traces to commits, tickets, and test cases, we decided to
+  **defer this past v1.0** and against adding a relational meta-store to
+  the current roadmap, because the basic projection pipeline must be
+  battle-tested before adding a second graph layer, accepting that traces
+  cannot be formally linked to the artefacts around them in v1.0; a
+  `labels: Map<String, String>` field on `TraceEvent` (a future minor
+  schema bump) is the smallest seed that could grow toward this if the
+  need proves real.
+
 - 2026-05-28 — In the context of the S3 normalizer's idempotency
   acceptance criterion (`glossary.md` §3 lists
   `normalize(normalize(t)) == normalize(t)`), facing the fact that
