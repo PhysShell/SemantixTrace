@@ -1,0 +1,45 @@
+```
+$ trace oracle run --rules demo ../../examples/DeclarationApp.Demo/fixtures/demo-corpus.jsonl
+? 2
+sessions: 4  passed: 0  failed: 4
+  [PASS] session=a1b2c3d4-0001-0000-0000-000000000000 rule=NoUnhandledException
+  [PASS] session=a1b2c3d4-0001-0000-0000-000000000000 rule=NoErrorModalAfterCommand
+  [PASS] session=a1b2c3d4-0001-0000-0000-000000000000 rule=CommandMustSucceed
+  [FAIL] session=a1b2c3d4-0001-0000-0000-000000000000 rule=ScreenMustNavigateForward
+       Warning: Navigation revisited screen 'InvoiceEditor' (seq 3)
+       Warning: Navigation revisited screen 'GoodsEditor' (seq 8)
+       Warning: Navigation revisited screen 'PaymentsCalculator' (seq 14)
+       Warning: Navigation revisited screen 'ExportDialog' (seq 18)
+  [PASS] session=a1b2c3d4-0001-0000-0000-000000000000 rule=ValidationsPassBeforeSubmit
+  [PASS] session=a1b2c3d4-0001-0000-0000-000000000000 rule=Graph47.ResultMustBeNonNegative
+  [FAIL] session=a1b2c3d4-0002-0000-0000-000000000000 rule=NoUnhandledException
+       Critical: Unhandled exception: NegativePaymentException: ***
+  [PASS] session=a1b2c3d4-0002-0000-0000-000000000000 rule=NoErrorModalAfterCommand
+  [PASS] session=a1b2c3d4-0002-0000-0000-000000000000 rule=CommandMustSucceed
+  [FAIL] session=a1b2c3d4-0002-0000-0000-000000000000 rule=ScreenMustNavigateForward
+       Warning: Navigation revisited screen 'InvoiceEditor' (seq 3)
+       Warning: Navigation revisited screen 'GoodsEditor' (seq 5)
+       Warning: Navigation revisited screen 'PaymentsCalculator' (seq 9)
+  [PASS] session=a1b2c3d4-0002-0000-0000-000000000000 rule=ValidationsPassBeforeSubmit
+  [FAIL] session=a1b2c3d4-0002-0000-0000-000000000000 rule=Graph47.ResultMustBeNonNegative
+       Error: Graph47.Recalculate succeeded (seq 11) but produced NegativePaymentException (seq 12) — off-by-one in quantity truncation when total > 1 000
+  [PASS] session=a1b2c3d4-0003-0000-0000-000000000000 rule=NoUnhandledException
+  [FAIL] session=a1b2c3d4-0003-0000-0000-000000000000 rule=NoErrorModalAfterCommand
+       Error: Error/Modal screen 'DuplicateIinErrorModal' opened after command (seq 6)
+  [PASS] session=a1b2c3d4-0003-0000-0000-000000000000 rule=CommandMustSucceed
+  [FAIL] session=a1b2c3d4-0003-0000-0000-000000000000 rule=ScreenMustNavigateForward
+       Warning: Navigation revisited screen 'InvoiceEditor' (seq 3)
+       Warning: Navigation revisited screen 'ExportDialog' (seq 5)
+  [PASS] session=a1b2c3d4-0003-0000-0000-000000000000 rule=ValidationsPassBeforeSubmit
+  [PASS] session=a1b2c3d4-0003-0000-0000-000000000000 rule=Graph47.ResultMustBeNonNegative
+  [PASS] session=a1b2c3d4-0004-0000-0000-000000000000 rule=NoUnhandledException
+  [PASS] session=a1b2c3d4-0004-0000-0000-000000000000 rule=NoErrorModalAfterCommand
+  [PASS] session=a1b2c3d4-0004-0000-0000-000000000000 rule=CommandMustSucceed
+  [FAIL] session=a1b2c3d4-0004-0000-0000-000000000000 rule=ScreenMustNavigateForward
+       Warning: Navigation revisited screen 'InvoiceEditor' (seq 3)
+       Warning: Navigation revisited screen 'GoodsEditor' (seq 6)
+  [FAIL] session=a1b2c3d4-0004-0000-0000-000000000000 rule=ValidationsPassBeforeSubmit
+       Error: Submit command 'GoodsDeclaration.Submit' fired with 1 outstanding validation failure(s)
+  [PASS] session=a1b2c3d4-0004-0000-0000-000000000000 rule=Graph47.ResultMustBeNonNegative
+
+```

@@ -44,9 +44,16 @@ impl OracleEngine {
         Self { rules: Vec::new() }
     }
 
-    /// Register an additional rule.
+    /// Register an additional rule (mutable reference).
     pub fn add_rule(&mut self, rule: Box<dyn Rule>) {
         self.rules.push(rule);
+    }
+
+    /// Register an additional rule (builder / owned).
+    #[must_use]
+    pub fn with_rule(mut self, rule: Box<dyn Rule>) -> Self {
+        self.rules.push(rule);
+        self
     }
 
     /// Add all five built-in rules with default configuration.
