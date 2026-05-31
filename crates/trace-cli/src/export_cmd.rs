@@ -73,7 +73,7 @@ pub(crate) fn run_diagnostic(
         .collect::<Result<_, _>>()?;
 
     // Build a Session and run the oracle (builtin rules + domain rule).
-    let session = Session::new(sid.clone(), session_events).map_err(|_| {
+    let session = Session::new(sid, session_events).map_err(|_| {
         if !quiet {
             eprintln!("error: session is empty");
         }
@@ -102,21 +102,18 @@ pub(crate) fn run_diagnostic(
 
     let json = serde_json::to_string_pretty(&bundle).map_err(|_| SysExit::Software)?;
 
-    match out {
-        Some(dest) => {
-            let f = std::fs::File::create(dest).map_err(|e| {
-                if !quiet {
-                    eprintln!("error creating {}: {e}", dest.display());
-                }
-                SysExit::CantCreat
-            })?;
-            let mut w = BufWriter::new(f);
-            writeln!(w, "{json}").map_err(|_| SysExit::IoErr)?;
-        }
-        None => {
-            let mut stdout = io::stdout().lock();
-            writeln!(stdout, "{json}").map_err(|_| SysExit::IoErr)?;
-        }
+    if let Some(dest) = out {
+        let f = std::fs::File::create(dest).map_err(|e| {
+            if !quiet {
+                eprintln!("error creating {}: {e}", dest.display());
+            }
+            SysExit::CantCreat
+        })?;
+        let mut w = BufWriter::new(f);
+        writeln!(w, "{json}").map_err(|_| SysExit::IoErr)?;
+    } else {
+        let mut stdout = io::stdout().lock();
+        writeln!(stdout, "{json}").map_err(|_| SysExit::IoErr)?;
     }
     Ok(())
 }

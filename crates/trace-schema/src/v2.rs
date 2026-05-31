@@ -162,7 +162,10 @@ mod tests {
     fn envelope_round_trip_with_entity() {
         let env = TraceEnvelope::from_event(sample_v2_with_entity());
         let json = serde_json::to_string(&env).expect("serialize");
-        assert!(json.contains("Declaration:doc-123"), "entity id must appear in JSON");
+        assert!(
+            json.contains("Declaration:doc-123"),
+            "entity id must appear in JSON"
+        );
         let back: TraceEnvelope = serde_json::from_str(&json).expect("parse");
         assert_eq!(env, back);
     }
@@ -192,6 +195,9 @@ mod tests {
     fn schema_version_is_2_in_wire_format() {
         let env = TraceEnvelope::from_event(sample_v2());
         let json = serde_json::to_string(&env).expect("serialize");
-        assert!(json.contains("\"schema_version\":2"), "schema_version must be 2");
+        assert!(
+            json.contains("\"schema_version\":2"),
+            "schema_version must be 2"
+        );
     }
 }

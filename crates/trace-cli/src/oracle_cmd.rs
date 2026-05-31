@@ -34,7 +34,7 @@ pub(crate) enum RuleSet {
 /// HTML to `out`.  Returns the exit code (`0`, `1`, `2`, or a sysexits code).
 pub(crate) fn run(
     file: &Path,
-    _rules: RuleSet,
+    rules: RuleSet,
     out: Option<&Path>,
     format: OutputFormat,
     quiet: bool,
@@ -56,7 +56,7 @@ pub(crate) fn run(
 
     // Build engine.
     let mut engine = OracleEngine::new().with_builtin_rules();
-    if matches!(_rules, RuleSet::Demo) {
+    if matches!(rules, RuleSet::Demo) {
         engine.add_rule(Box::new(trace_oracle::Graph47ResultMustBeNonNegative));
     }
 

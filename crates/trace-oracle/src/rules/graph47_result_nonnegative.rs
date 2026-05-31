@@ -48,10 +48,7 @@ impl Rule for Graph47ResultMustBeNonNegative {
             } = &prev.kind
             {
                 if command_id.as_str() == "Graph47.Recalculate" && outcome.is_success() {
-                    if let TraceEventKind::ExceptionThrown {
-                        exception_type, ..
-                    } = &next.kind
-                    {
+                    if let TraceEventKind::ExceptionThrown { exception_type, .. } = &next.kind {
                         if exception_type.contains("Negative")
                             || exception_type.contains("NonNegative")
                         {
@@ -80,14 +77,14 @@ mod tests {
     use chrono::TimeZone;
     use trace_core::{CommandId, EventSeq, Session, SessionId};
     use trace_schema::v1::TraceEventKind;
-    use trace_schema::Current;
     use trace_schema::v2::V1ToV2;
+    use trace_schema::Current;
     use trace_schema::Upcaster;
 
-    use crate::rule::{Rule, Severity};
     use super::Graph47ResultMustBeNonNegative;
+    use crate::rule::{Rule, Severity};
 
-    fn make_event(seq: u64, kind: trace_schema::v1::TraceEventKind) -> Current {
+    fn make_event(seq: u64, kind: TraceEventKind) -> Current {
         V1ToV2::upcast(trace_schema::v1::TraceEvent {
             seq: EventSeq::new(seq),
             session_id: SessionId::new(uuid::Uuid::nil()),
@@ -101,17 +98,23 @@ mod tests {
     fn fires_when_recalculate_followed_by_negative_exception() {
         use trace_core::Outcome;
         let events = vec![
-            make_event(0, TraceEventKind::CommandExecuted {
-                command_id: CommandId::new("Graph47.Recalculate"),
-                args: serde_json::json!({}),
-                duration_ms: 200,
-                outcome: Outcome::Success,
-            }),
-            make_event(1, TraceEventKind::ExceptionThrown {
-                exception_type: "NegativePaymentException".into(),
-                message: "***".into(),
-                stack: None,
-            }),
+            make_event(
+                0,
+                TraceEventKind::CommandExecuted {
+                    command_id: CommandId::new("Graph47.Recalculate"),
+                    args: serde_json::json!({}),
+                    duration_ms: 200,
+                    outcome: Outcome::Success,
+                },
+            ),
+            make_event(
+                1,
+                TraceEventKind::ExceptionThrown {
+                    exception_type: "NegativePaymentException".into(),
+                    message: "***".into(),
+                    stack: None,
+                },
+            ),
         ];
         let session = Session::new(SessionId::new(uuid::Uuid::nil()), events).unwrap();
         let result = Graph47ResultMustBeNonNegative.evaluate(&session);
@@ -124,16 +127,22 @@ mod tests {
     fn silent_when_recalculate_followed_by_unrelated_event() {
         use trace_core::{Outcome, ScreenId};
         let events = vec![
-            make_event(0, TraceEventKind::CommandExecuted {
-                command_id: CommandId::new("Graph47.Recalculate"),
-                args: serde_json::json!({}),
-                duration_ms: 200,
-                outcome: Outcome::Success,
-            }),
-            make_event(1, TraceEventKind::ScreenOpened {
-                screen_id: ScreenId::new("ExportDialog"),
-                params: serde_json::json!({}),
-            }),
+            make_event(
+                0,
+                TraceEventKind::CommandExecuted {
+                    command_id: CommandId::new("Graph47.Recalculate"),
+                    args: serde_json::json!({}),
+                    duration_ms: 200,
+                    outcome: Outcome::Success,
+                },
+            ),
+            make_event(
+                1,
+                TraceEventKind::ScreenOpened {
+                    screen_id: ScreenId::new("ExportDialog"),
+                    params: serde_json::json!({}),
+                },
+            ),
         ];
         let session = Session::new(SessionId::new(uuid::Uuid::nil()), events).unwrap();
         let result = Graph47ResultMustBeNonNegative.evaluate(&session);
@@ -144,20 +153,31 @@ mod tests {
     fn silent_when_recalculate_fails() {
         use trace_core::Outcome;
         let events = vec![
-            make_event(0, TraceEventKind::CommandExecuted {
-                command_id: CommandId::new("Graph47.Recalculate"),
-                args: serde_json::json!({}),
-                duration_ms: 200,
-                outcome: Outcome::Failure { message: "timeout".into() },
-            }),
-            make_event(1, TraceEventKind::ExceptionThrown {
-                exception_type: "NegativePaymentException".into(),
-                message: "***".into(),
-                stack: None,
-            }),
+            make_event(
+                0,
+                TraceEventKind::CommandExecuted {
+                    command_id: CommandId::new("Graph47.Recalculate"),
+                    args: serde_json::json!({}),
+                    duration_ms: 200,
+                    outcome: Outcome::Failure {
+                        message: "timeout".into(),
+                    },
+                },
+            ),
+            make_event(
+                1,
+                TraceEventKind::ExceptionThrown {
+                    exception_type: "NegativePaymentException".into(),
+                    message: "***".into(),
+                    stack: None,
+                },
+            ),
         ];
         let session = Session::new(SessionId::new(uuid::Uuid::nil()), events).unwrap();
         let result = Graph47ResultMustBeNonNegative.evaluate(&session);
-        assert!(result.passed, "rule must not fire when command already failed");
+        assert!(
+            result.passed,
+            "rule must not fire when command already failed"
+        );
     }
 }
