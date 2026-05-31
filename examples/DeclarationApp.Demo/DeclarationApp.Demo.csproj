@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>DeclarationApp.Demo</AssemblyName>
+    <RootNamespace>DeclarationApp.Demo</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\adapters\Trace.Abstractions\Trace.Abstractions.csproj" />
+    <ProjectReference Include="..\..\adapters\Trace.Wpf\Trace.Wpf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InvoiceListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InvoiceEditorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GoodsEditorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PaymentsCalculatorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExportDialogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoiceListPage.xaml.cs">
+      <DependentUpon>InvoiceListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoiceEditorPage.xaml.cs">
+      <DependentUpon>InvoiceEditorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GoodsEditorPage.xaml.cs">
+      <DependentUpon>GoodsEditorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentsCalculatorPage.xaml.cs">
+      <DependentUpon>PaymentsCalculatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportDialogPage.xaml.cs">
+      <DependentUpon>ExportDialogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Declaration.cs" />
+    <Compile Include="Models\GoodsItem.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\InvoiceListViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceEditorViewModel.cs" />
+    <Compile Include="ViewModels\GoodsEditorViewModel.cs" />
+    <Compile Include="ViewModels\PaymentsCalculatorViewModel.cs" />
+    <Compile Include="ViewModels\ExportDialogViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+</Project>
