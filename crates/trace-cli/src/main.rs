@@ -1,14 +1,16 @@
 //! `trace` — `SemantxTrace` command-line interface.
 //!
 //! Implemented subcommands: `version`, `analyze`, `normalize`,
-//! `graph`, `report workflows`, `oracle run`, `completions <shell>`. The full
-//! inventory specified in ADR-0014 §3 lands stage by stage (S4 ships
-//! `graph` and `report workflows`, S5 ships `oracle run`, S11 ships
+//! `graph`, `report workflows`, `oracle run`, `export diagnostic`,
+//! `completions <shell>`. The full inventory specified in ADR-0014 §3
+//! lands stage by stage (S4 ships `graph` and `report workflows`, S5
+//! ships `oracle run`, S7 ships `export diagnostic`, S11 ships
 //! `plan …`, etc.).
 
 #![forbid(unsafe_code)]
 
 mod analyze;
+mod export_cmd;
 mod graph_cmd;
 mod normalize;
 mod oracle_cmd;
@@ -123,10 +125,33 @@ enum Command {
         #[command(subcommand)]
         subcommand: OracleCommand,
     },
+    /// Export a session as a portable diagnostic archive.
+    Export {
+        #[command(subcommand)]
+        subcommand: ExportCommand,
+    },
     /// Emit a shell-completion script for the given shell.
     Completions {
         /// Target shell.
         shell: Shell,
+    },
+}
+
+/// Sub-subcommands for `trace export`.
+#[derive(Subcommand, Debug)]
+enum ExportCommand {
+    /// Bundle a session's events + oracle evidence into a JSON archive.
+    ///
+    /// The archive can be re-imported on another machine:
+    ///   `jq -r '.events[]' bundle.json | trace analyze -`
+    Diagnostic {
+        /// Session id to export (UUID).
+        session_id: String,
+        /// Path to the JSONL corpus that contains the session.
+        corpus: PathBuf,
+        /// Write the archive to this path (default: stdout).
+        #[arg(long = "out")]
+        out: Option<PathBuf>,
     },
 }
 
@@ -242,6 +267,7 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
             // map to Ok(()) since the ExitCode is propagated via std::process.
             dispatch_oracle(subcommand, global)
         }
+        Command::Export { subcommand } => dispatch_export(subcommand, global),
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
@@ -254,6 +280,16 @@ fn dispatch_report(cmd: &ReportCommand, global: &GlobalOptions) -> Result<(), Sy
         ReportCommand::Workflows { file, top_n } => {
             report_cmd::run_workflows(file, *top_n, global.output, global.quiet)
         }
+    }
+}
+
+fn dispatch_export(cmd: &ExportCommand, global: &GlobalOptions) -> Result<(), SysExit> {
+    match cmd {
+        ExportCommand::Diagnostic {
+            session_id,
+            corpus,
+            out,
+        } => export_cmd::run_diagnostic(session_id, corpus, out.as_deref(), global.quiet),
     }
 }
 

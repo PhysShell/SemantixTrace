@@ -1,0 +1,82 @@
+<Page x:Class="DeclarationApp.Demo.Views.InvoiceListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Declaration List">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page header -->
+        <TextBlock Grid.Row="0"
+                   Text="Customs Declarations"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,0,0,12"/>
+
+        <!-- Toolbar -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,8">
+            <Button x:Name="NewButton"
+                    Content="New Declaration"
+                    AutomationProperties.AutomationId="InvoiceList.NewButton"
+                    Command="{Binding NewDeclarationCommand}"/>
+            <Button x:Name="OpenButton"
+                    Content="Open Selected"
+                    AutomationProperties.AutomationId="InvoiceList.OpenButton"
+                    Command="{Binding OpenDeclarationCommand}"/>
+        </StackPanel>
+
+        <!-- Declaration list -->
+        <ListView Grid.Row="2"
+                  x:Name="DeclarationsList"
+                  AutomationProperties.AutomationId="InvoiceList.DeclarationsList"
+                  ItemsSource="{Binding Declarations}"
+                  SelectedItem="{Binding SelectedDeclaration, Mode=TwoWay}"
+                  SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Number"
+                                    DisplayMemberBinding="{Binding Number}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Exporter IIN"
+                                    Width="160">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <!-- IIN masked in UI for privacy -->
+                                <TextBlock Text="***-***-***"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Total Duty"
+                                    DisplayMemberBinding="{Binding TotalDuty, StringFormat=C}"
+                                    Width="120"/>
+                    <GridViewColumn Header="Goods Items"
+                                    Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Goods.Count}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Status bar -->
+        <Border Grid.Row="3"
+                BorderBrush="#CCCCCC"
+                BorderThickness="0,1,0,0"
+                Padding="4,4,0,0"
+                Margin="0,8,0,0">
+            <TextBlock Text="Select a declaration and click Open, or click New to create one."
+                       Foreground="Gray"
+                       FontSize="11"/>
+        </Border>
+    </Grid>
+</Page>

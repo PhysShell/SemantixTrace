@@ -1,0 +1,97 @@
+<Page x:Class="DeclarationApp.Demo.Views.PaymentsCalculatorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Payments Calculator">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Page header -->
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Text="Payments Calculator"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,0,0,16"/>
+
+        <!-- Total Quantity (read-only display, sourced from goods items) -->
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="Total Quantity:"
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 x:Name="TotalQuantityBox"
+                 AutomationProperties.AutomationId="PaymentsCalculator.TotalQuantityBox"
+                 Text="{Binding TotalQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="4"/>
+
+        <!-- Duty Rate -->
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="Duty Rate:"
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 x:Name="DutyRateBox"
+                 AutomationProperties.AutomationId="PaymentsCalculator.DutyRateBox"
+                 Text="{Binding DutyRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="4"/>
+
+        <!-- Duty Amount (result) -->
+        <Label Grid.Row="3" Grid.Column="0"
+               Content="Duty Amount:"
+               VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="1"
+                   x:Name="DutyAmountText"
+                   AutomationProperties.AutomationId="PaymentsCalculator.DutyAmountText"
+                   Text="{Binding DutyAmount, StringFormat=C}"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Foreground="#1A6B1A"
+                   VerticalAlignment="Center"
+                   Margin="8,0"/>
+
+        <!-- Calculation status -->
+        <TextBlock Grid.Row="4"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding CalculationStatus}"
+                   Foreground="#666666"
+                   FontSize="11"
+                   Margin="4,4,0,8"/>
+
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    Margin="0,8,0,0">
+            <Button x:Name="RecalculateButton"
+                    Content="Recalculate"
+                    AutomationProperties.AutomationId="PaymentsCalculator.RecalculateButton"
+                    Command="{Binding RecalculateCommand}"
+                    Width="120"/>
+            <Button x:Name="ExportButton"
+                    Content="Proceed to Export →"
+                    AutomationProperties.AutomationId="PaymentsCalculator.ExportButton"
+                    Command="{Binding NavigateToExportCommand}"
+                    Width="160"/>
+        </StackPanel>
+
+        <!-- BUG 1 hint -->
+        <TextBlock Grid.Row="6"
+                   Grid.ColumnSpan="2"
+                   TextWrapping="Wrap"
+                   Text="Note: Recalculate uses integer division to compute effective quantity. Quantities that are not exact multiples of 1000 will be silently truncated (BUG 1)."
+                   Foreground="Gray"
+                   FontSize="11"
+                   Margin="4,16,0,0"/>
+    </Grid>
+</Page>

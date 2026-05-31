@@ -25,13 +25,16 @@ pub(crate) enum RuleSet {
     /// All five built-in rules with default configuration.
     #[default]
     Builtin,
+    /// Built-in rules plus the S7 demo domain rule
+    /// (`Graph47.ResultMustBeNonNegative`).
+    Demo,
 }
 
 /// Run oracle rules, render output according to `format`, optionally write
 /// HTML to `out`.  Returns the exit code (`0`, `1`, `2`, or a sysexits code).
 pub(crate) fn run(
     file: &Path,
-    _rules: RuleSet,
+    rules: RuleSet,
     out: Option<&Path>,
     format: OutputFormat,
     quiet: bool,
@@ -52,7 +55,10 @@ pub(crate) fn run(
         .collect();
 
     // Build engine.
-    let engine = OracleEngine::new().with_builtin_rules();
+    let mut engine = OracleEngine::new().with_builtin_rules();
+    if matches!(rules, RuleSet::Demo) {
+        engine.add_rule(Box::new(trace_oracle::Graph47ResultMustBeNonNegative));
+    }
 
     // Run.
     let reports: Vec<SessionReport> = engine.run_all(&sessions);

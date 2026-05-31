@@ -1,10 +1,11 @@
-//! `trace-oracle` — oracle rule engine for `SemantxTrace` (S5).
+//! `trace-oracle` — oracle rule engine for `SemantxTrace` (S5+S7).
 //!
 //! Core types: [`OracleSchedule`], [`Severity`], [`OracleViolation`],
 //! [`OracleResult`], [`Rule`] trait, [`OracleEngine`].
 //! Built-in rules: [`NoUnhandledException`], [`NoErrorModalAfterCommand`],
 //! [`CommandMustSucceed`], [`ScreenMustNavigateForward`],
 //! [`ValidationsPassBeforeSubmit`].
+//! Example domain rule (S7): [`Graph47ResultMustBeNonNegative`].
 //! Composition: [`AndRule`], [`OrRule`], [`WithinWindowRule`].
 //! Reporting: [`HtmlReporter`].
 
@@ -21,6 +22,6 @@ pub use engine::OracleEngine;
 pub use reporter::HtmlReporter;
 pub use rule::{OracleResult, OracleSchedule, OracleViolation, Rule, Severity};
 pub use rules::{
-    CommandMustSucceed, NoErrorModalAfterCommand, NoUnhandledException, ScreenMustNavigateForward,
-    ValidationsPassBeforeSubmit,
+    CommandMustSucceed, Graph47ResultMustBeNonNegative, NoErrorModalAfterCommand,
+    NoUnhandledException, ScreenMustNavigateForward, ValidationsPassBeforeSubmit,
 };

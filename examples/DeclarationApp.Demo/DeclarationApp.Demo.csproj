@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>DeclarationApp.Demo</AssemblyName>
+    <RootNamespace>DeclarationApp.Demo</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\adapters\Trace.Abstractions\Trace.Abstractions.csproj" />
+    <ProjectReference Include="..\..\adapters\Trace.Wpf\Trace.Wpf.csproj" />
+  </ItemGroup>
+
+
+</Project>

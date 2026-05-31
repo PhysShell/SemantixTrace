@@ -1,0 +1,25 @@
+<Window x:Class="DeclarationApp.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DeclarationApp — Customs Declaration Demo"
+        Width="1024"
+        Height="768"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <!-- Navigation bar -->
+        <Border DockPanel.Dock="Top"
+                Background="#2C3E50"
+                Padding="12,8">
+            <TextBlock Text="DeclarationApp — Customs Declaration Demo"
+                       Foreground="White"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Main content frame -->
+        <Frame x:Name="MainFrame"
+               NavigationUIVisibility="Hidden"
+               Background="#F5F6FA"/>
+    </DockPanel>
+</Window>
