@@ -1,0 +1,39 @@
+<Page x:Class="DeclarationApp.Demo.Views.ExportDialogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Export Declaration">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Export Declaration" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,12"
+                   Text="Validate the exporter IIN before submitting the declaration to customs."/>
+        <Label Grid.Row="2" Content="Exporter IIN:"/>
+        <TextBox Grid.Row="3" x:Name="ExporterIinBox"
+                 Text="{Binding ExporterIin, UpdateSourceTrigger=PropertyChanged}"
+                 AutomationProperties.AutomationId="ExportDialog.ExporterIinBox"
+                 Margin="0,0,0,8"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <!-- Validate IIN button -->
+            <Button Content="Validate IIN" Command="{Binding ValidateIinCommand}"
+                    AutomationProperties.AutomationId="ExportDialog.ValidateIinButton"
+                    Margin="0,0,8,0"/>
+            <!--
+                BUG 2: Export button is always enabled (CanSubmit stays true
+                even after DuplicateIinErrorModal is shown). In a correct
+                implementation, CanSubmit would be set to false when a
+                duplicate IIN is detected, and CommandManager.InvalidateRequerySuggested()
+                would be called to refresh the button state.
+            -->
+            <Button Content="Export" Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding CanSubmit}"
+                    AutomationProperties.AutomationId="ExportDialog.ExportButton"/>
+        </StackPanel>
+    </Grid>
+</Page>

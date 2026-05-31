@@ -1,0 +1,89 @@
+<Page x:Class="DeclarationApp.Demo.Views.GoodsEditorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Goods Editor">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Page header -->
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Text="Goods Items"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,0,0,16"/>
+
+        <!-- Customs Code -->
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="Customs Code (HS):"
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 x:Name="CustomsCodeBox"
+                 AutomationProperties.AutomationId="GoodsEditor.CustomsCodeBox"
+                 Text="{Binding CustomsCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="4"/>
+
+        <!-- Quantity -->
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="Quantity:"
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 x:Name="QuantityBox"
+                 AutomationProperties.AutomationId="GoodsEditor.QuantityBox"
+                 Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="4"/>
+
+        <!-- Unit Price -->
+        <Label Grid.Row="3" Grid.Column="0"
+               Content="Unit Price:"
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 x:Name="UnitPriceBox"
+                 AutomationProperties.AutomationId="GoodsEditor.UnitPriceBox"
+                 Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="4"/>
+
+        <!-- Validation status (updated async) -->
+        <TextBlock Grid.Row="4"
+                   Grid.ColumnSpan="2"
+                   x:Name="ValidationStatusText"
+                   AutomationProperties.AutomationId="GoodsEditor.ValidationStatus"
+                   Text="{Binding ValidationStatus}"
+                   Foreground="#CC6600"
+                   Margin="4,4,0,8"/>
+
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    Margin="0,8,0,0">
+            <Button x:Name="SubmitButton"
+                    Content="Submit Goods →"
+                    AutomationProperties.AutomationId="GoodsEditor.SubmitButton"
+                    Command="{Binding SubmitCommand}"
+                    Width="160"/>
+        </StackPanel>
+
+        <!-- BUG 3 hint -->
+        <TextBlock Grid.Row="6"
+                   Grid.ColumnSpan="2"
+                   TextWrapping="Wrap"
+                   Text="Note: Customs code validation runs asynchronously. The Submit button does NOT wait for validation to complete (BUG 3)."
+                   Foreground="Gray"
+                   FontSize="11"
+                   Margin="4,16,0,0"/>
+    </Grid>
+</Page>
