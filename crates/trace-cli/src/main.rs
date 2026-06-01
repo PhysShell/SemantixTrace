@@ -2,10 +2,8 @@
 //!
 //! Implemented subcommands: `version`, `analyze`, `normalize`,
 //! `graph`, `report workflows`, `oracle run`, `export diagnostic`,
-//! `completions <shell>`. The full inventory specified in ADR-0014 §3
-//! lands stage by stage (S4 ships `graph` and `report workflows`, S5
-//! ships `oracle run`, S7 ships `export diagnostic`, S11 ships
-//! `plan …`, etc.).
+//! `completions <shell>`. S8 adds `ingest`, `slice`, `align`, and
+//! `report similar` (behind the `sqlite` feature).
 
 #![forbid(unsafe_code)]
 
@@ -15,6 +13,13 @@ mod graph_cmd;
 mod normalize;
 mod oracle_cmd;
 mod report_cmd;
+
+#[cfg(feature = "sqlite")]
+mod align_cmd;
+#[cfg(feature = "sqlite")]
+mod ingest_cmd;
+#[cfg(feature = "sqlite")]
+mod slice_cmd;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
@@ -114,6 +119,9 @@ enum Command {
         /// Output format for the graph.
         #[arg(long = "format", value_enum, default_value_t = graph_cmd::GraphFormat::Mermaid)]
         format: graph_cmd::GraphFormat,
+        /// Mining algorithm to use.
+        #[arg(long = "miner", value_enum, default_value_t = graph_cmd::MinerAlgorithm::Heuristics)]
+        miner: graph_cmd::MinerAlgorithm,
     },
     /// Produce workflow analytics reports from a JSONL trace file.
     Report {
@@ -129,6 +137,41 @@ enum Command {
     Export {
         #[command(subcommand)]
         subcommand: ExportCommand,
+    },
+    /// Ingest a JSONL corpus into a `SQLite` database (S8).
+    #[cfg(feature = "sqlite")]
+    Ingest {
+        /// Path to the `SQLite` database (created if absent).
+        db: PathBuf,
+        /// Input JSONL file, or `-` to read from stdin.
+        file: Option<PathBuf>,
+        /// Source format.
+        #[arg(long = "from", value_enum, default_value_t = ingest_cmd::IngestFrom::Jsonl)]
+        from: ingest_cmd::IngestFrom,
+        /// Target storage.
+        #[arg(long = "to", value_enum, default_value_t = ingest_cmd::IngestTo::Sqlite)]
+        to: ingest_cmd::IngestTo,
+    },
+    /// Slice a `SQLite` corpus by a dimension filter, writing JSONL to stdout (S8).
+    #[cfg(feature = "sqlite")]
+    Slice {
+        /// Dimension to filter by.
+        #[arg(long = "by", value_enum)]
+        by: slice_cmd::SliceDim,
+        /// Value to match.
+        value: String,
+        /// Path to the `SQLite` database.
+        db: PathBuf,
+    },
+    /// Compute edit-distance alignment between two sessions in a `SQLite` corpus (S8).
+    #[cfg(feature = "sqlite")]
+    Align {
+        /// Path to the `SQLite` database.
+        db: PathBuf,
+        /// First session UUID.
+        session_a: String,
+        /// Second session UUID.
+        session_b: String,
     },
     /// Emit a shell-completion script for the given shell.
     Completions {
@@ -184,6 +227,18 @@ enum ReportCommand {
         /// Maximum number of top workflows to show.
         #[arg(long = "top-n", default_value_t = 20)]
         top_n: usize,
+    },
+    /// Find the N most similar sessions in a `SQLite` corpus (S8).
+    #[cfg(feature = "sqlite")]
+    Similar {
+        /// Session UUID of the probe scenario (format: `<uuid>`).
+        #[arg(long = "scenario")]
+        scenario: String,
+        /// Maximum number of results to return.
+        #[arg(long = "top", default_value_t = 10)]
+        top: usize,
+        /// Path to the `SQLite` database.
+        db: PathBuf,
     },
 }
 
@@ -260,7 +315,11 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
         Command::Normalize { file, out, report } => {
             normalize::run(file, out.as_deref(), *report, global.quiet)
         }
-        Command::Graph { file, format } => graph_cmd::run(file, *format, global.quiet),
+        Command::Graph {
+            file,
+            format,
+            miner,
+        } => graph_cmd::run(file, *format, *miner, global.quiet),
         Command::Report { subcommand } => dispatch_report(subcommand, global),
         Command::Oracle { subcommand } => {
             // Oracle sub-commands return ExitCode directly (exit codes 0/1/2);
@@ -268,6 +327,18 @@ fn dispatch(command: &Command, global: &GlobalOptions) -> Result<(), SysExit> {
             dispatch_oracle(subcommand, global)
         }
         Command::Export { subcommand } => dispatch_export(subcommand, global),
+        #[cfg(feature = "sqlite")]
+        Command::Ingest { db, file, from, to } => {
+            ingest_cmd::run(db, file.as_deref(), *from, *to, global.quiet)
+        }
+        #[cfg(feature = "sqlite")]
+        Command::Slice { by, value, db } => slice_cmd::run(db, *by, value, global.quiet),
+        #[cfg(feature = "sqlite")]
+        Command::Align {
+            db,
+            session_a,
+            session_b,
+        } => align_cmd::run(db, session_a, session_b, global.output, global.quiet),
         Command::Completions { shell } => {
             emit_completions(*shell);
             Ok(())
@@ -279,6 +350,10 @@ fn dispatch_report(cmd: &ReportCommand, global: &GlobalOptions) -> Result<(), Sy
     match cmd {
         ReportCommand::Workflows { file, top_n } => {
             report_cmd::run_workflows(file, *top_n, global.output, global.quiet)
+        }
+        #[cfg(feature = "sqlite")]
+        ReportCommand::Similar { scenario, top, db } => {
+            report_cmd::run_similar(db, scenario, *top, global.output, global.quiet)
         }
     }
 }
@@ -324,7 +399,8 @@ fn run_analyze(path: &Path, output: OutputFormat, quiet: bool) -> Result<(), Sys
 
 /// Read every event from a path (or stdin when `path` is `-`), mapping
 /// storage errors to sysexits codes and printing diagnostics unless
-/// `quiet` (ADR-0014 §5/§6). Shared by `analyze` and `normalize`.
+/// `quiet` (ADR-0014 §5/§6). Shared by `analyze`, `normalize`, and S8
+/// commands.
 fn read_all_events(path: &Path, quiet: bool) -> Result<Vec<Current>, SysExit> {
     if path == Path::new("-") {
         let reader = io::BufReader::new(io::stdin().lock());

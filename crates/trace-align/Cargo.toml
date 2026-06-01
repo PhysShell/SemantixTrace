@@ -1,0 +1,28 @@
+[package]
+name        = "trace-align"
+description = "Semantic trace alignment and nearest-scenario search for SemantxTrace."
+version.workspace       = true
+edition.workspace       = true
+rust-version.workspace  = true
+license.workspace       = true
+authors.workspace       = true
+repository.workspace    = true
+homepage.workspace      = true
+documentation.workspace = true
+readme.workspace        = true
+keywords.workspace      = true
+categories.workspace    = true
+
+[dependencies]
+trace-schema = { path = "../trace-schema", version = "0.0.0" }
+trace-core   = { path = "../trace-core", version = "0.0.0" }
+serde        = { workspace = true }
+
+[dev-dependencies]
+proptest   = { workspace = true }
+chrono     = { workspace = true }
+uuid       = { workspace = true }
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

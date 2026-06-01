@@ -16,6 +16,9 @@ pub mod miner;
 pub mod prefixspan;
 pub mod report;
 
+#[cfg(feature = "inductive-miner")]
+pub mod inductive_miner;
+
 pub use builder::from_scenarios;
 pub use export::{to_dot, to_mermaid};
 pub use graph::{ActionGraph, ActionNode, Transition};
@@ -25,3 +28,6 @@ pub use report::{
     build_report, DeadFeature, RareFailingWorkflow, TopWorkflow, WorkflowReport,
     WorkflowReportConfig,
 };
+
+#[cfg(feature = "inductive-miner")]
+pub use inductive_miner::{tree_to_graph, ImdfConfig, InductiveMiner, ProcessTree};
