@@ -124,3 +124,5 @@ jobs:
         run: cargo +nightly fuzz run upcaster_v1_to_current --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
       - name: bounded smoke (normalize_fold)
         run: cargo +nightly fuzz run normalize_fold --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
+      - name: bounded smoke (sqlite_query)
+        run: cargo +nightly fuzz run sqlite_query --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
