@@ -386,24 +386,30 @@ fn filter_traces(traces: &[Vec<String>], activities: &BTreeSet<String>) -> Vec<V
 
 /// Convert a process tree to an [`ActionGraph`] for CLI compatibility.
 ///
-/// Each leaf activity becomes a node; control-flow edges connect
-/// sequential leaves.  Synthetic `ScreenId("discovered")` is used for
-/// all nodes since the miner only sees command names.
+/// Edges are derived from the tree structure so that only semantically
+/// implied transitions appear in the graph:
+///
+/// - **Sequence**: exit leaves of child *i* connect to entry leaves of child
+///   *i+1*.
+/// - **`ExclusiveChoice`**: branches are independent; no cross-edges.
+/// - **Loop**: body-exit → redo-entry and redo-exit → body-entry.
+/// - **Flower**: every activity may follow every other (any-to-any edges).
+/// - **Activity / Tau**: single node or empty.
+///
+/// Synthetic `ScreenId("discovered")` is used for all nodes since the miner
+/// only sees command names.
 #[must_use]
 pub fn tree_to_graph(tree: &ProcessTree) -> ActionGraph {
     let mut graph = ActionGraph::new();
-    let leaves = collect_leaf_names(tree);
-    // Insert all leaf nodes first.
-    for name in &leaves {
-        let action = synthetic_action(name);
-        get_or_insert(&mut graph, &action);
+    // Insert all leaf nodes.
+    for name in &collect_leaf_names(tree) {
+        get_or_insert(&mut graph, &synthetic_action(name));
     }
-    // Add sequential edges between consecutive leaves in the tree order.
-    for w in leaves.windows(2) {
-        let from_action = synthetic_action(&w[0]);
-        let to_action = synthetic_action(&w[1]);
-        let from_idx = get_or_insert(&mut graph, &from_action);
-        let to_idx = get_or_insert(&mut graph, &to_action);
+    // Derive edges that the tree structure actually implies.
+    let (_, _, edges) = collect_tree_edges(tree);
+    for (from, to) in edges {
+        let from_idx = get_or_insert(&mut graph, &synthetic_action(&from));
+        let to_idx = get_or_insert(&mut graph, &synthetic_action(&to));
         graph.graph.add_edge(
             from_idx,
             to_idx,
@@ -422,6 +428,93 @@ fn synthetic_action(command_name: &str) -> CanonicalAction {
         screen_id: ScreenId::new("discovered"),
         command_id: CommandId::new(command_name),
         abstract_args: serde_json::json!({}),
+    }
+}
+
+/// Recursively derive the structurally implied control-flow edges.
+///
+/// Returns `(entry_leaves, exit_leaves, edges)` where:
+/// - `entry_leaves`: activities that can execute first in the subtree.
+/// - `exit_leaves`: activities that can execute last in the subtree.
+/// - `edges`: `(from, to)` pairs of activities that are directly sequenced.
+#[allow(clippy::type_complexity)]
+fn collect_tree_edges(tree: &ProcessTree) -> (Vec<String>, Vec<String>, Vec<(String, String)>) {
+    match tree {
+        ProcessTree::Activity(name) => (vec![name.clone()], vec![name.clone()], vec![]),
+        ProcessTree::Tau => (vec![], vec![], vec![]),
+
+        ProcessTree::Sequence(children) => {
+            let mut entries: Vec<String> = vec![];
+            let mut exits: Vec<String> = vec![];
+            let mut edges: Vec<(String, String)> = vec![];
+            let mut prev_exits: Vec<String> = vec![];
+
+            for (i, child) in children.iter().enumerate() {
+                let (child_entries, child_exits, child_edges) = collect_tree_edges(child);
+                edges.extend(child_edges);
+                if i == 0 {
+                    entries.clone_from(&child_entries);
+                } else {
+                    for prev in &prev_exits {
+                        for entry in &child_entries {
+                            edges.push((prev.clone(), entry.clone()));
+                        }
+                    }
+                }
+                prev_exits.clone_from(&child_exits);
+                if i + 1 == children.len() {
+                    exits.clone_from(&child_exits);
+                }
+            }
+            (entries, exits, edges)
+        }
+
+        ProcessTree::ExclusiveChoice(children) => {
+            // Branches are mutually exclusive — no cross-branch edges.
+            let mut entries: Vec<String> = vec![];
+            let mut exits: Vec<String> = vec![];
+            let mut edges: Vec<(String, String)> = vec![];
+            for child in children {
+                let (child_entries, child_exits, child_edges) = collect_tree_edges(child);
+                entries.extend(child_entries);
+                exits.extend(child_exits);
+                edges.extend(child_edges);
+            }
+            (entries, exits, edges)
+        }
+
+        ProcessTree::Loop { body, redo } => {
+            let (body_entries, body_exits, body_edges) = collect_tree_edges(body);
+            let (redo_entries, redo_exits, redo_edges) = collect_tree_edges(redo);
+            let mut edges = body_edges;
+            edges.extend(redo_edges);
+            // body-exit → redo-entry (start the redo pass)
+            for exit in &body_exits {
+                for entry in &redo_entries {
+                    edges.push((exit.clone(), entry.clone()));
+                }
+            }
+            // redo-exit → body-entry (loop back)
+            for exit in &redo_exits {
+                for entry in &body_entries {
+                    edges.push((exit.clone(), entry.clone()));
+                }
+            }
+            (body_entries, body_exits, edges)
+        }
+
+        ProcessTree::Flower(activities) => {
+            // Flower = τ*: any activity may follow any other.
+            let mut edges: Vec<(String, String)> = vec![];
+            for a in activities {
+                for b in activities {
+                    if a != b {
+                        edges.push((a.clone(), b.clone()));
+                    }
+                }
+            }
+            (activities.clone(), activities.clone(), edges)
+        }
     }
 }
 

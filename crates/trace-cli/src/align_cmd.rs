@@ -58,6 +58,22 @@ pub(crate) fn run(
             SysExit::Software
         })?;
 
+    // Reject missing sessions before computing anything — two absent sessions
+    // would otherwise produce total_cost=0 / similarity=1.0 / lengths 0/0,
+    // which looks like a perfect match instead of an invalid request.
+    if events_a.is_empty() {
+        if !quiet {
+            eprintln!("error: session '{session_a}' not found in {}", db.display());
+        }
+        return Err(SysExit::NoInput);
+    }
+    if events_b.is_empty() {
+        if !quiet {
+            eprintln!("error: session '{session_b}' not found in {}", db.display());
+        }
+        return Err(SysExit::NoInput);
+    }
+
     let cost_fn = StructuralCost::default();
     let alignment = align(&events_a, &events_b, &cost_fn);
 
