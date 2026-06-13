@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:trace="clr-namespace:SemantxTrace.Avalonia;assembly=Trace.Avalonia"
+             x:Class="DeclarationApp.Demo.Avalonia.Views.InvoiceEditorPage"
+             trace:AutoAutomationId.IsEnabled="True">
+
+  <StackPanel Margin="16" Spacing="10">
+    <TextBlock FontSize="20" FontWeight="Bold" Text="Invoice Editor" />
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Declaration Number" />
+      <TextBox Name="DeclarationNumberBox" Text="{Binding DeclarationNumber}" />
+    </StackPanel>
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Exporter IIN" />
+      <TextBox Name="ExporterIinBox" Text="{Binding ExporterIin}" />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Name="SaveButton"    Content="Save"          Command="{Binding SaveCommand}" />
+      <Button Name="GoodsButton"   Content="Go to Goods"   Command="{Binding NavigateToGoodsCommand}" />
+    </StackPanel>
+  </StackPanel>
+
+</UserControl>

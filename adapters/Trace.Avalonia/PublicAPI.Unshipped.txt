@@ -1,3 +1,35 @@
 #nullable enable
-SemantxTrace.Avalonia.PlaceholderS0
-static SemantxTrace.Avalonia.PlaceholderS0.Marker() -> string!
+SemantxTrace.Avalonia.AutoAutomationId
+static SemantxTrace.Avalonia.AutoAutomationId.GetIsEnabled(Avalonia.Controls.Control! element) -> bool
+static SemantxTrace.Avalonia.AutoAutomationId.IsEnabledProperty -> Avalonia.AttachedProperty<bool>!
+static SemantxTrace.Avalonia.AutoAutomationId.SetIsEnabled(Avalonia.Controls.Control! element, bool value) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext
+SemantxTrace.Avalonia.FileJsonlTraceContext.Dispose() -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitAsyncOperationCompleted(string! operationId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitCommandExecuted(string! commandId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitExceptionThrown(string! exceptionType, string! message, string? stack = null, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitFieldChanged(string! fieldId, SemantxTrace.Abstractions.ValuePolicy! oldValue, SemantxTrace.Abstractions.ValuePolicy! newValue, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitNavigationOccurred(string! fromScreenId, string! toScreenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.FileJsonlTraceContext(string! filePath) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.FileJsonlTraceContext(System.IO.TextWriter! output) -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.Flush() -> void
+SemantxTrace.Avalonia.FileJsonlTraceContext.SessionId.get -> System.Guid
+SemantxTrace.Avalonia.NoOpTraceContext
+SemantxTrace.Avalonia.NoOpTraceContext.Dispose() -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitAsyncOperationCompleted(string! operationId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitCommandExecuted(string! commandId, long durationMs, SemantxTrace.Abstractions.CommandOutcome outcome, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitExceptionThrown(string! exceptionType, string! message, string? stack = null, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitFieldChanged(string! fieldId, SemantxTrace.Abstractions.ValuePolicy! oldValue, SemantxTrace.Abstractions.ValuePolicy! newValue, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitNavigationOccurred(string! fromScreenId, string! toScreenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitScreenOpened(string! screenId, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.EmitValidationFailed(string! validator, string! fieldId, string! reason, System.Guid? correlationId = null) -> void
+SemantxTrace.Avalonia.NoOpTraceContext.Flush() -> void
+static SemantxTrace.Avalonia.NoOpTraceContext.Instance.get -> SemantxTrace.Avalonia.NoOpTraceContext!
+SemantxTrace.Avalonia.NoOpTraceContext.SessionId.get -> System.Guid
+SemantxTrace.Avalonia.TracedRelayCommand
+SemantxTrace.Avalonia.TracedRelayCommand.CanExecute(object? parameter) -> bool
+SemantxTrace.Avalonia.TracedRelayCommand.CanExecuteChanged -> System.EventHandler?
+SemantxTrace.Avalonia.TracedRelayCommand.Execute(object? parameter) -> void
+SemantxTrace.Avalonia.TracedRelayCommand.TracedRelayCommand(System.Windows.Input.ICommand! inner, string! commandId, SemantxTrace.Abstractions.ITraceContext! context) -> void

@@ -1,0 +1,7 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="DeclarationApp.Demo.Avalonia.MainWindow"
+        Title="DeclarationApp Demo (Avalonia)"
+        Width="800" Height="600">
+  <ContentControl Name="MainContent" />
+</Window>

@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:trace="clr-namespace:SemantxTrace.Avalonia;assembly=Trace.Avalonia"
+             x:Class="DeclarationApp.Demo.Avalonia.Views.PaymentsCalculatorPage"
+             trace:AutoAutomationId.IsEnabled="True">
+
+  <StackPanel Margin="16" Spacing="10">
+    <TextBlock FontSize="20" FontWeight="Bold" Text="Payments Calculator" />
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Total Quantity" />
+      <NumericUpDown Name="TotalQuantityBox" Value="{Binding TotalQuantity}" Minimum="0" />
+    </StackPanel>
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Duty Rate" />
+      <NumericUpDown Name="DutyRateBox" Value="{Binding DutyRate}" FormatString="P2" Increment="0.01" />
+    </StackPanel>
+
+    <TextBlock Name="DutyAmountText" Text="{Binding CalculationStatus}" />
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Name="RecalculateButton" Content="Recalculate" Command="{Binding RecalculateCommand}" />
+      <Button Name="ExportButton"      Content="Go to Export" Command="{Binding NavigateToExportCommand}" />
+    </StackPanel>
+  </StackPanel>
+
+</UserControl>

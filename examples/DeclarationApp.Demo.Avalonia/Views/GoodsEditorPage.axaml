@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:trace="clr-namespace:SemantxTrace.Avalonia;assembly=Trace.Avalonia"
+             x:Class="DeclarationApp.Demo.Avalonia.Views.GoodsEditorPage"
+             trace:AutoAutomationId.IsEnabled="True">
+
+  <StackPanel Margin="16" Spacing="10">
+    <TextBlock FontSize="20" FontWeight="Bold" Text="Goods Editor" />
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Customs Code (HS format NNNN.NN)" />
+      <TextBox Name="CustomsCodeBox" Text="{Binding CustomsCode}" />
+    </StackPanel>
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Quantity" />
+      <NumericUpDown Name="QuantityBox" Value="{Binding Quantity}" Minimum="1" />
+    </StackPanel>
+
+    <StackPanel Spacing="4">
+      <TextBlock Text="Unit Price" />
+      <NumericUpDown Name="UnitPriceBox" Value="{Binding UnitPrice}" Minimum="0" FormatString="F2" />
+    </StackPanel>
+
+    <TextBlock Name="ValidationStatusText" Text="{Binding ValidationStatus}" Foreground="DarkOrange" />
+
+    <Button Name="SubmitButton" Content="Submit Goods" Command="{Binding SubmitCommand}" />
+  </StackPanel>
+
+</UserControl>

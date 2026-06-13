@@ -4,14 +4,26 @@
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>Trace.Avalonia</PackageId>
     <Description>
-      Avalonia adapter for SemantxTrace. Same [TraceCommand] / [ScreenId]
-      pattern as Trace.Wpf, cross-platform. Lands in S10. See ADR-0013.
+      Avalonia 11.x adapter for SemantxTrace. Same [TraceCommand] / [ScreenId] /
+      AutoAutomationId pattern as Trace.Wpf, cross-platform (Linux, macOS, Windows).
+      Lands in S10. See ADR-0013.
     </Description>
+    <!--
+      CA1711: identifiers should not have incorrect suffix — Avalonia convention uses
+              "Property" suffix on AttachedProperty<T> fields, which matches WPF style.
+      CA1823: unused private fields — CA analysis doesn't understand Avalonia's
+              property system reflection-based registration.
+    -->
+    <NoWarn>CA1711;CA1823</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Trace.Abstractions\Trace.Abstractions.csproj" />
     <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.1.0" />
   </ItemGroup>
 
 </Project>
