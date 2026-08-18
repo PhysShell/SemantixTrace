@@ -41,6 +41,9 @@ sysexits      = "0.8"
 trycmd        = "0.15"
 petgraph  = "0.8"
 proptest  = "1"
+# Dev-only: validates the published schema/*.schema.json files against
+# the serde model (S1/S2 acceptance criteria). MSRV 1.85, MIT.
+jsonschema = { version = "0.49", default-features = false }
 zstd      = "0.13"
 tempfile  = "3"
 rusqlite  = { version = "0.31", features = ["bundled"] }

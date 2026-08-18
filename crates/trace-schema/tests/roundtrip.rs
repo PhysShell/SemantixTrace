@@ -2,132 +2,16 @@
 //! chain, per acceptance criteria in
 //! `docs/stages/S1-trace-core-and-schema-v1.md` and the contract in
 //! `docs/upcasters.md`.
+//!
+//! Strategies live in [`common`] and are shared with the fail-closed
+//! and schema-parity suites.
 
-use chrono::{TimeZone, Utc};
+mod common;
+
 use proptest::prelude::*;
-use trace_core::{
-    CommandId, CorrelationId, EventSeq, FieldId, Outcome, ScreenId, SessionId, ValuePolicy,
-};
 use trace_schema::{read_event, v1, v2, write_event, Current, SchemaError, Upcaster};
 
-// ---------------------------------------------------------------------------
-// Strategies
-// ---------------------------------------------------------------------------
-
-fn arb_session_id() -> impl Strategy<Value = SessionId> {
-    any::<u128>().prop_map(|bits| SessionId::new(uuid::Uuid::from_u128(bits)))
-}
-
-fn arb_correlation_id() -> impl Strategy<Value = CorrelationId> {
-    any::<u128>().prop_map(|bits| CorrelationId::new(uuid::Uuid::from_u128(bits)))
-}
-
-fn arb_outcome() -> impl Strategy<Value = Outcome> {
-    prop_oneof![
-        Just(Outcome::Success),
-        Just(Outcome::Cancelled),
-        Just(Outcome::TimedOut),
-        ".{0,32}".prop_map(|message| Outcome::Failure { message }),
-    ]
-}
-
-fn arb_value_policy() -> impl Strategy<Value = ValuePolicy> {
-    prop_oneof![
-        Just(ValuePolicy::Removed),
-        ".{0,16}".prop_map(|display| ValuePolicy::Masked { display }),
-        ".{0,16}".prop_map(|bucket| ValuePolicy::Bucketed { bucket }),
-        (".{0,16}", ".{0,8}").prop_map(|(hash, algo)| ValuePolicy::Hashed { hash, algo }),
-    ]
-}
-
-fn arb_kind() -> impl Strategy<Value = v1::TraceEventKind> {
-    prop_oneof![
-        ("[A-Za-z]{1,12}".prop_map(ScreenId::new)).prop_map(|screen_id| {
-            v1::TraceEventKind::ScreenOpened {
-                screen_id,
-                params: serde_json::json!({}),
-            }
-        }),
-        (
-            "[A-Za-z]{1,12}\\.[A-Za-z]{1,12}".prop_map(CommandId::new),
-            0u64..1_000_000,
-            arb_outcome(),
-        )
-            .prop_map(|(command_id, duration_ms, outcome)| {
-                v1::TraceEventKind::CommandExecuted {
-                    command_id,
-                    args: serde_json::json!({}),
-                    duration_ms,
-                    outcome,
-                }
-            }),
-        (
-            "[A-Za-z]{1,12}".prop_map(FieldId::new),
-            arb_value_policy(),
-            arb_value_policy(),
-        )
-            .prop_map(|(field_id, old, new)| v1::TraceEventKind::FieldChanged {
-                field_id,
-                old,
-                new
-            }),
-        ("[A-Za-z]{1,32}", "[^\"\\\\]{0,32}").prop_map(|(exception_type, message)| {
-            v1::TraceEventKind::ExceptionThrown {
-                exception_type,
-                message,
-                stack: None,
-            }
-        }),
-        (
-            "[A-Za-z]{1,12}".prop_map(ScreenId::new),
-            "[A-Za-z]{1,12}".prop_map(ScreenId::new),
-        )
-            .prop_map(|(from, to)| v1::TraceEventKind::NavigationOccurred { from, to }),
-        (
-            "[A-Za-z]{1,12}",
-            "[A-Za-z]{1,12}".prop_map(FieldId::new),
-            "[^\"\\\\]{0,32}",
-        )
-            .prop_map(|(validator, field_id, reason)| {
-                v1::TraceEventKind::ValidationFailed {
-                    validator,
-                    field_id,
-                    reason,
-                }
-            }),
-        ("[A-Za-z]{1,12}", 0u64..1_000_000, arb_outcome(),).prop_map(
-            |(operation_id, duration_ms, outcome)| {
-                v1::TraceEventKind::AsyncOperationCompleted {
-                    operation_id,
-                    duration_ms,
-                    outcome,
-                }
-            }
-        ),
-    ]
-}
-
-/// Generate a v1 event (used for upcaster-chain property tests).
-fn arb_v1_event() -> impl Strategy<Value = v1::TraceEvent> {
-    (
-        any::<u64>(),
-        arb_session_id(),
-        prop::option::of(arb_correlation_id()),
-        arb_kind(),
-    )
-        .prop_map(|(seq, session_id, correlation_id, kind)| v1::TraceEvent {
-            seq: EventSeq::new(seq),
-            session_id,
-            ts: Utc.with_ymd_and_hms(2026, 5, 27, 12, 0, 0).unwrap(),
-            correlation_id,
-            kind,
-        })
-}
-
-/// Generate a v2 / Current event (used for round-trip property tests).
-fn arb_current_event() -> impl Strategy<Value = Current> {
-    arb_v1_event().prop_map(v2::V1ToV2::upcast)
-}
+use common::{arb_current_event, arb_v1_event};
 
 // ---------------------------------------------------------------------------
 // Invariants — see docs/stages/S1 §"Acceptance criteria" and
