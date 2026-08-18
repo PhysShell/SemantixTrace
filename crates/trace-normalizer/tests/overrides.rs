@@ -5,7 +5,7 @@
 //! without them, and the repo is past S8 — so they land here, red
 //! first. Second residual: `refold` collapses adjacent duplicates and
 //! reports the loss nowhere, which violates the loss-accounting
-//! posture the FoldReport exists for; `refold_with_report` closes
+//! posture the `FoldReport` exists for; `refold_with_report` closes
 //! that hole.
 
 use chrono::{Duration, TimeZone, Utc};

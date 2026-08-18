@@ -16,14 +16,30 @@ pub const TAG: &str = "_abstract";
 /// `{class, len}` descriptors, containers recurse. Booleans and null pass
 /// through (negligible re-identification risk).
 ///
+/// Numeric bucketing honours `cfg.per_field_bucket_bounds`: a key
+/// present in the map switches the bucket table for that key's entire
+/// subtree (nested objects and arrays included) until a deeper key
+/// carries its own override; other keys inherit the enclosing table.
+///
 /// Idempotent: `abstract_value(abstract_value(v), cfg) == abstract_value(v, cfg)`.
 #[must_use]
 pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
+    abstract_with_bounds(value, cfg, &cfg.numeric_bucket_bounds)
+}
+
+/// Recursive worker carrying the bucket table active for the current
+/// subtree (the per-field override mechanism).
+fn abstract_with_bounds(value: &Value, cfg: &NormCfg, bounds: &[i64]) -> Value {
     match value {
         Value::Null | Value::Bool(_) => value.clone(),
-        Value::Number(n) => numeric(n, cfg),
+        Value::Number(n) => numeric(n, bounds),
         Value::String(s) => string_class(s),
-        Value::Array(items) => Value::Array(items.iter().map(|v| abstract_value(v, cfg)).collect()),
+        Value::Array(items) => Value::Array(
+            items
+                .iter()
+                .map(|v| abstract_with_bounds(v, cfg, bounds))
+                .collect(),
+        ),
         Value::Object(map) => {
             if is_abstracted_tag(map) {
                 // Already abstracted (validated tag shape) — idempotent passthrough.
@@ -31,7 +47,11 @@ pub fn abstract_value(value: &Value, cfg: &NormCfg) -> Value {
             } else {
                 let mut out = Map::with_capacity(map.len());
                 for (key, val) in map {
-                    out.insert(key.clone(), abstract_value(val, cfg));
+                    let entry_bounds = cfg
+                        .per_field_bucket_bounds
+                        .get(key)
+                        .map_or(bounds, Vec::as_slice);
+                    out.insert(key.clone(), abstract_with_bounds(val, cfg, entry_bounds));
                 }
                 Value::Object(out)
             }
@@ -73,7 +93,7 @@ fn tagged(kind: &str, entries: &[(&str, Value)]) -> Value {
     clippy::cast_possible_truncation,
     reason = "float values are bucketed; truncation to the bucket's integer key is intentional"
 )]
-fn numeric(n: &Number, cfg: &NormCfg) -> Value {
+fn numeric(n: &Number, bounds: &[i64]) -> Value {
     let as_int = n
         .as_i64()
         .or_else(|| n.as_u64().map(|u| i64::try_from(u).unwrap_or(i64::MAX)))
@@ -81,7 +101,7 @@ fn numeric(n: &Number, cfg: &NormCfg) -> Value {
         .unwrap_or(0);
     tagged(
         "numeric",
-        &[("bucket", Value::String(cfg.bucket_label(as_int)))],
+        &[("bucket", Value::String(NormCfg::label_in(bounds, as_int)))],
     )
 }
 

@@ -35,4 +35,4 @@ pub mod config;
 pub mod fold;
 
 pub use config::NormCfg;
-pub use fold::{normalize, refold, FoldReport};
+pub use fold::{normalize, refold, refold_with_report, FoldReport, RefoldReport};
