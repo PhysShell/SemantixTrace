@@ -267,3 +267,17 @@ Architectural decisions go to [`adr/`](adr/) instead.
   version-confused input, accepting that each future schema bump must
   add its new top-level field names to the denylist (documented in the
   bump procedure).
+
+- 2026-08-18 — In the context of the S2 durability promise ("fsyncs on a
+  configurable flush policy (default: every 64 events or 250 ms)") that
+  never shipped, facing a `JsonlBackend` whose strongest guarantee was
+  `flush()` into the OS buffer (no fsync path existed anywhere in the
+  workspace), we decided to **add an explicit `sync()` durability
+  checkpoint** (flush + `File::sync_all`) and to **keep the automatic
+  64-events/250 ms policy engine deferred**, against implementing the
+  full policy now, because the S6 WPF adapter ships its own sink with
+  its own queueing and the stage doc's own open question already
+  flagged the default as provisional pending that integration; an
+  explicit checkpoint primitive is what an audit-grade recorder needs
+  first, accepting that callers must place `sync()` calls themselves
+  until a policy engine lands.

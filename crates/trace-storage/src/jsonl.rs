@@ -72,6 +72,29 @@ impl JsonlBackend {
         Ok(())
     }
 
+    /// Flush buffered writes *and* fsync the file to stable storage.
+    ///
+    /// [`flush`](JsonlBackend::flush) hands buffered bytes to the OS;
+    /// `sync` additionally commits them to the device
+    /// ([`File::sync_all`]), which is the checkpoint an audit-grade
+    /// recorder calls at session boundaries. A backend that has not
+    /// written yet syncs trivially and does not create the file.
+    ///
+    /// The 64-events/250 ms automatic flush policy from the S2 stage
+    /// doc remains deliberately unimplemented — see
+    /// `docs/decisions.log.md` (2026-08-18).
+    ///
+    /// # Errors
+    ///
+    /// Returns [`JsonlError::Io`] if the flush or the fsync fails.
+    pub fn sync(&mut self) -> Result<(), JsonlError> {
+        if let Some(writer) = self.writer.as_mut() {
+            writer.flush()?;
+            writer.get_ref().sync_all()?;
+        }
+        Ok(())
+    }
+
     fn writer(&mut self) -> Result<&mut BufWriter<File>, JsonlError> {
         if self.writer.is_none() {
             let file = OpenOptions::new()
