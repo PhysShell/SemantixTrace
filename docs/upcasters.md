@@ -73,10 +73,12 @@ pub mod v3 { /* … */ }
 pub type Current = v3::TraceEvent;
 ```
 
-The public alias `Current` is the only event type exported from
-`trace-schema` to the rest of the workspace. Domain crates import
-`trace_schema::Current` (re-exported as `trace_core::TraceEvent`) and
-nothing else.
+The public alias `Current` is the canonical event type the rest of
+the workspace consumes. Domain crates import `trace_schema::Current`
+plus the *current* kind enum (today `v1::TraceEventKind`, re-exported
+unchanged through the newest module) and never name a per-version
+envelope or event struct; version-dispatch knowledge stays inside
+`read_event`.
 
 ### The chain, step by step
 

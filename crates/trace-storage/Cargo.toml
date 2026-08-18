@@ -1,6 +1,6 @@
 [package]
 name        = "trace-storage"
-description = "Storage backends (JSONL, SQLite, Parquet) for SemantxTrace."
+description = "Storage backends (JSONL, SQLite; Parquet planned for S9) for SemantxTrace."
 version.workspace       = true
 edition.workspace       = true
 rust-version.workspace  = true
@@ -19,6 +19,8 @@ default = []
 # base build free of the zstd C toolchain; CI's --all-features enables it.
 zstd    = ["dep:zstd"]
 sqlite  = ["dep:rusqlite"]
+# Placeholder — the Parquet archive tier lands in S9; the feature
+# currently gates no code.
 parquet = []
 
 [dependencies]

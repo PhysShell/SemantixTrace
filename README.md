@@ -40,8 +40,8 @@ S9 (Parquet archive tier) through S12 (v1.0 stable) remain planned.
   no I/O, no UI, no third-party storage.
 - `crates/trace-schema/` — versioned JSON schema, serde models, the upcaster
   chain (ADR-0006).
-- `crates/trace-storage/` — `StorageBackend` port plus JSONL (MVP), SQLite
-  (v0.2), Parquet (v0.3) adapters behind feature flags.
+- `crates/trace-storage/` — `StorageBackend` port plus JSONL (MVP) and
+  SQLite adapters behind feature flags; Parquet is planned for S9.
 - `crates/trace-normalizer/` — value/temporal abstraction, equivalence
   classes, scenario folding.
 - `crates/trace-graph/` — `petgraph` wrapper, Heuristics miner (MVP),
