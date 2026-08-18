@@ -8,7 +8,7 @@ namespace SemantxTrace.Abstractions;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The <paramref name="commandId"/> should be a stable dot-delimited identifier
+/// The <see cref="CommandId"/> should be a stable dot-delimited identifier
 /// (e.g. <c>"DeclarationEditor.Submit"</c>).  Identifiers are frozen after
 /// v1.0 per ADR-0006.
 /// </para>
