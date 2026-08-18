@@ -47,7 +47,8 @@ recorder can append events and an operator can inspect them.
 
 - Property test: `iter(append(events)) == events` for all event-kind
   enumerations.
-- `trace version` prints `{ binary: "<semver>", schema: 1 }`,
+- `trace version` prints `{ binary: "<semver>", schema:
+  <CURRENT_SCHEMA_VERSION> }` (schema `1` at S2; `2` since the v2 bump),
   exit code `0`; `--output json` validates against the published
   `trace-version-v1.schema.json` (ADR-0014 §11).
 - `trace analyze fixtures/multi_session.jsonl` produces the blessed

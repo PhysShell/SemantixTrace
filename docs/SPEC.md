@@ -209,7 +209,8 @@ Major milestones:
 Stages S0–S8 have landed: the Rust workspace (core, schema v1+v2 with
 the upcaster chain, JSONL and SQLite backends, normalizer, graph
 miners, oracle engine, CLI), the WPF adapter packages, and the demo
-app all exist and are CI-gated. S9–S12 remain planned. Everything in
+app all exist. CI gates the Rust workspace, the fuzz targets, and the
+adapter packages; the demo app builds locally. S9–S12 remain planned. Everything in
 `docs/` stays the binding contract for what gets built next; stage
 docs carry the authoritative per-stage status lines.
 

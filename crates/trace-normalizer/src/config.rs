@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 /// Knobs controlling value and temporal abstraction.
 ///
 /// `Default` matches the policy tables in `glossary.md` §4: numeric
-/// buckets `0 / 1 / 2-10 / 11-100 / 101-1000 / 1000+`, a 50 ms burst
+/// buckets `0 / 1 / 2-10 / 11-100 / 101-1000 / 1001+`, a 50 ms burst
 /// gap, a 5 s idle gap, and no per-field overrides.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NormCfg {

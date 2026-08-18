@@ -48,7 +48,7 @@ conflict, defer to it; extend it rather than inventing synonyms in code.
 Stages S0–S8 have landed; `crates/` and `adapters/` are real and
 CI-gated (see `docs/stages/` status lines). S9–S12 remain planned.
 
-## How (commands — once S0 lands)
+## How (commands)
 
 - Test:    `cargo test --workspace`
 - Lint:    `cargo clippy --all-targets -- -D warnings`

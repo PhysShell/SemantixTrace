@@ -30,6 +30,9 @@ fn nav(seq: u64) -> Current {
 
 /// After `sync`, every appended event is visible to an independent
 /// read handle — nothing may still sit in the application buffer.
+/// (The fsync itself is not observable from a unit test without fault
+/// injection; what this pins is the flush-to-OS visibility contract
+/// and that the handle survives the checkpoint.)
 #[test]
 fn sync_makes_appends_visible_to_independent_readers() {
     let dir = tempfile::tempdir().expect("tempdir");

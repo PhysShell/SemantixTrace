@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [jsonl_parse_v1, upcaster_v1_to_current, normalize_fold, sqlite_query]
+        target: [jsonl_parse_v1, upcaster_v1_to_current, normalize_fold, graph_build, oracle_replay, sqlite_query]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
@@ -36,6 +36,10 @@ jobs:
         with:
           tool: cargo-fuzz
       # Same musl/ASan pinning rationale as the PR-blocking smoke job.
-      - name: deep fuzz (30 min, non-blocking per fuzzing.md)
-        continue-on-error: true
-        run: cargo +nightly fuzz run ${{ matrix.target }} --target x86_64-unknown-linux-gnu -- -max_total_time=1800 -rss_limit_mb=2048
+      # "Non-blocking" (fuzzing.md) means PRs are not gated on this run;
+      # a scheduled workflow never gates PRs, so a crash finding MUST
+      # still turn the run red — no continue-on-error here. Flags per
+      # fuzzing.md rule 5: no hang (-timeout), no unbounded allocation
+      # (-rss_limit_mb, -malloc_limit_mb).
+      - name: deep fuzz (30 min)
+        run: cargo +nightly fuzz run ${{ matrix.target }} --target x86_64-unknown-linux-gnu -- -max_total_time=1800 -timeout=10 -rss_limit_mb=2048 -malloc_limit_mb=1024

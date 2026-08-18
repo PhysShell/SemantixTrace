@@ -89,9 +89,12 @@ fn null_version_is_invalid_shape() {
 }
 
 /// The version gate fires before shape validation: a future-versioned
-/// line whose body is complete garbage is rejected *by version*, which
-/// also proves the probe does not deserialize the full payload (the
-/// garbage body would fail any full parse).
+/// line whose body is complete garbage is rejected *by version*. This
+/// proves dispatch precedes any event-shape validation (a
+/// parse-then-check ordering would surface a shape error instead) and
+/// is consistent with the probe reading only `schema_version` — the
+/// stronger "reads only that field" wording remains a code-level
+/// contract on `VersionProbe`.
 #[test]
 fn future_version_rejected_before_shape_validation() {
     let raw = r#"{"schema_version":47,"complete":"garbage","not":["an","event"]}"#;
