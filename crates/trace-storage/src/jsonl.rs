@@ -133,16 +133,21 @@ impl StorageBackend for JsonlBackend {
 /// [`trace_schema::read_event`].
 ///
 /// Shared by [`JsonlBackend::events`] and the CLI's stdin path
-/// (`trace analyze -`). Blank lines are skipped. Two error classes
-/// with different stream semantics:
+/// (`trace analyze -`). Blank lines are skipped. Three error classes
+/// with two stream semantics:
 ///
 /// - **Per-line parse failures** ([`JsonlError::Schema`]) consume
 ///   their line; the stream continues past them, so callers choose
 ///   between abort and skip-with-report.
-/// - **Read failures** ([`JsonlError::Io`]) are terminal: the error is
-///   yielded once and the stream ends. A non-progressing reader (a
-///   corrupt zstd frame errors on every `read` call) would otherwise
-///   turn the stream into an infinite sequence of identical errors.
+/// - **Undecodable lines** ([`JsonlError::Io`] with
+///   [`std::io::ErrorKind::InvalidData`]): `read_line` consumes the
+///   bytes before UTF-8 validation fails, so these are per-line
+///   failures too — the stream continues.
+/// - **Any other read failure** ([`JsonlError::Io`]) is terminal: the
+///   error is yielded once and the stream ends. A non-progressing
+///   reader (a corrupt zstd frame errors on every `read` call) would
+///   otherwise turn the stream into an infinite sequence of identical
+///   errors.
 ///
 /// There is deliberately no line-length cap: one event is one line,
 /// however large, and the reader allocates accordingly (ADR-0003).
@@ -165,7 +170,11 @@ where
                     return Some(read_event(&line).map_err(JsonlError::Schema));
                 }
                 Err(io) => {
-                    io_failed = true;
+                    // InvalidData = the line was consumed but is not
+                    // UTF-8; the reader has progressed, keep going.
+                    if io.kind() != std::io::ErrorKind::InvalidData {
+                        io_failed = true;
+                    }
                     return Some(Err(JsonlError::Io(io)));
                 }
             }

@@ -10,10 +10,12 @@
 //!
 //! Pinned posture (matches `docs/adr/0003` + `read_events` docs):
 //!
-//! - Corrupt *lines* surface as typed per-line `Err` items and the
+//! - Corrupt *lines* — malformed JSON and undecodable (non-UTF-8)
+//!   bytes alike — surface as typed per-line `Err` items and the
 //!   stream continues past them, so callers *can* recover (the CLI
-//!   chooses to abort — that policy lives there, not here). Read-level
-//!   `Io` failures are terminal: one error, then the stream ends.
+//!   chooses to abort — that policy lives there, not here).
+//!   Non-progressing read failures (a dead reader, e.g. a corrupt
+//!   zstd frame) are terminal: one error, then the stream ends.
 //! - Blank / whitespace-only lines are skipped silently.
 //! - CRLF is tolerated on read (LF-only on write).
 //! - A BOM is corruption, not decoration.
@@ -190,7 +192,9 @@ fn invalid_utf8_line_is_a_recoverable_per_line_error() {
         other => panic!("invalid UTF-8 must be an Io error, got {other:?}"),
     }
     assert_eq!(
-        items[2].as_ref().expect("stream must continue past the bad line"),
+        items[2]
+            .as_ref()
+            .expect("stream must continue past the bad line"),
         &b
     );
 }
