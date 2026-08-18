@@ -79,9 +79,15 @@ pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
     let probe: VersionProbe = serde_json::from_str(raw).map_err(classify_json_error)?;
     match probe.schema_version {
         1 => {
-            reject_later_version_fields(raw)?;
-            let envelope: v1::TraceEnvelope =
+            // Parse once to a Value so the guard sees *decoded* object
+            // keys (JSON `\u` escapes included), then build the
+            // envelope from the same Value — no third pass over the
+            // input.
+            let value: serde_json::Value =
                 serde_json::from_str(raw).map_err(classify_json_error)?;
+            reject_later_version_fields(&value, 1)?;
+            let envelope: v1::TraceEnvelope =
+                serde_json::from_value(value).map_err(classify_json_error)?;
             Ok(v2::V1ToV2::upcast(envelope.into_event()))
         }
         2 => {
@@ -93,35 +99,42 @@ pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
     }
 }
 
-/// Top-level envelope fields that exist only from v2 onward. A
-/// v1-stamped line carrying one of these is version-confused input
-/// (most likely a v2 writer stamping the wrong number); parsing it as
-/// v1 would silently drop the field's data, so [`read_event`] fails
-/// closed instead. Genuinely unknown fields — not claimed by any later
-/// version — remain tolerated, because `docs/upcasters.md` sanctions
-/// additive `#[serde(default)]` fields within a released version.
+/// Top-level envelope fields keyed by the schema version that
+/// introduced them. An envelope stamped with an *older* version that
+/// carries one of these is version-confused input (most likely a newer
+/// writer stamping the wrong number); parsing it would silently drop
+/// the field's data, so [`read_event`] fails closed instead. Genuinely
+/// unknown fields — not claimed by any later version — remain
+/// tolerated, because `docs/upcasters.md` sanctions additive
+/// `#[serde(default)]` fields within a released version.
 ///
-/// Bump procedure: when a v(n+1) module lands, add its new top-level
-/// field names here so every older version's arm rejects them.
-const LATER_VERSION_FIELDS: [&str; 1] = ["domain_entity_id"];
+/// Bump procedure: when a v(n+1) module lands, add an entry mapping
+/// `n + 1` to its new top-level field names; every arm for versions
+/// `< n + 1` then rejects them automatically.
+const FIELDS_BY_INTRODUCING_VERSION: [(u32, &[&str]); 1] = [(2, &["domain_entity_id"])];
 
-/// Fail closed when a v1-stamped line carries a later-version field.
+/// Fail closed when an envelope carries a field introduced in a schema
+/// version later than the one it declares.
 ///
-/// The `contains` check is a cheap prefilter: only lines that mention a
-/// later-version field name anywhere pay for the second full parse, and
-/// the parsed-object key lookup keeps the guard precise (the name
-/// occurring inside a string *value* is data, not a key).
-fn reject_later_version_fields(raw: &str) -> Result<(), SchemaError> {
-    if !LATER_VERSION_FIELDS.iter().any(|f| raw.contains(f)) {
+/// Operates on the *parsed* object so JSON `\u`-escaped key spellings
+/// cannot bypass the check, while field names occurring inside string
+/// values (data, not keys) never trip it.
+fn reject_later_version_fields(
+    value: &serde_json::Value,
+    declared: u32,
+) -> Result<(), SchemaError> {
+    let Some(object) = value.as_object() else {
         return Ok(());
-    }
-    let value: serde_json::Value = serde_json::from_str(raw).map_err(classify_json_error)?;
-    if let Some(object) = value.as_object() {
-        for field in LATER_VERSION_FIELDS {
-            if object.contains_key(field) {
+    };
+    for (introduced_in, fields) in FIELDS_BY_INTRODUCING_VERSION {
+        if introduced_in <= declared {
+            continue;
+        }
+        for field in fields {
+            if object.contains_key(*field) {
                 return Err(SchemaError::InvalidShape(format!(
-                    "v1 envelope carries the v2-only field `{field}`; \
-                     refusing to parse a version-confused line"
+                    "v{declared} envelope carries `{field}`, a field introduced in \
+                     v{introduced_in}; refusing to parse a version-confused line"
                 )));
             }
         }

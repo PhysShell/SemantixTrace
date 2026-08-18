@@ -256,10 +256,11 @@ The story to follow when a real schema bump happens.
    round-trip test.
 5. **Repoint `Current`** to `v2::TraceEvent`.
 6. **Update `read_event`** to add the `2 => …` arm and adjust the
-   `1 => …` arm to compose through `v2`. Add the new version's
-   top-level field names to `LATER_VERSION_FIELDS` so every older
-   arm fails closed on version-confused lines instead of silently
-   dropping the new fields.
+   `1 => …` arm to compose through `v2`. Add an entry mapping the
+   new version to its new top-level field names in
+   `FIELDS_BY_INTRODUCING_VERSION` so every older version's arm fails
+   closed on version-confused lines instead of silently dropping the
+   new fields.
 7. **Add fuzz target `upcaster_v1_to_v2`** and seed it from
    representative v1 envelopes.
 8. **Run the full property + fuzz suites.** A green run is the contract
