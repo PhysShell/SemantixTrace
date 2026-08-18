@@ -1,1 +1,0 @@
-{"schema_version":1,"seq":2,"session_id":"00000000-0000-0000-0000-00000000000a","ts":"2026-05-27T12:00:01Z","kind":"CommandExecuted","command_id":"Declaration.Submit","args":{},"duration_ms":97,"outcome":"failure","detail":{"message":"validation rejected"}}

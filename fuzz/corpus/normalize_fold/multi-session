@@ -1,5 +1,0 @@
-{"schema_version":1,"seq":0,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-27T12:00:00Z","kind":"ScreenOpened","screen_id":"DeclarationEditor","params":{}}
-{"schema_version":1,"seq":1,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-27T12:00:01Z","kind":"CommandExecuted","command_id":"Graph47.Recalculate","args":{},"duration_ms":42,"outcome":"success"}
-{"schema_version":1,"seq":2,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-27T12:00:02Z","kind":"ExceptionThrown","exception_type":"InvalidOperation","message":"boom"}
-{"schema_version":1,"seq":0,"session_id":"00000000-0000-0000-0000-000000000002","ts":"2026-05-27T12:00:00Z","kind":"ScreenOpened","screen_id":"DeclarationEditor","params":{}}
-{"schema_version":1,"seq":1,"session_id":"00000000-0000-0000-0000-000000000002","ts":"2026-05-27T12:00:01Z","kind":"CommandExecuted","command_id":"Declaration.Save","args":{},"duration_ms":10,"outcome":"success"}

@@ -1,1 +1,0 @@
-{"schema_version":2,"seq":3,"session_id":"00000000-0000-0000-0000-00000000000b","ts":"2026-05-30T09:00:02Z","domain_entity_id":"Declaration:doc-123","kind":"FieldChanged","field_id":"Quantity","old":{"policy":"removed"},"new":{"policy":"hashed","hash":"9f2c","algo":"blake3"}}
