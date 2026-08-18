@@ -252,3 +252,18 @@ Architectural decisions go to [`adr/`](adr/) instead.
   in (kubectl / gh / cargo / vector / fly), accepting a non-trivial
   `miette` dependency in the binary crate and the cost of
   maintaining versioned schemas for every JSON-emitting subcommand.
+
+- 2026-08-18 — In the context of the S1–S3 acceptance hardening pass,
+  facing v1-stamped JSONL lines that also carry the v2-only
+  `domain_entity_id` field (a version-confused writer), we decided to
+  **fail closed in `read_event`'s v1 arm** (typed `InvalidShape` naming
+  the offending field, via a denylist of later-version top-level field
+  names) and against both silently tolerating the field (the previous
+  behavior — the entity attribution was discarded with no trace) and
+  rejecting *all* unknown fields (`deny_unknown_fields` is incompatible
+  with `#[serde(flatten)]`, and `docs/upcasters.md` sanctions additive
+  `#[serde(default)]` fields within a released version, which must stay
+  readable by older binaries), to achieve loss-free reads on
+  version-confused input, accepting that each future schema bump must
+  add its new top-level field names to the denylist (documented in the
+  bump procedure).
