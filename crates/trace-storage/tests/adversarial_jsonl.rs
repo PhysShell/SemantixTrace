@@ -317,6 +317,70 @@ proptest! {
 mod zstd_read {
     use super::{line, nav, read_all, Current};
     use std::fs;
+    use trace_core::ports::StorageBackend;
+
+    /// A non-progressing read failure (a corrupt zstd frame keeps
+    /// erroring on every `read` call) must yield ONE typed Io error and
+    /// then terminate the stream. Before the fuse fix, `lines()` kept
+    /// re-polling the dead reader and the stream became an infinite
+    /// sequence of `Err(Io)` items — any collecting caller OOM'd.
+    #[test]
+    fn garbage_zst_frame_yields_one_io_error_then_terminates() {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let path = dir.path().join("bad.jsonl.zst");
+        fs::write(&path, b"this is not a zstd frame").expect("write");
+
+        match trace_storage::JsonlBackend::new(&path).events() {
+            // Failing at open is also acceptable — still one typed error.
+            Err(trace_storage::JsonlError::Io(_)) => {}
+            Err(other) => panic!("expected Io, got {other:?}"),
+            Ok(items) => {
+                let items: Vec<_> = items.take(10_000).collect();
+                assert!(
+                    items.len() < 10_000,
+                    "an Io-errored stream must terminate, not repeat the error forever"
+                );
+                assert!(
+                    matches!(items.last(), Some(Err(trace_storage::JsonlError::Io(_)))),
+                    "the failure must surface as a typed Io error"
+                );
+            }
+        }
+    }
+
+    /// Same law for a stream that dies midway: everything decodable is
+    /// yielded, then exactly one Io error, then termination.
+    #[test]
+    fn truncated_zst_stream_yields_io_error_then_terminates() {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let path = dir.path().join("cut.jsonl.zst");
+        let raw: String = (0..64).map(|i| line(&nav(i))).collect::<Vec<_>>().concat();
+        let mut compressed = zstd::stream::encode_all(raw.as_bytes(), 3).expect("compress");
+        compressed.truncate(compressed.len() / 2);
+        fs::write(&path, compressed).expect("write");
+
+        let items: Vec<_> = trace_storage::JsonlBackend::new(&path)
+            .events()
+            .expect("open")
+            .take(10_000)
+            .collect();
+        assert!(
+            items.len() < 10_000,
+            "an Io-errored stream must terminate, not repeat the error forever"
+        );
+        assert!(
+            items
+                .iter()
+                .any(|i| matches!(i, Err(trace_storage::JsonlError::Io(_)))),
+            "a truncated zstd stream must surface a typed Io error"
+        );
+        let first_err = items.iter().position(Result::is_err).expect("has error");
+        assert_eq!(
+            first_err,
+            items.len() - 1,
+            "nothing may follow the first Io error"
+        );
+    }
 
     #[test]
     fn zst_archive_round_trips() {
