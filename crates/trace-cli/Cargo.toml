@@ -45,9 +45,11 @@ uuid          = { workspace = true }
 
 [dev-dependencies]
 jsonschema = { workspace = true }
+tempfile   = { workspace = true }
 trycmd     = { workspace = true }
 chrono     = { workspace = true }
 uuid       = { workspace = true }
+zstd       = { workspace = true }
 
 [lints]
 workspace = true

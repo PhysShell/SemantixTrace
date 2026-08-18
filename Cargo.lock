@@ -1639,6 +1639,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sysexits",
+ "tempfile",
  "thiserror",
  "trace-align",
  "trace-core",
@@ -1649,6 +1650,7 @@ dependencies = [
  "trace-storage",
  "trycmd",
  "uuid",
+ "zstd",
 ]
 
 [[package]]
