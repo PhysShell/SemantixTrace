@@ -248,7 +248,7 @@ impl StorageBackend for SqliteBackend {
             params![
                 event.session_id.to_string(),
                 i64::try_from(event.seq.get()).unwrap_or(i64::MAX),
-                2_i64,
+                i64::from(trace_schema::CURRENT_SCHEMA_VERSION),
                 event.ts.to_rfc3339(),
                 kind_str,
                 payload_json,
