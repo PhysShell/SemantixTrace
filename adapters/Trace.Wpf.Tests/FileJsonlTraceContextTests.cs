@@ -15,6 +15,8 @@ namespace SemantxTrace.Wpf.Tests;
 
 public sealed class FileJsonlTraceContextTests
 {
+    private static readonly char[] LineSeparators = ['\r', '\n'];
+
     private static JsonSchema LoadSchema()
     {
         string path = Path.Combine(AppContext.BaseDirectory, "trace-event-v1.schema.json");
@@ -22,13 +24,13 @@ public sealed class FileJsonlTraceContextTests
         return JsonSchema.FromText(json);
     }
 
+    // Only IsValid is asserted, so the default (Flag) output format
+    // suffices — and stays stable across JsonSchema.Net releases, which
+    // have renamed the richer formats (Basic -> List).
     private static void AssertValidSchema(JsonSchema schema, string line)
     {
         var node = JsonNode.Parse(line);
-        var result = schema.Evaluate(node, new EvaluationOptions
-        {
-            OutputFormat = OutputFormat.Basic,
-        });
+        var result = schema.Evaluate(node);
         Assert.True(result.IsValid, $"JSONL line failed schema validation:\n{line}");
     }
 
@@ -256,7 +258,7 @@ public sealed class FileJsonlTraceContextTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         Assert.Equal(3, lines.Length);
 
         for (int i = 0; i < lines.Length; i++)
@@ -277,7 +279,7 @@ public sealed class FileJsonlTraceContextTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         foreach (string line in lines)
         {
             var doc = JsonDocument.Parse(line);
@@ -325,7 +327,7 @@ public sealed class FileJsonlTraceContextTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         Assert.Equal(3, lines.Length);
         foreach (string line in lines)
             AssertValidSchema(schema, line);
