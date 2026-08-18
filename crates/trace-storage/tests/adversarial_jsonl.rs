@@ -165,19 +165,34 @@ fn whitespace_only_file_yields_no_events() {
     assert!(read_all(&path).is_empty());
 }
 
+/// An undecodable (non-UTF-8) line is a *per-line* failure:
+/// `read_line` consumes the bad bytes before the UTF-8 validation
+/// fails, so the stream progresses and later valid lines stay
+/// reachable — same recovery semantics as a malformed JSON line. Only
+/// non-progressing read failures (a dead reader) terminate the
+/// stream.
 #[test]
-fn invalid_utf8_yields_io_error() {
+fn invalid_utf8_line_is_a_recoverable_per_line_error() {
     let dir = tempfile::tempdir().expect("tempdir");
     let path = dir.path().join("bin.jsonl");
+    let (a, b) = (nav(0), nav(1));
     let mut file = fs::File::create(&path).expect("create");
+    file.write_all(line(&a).as_bytes()).expect("write");
     file.write_all(b"\xff\xfe not utf8 \xff\n").expect("write");
+    file.write_all(line(&b).as_bytes()).expect("write");
     drop(file);
 
     let items = read_all(&path);
-    match &items[0] {
+    assert_eq!(items.len(), 3);
+    assert_eq!(items[0].as_ref().expect("first intact"), &a);
+    match &items[1] {
         Err(JsonlError::Io(io)) => assert_eq!(io.kind(), std::io::ErrorKind::InvalidData),
         other => panic!("invalid UTF-8 must be an Io error, got {other:?}"),
     }
+    assert_eq!(
+        items[2].as_ref().expect("stream must continue past the bad line"),
+        &b
+    );
 }
 
 /// There is deliberately no line-length cap in the reader (documented
