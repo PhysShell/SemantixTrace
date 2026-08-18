@@ -102,9 +102,17 @@ jobs:
         run: dotnet test adapters/Trace.Wpf.Tests/Trace.Wpf.Tests.csproj -c Release --logger "console;verbosity=normal"
 
   fuzz-smoke:
-    # Bounded smoke run of the P0 fuzz targets per ADR-0010 CI policy
-    # (~60s/target). Blocking gate. Deep runs are scheduled separately.
+    # Bounded smoke of EVERY committed fuzz target per ADR-0010 CI
+    # policy (~60s/target). Blocking gate. cargo-fuzz replays the
+    # committed corpus entries before fuzzing, so this is also the
+    # regression-replay gate docs/fuzzing.md mandates for P0+P1
+    # targets. Flags per fuzzing.md rule 5 — identical to the nightly
+    # deep tier; only the time budget differs.
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [jsonl_parse_v1, upcaster_v1_to_current, normalize_fold, graph_build, oracle_replay, sqlite_query]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
@@ -118,11 +126,5 @@ jobs:
       # baked-in default target is musl; ASan is incompatible with musl's
       # static libc, so the target must be pinned to the gnu host
       # explicitly.
-      - name: bounded smoke (jsonl_parse_v1)
-        run: cargo +nightly fuzz run jsonl_parse_v1 --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
-      - name: bounded smoke (upcaster_v1_to_current)
-        run: cargo +nightly fuzz run upcaster_v1_to_current --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
-      - name: bounded smoke (normalize_fold)
-        run: cargo +nightly fuzz run normalize_fold --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
-      - name: bounded smoke (sqlite_query)
-        run: cargo +nightly fuzz run sqlite_query --target x86_64-unknown-linux-gnu -- -max_total_time=60 -rss_limit_mb=2048
+      - name: bounded smoke (60s)
+        run: cargo +nightly fuzz run ${{ matrix.target }} --target x86_64-unknown-linux-gnu -- -max_total_time=60 -timeout=10 -rss_limit_mb=2048 -malloc_limit_mb=1024
