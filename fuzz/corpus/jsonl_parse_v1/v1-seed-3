@@ -1,0 +1,1 @@
+{"schema_version":1,"seq":3,"session_id":"00000000-0000-0000-0000-00000000000a","ts":"2026-05-27T12:00:02Z","kind":"FieldChanged","field_id":"Quantity","old":{"policy":"masked","display":"***"},"new":{"policy":"bucketed","bucket":"11-100"}}

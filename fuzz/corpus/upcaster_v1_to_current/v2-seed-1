@@ -1,0 +1,1 @@
+{"schema_version":2,"seq":1,"session_id":"00000000-0000-0000-0000-00000000000b","ts":"2026-05-30T09:00:00.125Z","correlation_id":"00000000-0000-0000-0000-0000000000c2","domain_entity_id":"Declaration:doc-123","kind":"CommandExecuted","command_id":"Graph47.Recalculate","args":{"qty":{"policy":"bucketed","bucket":"2-10"}},"duration_ms":18,"outcome":"success"}
