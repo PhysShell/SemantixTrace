@@ -281,3 +281,16 @@ Architectural decisions go to [`adr/`](adr/) instead.
   explicit checkpoint primitive is what an audit-grade recorder needs
   first, accepting that callers must place `sync()` calls themselves
   until a policy engine lands.
+
+- 2026-08-18 — In the context of the S3 law suite, facing the fact that
+  `input_events == output_actions + collapsed_bursts + dropped_noise`
+  proves event-cardinality conservation while every surviving
+  `CommandExecuted` still silently sheds `outcome` and `duration_ms`,
+  we decided to **name the law honestly as event conservation** (docs
+  on `FoldReport` and the metamorphic suite now say so explicitly) and
+  to **track machine-readable projection-loss accounting for those
+  fields as a separate pre-v1.0 issue**, against inventing new
+  FoldReport semantics inside a hardening branch, because whether the
+  canonical Scenario should carry or count outcome/duration is product
+  semantics, not test infrastructure, accepting that until that issue
+  closes the FoldReport names the projection in prose only.

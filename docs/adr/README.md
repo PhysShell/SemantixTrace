@@ -20,6 +20,7 @@ immutable; supersede it with a new one. New ADRs: copy
 | [0012](0012-follow-rust-api-guidelines-on-public-surfaces.md) | Follow the Rust API Guidelines on public surfaces; mandatory pre-v1.0 audit | Accepted |
 | [0013](0013-follow-dotnet-framework-design-guidelines.md) | Follow .NET Framework Design Guidelines and library best practices on adapter NuGets | Accepted |
 | [0014](0014-trace-cli-ergonomics-clig-posix-sysexits-vector.md) | `trace-cli` ergonomics follow clig.dev + POSIX/GNU + sysexits.h + Vector precedent | Accepted |
+| [0015](0015-version-local-wire-enums.md) | Make wire-affecting leaf enums version-local before v1.0 | Accepted |
 
 See also: [`../SPEC.md`](../SPEC.md), [`../glossary.md`](../glossary.md),
 [`../decisions.log.md`](../decisions.log.md).

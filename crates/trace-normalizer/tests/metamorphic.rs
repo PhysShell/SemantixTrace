@@ -4,10 +4,13 @@
 //! determinism; this suite pins the laws that make normalization
 //! *trustworthy*:
 //!
-//! - **Conservation**: every input event is accounted for —
+//! - **Event conservation**: every input event is accounted for —
 //!   `input_events == output_actions + collapsed_bursts +
-//!   dropped_noise`. Normalization must never be a machine for silent
-//!   information loss.
+//!   dropped_noise`. This is cardinality conservation over events,
+//!   not information conservation: the canonical action deliberately
+//!   projects away `outcome` and `duration_ms` (uniform and
+//!   documented on `FoldReport`; machine-readable accounting for that
+//!   projection is a tracked pre-v1.0 issue).
 //! - **Byte determinism**: same `(session, cfg)` produces the same
 //!   serialized bytes, not merely `PartialEq`-equal structures.
 //! - **Constant time-shift invariance**: temporal abstraction is
@@ -232,9 +235,9 @@ fn is_subsequence(needle: &[CanonicalAction], haystack: &[CanonicalAction]) -> b
 // ---------------------------------------------------------------------------
 
 proptest! {
-    /// Conservation / loss accounting: every input event is either a
-    /// canonical action, a collapsed burst, or named noise. No fourth
-    /// bucket, no silent loss.
+    /// Event conservation: every input event is either a canonical
+    /// action, a collapsed burst, or named noise. No fourth bucket —
+    /// no event vanishes uncounted.
     #[test]
     fn every_input_event_is_accounted_for(s in arb_session()) {
         let (_scenario, report) = normalize(&s, &NormCfg::default());

@@ -10,8 +10,16 @@ use trace_schema::Current;
 use crate::abstraction::abstract_value;
 use crate::config::NormCfg;
 
-/// Sidecar describing what the fold abstracted away (`glossary.md` §3,
-/// "scenario folding"). Surfaced by `trace normalize --report`.
+/// Sidecar accounting for every *event* the fold consumed
+/// (`glossary.md` §3, "scenario folding"). Surfaced by
+/// `trace normalize --report`.
+///
+/// This is **event-cardinality** accounting — `input_events ==
+/// output_actions + collapsed_bursts + dropped_noise` always holds —
+/// not information accounting: the canonical action deliberately
+/// projects away each surviving command's `outcome` and
+/// `duration_ms` (a uniform, documented projection; machine-readable
+/// accounting for it is tracked as a pre-v1.0 issue).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
 pub struct FoldReport {
     /// Events read from the session.
@@ -101,7 +109,8 @@ pub fn normalize(session: &Session<Current>, cfg: &NormCfg) -> (Scenario, FoldRe
 ///
 /// Every action lost between input and output is named here —
 /// `input_actions == output_actions + collapsed_adjacent` always
-/// holds (the same conservation posture as [`FoldReport`]).
+/// holds (action-cardinality conservation, matching [`FoldReport`]'s
+/// event-cardinality law).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
 pub struct RefoldReport {
     /// Actions in the input scenario.

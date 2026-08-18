@@ -45,6 +45,10 @@ deploy the mdBook docs site.
 ## Acceptance criteria (v1.0-readiness checklist)
 
 - [ ] All ADRs `Accepted` and consistent with the codebase.
+- [ ] ADR-0015 implemented: no frozen version module's wire language
+      depends on a shared mutable enum (`Outcome` / `ValuePolicy` are
+      version-local or mapped from frozen primitives). Hard blocker —
+      v1.0 must not ship with this hole in the freeze guarantee.
 - [ ] Glossary §0 entries for every stage have `Status: done`.
 - [ ] At least two schema bumps have shipped (`v1 → v2 → v_current`),
       proven by real recordings, with property tests for every step.
