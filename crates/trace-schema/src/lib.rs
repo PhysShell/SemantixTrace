@@ -31,7 +31,9 @@ mod error;
 mod upcaster;
 
 pub use error::SchemaError;
-pub use upcaster::{sealed, StreamUpcaster, Upcaster};
+pub use upcaster::{StreamUpcaster, Upcaster};
+
+pub(crate) use upcaster::sealed;
 
 /// The latest schema version this binary build understands.
 ///
