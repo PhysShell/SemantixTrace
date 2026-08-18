@@ -38,6 +38,16 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.85
       - uses: Swatinem/rust-cache@v2
       - run: cargo test --workspace --all-features
+      # The trace binary's feature topology is a contract: default
+      # includes zstd (the help text advertises .jsonl.zst) and a
+      # stripped build is a supported fail-closed opt-out. Exercise
+      # both REAL sets — an --all-features run alone would keep a
+      # test named after the default build green even if zstd were
+      # dropped from default.
+      - name: trace-cli (default features)
+        run: cargo test -p trace-cli
+      - name: trace-cli (--no-default-features)
+        run: cargo test -p trace-cli --no-default-features
 
   rust-doc:
     runs-on: ubuntu-latest
