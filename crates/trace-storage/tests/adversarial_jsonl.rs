@@ -10,9 +10,10 @@
 //!
 //! Pinned posture (matches `docs/adr/0003` + `read_events` docs):
 //!
-//! - Corrupt lines surface as typed per-line `Err` items; the stream is
-//!   not fused, so callers *can* continue past damage (the CLI chooses
-//!   to abort — that policy lives there, not here).
+//! - Corrupt *lines* surface as typed per-line `Err` items and the
+//!   stream continues past them, so callers *can* recover (the CLI
+//!   chooses to abort — that policy lives there, not here). Read-level
+//!   `Io` failures are terminal: one error, then the stream ends.
 //! - Blank / whitespace-only lines are skipped silently.
 //! - CRLF is tolerated on read (LF-only on write).
 //! - A BOM is corruption, not decoration.

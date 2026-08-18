@@ -110,17 +110,43 @@ impl StorageBackend for JsonlBackend {
 /// [`trace_schema::read_event`].
 ///
 /// Shared by [`JsonlBackend::events`] and the CLI's stdin path
-/// (`trace analyze -`). Blank lines are skipped; per-line parse failures
-/// are yielded as [`JsonlError::Schema`], read failures as
-/// [`JsonlError::Io`].
+/// (`trace analyze -`). Blank lines are skipped. Two error classes
+/// with different stream semantics:
+///
+/// - **Per-line parse failures** ([`JsonlError::Schema`]) consume
+///   their line; the stream continues past them, so callers choose
+///   between abort and skip-with-report.
+/// - **Read failures** ([`JsonlError::Io`]) are terminal: the error is
+///   yielded once and the stream ends. A non-progressing reader (a
+///   corrupt zstd frame errors on every `read` call) would otherwise
+///   turn the stream into an infinite sequence of identical errors.
+///
+/// There is deliberately no line-length cap: one event is one line,
+/// however large, and the reader allocates accordingly (ADR-0003).
 pub fn read_events<R>(reader: R) -> EventStream<'static, Current, JsonlError>
 where
     R: BufRead + 'static,
 {
-    let iter = reader.lines().filter_map(|line| match line {
-        Ok(line) if line.trim().is_empty() => None,
-        Ok(line) => Some(read_event(&line).map_err(JsonlError::Schema)),
-        Err(io) => Some(Err(JsonlError::Io(io))),
+    let mut lines = reader.lines();
+    let mut io_failed = false;
+    let iter = std::iter::from_fn(move || {
+        if io_failed {
+            return None;
+        }
+        loop {
+            match lines.next()? {
+                Ok(line) => {
+                    if line.trim().is_empty() {
+                        continue;
+                    }
+                    return Some(read_event(&line).map_err(JsonlError::Schema));
+                }
+                Err(io) => {
+                    io_failed = true;
+                    return Some(Err(JsonlError::Io(io)));
+                }
+            }
+        }
     });
     Box::new(iter)
 }
