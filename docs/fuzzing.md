@@ -122,12 +122,11 @@ fuzz_target!(|event: v1::TraceEvent| {
   - the minimised input is committed under `fuzz/corpus/<target>/`
     before the fix lands.
 
-## Known findings (placeholder)
+## Known findings
 
-When the first finding lands, this section becomes an append-only list
-in the shape:
+Append-only list in the shape:
 
-> **F-001 — `<target>` — `<short description>`**
+> **F-NNN — `<target>` — `<short description>`**
 > Seed: `fuzz/corpus/<target>/<file>`.
 > Found at: `<date>`. Fixed at: `<commit>` or `<deferred-to-stage>`.
 > Notes: …
@@ -135,6 +134,29 @@ in the shape:
 This mirrors griff's `fuzzing.md` "Known findings" section and serves
 the same purpose: a flat, durable record of the bugs the fuzz layer
 caught, and what each one cost to fix.
+
+> **F-001 — `upcaster_v1_to_current` — writer emitted
+> recorded-but-unreadable evidence**
+> Seed: not retained — see Notes.
+> Found at: 2026-08-18 (first run of the structure-aware target,
+> within seconds). Fixed at: `d14774c` ("fix(S1): refuse to write
+> lines no reader can parse back"; red test `bdea067`).
+> Notes: `write_event` happily serialized an event whose embedded
+> `args` nested deeper than serde_json's recursion limit; the
+> resulting line could never be parsed back by any reader —
+> recorded-then-unreadable evidence. Root cause: no complement
+> between the write path and the read path's recursion limit. Fix:
+> `write_event` depth-checks embedded values (iteratively) against
+> the exact complement of the reader limit (`args`/`params` 126,
+> `ValuePolicy::Raw` 125 under the 127-container document ceiling).
+> The original minimized artifact is **not retained**: it was
+> discarded before this ledger's discipline was applied, and it
+> cannot be re-committed honestly — the fix also depth-bounded the
+> target's `Arbitrary` mirror, so no byte string decodes to a
+> deep-enough value under the current generator. The deterministic
+> regression lives in
+> `crates/trace-schema/tests/wire_limits.rs` (both sides of both
+> boundaries), which is stronger than a corpus replay for this class.
 
 ## See also
 
