@@ -144,6 +144,48 @@ fn sample_current() -> trace_schema::Current {
     }
 }
 
+/// A v1-stamped line that carries the v2-only `domain_entity_id` field
+/// is version-confused input (a writer emitting v2 payloads stamped
+/// `schema_version: 1`). Tolerating it silently discards the entity
+/// attribution — the reader must fail closed instead.
+#[test]
+fn v2_only_field_in_v1_envelope_fails_closed() {
+    let raw = format!(
+        "{{\"schema_version\":1,\"domain_entity_id\":\"Declaration:doc-9\",{VALID_V1_BODY}}}"
+    );
+    match read_event(&raw) {
+        Err(SchemaError::InvalidShape(msg)) => {
+            assert!(
+                msg.contains("domain_entity_id"),
+                "diagnostic must name the offending field, got: {msg}"
+            );
+        }
+        other => panic!("version-confused line must fail closed, got: {other:?}"),
+    }
+}
+
+/// The guard is precise: `domain_entity_id` occurring inside a *string
+/// value* (an exception message, say) is data, not a key, and must not
+/// trip the version-confusion rejection.
+#[test]
+fn v2_field_name_inside_string_value_is_not_rejected() {
+    let raw = r#"{"schema_version":1,"seq":0,"session_id":"00000000-0000-0000-0000-000000000001","ts":"2026-05-27T12:00:00Z","kind":"ExceptionThrown","exception_type":"SerializationException","message":"unknown field domain_entity_id in payload"}"#;
+    let event = read_event(raw).expect("string mention must stay readable");
+    assert!(event.domain_entity_id.is_none());
+}
+
+/// Genuinely unknown keys stay tolerated: docs/upcasters.md sanctions
+/// additive `#[serde(default)]` fields within a released version, so an
+/// older binary must keep reading same-version lines that carry fields
+/// it does not know — only keys claimed by *later* versions are a
+/// version-confusion signal.
+#[test]
+fn unknown_nonversioned_key_in_v1_envelope_is_tolerated() {
+    let raw = format!("{{\"schema_version\":1,\"x_annotation\":\"ok\",{VALID_V1_BODY}}}");
+    let event = read_event(&raw).expect("unknown additive key must stay readable");
+    assert!(event.domain_entity_id.is_none());
+}
+
 proptest! {
     /// The entire future version space fails closed, with the declared
     /// version echoed in the error (never truncated or defaulted).
