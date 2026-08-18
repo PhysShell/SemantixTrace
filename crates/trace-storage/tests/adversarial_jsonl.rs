@@ -199,6 +199,49 @@ fn invalid_utf8_line_is_a_recoverable_per_line_error() {
     );
 }
 
+/// The progress invariant, stated adversarially: `read_events` takes
+/// *any* `BufRead`, so it may not assume that a given `ErrorKind`
+/// implies the reader advanced. A reader that returns
+/// `Err(InvalidData)` from every `read` call without consuming
+/// anything must still produce a terminating stream — one typed error,
+/// then the end — never an infinite error sequence. (This is the
+/// sibling of the corrupt-zstd OOM: same bug, different `ErrorKind`.)
+#[test]
+fn non_progressing_invalid_data_reader_terminates() {
+    struct StuckReader;
+
+    impl std::io::Read for StuckReader {
+        fn read(&mut self, _buf: &mut [u8]) -> std::io::Result<usize> {
+            Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "stuck: no bytes are ever consumed",
+            ))
+        }
+    }
+
+    impl std::io::BufRead for StuckReader {
+        fn fill_buf(&mut self) -> std::io::Result<&[u8]> {
+            Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "stuck: no bytes are ever consumed",
+            ))
+        }
+        fn consume(&mut self, _amt: usize) {}
+    }
+
+    let items: Vec<_> = trace_storage::read_events(StuckReader)
+        .take(10_000)
+        .collect();
+    assert!(
+        items.len() < 10_000,
+        "a non-progressing reader must yield a terminating stream"
+    );
+    assert!(
+        matches!(items.last(), Some(Err(JsonlError::Io(_)))),
+        "the failure must surface as a typed Io error"
+    );
+}
+
 /// There is deliberately no line-length cap in the reader (documented
 /// on `read_events`): a single event whose args run to megabytes is
 /// read whole. This test pins that a 4 MiB line round-trips rather
