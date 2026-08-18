@@ -187,8 +187,15 @@ public sealed class FileJsonlTraceContext : ITraceContext
     {
         if (Volatile.Read(ref _disposed) != 0) return;
         // Do NOT use 'using' here: the WorkItem keeps the signal alive until
-        // the writer thread processes it, which may happen after Wait returns.
+        // the writer thread processes it, which may happen after Wait returns
+        // (timeout path). Disposing then would race Dispose against the
+        // worker's Set — an unsupported combination for ManualResetEventSlim
+        // that could kill the writer thread. The undisposed instance is
+        // reclaimed by the finalizer; the proper lifecycle handshake is part
+        // of the WriteLoop resilience work tracked in issue #17.
+#pragma warning disable CA2000 // deliberate: see comment above and issue #17
         var signal = new ManualResetEventSlim(initialState: false);
+#pragma warning restore CA2000
         try
         {
             // Use blocking Add, not TryAdd: if TryAdd returned false (full queue or

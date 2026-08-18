@@ -1,7 +1,7 @@
 #nullable enable
 SemantxTrace.Wpf.AutoAutomationId
 static SemantxTrace.Wpf.AutoAutomationId.GetIsEnabled(System.Windows.DependencyObject! element) -> bool
-static SemantxTrace.Wpf.AutoAutomationId.IsEnabledProperty.get -> System.Windows.DependencyProperty!
+static readonly SemantxTrace.Wpf.AutoAutomationId.IsEnabledProperty -> System.Windows.DependencyProperty!
 static SemantxTrace.Wpf.AutoAutomationId.SetIsEnabled(System.Windows.DependencyObject! element, bool value) -> void
 SemantxTrace.Wpf.FileJsonlTraceContext
 SemantxTrace.Wpf.FileJsonlTraceContext.Dispose() -> void
