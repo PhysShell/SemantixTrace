@@ -1,7 +1,7 @@
 //! Wire nesting limits: the writer must never emit a line the readers
 //! reject.
 //!
-//! serde_json refuses to descend into the 128th nested container, so a
+//! `serde_json` refuses to descend into the 128th nested container, so a
 //! readable document holds at most 127 container levels. Discovered by
 //! the structure-aware `upcaster_v1_to_current` fuzz target: an event
 //! whose `args` nest deeper serializes happily and then can never be
@@ -13,7 +13,7 @@
 
 use chrono::TimeZone;
 use serde_json::json;
-use trace_core::{EventSeq, FieldId, ScreenId, SessionId, ValuePolicy};
+use trace_core::{EventSeq, FieldId, SessionId, ValuePolicy};
 use trace_schema::v1::TraceEventKind;
 use trace_schema::{read_event, write_event, Current, SchemaError};
 
