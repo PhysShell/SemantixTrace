@@ -18,12 +18,14 @@ name = "trace"
 path = "src/main.rs"
 
 [features]
-default         = []
+# zstd is default: the help text unconditionally advertises .jsonl.zst
+# inputs, so the shipped binary must keep that promise. Stripped
+# builds may opt out with --no-default-features (accepting the
+# ZstdUnsupported error path); trace-storage itself stays
+# feature-gated so library consumers do not inherit the C toolchain.
+default         = ["zstd"]
 sqlite          = ["trace-storage/sqlite", "dep:trace-align"]
 inductive-miner = ["trace-graph/inductive-miner"]
-# Forwards .zst read support into the binary. Without this feature no
-# build of `trace` could ever read the .jsonl.zst inputs its help text
-# advertises (ZstdUnsupported on every path).
 zstd            = ["trace-storage/zstd"]
 
 [dependencies]

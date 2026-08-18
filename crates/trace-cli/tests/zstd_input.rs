@@ -2,7 +2,7 @@
 //! analyze/normalize/graph/oracle/report, so the *default* build of
 //! the binary must actually read them. Until the `zstd` feature
 //! entered the default set, every default build answered
-//! `ZstdUnsupported` (mapped to 65 EX_DATAERR) for an input its own
+//! `ZstdUnsupported` (mapped to 65 `EX_DATAERR`) for an input its own
 //! help promised to accept. Stripped builds may still opt out with
 //! `--no-default-features`; this test runs under the default set and
 //! pins the promise the shipped binary makes.
