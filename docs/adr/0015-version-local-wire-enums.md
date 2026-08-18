@@ -2,6 +2,7 @@
 
 Date: 2026-08-18
 Status: Accepted
+Tracking: PhysShell/SemantixTrace#15
 
 ## Context
 

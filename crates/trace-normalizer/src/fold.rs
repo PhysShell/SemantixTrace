@@ -19,7 +19,7 @@ use crate::config::NormCfg;
 /// not information accounting: the canonical action deliberately
 /// projects away each surviving command's `outcome` and
 /// `duration_ms` (a uniform, documented projection; machine-readable
-/// accounting for it is tracked as a pre-v1.0 issue).
+/// accounting for it is tracked as issue #16, pre-v1.0).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
 pub struct FoldReport {
     /// Events read from the session.

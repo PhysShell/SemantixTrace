@@ -176,9 +176,10 @@ fn classify_json_error(err: serde_json::Error) -> SchemaError {
 ///
 /// The writer never emits a line the readers reject: embedded JSON
 /// values are depth-checked against the exact complement of the read
-/// path's recursion limit before serialization (see
-/// [`MAX_DOCUMENT_CONTAINER_DEPTH`]'s docs), so `write_event(e) = Ok(line)`
-/// implies `read_event(line) = Ok(e)`.
+/// path's recursion limit before serialization (a readable document
+/// holds at most 127 container levels; see the private
+/// `MAX_DOCUMENT_CONTAINER_DEPTH` constant), so
+/// `write_event(e) = Ok(line)` implies `read_event(line) = Ok(e)`.
 ///
 /// # Errors
 ///

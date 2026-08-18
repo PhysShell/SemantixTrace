@@ -289,7 +289,7 @@ Architectural decisions go to [`adr/`](adr/) instead.
   we decided to **name the law honestly as event conservation** (docs
   on `FoldReport` and the metamorphic suite now say so explicitly) and
   to **track machine-readable projection-loss accounting for those
-  fields as a separate pre-v1.0 issue**, against inventing new
+  fields as a separate pre-v1.0 issue** (#16), against inventing new
   FoldReport semantics inside a hardening branch, because whether the
   canonical Scenario should carry or count outcome/duration is product
   semantics, not test infrastructure, accepting that until that issue

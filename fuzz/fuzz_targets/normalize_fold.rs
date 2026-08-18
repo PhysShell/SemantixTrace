@@ -63,15 +63,37 @@ enum ArbJson {
     Obj(Vec<(String, ArbJson)>),
 }
 
+const MAX_MIRROR_JSON_DEPTH: usize = 24;
+
 fn to_json(v: ArbJson) -> serde_json::Value {
+    to_json_bounded(v, 0)
+}
+
+/// Depth-bounded conversion: the wire's exact nesting boundary is
+/// pinned deterministically by trace-schema's `wire_limits` tests;
+/// this target stays comfortably inside it so every generated event
+/// is writable and the oracle exercises the chain laws, not the
+/// depth guard.
+fn to_json_bounded(v: ArbJson, depth: usize) -> serde_json::Value {
+    if depth >= MAX_MIRROR_JSON_DEPTH {
+        return serde_json::Value::Null;
+    }
     match v {
         ArbJson::Null => serde_json::Value::Null,
         ArbJson::Bool(b) => serde_json::Value::Bool(b),
         ArbJson::Int(n) => serde_json::Value::Number(n.into()),
         ArbJson::Str(s) => serde_json::Value::String(s),
-        ArbJson::Arr(items) => serde_json::Value::Array(items.into_iter().map(to_json).collect()),
+        ArbJson::Arr(items) => serde_json::Value::Array(
+            items
+                .into_iter()
+                .map(|item| to_json_bounded(item, depth + 1))
+                .collect(),
+        ),
         ArbJson::Obj(entries) => serde_json::Value::Object(
-            entries.into_iter().map(|(k, v)| (k, to_json(v))).collect(),
+            entries
+                .into_iter()
+                .map(|(k, item)| (k, to_json_bounded(item, depth + 1)))
+                .collect(),
         ),
     }
 }

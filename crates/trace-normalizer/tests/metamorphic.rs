@@ -10,7 +10,7 @@
 //!   not information conservation: the canonical action deliberately
 //!   projects away `outcome` and `duration_ms` (uniform and
 //!   documented on `FoldReport`; machine-readable accounting for that
-//!   projection is a tracked pre-v1.0 issue).
+//!   projection is tracked as issue #16, pre-v1.0).
 //! - **Byte determinism**: same `(session, cfg)` produces the same
 //!   serialized bytes, not merely `PartialEq`-equal structures.
 //! - **Constant time-shift invariance**: temporal abstraction is
