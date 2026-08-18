@@ -12,14 +12,21 @@
 #![no_main]
 
 use libfuzzer_sys::fuzz_target;
-use trace_schema::{SchemaError, read_event};
+use trace_schema::{SchemaError, read_event, write_event};
 
 fuzz_target!(|data: &[u8]| {
     let Ok(s) = std::str::from_utf8(data) else {
         return;
     };
     match read_event(s) {
-        Ok(_event) => {}
+        // fuzzing.md oracle: a parsed event re-serializes to a line
+        // `read_event` accepts again, and the result is stable.
+        Ok(event) => {
+            let raw = write_event(&event).expect("self-written event must serialize");
+            let reread = read_event(raw.trim_end_matches('\n'))
+                .expect("re-read of self-written event must succeed");
+            assert_eq!(event, reread, "write/read round-trip must be stable");
+        }
         Err(
             SchemaError::Parse(_)
             | SchemaError::InvalidShape(_)
