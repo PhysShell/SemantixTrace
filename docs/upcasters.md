@@ -78,31 +78,37 @@ The public alias `Current` is the only event type exported from
 `trace_schema::Current` (re-exported as `trace_core::TraceEvent`) and
 nothing else.
 
-### The chain via `From`
+### The chain, step by step
 
-Between adjacent versions, a `From` impl encodes the upcast:
+Between adjacent versions, a unit-struct [`Upcaster`] impl encodes the
+upcast. This is what actually ships (see `v2::V1ToV2` in
+`crates/trace-schema/src/v2.rs`):
 
 ```rust
-impl From<v1::TraceEvent> for v2::TraceEvent {
-    fn from(old: v1::TraceEvent) -> Self {
+pub struct V1ToV2;
+
+impl Upcaster for V1ToV2 {
+    type From = v1::TraceEvent;
+    type To = v2::TraceEvent;
+    const LOSSY: bool = false; // v1 events simply had no entity id
+
+    fn upcast(input: v1::TraceEvent) -> v2::TraceEvent {
         v2::TraceEvent {
-            seq:            old.seq,
-            session_id:     old.session_id,
-            ts:             old.ts,
-            correlation_id: None,           // v2 added it; old events had none
-            kind:           old.kind.into(), // delegates to TraceEventKind upcaster
+            seq:              input.seq,
+            session_id:       input.session_id,
+            ts:               input.ts,
+            correlation_id:   input.correlation_id,
+            domain_entity_id: None, // v2 added it; old events had none
+            kind:             input.kind,
         }
     }
 }
-
-impl From<v2::TraceEvent> for v3::TraceEvent {
-    fn from(old: v2::TraceEvent) -> Self { /* … */ }
-}
 ```
 
-Composition is mechanical: `Current::from(Current::from(v1_event))`-style
-nesting works syntactically but is awkward at three or more versions; the
-dispatch helper hides it.
+`From` impls between version types are welcome sugar when they help,
+but the trait is the contract: it carries the `LOSSY` constant and the
+sealing. Composition is mechanical (`V2ToV3::upcast(V1ToV2::upcast(e))`)
+and the dispatch helper hides it from every caller.
 
 ### The dispatch helper
 
@@ -112,16 +118,27 @@ struct VersionProbe { schema_version: u32 }
 
 pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
     let probe: VersionProbe = serde_json::from_str(raw)?;
+    if !(1..=CURRENT_SCHEMA_VERSION).contains(&probe.schema_version) {
+        return Err(SchemaError::UnsupportedSchemaVersion(probe.schema_version));
+    }
+
+    // One Value parse, one guard site: an envelope carrying a field
+    // introduced in a version later than the one it declares is
+    // version-confused input and fails closed for EVERY declared
+    // version — before dispatch, so no arm can forget it.
+    let value: serde_json::Value = serde_json::from_str(raw)?;
+    reject_later_version_fields(&value, probe.schema_version)?;
+
     match probe.schema_version {
         1 => {
-            let e: v1::TraceEvent = serde_json::from_str(raw)?;
-            Ok(v3::TraceEvent::from(v2::TraceEvent::from(e)))
+            let e: v1::TraceEnvelope = serde_json::from_value(value)?;
+            Ok(V2ToV3::upcast(V1ToV2::upcast(e.into_event())))
         }
         2 => {
-            let e: v2::TraceEvent = serde_json::from_str(raw)?;
-            Ok(v3::TraceEvent::from(e))
+            let e: v2::TraceEnvelope = serde_json::from_value(value)?;
+            Ok(V2ToV3::upcast(e.into_event()))
         }
-        3 => Ok(serde_json::from_str(raw)?),
+        3 => Ok(serde_json::from_value::<v3::TraceEnvelope>(value)?.into_event()),
         v => Err(SchemaError::UnsupportedSchemaVersion(v)),
     }
 }
@@ -146,9 +163,9 @@ pub trait Upcaster {
 }
 ```
 
-A blanket impl bridges `From`-backed upcasters into the trait for cases
-where the caller wants the `LOSSY` flag without naming the concrete
-upcaster type.
+There is no blanket impl: each step is an explicit unit struct
+implementing the sealed trait, so the set of upcasters is exactly the
+set of types `trace-schema` chose to write down.
 
 For collapsing multiple events into one (or splitting one into many) —
 i.e. when `From<v_n::TraceEvent> for v_n+1::TraceEvent` cannot exist
@@ -177,9 +194,10 @@ information that cannot be recovered: a v3 envelope produced by a lossy
 chain from a v1 event is *not* round-trippable to v1. The runtime never
 attempts a downcast; `trace-schema` exposes only `upcast_to_current`.
 
-When at least one step in the configured chain is lossy, the runtime
-records that fact in a `ChainInfo` accessor so reporters can flag
-"degraded historical events".
+Today lossiness is exposed only per-step via the `LOSSY` constant. A
+chain-level accessor (working name `ChainInfo`) that lets reporters
+flag "degraded historical events" is planned for the first lossy step
+and does **not** exist yet — do not reference it from code.
 
 ## Property tests (mandatory)
 
@@ -213,6 +231,12 @@ Stream upcasters add:
 `proptest` strategies for each version live alongside its module and are
 maintained as the version's frozen test surface; they are not edited
 after the version is released.
+
+Naming note: there is no `upcast_to_current` function in the shipped
+crate — the chain is exercised through `read_event` / `write_event`.
+Properties 1-4 live in `crates/trace-schema/tests/` (`roundtrip.rs`,
+`fail_closed.rs` — property 3's byte-identical form — and
+`schema_parity.rs` for the published-schema direction).
 
 ## Fuzz coverage (mandatory)
 
@@ -250,10 +274,11 @@ The story to follow when a real schema bump happens.
 3. **Copy `v1`'s module to `v2`** and apply the changes inside `v2`
    only. **Never** touch `v1` after release; the property tests for
    `v1` should not need updates.
-4. **Implement `From<v1::TraceEvent> for v2::TraceEvent`** in
-   `trace-schema/src/upcasters/v1_to_v2.rs` with `const LOSSY: bool`.
-   Add a single-event property test and (if applicable) a worked
-   round-trip test.
+4. **Implement the step upcaster** (a unit struct implementing
+   [`Upcaster`] with `const LOSSY: bool`) alongside the destination
+   module — `V1ToV2` lives in `trace-schema/src/v2.rs`. Add a
+   single-event property test and (if applicable) a worked round-trip
+   test.
 5. **Repoint `Current`** to `v2::TraceEvent`.
 6. **Update `read_event`** to add the `2 => …` arm and adjust the
    `1 => …` arm to compose through `v2`. Add an entry mapping the
@@ -278,7 +303,8 @@ pattern is for.
 ## Compaction (optional, never required)
 
 Long chains slow down per-read parsing — five sequential upcasts per
-event add up at corpus scale. The CLI provides:
+event add up at corpus scale. The CLI will provide (**not yet
+implemented** — it lands with the first chain long enough to need it):
 
 ```
 trace compact <input.jsonl> -o <output.jsonl>
