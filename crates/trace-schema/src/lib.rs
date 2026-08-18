@@ -69,32 +69,44 @@ struct VersionProbe {
 /// - [`SchemaError::Parse`] if the input is not valid JSON;
 /// - [`SchemaError::InvalidShape`] if the JSON parses but does not
 ///   match the expected event envelope for its declared version, or
-///   if a v1-stamped line carries a field that only exists in a later
-///   schema version (a version-confused writer — tolerating it would
-///   silently discard data);
+///   if the envelope carries a field introduced in a schema version
+///   later than the one it declares (a version-confused writer —
+///   tolerating it would silently discard data);
 /// - [`SchemaError::UnsupportedSchemaVersion`] if the
 ///   `schema_version` is higher than [`CURRENT_SCHEMA_VERSION`] or
 ///   lower than the oldest known version (`1`).
 pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
     let probe: VersionProbe = serde_json::from_str(raw).map_err(classify_json_error)?;
+    if !(1..=CURRENT_SCHEMA_VERSION).contains(&probe.schema_version) {
+        return Err(SchemaError::UnsupportedSchemaVersion(probe.schema_version));
+    }
+
+    // Parse once to a Value so the guard sees *decoded* object keys
+    // (JSON `\u` escapes included); each arm then builds its envelope
+    // from the same Value — no third pass over the input.
+    //
+    // The guard runs HERE, once, before version dispatch: it applies
+    // to every declared version, so a future bump extends
+    // [`FIELDS_BY_INTRODUCING_VERSION`] and every older version's arm
+    // is protected automatically. A per-arm guard would quietly leave
+    // the newest frozen arm unguarded at the next bump — the exact
+    // shape of bug this crate exists to prevent.
+    let value: serde_json::Value = serde_json::from_str(raw).map_err(classify_json_error)?;
+    reject_later_version_fields(&value, probe.schema_version)?;
+
     match probe.schema_version {
         1 => {
-            // Parse once to a Value so the guard sees *decoded* object
-            // keys (JSON `\u` escapes included), then build the
-            // envelope from the same Value — no third pass over the
-            // input.
-            let value: serde_json::Value =
-                serde_json::from_str(raw).map_err(classify_json_error)?;
-            reject_later_version_fields(&value, 1)?;
             let envelope: v1::TraceEnvelope =
                 serde_json::from_value(value).map_err(classify_json_error)?;
             Ok(v2::V1ToV2::upcast(envelope.into_event()))
         }
         2 => {
             let envelope: v2::TraceEnvelope =
-                serde_json::from_str(raw).map_err(classify_json_error)?;
+                serde_json::from_value(value).map_err(classify_json_error)?;
             Ok(envelope.into_event())
         }
+        // Unreachable after the range check above; kept total so a
+        // future refactor cannot turn this into a panic path.
         other => Err(SchemaError::UnsupportedSchemaVersion(other)),
     }
 }
@@ -109,8 +121,10 @@ pub fn read_event(raw: &str) -> Result<Current, SchemaError> {
 /// `#[serde(default)]` fields within a released version.
 ///
 /// Bump procedure: when a v(n+1) module lands, add an entry mapping
-/// `n + 1` to its new top-level field names; every arm for versions
-/// `< n + 1` then rejects them automatically.
+/// `n + 1` to its new top-level field names. The guard is invoked once
+/// in [`read_event`], before version dispatch, so every version older
+/// than `n + 1` — including the previously-newest one — rejects the
+/// new fields automatically; no arm needs to remember anything.
 const FIELDS_BY_INTRODUCING_VERSION: [(u32, &[&str]); 1] = [(2, &["domain_entity_id"])];
 
 /// Fail closed when an envelope carries a field introduced in a schema
