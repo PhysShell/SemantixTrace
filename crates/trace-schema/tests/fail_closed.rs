@@ -164,6 +164,25 @@ fn v2_only_field_in_v1_envelope_fails_closed() {
     }
 }
 
+/// JSON permits `\u` escapes inside object keys and serde decodes
+/// them, so the guard must fire on the *parsed* key, not on a raw
+/// substring — an escaped spelling of the key is the same key.
+#[test]
+fn escaped_key_spelling_does_not_bypass_the_guard() {
+    let raw = format!(
+        "{{\"schema_version\":1,\"domain_entity_\\u0069d\":\"Declaration:doc-9\",{VALID_V1_BODY}}}"
+    );
+    match read_event(&raw) {
+        Err(SchemaError::InvalidShape(msg)) => {
+            assert!(
+                msg.contains("domain_entity_id"),
+                "diagnostic must name the offending field, got: {msg}"
+            );
+        }
+        other => panic!("escape-spelled version-confused line must fail closed, got: {other:?}"),
+    }
+}
+
 /// The guard is precise: `domain_entity_id` occurring inside a *string
 /// value* (an exception message, say) is data, not a key, and must not
 /// trip the version-confusion rejection.
