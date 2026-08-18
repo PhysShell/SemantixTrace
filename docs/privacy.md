@@ -38,7 +38,7 @@ pub enum ValuePolicy {
   encode length (length itself is sensitive in some cases).
 - **Numerics** → `ValuePolicy::Bucketed` using the table from
   [`glossary.md`](glossary.md) §4: `0`, `1`, `2–10`, `11–100`,
-  `101–1000`, `1000+`. Negative numbers map symmetrically.
+  `101–1000`, `1001+`. Negative numbers map symmetrically.
 - **Dates / timestamps** → `ValuePolicy::Bucketed` with relative
   buckets: `past_week`, `past_month`, `past_year`, `future`, `epoch`.
 - **Booleans** → `ValuePolicy::Raw` (booleans have negligible

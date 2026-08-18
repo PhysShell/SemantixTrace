@@ -1,6 +1,6 @@
 # S6: WPF adapter (Trace.Wpf NuGet)
 
-Status: planned
+Status: landed
 Depends on: S5
 ADRs: ADR-0005, ADR-0007, ADR-0013
 

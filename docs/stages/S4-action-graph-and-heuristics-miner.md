@@ -1,6 +1,6 @@
 # S4: Action graph and Heuristics miner
 
-Status: planned
+Status: landed
 Depends on: S3
 ADRs: ADR-0008
 

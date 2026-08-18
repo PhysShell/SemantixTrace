@@ -1,6 +1,6 @@
 # S2: JSONL storage backend and CLI skeleton
 
-Status: planned
+Status: landed (acceptance hardening pass 2026-08-18)
 Depends on: S1
 ADRs: ADR-0002, ADR-0003, ADR-0014
 

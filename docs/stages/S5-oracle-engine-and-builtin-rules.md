@@ -1,6 +1,6 @@
 # S5: Oracle engine and five built-in rules
 
-Status: planned
+Status: landed
 Depends on: S4
 ADRs: ADR-0002, ADR-0014
 

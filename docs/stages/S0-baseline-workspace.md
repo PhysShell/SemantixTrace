@@ -1,6 +1,6 @@
 # S0: Baseline workspace, lint policy, CI
 
-Status: planned
+Status: landed
 Depends on: —
 ADRs: ADR-0001, ADR-0002, ADR-0004, ADR-0009, ADR-0010, ADR-0012, ADR-0013, ADR-0014
 

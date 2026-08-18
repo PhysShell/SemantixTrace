@@ -1,6 +1,6 @@
 # S1: trace-core value objects and trace-schema v1 with upcaster machinery
 
-Status: planned
+Status: landed (acceptance hardening pass 2026-08-18)
 Depends on: S0
 ADRs: ADR-0002, ADR-0006, ADR-0010
 

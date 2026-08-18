@@ -1,6 +1,6 @@
 # S7: DeclarationApp.Demo and the v1.0-MVP / PH-launch pipeline
 
-Status: planned
+Status: landed
 Depends on: S6
 ADRs: ADR-0005, ADR-0007, ADR-0013, ADR-0014
 
