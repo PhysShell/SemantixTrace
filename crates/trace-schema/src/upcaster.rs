@@ -21,9 +21,26 @@ pub mod sealed {
 
 /// Upcast a single event from version `N` to version `N + 1`.
 ///
-/// Implementations live alongside the destination module (`v2`'s
-/// `From<v1::TraceEvent> for v2::TraceEvent`); the trait itself is
-/// sealed so the set of upcasters is fixed by `trace-schema`.
+/// Implementations live alongside the destination module (v2's
+/// [`crate::v2::V1ToV2`]); the trait itself is sealed so the set of
+/// upcasters is fixed by `trace-schema`.
+///
+/// Sealing is enforced at compile time: a downstream crate cannot name
+/// the sealing marker, so an external implementation does not build
+/// (ADR-0012 `C-SEALED`):
+///
+/// ```compile_fail
+/// struct Evil;
+/// impl trace_schema::sealed::Sealed for Evil {}
+/// impl trace_schema::Upcaster for Evil {
+///     type From = ();
+///     type To = ();
+///     const LOSSY: bool = true;
+///     fn upcast(input: ()) {
+///         input
+///     }
+/// }
+/// ```
 pub trait Upcaster: sealed::Sealed {
     /// The older event shape.
     type From;
