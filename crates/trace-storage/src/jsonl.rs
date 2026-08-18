@@ -134,20 +134,21 @@ impl StorageBackend for JsonlBackend {
 ///
 /// Shared by [`JsonlBackend::events`] and the CLI's stdin path
 /// (`trace analyze -`). Blank lines are skipped. Three error classes
-/// with two stream semantics:
+/// with two stream semantics, backed by a *progress invariant* rather
+/// than trust in any particular reader:
 ///
 /// - **Per-line parse failures** ([`JsonlError::Schema`]) consume
 ///   their line; the stream continues past them, so callers choose
 ///   between abort and skip-with-report.
 /// - **Undecodable lines** ([`JsonlError::Io`] with
-///   [`std::io::ErrorKind::InvalidData`]): `read_line` consumes the
-///   bytes before UTF-8 validation fails, so these are per-line
-///   failures too — the stream continues.
-/// - **Any other read failure** ([`JsonlError::Io`]) is terminal: the
-///   error is yielded once and the stream ends. A non-progressing
-///   reader (a corrupt zstd frame errors on every `read` call) would
-///   otherwise turn the stream into an infinite sequence of identical
-///   errors.
+///   [`std::io::ErrorKind::InvalidData`]): the raw bytes were read up
+///   to the newline via `read_until` *before* UTF-8 validation ran,
+///   so progress is proven, not assumed — the stream continues.
+/// - **Transport failures** (any `Err` from the underlying reader) are
+///   terminal: the error is yielded once and the stream ends. `BufRead`
+///   gives no progress guarantee on error, so a reader that repeats
+///   the same failure (a corrupt zstd frame, a hostile impl) must not
+///   turn the stream into an infinite error sequence.
 ///
 /// There is deliberately no line-length cap: one event is one line,
 /// however large, and the reader allocates accordingly (ADR-0003).
@@ -155,26 +156,35 @@ pub fn read_events<R>(reader: R) -> EventStream<'static, Current, JsonlError>
 where
     R: BufRead + 'static,
 {
-    let mut lines = reader.lines();
+    let mut reader = reader;
+    let mut buf: Vec<u8> = Vec::new();
     let mut io_failed = false;
     let iter = std::iter::from_fn(move || {
         if io_failed {
             return None;
         }
         loop {
-            match lines.next()? {
-                Ok(line) => {
+            buf.clear();
+            match reader.read_until(b'\n', &mut buf) {
+                Ok(0) => return None, // end of stream
+                Ok(_) => {
+                    // Bytes are consumed regardless of what they
+                    // decode to; UTF-8 validity is a per-line concern
+                    // from here on.
+                    let Ok(line) = std::str::from_utf8(&buf) else {
+                        return Some(Err(JsonlError::Io(std::io::Error::new(
+                            std::io::ErrorKind::InvalidData,
+                            "JSONL line is not valid UTF-8",
+                        ))));
+                    };
+                    let line = line.trim_end_matches(['\n', '\r']);
                     if line.trim().is_empty() {
                         continue;
                     }
-                    return Some(read_event(&line).map_err(JsonlError::Schema));
+                    return Some(read_event(line).map_err(JsonlError::Schema));
                 }
                 Err(io) => {
-                    // InvalidData = the line was consumed but is not
-                    // UTF-8; the reader has progressed, keep going.
-                    if io.kind() != std::io::ErrorKind::InvalidData {
-                        io_failed = true;
-                    }
+                    io_failed = true;
                     return Some(Err(JsonlError::Io(io)));
                 }
             }
