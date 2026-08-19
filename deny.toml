@@ -25,6 +25,8 @@ allow = [
     "CC0-1.0",
     "MPL-2.0",
     "0BSD",
+    # borrow-or-share (jsonschema -> referencing -> fluent-uri), dev-only.
+    "MIT-0",
 ]
 exceptions = []
 

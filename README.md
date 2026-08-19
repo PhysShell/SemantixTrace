@@ -21,29 +21,27 @@ Elevator pitch: **semantic metrics, not contextless counters.** Counting
 success or `ErrorModal`") is the same event answering product, UX,
 support, and test questions at once.
 
-Code lands stage by stage starting at S0 (see [`docs/stages/`](docs/stages/)).
+Code lands stage by stage; the per-stage `Status:` lines in
+[`docs/stages/`](docs/stages/) are the single source of truth for what
+has shipped — this README intentionally repeats only the headline.
 
 ## Status
 
-**S0 landed.** The Cargo workspace, lint policy
-(`clippy::pedantic -D warnings`, `missing_docs`, `cargo doc -D warnings`,
-`cargo deny`), CI workflow (Rust + .NET jobs), `.NET` adapter skeletons
-(`adapters/Trace.{Abstractions,Wpf,Avalonia,Maui}/` with shared
-`Directory.Build.props` enabling `AnalysisMode=AllEnabledByDefault` +
-`TreatWarningsAsErrors=true` + `EnablePackageValidation` +
-`PublicApiAnalyzers`), the isolated `fuzz/` scaffold, and the
-placeholder `trace-cli` (`trace version`, `trace completions <shell>`,
-sysexits-style exit codes, `trycmd` snapshots) are in place. Domain
-code lands in S1 onward.
+**S0–S8 landed.** The workspace below is real and CI-gated: schema
+v1+v2 with the upcaster chain, JSONL and SQLite backends, the
+normalizer (value/temporal abstraction, scenario folding), Heuristics
+and Inductive miners, the oracle engine with built-in rules, the
+`trace` CLI, the WPF adapter packages, and the DeclarationApp demo.
+S9 (Parquet archive tier) through S12 (v1.0 stable) remain planned.
 
-## Planned workspace
+## Workspace
 
 - `crates/trace-core/` — `TraceEvent`, `Session`, `Scenario` value objects;
   no I/O, no UI, no third-party storage.
 - `crates/trace-schema/` — versioned JSON schema, serde models, the upcaster
   chain (ADR-0006).
-- `crates/trace-storage/` — `StorageBackend` port plus JSONL (MVP), SQLite
-  (v0.2), Parquet (v0.3) adapters behind feature flags.
+- `crates/trace-storage/` — `StorageBackend` port plus JSONL (MVP) and
+  SQLite adapters behind feature flags; Parquet is planned for S9.
 - `crates/trace-normalizer/` — value/temporal abstraction, equivalence
   classes, scenario folding.
 - `crates/trace-graph/` — `petgraph` wrapper, Heuristics miner (MVP),
@@ -84,10 +82,10 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo fmt --all --check
 cargo doc --workspace --all-features --no-deps   # RUSTDOCFLAGS=-D warnings
 
-# Try the placeholder CLI
-cargo run -p trace-cli -- version
+# Try the CLI
 cargo run -p trace-cli -- version --output json
-cargo run -p trace-cli -- completions bash
+cargo run -p trace-cli -- analyze crates/trace-cli/tests/fixtures/multi_session.jsonl
+cargo run -p trace-cli -- normalize crates/trace-cli/tests/fixtures/multi_session.jsonl --report
 
 # .NET adapters (requires .NET 8.0 SDK)
 dotnet build adapters/Trace.Abstractions/Trace.Abstractions.csproj -c Release -warnaserror
@@ -102,9 +100,10 @@ cargo build --manifest-path fuzz/Cargo.toml
 
 ## License
 
-To be decided in ADR-0011 (planned). Working assumption: **MIT** for Rust
-crates and the WPF adapter; commercial dual-license for enterprise add-ons.
-See SPEC §6.
+The Rust workspace and adapters currently declare **MIT** in their
+manifests. A dedicated licensing ADR (including the dual-license
+question for enterprise add-ons) is still pending; ADR-0011 turned out
+to be taken by the multi-projection decision. See SPEC §6.
 
 ## Naming
 

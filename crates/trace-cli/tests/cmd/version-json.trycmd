@@ -1,5 +1,5 @@
 ```
 $ trace version --output json
-{"binary":"0.0.0","schema":1}
+{"binary":"0.0.0","schema":2}
 
 ```

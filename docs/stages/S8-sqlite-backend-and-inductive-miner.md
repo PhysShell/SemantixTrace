@@ -1,6 +1,6 @@
 # S8: SQLite backend and Inductive miner (v0.2)
 
-Status: planned
+Status: landed
 Depends on: S7
 ADRs: ADR-0003
 

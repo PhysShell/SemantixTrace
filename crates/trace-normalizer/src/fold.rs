@@ -10,8 +10,16 @@ use trace_schema::Current;
 use crate::abstraction::abstract_value;
 use crate::config::NormCfg;
 
-/// Sidecar describing what the fold abstracted away (`glossary.md` §3,
-/// "scenario folding"). Surfaced by `trace normalize --report`.
+/// Sidecar accounting for every *event* the fold consumed
+/// (`glossary.md` §3, "scenario folding"). Surfaced by
+/// `trace normalize --report`.
+///
+/// This is **event-cardinality** accounting — `input_events ==
+/// output_actions + collapsed_bursts + dropped_noise` always holds —
+/// not information accounting: the canonical action deliberately
+/// projects away each surviving command's `outcome` and
+/// `duration_ms` (a uniform, documented projection; machine-readable
+/// accounting for it is tracked as issue #16, pre-v1.0).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
 pub struct FoldReport {
     /// Events read from the session.
@@ -97,27 +105,59 @@ pub fn normalize(session: &Session<Current>, cfg: &NormCfg) -> (Scenario, FoldRe
     (Scenario::new(actions), report)
 }
 
+/// Sidecar for [`refold_with_report`]: what the refold collapsed.
+///
+/// Every action lost between input and output is named here —
+/// `input_actions == output_actions + collapsed_adjacent` always
+/// holds (action-cardinality conservation, matching [`FoldReport`]'s
+/// event-cardinality law).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
+pub struct RefoldReport {
+    /// Actions in the input scenario.
+    pub input_actions: usize,
+    /// Actions surviving in the output scenario.
+    pub output_actions: usize,
+    /// Adjacent duplicates collapsed away.
+    pub collapsed_adjacent: usize,
+}
+
 /// Re-normalize a scenario: re-abstract each action's args (idempotent)
 /// and collapse adjacent identical actions.
 ///
 /// Endomorphic and idempotent on [`Scenario`]: `refold(refold(s)) ==
 /// refold(s)`. Unlike [`normalize`], this has no timestamps, so it
 /// collapses *all* adjacent duplicates rather than only burst-window
-/// ones.
+/// ones. Prefer [`refold_with_report`] when the caller surfaces loss
+/// accounting; this convenience wrapper discards the report.
 #[must_use]
 pub fn refold(scenario: &Scenario, cfg: &NormCfg) -> Scenario {
+    refold_with_report(scenario, cfg).0
+}
+
+/// [`refold`], with its loss named: the report counts every adjacent
+/// duplicate the collapse removed, so refolding is not a silent
+/// information sink.
+#[must_use]
+pub fn refold_with_report(scenario: &Scenario, cfg: &NormCfg) -> (Scenario, RefoldReport) {
     let mut out: Vec<CanonicalAction> = Vec::with_capacity(scenario.actions.len());
+    let mut report = RefoldReport {
+        input_actions: scenario.actions.len(),
+        ..RefoldReport::default()
+    };
     for action in &scenario.actions {
         let reabstracted = CanonicalAction {
             screen_id: action.screen_id.clone(),
             command_id: action.command_id.clone(),
             abstract_args: abstract_value(&action.abstract_args, cfg),
         };
-        if out.last() != Some(&reabstracted) {
+        if out.last() == Some(&reabstracted) {
+            report.collapsed_adjacent += 1;
+        } else {
             out.push(reabstracted);
         }
     }
-    Scenario::new(out)
+    report.output_actions = out.len();
+    (Scenario::new(out), report)
 }
 
 #[cfg(test)]

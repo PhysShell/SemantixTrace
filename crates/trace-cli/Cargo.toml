@@ -18,9 +18,15 @@ name = "trace"
 path = "src/main.rs"
 
 [features]
-default         = []
+# zstd is default: the help text unconditionally advertises .jsonl.zst
+# inputs, so the shipped binary must keep that promise. Stripped
+# builds may opt out with --no-default-features (accepting the
+# ZstdUnsupported error path); trace-storage itself stays
+# feature-gated so library consumers do not inherit the C toolchain.
+default         = ["zstd"]
 sqlite          = ["trace-storage/sqlite", "dep:trace-align"]
 inductive-miner = ["trace-graph/inductive-miner"]
+zstd            = ["trace-storage/zstd"]
 
 [dependencies]
 trace-core       = { path = "../trace-core", version = "0.0.0" }
@@ -40,9 +46,12 @@ thiserror     = { workspace = true }
 uuid          = { workspace = true }
 
 [dev-dependencies]
-trycmd = { workspace = true }
-chrono = { workspace = true }
-uuid   = { workspace = true }
+jsonschema = { workspace = true }
+tempfile   = { workspace = true }
+trycmd     = { workspace = true }
+chrono     = { workspace = true }
+uuid       = { workspace = true }
+zstd       = { workspace = true }
 
 [lints]
 workspace = true

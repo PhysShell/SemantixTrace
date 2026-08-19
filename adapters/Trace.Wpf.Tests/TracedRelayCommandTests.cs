@@ -10,6 +10,8 @@ namespace SemantxTrace.Wpf.Tests;
 
 public sealed class TracedRelayCommandTests
 {
+    private static readonly char[] LineSeparators = ['\r', '\n'];
+
     private sealed class SimpleCommand : ICommand
     {
         private readonly Action<object?> _execute;
@@ -41,7 +43,7 @@ public sealed class TracedRelayCommandTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         Assert.Single(lines);
 
         var doc = JsonDocument.Parse(lines[0]);
@@ -62,7 +64,7 @@ public sealed class TracedRelayCommandTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         Assert.Equal(2, lines.Length);
 
         var exDoc = JsonDocument.Parse(lines[0]);
@@ -87,7 +89,7 @@ public sealed class TracedRelayCommandTests
         ctx.Flush();
 
         string[] lines = sw.ToString().Split(
-            new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            LineSeparators, StringSplitOptions.RemoveEmptyEntries);
         var exDoc = JsonDocument.Parse(lines[0]);
         var cmdDoc = JsonDocument.Parse(lines[1]);
 

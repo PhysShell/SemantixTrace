@@ -262,12 +262,13 @@ for closed sets such as schema versions.
 ## 2. Trace events
 
 ### TraceEnvelope
-The on-wire wrapper around a trace event. Carries `schemaVersion` so the
+The on-wire wrapper around a trace event. Carries `schema_version` so the
 upcaster chain can dispatch correctly. The wire form is a single line of
 JSON per event (JSONL).
 
-### schemaVersion
-Integer version tag attached to every envelope, e.g. `"schemaVersion":1`.
+### schema_version
+Integer version tag attached to every envelope, e.g. `"schema_version":1`
+(snake_case on the wire, as in the JSON Schema files and every fixture).
 Lives in the envelope, not on individual events. Bumped only when a
 breaking change is unavoidable (ADR-0006).
 
@@ -362,7 +363,8 @@ substrate.
 ### value abstraction
 Replacing concrete values with stable buckets so equivalent flows fold:
 
-- numerics → buckets `0`, `1`, `2–10`, `11–100`, `101–1000`, `1000+`;
+- numerics → buckets `0`, `1`, `2–10`, `11–100`, `101–1000`, `1001+`
+  (1000 falls in `101–1000`, so the open bucket starts at 1001);
 - strings → `{length_bucket, format_class}` (email-like, GUID-like,
   numeric, free-text);
 - dates → relative buckets (`past_week`, `past_month`, `future`).
@@ -1282,7 +1284,7 @@ order). Required for snapshot tests.
 
 - `TraceEvent`, `Session`, `Scenario`, `EventSeq`, `SessionId` →
   `trace-core` value objects.
-- `TraceEnvelope`, `schemaVersion`, `Upcaster`, `read_event` →
+- `TraceEnvelope`, `schema_version`, `Upcaster`, `read_event` →
   `trace-schema` (versioned wire format).
 - `StorageBackend`, `JsonlBackend`, `SqliteBackend`, `ParquetBackend` →
   `trace-storage`.

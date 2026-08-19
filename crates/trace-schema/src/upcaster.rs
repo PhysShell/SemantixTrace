@@ -5,25 +5,56 @@
 //! [`crate::read_event`] depends on the closed set; a third-party impl
 //! could lie about its `From` / `To` association and break readers.
 //!
-//! S1 ships an identity chain: `Current = v1::TraceEvent`, no upcasters
-//! defined yet beyond the trivial blanket. Real upcasters land at the
-//! first schema bump per the procedure in `docs/upcasters.md`.
+//! The chain currently has one real step: [`crate::v2::V1ToV2`] lifts
+//! v1 events into `Current = v2::TraceEvent`. New steps land at each
+//! schema bump per the procedure in `docs/upcasters.md`.
 
 /// Crate-private sealing module. Downstream crates cannot implement
 /// [`Upcaster`] or [`StreamUpcaster`] because they cannot name
-/// `sealed::Sealed`.
+/// `sealed::Sealed` — the module is deliberately not re-exported from
+/// the crate root.
+///
+/// The items are nominally `pub` behind a private path: `pub(crate)`
+/// would trip `private_bounds` on the public traits bounded by
+/// `Sealed`, so `unreachable_pub` is the lint this pattern
+/// legitimately silences instead.
+#[allow(
+    unreachable_pub,
+    reason = "sealed pattern: nominally pub behind a private path"
+)]
 pub mod sealed {
     /// Sealing marker. Downstream crates cannot implement this trait,
     /// which prevents them from implementing [`super::Upcaster`] or
     /// [`super::StreamUpcaster`] (ADR-0012 `C-SEALED`).
+    #[allow(
+        unreachable_pub,
+        reason = "sealed pattern: nominally pub behind a private path"
+    )]
     pub trait Sealed {}
 }
 
 /// Upcast a single event from version `N` to version `N + 1`.
 ///
-/// Implementations live alongside the destination module (`v2`'s
-/// `From<v1::TraceEvent> for v2::TraceEvent`); the trait itself is
-/// sealed so the set of upcasters is fixed by `trace-schema`.
+/// Implementations live alongside the destination module (v2's
+/// [`crate::v2::V1ToV2`]); the trait itself is sealed so the set of
+/// upcasters is fixed by `trace-schema`.
+///
+/// Sealing is enforced at compile time: a downstream crate cannot name
+/// the sealing marker, so an external implementation does not build
+/// (ADR-0012 `C-SEALED`):
+///
+/// ```compile_fail
+/// struct Evil;
+/// impl trace_schema::sealed::Sealed for Evil {}
+/// impl trace_schema::Upcaster for Evil {
+///     type From = ();
+///     type To = ();
+///     const LOSSY: bool = true;
+///     fn upcast(input: ()) {
+///         input
+///     }
+/// }
+/// ```
 pub trait Upcaster: sealed::Sealed {
     /// The older event shape.
     type From;

@@ -34,11 +34,11 @@ use trace_core::ports::StorageBackend;
 use trace_schema::Current;
 use trace_storage::{JsonlBackend, JsonlError};
 
-/// Schema version supported by this binary build.
-///
-/// Bumped in lock-step with `trace-schema` (S1 onward); see ADR-0006
-/// and `docs/upcasters.md`.
-const SCHEMA_VERSION: u32 = 1;
+/// Schema version supported by this binary build — always the wire
+/// version `trace-schema` itself reports, never a local literal (see
+/// ADR-0006 and `docs/upcasters.md`; pinned by the `version_schema`
+/// integration test).
+const SCHEMA_VERSION: u32 = trace_schema::CURRENT_SCHEMA_VERSION;
 
 #[derive(Parser, Debug)]
 #[command(

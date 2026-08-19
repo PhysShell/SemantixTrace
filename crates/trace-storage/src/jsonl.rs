@@ -72,6 +72,29 @@ impl JsonlBackend {
         Ok(())
     }
 
+    /// Flush buffered writes *and* fsync the file to stable storage.
+    ///
+    /// [`flush`](JsonlBackend::flush) hands buffered bytes to the OS;
+    /// `sync` additionally commits them to the device
+    /// ([`File::sync_all`]), which is the checkpoint an audit-grade
+    /// recorder calls at session boundaries. A backend that has not
+    /// written yet syncs trivially and does not create the file.
+    ///
+    /// The 64-events/250 ms automatic flush policy from the S2 stage
+    /// doc remains deliberately unimplemented — see
+    /// `docs/decisions.log.md` (2026-08-18).
+    ///
+    /// # Errors
+    ///
+    /// Returns [`JsonlError::Io`] if the flush or the fsync fails.
+    pub fn sync(&mut self) -> Result<(), JsonlError> {
+        if let Some(writer) = self.writer.as_mut() {
+            writer.flush()?;
+            writer.get_ref().sync_all()?;
+        }
+        Ok(())
+    }
+
     fn writer(&mut self) -> Result<&mut BufWriter<File>, JsonlError> {
         if self.writer.is_none() {
             let file = OpenOptions::new()
@@ -110,17 +133,62 @@ impl StorageBackend for JsonlBackend {
 /// [`trace_schema::read_event`].
 ///
 /// Shared by [`JsonlBackend::events`] and the CLI's stdin path
-/// (`trace analyze -`). Blank lines are skipped; per-line parse failures
-/// are yielded as [`JsonlError::Schema`], read failures as
-/// [`JsonlError::Io`].
+/// (`trace analyze -`). Blank lines are skipped. Three error classes
+/// with two stream semantics, backed by a *progress invariant* rather
+/// than trust in any particular reader:
+///
+/// - **Per-line parse failures** ([`JsonlError::Schema`]) consume
+///   their line; the stream continues past them, so callers choose
+///   between abort and skip-with-report.
+/// - **Undecodable lines** ([`JsonlError::Io`] with
+///   [`std::io::ErrorKind::InvalidData`]): the raw bytes were read up
+///   to the newline via `read_until` *before* UTF-8 validation ran,
+///   so progress is proven, not assumed — the stream continues.
+/// - **Transport failures** (any `Err` from the underlying reader) are
+///   terminal: the error is yielded once and the stream ends. `BufRead`
+///   gives no progress guarantee on error, so a reader that repeats
+///   the same failure (a corrupt zstd frame, a hostile impl) must not
+///   turn the stream into an infinite error sequence.
+///
+/// There is deliberately no line-length cap: one event is one line,
+/// however large, and the reader allocates accordingly (ADR-0003).
 pub fn read_events<R>(reader: R) -> EventStream<'static, Current, JsonlError>
 where
     R: BufRead + 'static,
 {
-    let iter = reader.lines().filter_map(|line| match line {
-        Ok(line) if line.trim().is_empty() => None,
-        Ok(line) => Some(read_event(&line).map_err(JsonlError::Schema)),
-        Err(io) => Some(Err(JsonlError::Io(io))),
+    let mut reader = reader;
+    let mut buf: Vec<u8> = Vec::new();
+    let mut io_failed = false;
+    let iter = std::iter::from_fn(move || {
+        if io_failed {
+            return None;
+        }
+        loop {
+            buf.clear();
+            match reader.read_until(b'\n', &mut buf) {
+                Ok(0) => return None, // end of stream
+                Ok(_) => {
+                    // Bytes are consumed regardless of what they
+                    // decode to; UTF-8 validity is a per-line concern
+                    // from here on.
+                    let Ok(line) = std::str::from_utf8(&buf) else {
+                        return Some(Err(JsonlError::Io(std::io::Error::new(
+                            std::io::ErrorKind::InvalidData,
+                            "JSONL line is not valid UTF-8",
+                        ))));
+                    };
+                    let line = line.trim_end_matches(['\n', '\r']);
+                    if line.trim().is_empty() {
+                        continue;
+                    }
+                    return Some(read_event(line).map_err(JsonlError::Schema));
+                }
+                Err(io) => {
+                    io_failed = true;
+                    return Some(Err(JsonlError::Io(io)));
+                }
+            }
+        }
     });
     Box::new(iter)
 }

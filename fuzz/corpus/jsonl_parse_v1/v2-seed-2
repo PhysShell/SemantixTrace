@@ -1,0 +1,1 @@
+{"schema_version":2,"seq":2,"session_id":"00000000-0000-0000-0000-00000000000b","ts":"2026-05-30T09:00:01Z","kind":"CommandExecuted","command_id":"Export.Pdf","args":{},"duration_ms":250,"outcome":"cancelled"}

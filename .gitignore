@@ -9,7 +9,9 @@ Cargo.lock.bak
 
 # cargo-fuzz working dirs. Seed / regression corpora that we deliberately
 # commit are added with `git add -f` per docs/fuzzing.md; the bulk
-# auto-generated corpus and crash artifacts stay out of git.
+# Auto-generated corpus and crash artifacts stay out of git. Curated
+# seed files (named, non-hash entries) are deliberately force-added
+# with `git add -f` per docs/fuzzing.md rule 4.
 fuzz/corpus/
 fuzz/artifacts/
 fuzz/coverage/

@@ -1,0 +1,7 @@
+```
+$ trace normalize tests/fixtures/multi_session.jsonl --report
+{"screen_id":"DeclarationEditor","command_id":"Graph47.Recalculate","abstract_args":{}}
+{"screen_id":"DeclarationEditor","command_id":"Declaration.Save","abstract_args":{}}
+fold report: input_events=5 output_actions=2 collapsed_bursts=0 dropped_noise=3 session_pauses=0
+
+```

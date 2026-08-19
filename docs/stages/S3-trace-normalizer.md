@@ -1,6 +1,6 @@
 # S3: Trace normalizer (value + temporal abstraction, scenario folding)
 
-Status: planned
+Status: landed (acceptance hardening pass 2026-08-18)
 Depends on: S2
 ADRs: ADR-0002
 

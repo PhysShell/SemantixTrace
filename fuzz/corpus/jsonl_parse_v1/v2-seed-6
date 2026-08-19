@@ -1,0 +1,1 @@
+{"schema_version":2,"seq":6,"session_id":"00000000-0000-0000-0000-00000000000b","ts":"2026-05-30T09:00:05Z","kind":"ValidationFailed","validator":"EmailFormat","field_id":"ContactEmail","reason":"missing @"}
