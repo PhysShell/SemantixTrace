@@ -92,3 +92,26 @@ only if its rank vector matches the committed author log, same as ts.
 **Expected direction of effect:** none on metrics. **Outcome data seen at
 decision time:** TT results (development data per D-001) and the partial
 23-case hipster log.
+
+---
+
+## 2026-08-20 — D-005: Preregistration FROZEN
+
+**Decision.** `00-preregistration.md` is frozen in this commit. All
+TO-FREEZE items were resolved using E0/E1 outputs (corrected-evaluator
+semantics, per D-001 already development-exposed) and the SemantixTrace
+model notes; the S2 method is fixed as an ActionGraph-transition
+differential with the same scoring formula (minimal-extension rule);
+the telemetry mapping is fixed field-by-field with reserved
+`span:`/`log:`/`alert:` command-id namespaces on schema v2 (no schema
+bump for the experiment).
+
+**Outcome data seen at freeze time:** E0/E1 results on the two Nezha
+datasets only (all development data by prior declaration). No E2/E3
+comparative result existed; no RCAEval data has been downloaded or
+inspected. The confirmatory layer (locked RCAEval subset) remains
+untouched.
+
+**Binding consequences.** No E2/E3 run may deviate from the frozen
+metrics, thresholds (§7), mapping, or tie/missing rules without a new
+D-entry that demotes affected results to exploratory.

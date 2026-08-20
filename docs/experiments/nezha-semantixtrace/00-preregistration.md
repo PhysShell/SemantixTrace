@@ -1,14 +1,11 @@
 # 00 — Preregistration: SemantixTrace vs Nezha adversarial validation
 
-> **STATUS: DRAFT — NOT FROZEN.**
-> This document freezes the comparative-experiment design (E2 and later).
-> It becomes binding at the freeze commit, which will be recorded in
-> `decisions.log.md` as D-FREEZE with the commit hash. Per D-001, phases E0
-> (historical reproduction) and E1 (measurement audit) execute before this
-> freeze and their outputs inform the corrected-metric definitions below.
-> **No E2/E3 comparative run may be executed while the DRAFT banner is
-> present.** Items marked `TO-FREEZE` must be resolved before the freeze
-> commit; everything else is already stated in its final intended form.
+> **STATUS: FROZEN** at the commit introducing this banner (recorded as
+> D-005 in `decisions.log.md`). E0/E1 completed before this freeze
+> (D-001); their outputs fixed the corrected-metric definitions below.
+> No E2/E3 comparative result existed at freeze time. Any
+> post-freeze change requires a decisions-log entry stating whether
+> outcome data had been seen and demotes affected results to exploratory.
 
 ## 1. Research questions
 
@@ -52,14 +49,22 @@ included; no exclusions. Per D-001, E0/E1 exposed per-case outcomes on all
 of them, so every E2/E3 result on these datasets is exploratory by
 construction.
 
-**Held-out confirmatory data (LOCKED):** RCAEval datasets containing
-metrics + logs + traces with code-level faults (target: the RCAEval RE
-collection). `TO-FREEZE`: exact RCAEval subset names, download manifests
-and SHA256 hashes, recorded at freeze time **without inspecting any labels
-or telemetry beyond the public schema documentation**. Until the freeze
-commit, no RCAEval data may be downloaded into this workspace. If any
-tuning occurs after first contact with this data, it is demoted to
-exploratory and this document must be amended with a D-entry saying so.
+**Held-out confirmatory data (LOCKED):** the RCAEval benchmark's
+multimodal dataset group that contains metrics + logs + traces and
+code-level faults (per its publication this is the RE3 group across its
+three systems; RE2 is the fallback if RE3 proves not to ship logs).
+Locking protocol: at unlock time (after the method freeze that follows
+E2/E3 development), the exact subset names, download manifests, and
+SHA256 hashes are recorded in a dedicated commit **before** any telemetry
+or label is inspected; only the benchmark's public README/schema docs may
+be consulted to confirm naming, and that consultation must itself be
+logged. No RCAEval data may be downloaded into this workspace before that
+commit. If any tuning occurs after first contact with this data, it is
+demoted to exploratory and this document must be amended with a D-entry
+saying so. Note: RCAEval includes systems related to OnlineBoutique and
+TrainTicket; its fault *instances* and telemetry are disjoint from the
+Nezha artifact data, and any system-level overlap is reported alongside
+results rather than silently pooled.
 
 ## 4. Partitions
 
@@ -72,17 +77,29 @@ exploratory and this document must be amended with a D-entry saying so.
 ## 5. Metrics
 
 Primary (per dataset, full-denominator over all faults):
-- **AC@1 service-level** under the corrected evaluator (dense competition
-  ranking over candidates deduplicated to first occurrence per service;
-  semantics fixed by E1, `TO-FREEZE`: exact tie and dedup rule text after
-  E1 review).
-- **MRR** (unlocalized case contributes 0).
+- **AC@1 service-level (corrected)**: candidates are ranked by the
+  condition's scorer output order; ranks are dense competition ranks
+  (candidates with equal ranking keys — for the Nezha scorer,
+  (score, depth) — share one rank; the next distinct key takes rank+1);
+  the candidate list is deduplicated to the first occurrence per service
+  before ranking; a candidate is correct iff
+  `service(candidate pod) == service(injected pod)` where
+  `service(p) = p.rsplit('-',1)[0].rsplit('-',1)[0]`. This is E1's
+  `service_dedup` semantics.
+- **MRR** over the same ranks (unlocalized case contributes 0).
 
-Secondary: AC@3, AC@5 (same semantics); inner-service AC@k under the
-artifact's template/resource matching rule with a preregistered equivalence
-relation (`TO-FREEZE` after E1: verbatim equivalence rule); median candidate
-set size; unlocalized-case count; ingestion loss counters (read / accepted /
-rejected+reasons); wall-clock per case.
+Secondary: AC@3, AC@5 (same semantics); AC@k on the non-deduplicated list
+(E1 `service_raw`); **inner-service AC@k** under this frozen equivalence
+rule — for a resource-type ground truth `R`, a candidate is correct iff
+it carries a resource annotation containing `R` as a substring AND its pod
+equals the injected pod; for a code-region ground truth `A_B`, a candidate
+pattern (src,dst) is correct iff `A` is a substring of the source event's
+template/action name and `B` a substring of the destination's AND its pod
+equals the injected pod (the artifact's rule from
+`pattern_ranker.py:262-284`, with dense ranks instead of its counter);
+median/min/max candidate-set size; unlocalized-case count; ingestion loss
+counters (read / accepted / rejected+reasons per source file); wall-clock
+per case.
 
 ## 6. Conditions and algorithms
 
@@ -91,10 +108,17 @@ rejected+reasons); wall-clock per case.
   pruning) — the E1-corrected baseline.
 - **S1**: SemantixTrace canonical representation of the *same* telemetry +
   the *same* scorer/evaluator (algorithm frozen, representation varies).
-- **S2**: same canonical representation + SemantixTrace graph/oracle
-  machinery (representation frozen, algorithm varies). `TO-FREEZE`: the
-  concrete S2 method after reading the current ActionGraph/oracle layer;
-  the contract's minimal-extension rule applies — no new framework.
+- **S2**: same canonical representation + SemantixTrace graph machinery
+  (representation frozen, algorithm varies). Frozen method: build
+  `ActionGraph`s (trace-graph crate) from the fault-free sessions and from
+  the fault-window sessions; score each transition with the *same*
+  differential formula (`freq_normal/(freq_normal+freq_fault)`, threshold
+  0.67, support floor >5) applied to ActionGraph transition frequencies;
+  root-most pruning along graph topology; ties broken by the graph's
+  Heuristics `anomaly_score`, then depth. The oracle layer participates
+  only as candidate *annotation* (violation evidence chains, H4) in the
+  primary S2; an oracle-informed scoring variant is one of the ablations,
+  not the primary. No new framework beyond this composition.
 - Ablations for any S2 gain: no normalization; adjacent pairs only; no
   root-most pruning; no metric events; no logs; no traces; graph without
   oracle; oracle without richer-than-edge structure.
@@ -103,8 +127,28 @@ Importer requirements (E2): every generated event carries provenance
 (dataset, file, row/span/log/metric key, conversion rule id); no semantic
 enrichment absent from the source (an OperationName maps to an
 OperationName-level action, never an invented domain action); all rejected
-records counted by reason. `TO-FREEZE`: field-by-field mapping table after
-the SemantixTrace model summary is integrated.
+records counted by reason.
+
+Frozen field-by-field mapping (source schemas per
+`appendix/dataset-inventory.md` §2; target = `trace_schema` v2 JSONL —
+v2 has no log/metric kinds and no span-id fields, so those identities are
+encoded in reserved namespaces below; no schema bump for this experiment):
+
+| Source | Rule id | Target v2 event |
+|---|---|---|
+| trace CSV row (span) | `span-v1` | `CommandExecuted{command_id="span:{service} {OperationName}", args={pod, span_id, parent_id}, duration_ms=Duration/1000, outcome=Success}`; `ts`=StartTimeUnixNano; `domain_entity_id="span:{SpanID}"` |
+| log CSV row | `log-v1` | `CommandExecuted{command_id="log:{drain3 cluster_id under the artifact's shipped template state}", args={pod}}`; `ts`=TimeUnixNano; `domain_entity_id="span:{SpanID}"` |
+| metric alarm (artifact's own `generate_alarm` output, unmodified) | `alert-v1` | `CommandExecuted{command_id="alert:{metric_type}", args={pod}}`; `ts`=window start; `domain_entity_id="pod:{pod}"` |
+| grouping | `session-v1` | one session per (dataset, minute window, TraceID); `session_id`=UUIDv5 of that triple; `seq` by (ts, source row order); `correlation_id`=UUIDv5 of TraceID |
+
+The alarm *detection* stage is deliberately identical to N1 (same
+fixed-threshold `generate_alarm`), so E2 isolates representation, not
+detection. S1's event vocabulary is produced by running the standard
+trace-normalizer fold over these sessions (CanonicalAction triples);
+Nezha's drain3 cluster IDs enter as `command_id` content, so the
+representational delta under test is exactly: canonicalization +
+abstraction + burst folding + explicit parent/child structure versus
+drain3-ID event chains with timestamp-insertion heuristics.
 
 ## 7. Useful-effect thresholds and kill criteria (adopted from the contract)
 
