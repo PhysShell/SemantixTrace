@@ -127,6 +127,13 @@ def main():
     alarm_list = nezha_alarm.generate_alarm(metric_list, args.ns)
     report["alarm_list"] = alarm_list
     pod_alarms = {a["pod"]: a["alarm"] for a in alarm_list}
+    # H4 evidence contract: materialize verified derivations so alert
+    # provenance terminates at source telemetry, not at a computation name.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from alarm_provenance import build_derivations
+    report["alarm_provenance"] = build_derivations(
+        args.window, data_root, args.code_dir, args.ns, metric_list,
+        alarm_list)
 
     # --- trace ids (the artifact's own selection) -------------------------
     traceids = pd.read_csv(traceid_file, header=None)[0].astype(str).tolist()
@@ -257,9 +264,9 @@ def main():
                         "args": {"pod": pod},
                         "duration_ms": 0, "outcome": "success",
                         "domain_entity_id": f"pod:{pod}",
-                    }, {"rule": "alert-v1", "file": "generate_alarm()",
-                        "row": a_idx, "pod": pod,
-                        "metric_type": entry["metric_type"]}))
+                    }, {"rule": "alert-v1", "row": a_idx, "pod": pod,
+                        "metric_type": entry["metric_type"],
+                        "derivation": f"{pod}|{entry['metric_type']}"}))
                     counters["alert_events"] += 1
             pending.sort(key=lambda t: (t[0], t[1], t[2]))
             for seq, (ts_ns, _kr, _row, kind_fields, prov) in enumerate(pending):
