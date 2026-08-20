@@ -131,3 +131,22 @@ pipeline plumbing before this entry; its S1 output was inspected (top
 candidate: the background adservice memory alarm; no frontend
 candidate). No design parameter was changed in response. All E2 numbers
 remain development/exploratory per D-001 regardless.
+
+---
+
+## 2026-08-20 — D-007: E4 not executed; external validation not unlocked; verdict PIVOT
+
+**Decision.** E4 (native semantic instrumentation) is not executed: its
+contractual gate — E2/E3 justifying continuation — was not passed (H1
+and H2 falsified on development data, kill criteria met). The locked
+RCAEval confirmatory subset is deliberately left unconsumed: it exists
+to confirm a promising frozen method, and none exists; burning the lock
+on a falsified method would waste the experiment's only confirmatory
+resource. Final verdict recorded in final-report.md: **PIVOT**
+(recorder/replay/evidence infrastructure — H4 at 100% — not an RCA
+engine; RCA revisit requires a causally-grouped representation and gets
+a fresh E2-style check plus the still-intact external lock).
+
+**Outcome data seen at decision time:** all E0–E3 development results
+(per D-001, exploratory by construction). No RCAEval data was ever
+downloaded or inspected.
