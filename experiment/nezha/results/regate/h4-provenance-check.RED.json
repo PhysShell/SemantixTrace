@@ -1,0 +1,138 @@
+{
+ "total": 1494,
+ "passed": 1472,
+ "failures": [
+  [
+   "hipster-2022-08-22-000",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-001",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-002",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-004",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-005",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-008",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-011",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-016",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-017",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-018",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-019",
+   "alert provenance has no derivation reference",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-23-000",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-001",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-002",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-004",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-005",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-010",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-011",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-019",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-021",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-022",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ],
+  [
+   "hipster-2022-08-23-023",
+   "alert provenance has no derivation reference",
+   "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+   144
+  ]
+ ]
+}
