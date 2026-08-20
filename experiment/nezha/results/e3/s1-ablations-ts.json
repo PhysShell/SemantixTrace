@@ -1,0 +1,1409 @@
+{
+ "no-alerts": {
+  "n": 45,
+  "aggregates": {
+   "rank_inner": {
+    "AC@1_pct": 11.11111111111111,
+    "AC@3_pct": 24.444444444444443,
+    "MRR": 0.19710504201680673,
+    "unlocalized": 22
+   },
+   "rank_service_dedup": {
+    "AC@1_pct": 20.0,
+    "AC@3_pct": 42.22222222222222,
+    "MRR": 0.36399110149110153,
+    "unlocalized": 10
+   }
+  },
+  "cases": [
+   {
+    "case_id": "ts-2023-01-29-000",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-001",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 16,
+     "rank_inner": null,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 3
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-002",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 9,
+     "rank_inner": null,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-003",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 21,
+     "rank_inner": null,
+     "rank_service_raw": 11,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-004",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 21,
+     "rank_inner": null,
+     "rank_service_raw": 6,
+     "rank_service_dedup": 5
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-005",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 17,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-006",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 26,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-007",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 9,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-008",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 28,
+     "rank_inner": 3,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 4
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-009",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": 3,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 3
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-010",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 49,
+     "rank_inner": 4,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 4
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-011",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 67,
+     "rank_inner": 7,
+     "rank_service_raw": 7,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-012",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 24,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-013",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 61,
+     "rank_inner": 2,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-014",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 77,
+     "rank_inner": 6,
+     "rank_service_raw": 6,
+     "rank_service_dedup": 5
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-015",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 16,
+     "rank_inner": 2,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-016",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 29,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-017",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": 2,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-018",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 12,
+     "rank_inner": null,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-019",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 25,
+     "rank_inner": null,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-020",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 19,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-021",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-022",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-023",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 56,
+     "rank_inner": null,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 4
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-024",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 30,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-025",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": 4,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 4
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-026",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 25,
+     "rank_inner": 12,
+     "rank_service_raw": 12,
+     "rank_service_dedup": 8
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-027",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 9,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-000",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 40,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-001",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 48,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-002",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 35,
+     "rank_inner": 14,
+     "rank_service_raw": 14,
+     "rank_service_dedup": 8
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-003",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 7,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-004",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-005",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 6,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-006",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 44,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-007",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 28,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-008",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 24,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-009",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": 5,
+     "rank_service_raw": 5,
+     "rank_service_dedup": 4
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-010",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 54,
+     "rank_inner": 51,
+     "rank_service_raw": 51,
+     "rank_service_dedup": 16
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-011",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 38,
+     "rank_inner": 25,
+     "rank_service_raw": 25,
+     "rank_service_dedup": 11
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-012",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-013",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 48,
+     "rank_inner": 3,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-014",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 59,
+     "rank_inner": 20,
+     "rank_service_raw": 20,
+     "rank_service_dedup": 10
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-015",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 34,
+     "rank_inner": 16,
+     "rank_service_raw": 16,
+     "rank_service_dedup": 7
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-016",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 39,
+     "rank_inner": 30,
+     "rank_service_raw": 30,
+     "rank_service_dedup": 12
+    }
+   }
+  ]
+ },
+ "no-logs": {
+  "n": 45,
+  "aggregates": {
+   "rank_inner": {
+    "AC@1_pct": 4.444444444444445,
+    "AC@3_pct": 4.444444444444445,
+    "MRR": 0.055704110704110715,
+    "unlocalized": 38
+   },
+   "rank_service_dedup": {
+    "AC@1_pct": 11.11111111111111,
+    "AC@3_pct": 15.555555555555555,
+    "MRR": 0.15221500721500722,
+    "unlocalized": 31
+   }
+  },
+  "cases": [
+   {
+    "case_id": "ts-2023-01-29-000",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 7,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-001",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-002",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-003",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 6,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-004",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-005",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-006",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 7,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-007",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-008",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-009",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-010",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-011",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-012",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": null,
+     "rank_service_raw": 5,
+     "rank_service_dedup": 5
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-013",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 16,
+     "rank_inner": null,
+     "rank_service_raw": 6,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-014",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 21,
+     "rank_inner": null,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-015",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-016",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 7,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-017",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-018",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-019",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-020",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": null,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 3
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-021",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-022",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-023",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 20,
+     "rank_inner": null,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-024",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-025",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-026",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 6,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-027",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-000",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 17,
+     "rank_inner": 13,
+     "rank_service_raw": 13,
+     "rank_service_dedup": 11
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-001",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-002",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 12,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-003",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-004",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-005",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-006",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-007",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-008",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-009",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-010",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 21,
+     "rank_inner": 6,
+     "rank_service_raw": 6,
+     "rank_service_dedup": 5
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-011",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-012",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-013",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 18,
+     "rank_inner": 15,
+     "rank_service_raw": 15,
+     "rank_service_dedup": 11
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-014",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 27,
+     "rank_inner": 14,
+     "rank_service_raw": 14,
+     "rank_service_dedup": 8
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-015",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-016",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 15,
+     "rank_inner": 8,
+     "rank_service_raw": 8,
+     "rank_service_dedup": 7
+    }
+   }
+  ]
+ },
+ "no-spans": {
+  "n": 45,
+  "aggregates": {
+   "rank_inner": {
+    "AC@1_pct": 40.0,
+    "AC@3_pct": 48.888888888888886,
+    "MRR": 0.45061728395061723,
+    "unlocalized": 20
+   },
+   "rank_service_dedup": {
+    "AC@1_pct": 17.77777777777778,
+    "AC@3_pct": 44.44444444444444,
+    "MRR": 0.32412698412698404,
+    "unlocalized": 18
+   }
+  },
+  "cases": [
+   {
+    "case_id": "ts-2023-01-29-000",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-001",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-002",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-003",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": null,
+     "rank_service_raw": 5,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-004",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-005",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 13,
+     "rank_inner": null,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 7
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-006",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 6,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-007",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-008",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-009",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-010",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 3
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-011",
+    "inject_type": "return",
+    "evaluation": {
+     "n_candidates": 16,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 3
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-012",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-013",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 13,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-014",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-015",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-016",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 5,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-017",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 6,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-018",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-019",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-020",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-021",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-022",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-023",
+    "inject_type": "exception",
+    "evaluation": {
+     "n_candidates": 16,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-024",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-025",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 3,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-026",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 4,
+     "rank_inner": 2,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 2
+    }
+   },
+   {
+    "case_id": "ts-2023-01-29-027",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-000",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": 4,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-001",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 14,
+     "rank_inner": 9,
+     "rank_service_raw": 9,
+     "rank_service_dedup": 10
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-002",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": 4,
+     "rank_service_raw": 4,
+     "rank_service_dedup": 6
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-003",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-004",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-005",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-006",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-007",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-008",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 10,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-009",
+    "inject_type": "cpu_contention",
+    "evaluation": {
+     "n_candidates": 1,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-010",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": 1,
+     "rank_service_raw": 1,
+     "rank_service_dedup": 1
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-011",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 11,
+     "rank_inner": 3,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 7
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-012",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 2,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-013",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 13,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-014",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 13,
+     "rank_inner": 3,
+     "rank_service_raw": 3,
+     "rank_service_dedup": 5
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-015",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 9,
+     "rank_inner": null,
+     "rank_service_raw": null,
+     "rank_service_dedup": null
+    }
+   },
+   {
+    "case_id": "ts-2023-01-30-016",
+    "inject_type": "network_delay",
+    "evaluation": {
+     "n_candidates": 8,
+     "rank_inner": 2,
+     "rank_service_raw": 2,
+     "rank_service_dedup": 3
+    }
+   }
+  ]
+ }
+}
