@@ -17,6 +17,8 @@ trace-core = { path = "../../../../crates/trace-core" }
 trace-schema = { path = "../../../../crates/trace-schema" }
 trace-normalizer = { path = "../../../../crates/trace-normalizer" }
 trace-storage = { path = "../../../../crates/trace-storage" }
+trace-graph = { path = "../../../../crates/trace-graph" }
+petgraph = "0.8"
 
 [profile.release]
 debug = false

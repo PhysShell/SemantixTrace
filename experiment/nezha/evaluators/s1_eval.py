@@ -34,9 +34,12 @@ def action_text(action, templates):
 
 
 def dense_ranks(cands):
+    """Dense competition ranks over the candidates' ordering keys.
+    S1 candidates key on (score, deepth); S2 candidates additionally
+    carry "anomaly" (frozen tie-break), absent for S1 (None for all)."""
     ranks, rank, prev = [], 0, None
     for c in cands:
-        key = (c.get("score"), c.get("deepth"))
+        key = (c.get("score"), c.get("anomaly"), c.get("deepth"))
         if key != prev:
             rank += 1
             prev = key

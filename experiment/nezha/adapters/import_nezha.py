@@ -160,8 +160,27 @@ def main():
         counters["spans_accepted"] += 1
 
     # --- logs -------------------------------------------------------------
-    ldf = pd.read_csv(log_file, dtype=str)
+    # The python engine parses embedded-quote log bodies correctly where
+    # the C tokenizer (which the artifact uses via usecols) garbles them
+    # into extra rows. Repairs (extra fields folded back into Log) are
+    # counted; the row-count delta vs the artifact-style read is recorded.
+    log_repairs = []
+
+    def _fix_bad_line(bad):
+        log_repairs.append(len(bad))
+        return bad[:7] + [",".join(bad[7:])]
+
+    ldf = pd.read_csv(log_file, dtype=str, engine="python",
+                      on_bad_lines=_fix_bad_line)
     counters["log_rows_read"] = len(ldf)
+    counters["log_rows_repaired_tokenization"] = len(log_repairs)
+    try:
+        artifact_style_rows = len(pd.read_csv(
+            log_file, index_col="SpanID",
+            usecols=["TimeUnixNano", "SpanID", "Log"], engine="c"))
+    except Exception:  # noqa: BLE001 - diagnostic only
+        artifact_style_rows = -1
+    counters["log_rows_artifact_style_read"] = artifact_style_rows
     logs_by_trace = defaultdict(list)
     for idx, row in enumerate(ldf.itertuples(index=False)):
         tid = str(row.TraceID)
