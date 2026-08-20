@@ -62,3 +62,33 @@ list per case, so instrumenting the artifact is unnecessary and would risk
 perturbing it. All parse failures are counted by the evaluator
 (`experiment/nezha/evaluators/independent_eval.py`).
 **Outcome data seen at decision time:** none.
+
+---
+
+## 2026-08-20 — D-004: OOM on hipster runs; performance-only worker-count patch
+
+**Event.** The first harness execution completed both TrainTicket configs
+successfully (results valid, deterministic, matching the committed author
+logs) but both OnlineBoutique configs died: hipster/service rc=137 after
+23/56 cases (memory-cgroup OOM killer, worker RSS ~670 MB each, dmesg
+evidence preserved), hipster/inner rc=1 (BrokenProcessPool after its
+workers were OOM-killed). Root cause: the artifact hardcodes
+`ProcessPoolExecutor(max_workers=64)`; upstream ran on a 256 GB host, this
+host has 15 GB. Failed run outputs preserved as
+`hipster-{service,inner}-FAILED-oom` in the run root.
+
+**Decision.** Commit `ae34750` on the Nezha fork branch makes the worker
+count env-configurable (`NEZHA_MAX_WORKERS`, default 64 = upstream
+behavior). Hipster configs re-run sequentially with `NEZHA_MAX_WORKERS=8`
+via `run_e0_hipster_retry.sh`.
+
+**Why this is not an algorithm modification.** Worker count changes neither
+the task set nor scoring nor aggregation values; pool completion order is
+nondeterministic upstream at 64 workers already (measured: ts/service run1
+vs run2 differ in candidate-list order/composition while rank vectors and
+metrics are identical). Validation gate: hipster reproduction is accepted
+only if its rank vector matches the committed author log, same as ts.
+
+**Expected direction of effect:** none on metrics. **Outcome data seen at
+decision time:** TT results (development data per D-001) and the partial
+23-case hipster log.
