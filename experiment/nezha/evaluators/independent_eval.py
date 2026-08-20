@@ -38,9 +38,9 @@ from collections import OrderedDict, Counter
 
 SORTED_RE = re.compile(r"Soted Result List: (\[.*\])\s*$")
 CASE_RE = re.compile(
-    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}) Inject RCA (?:Pod )?Result:")
+    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}(?::\d{2})?) Inject RCA (?:Pod )?Result:")
 GT_RE = re.compile(
-    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}) Inject Ground Truth: (\S+), (\S+?)(?: score (\d+))?\s*$")
+    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}(?::\d{2})?) Inject Ground Truth: (\S+), (\S+?)(?: score (\d+))?\s*$")
 FINAL_RE = re.compile(r"--------(A[IS]*S?@\d) Result-------")
 PCT_RE = re.compile(r"^\[INFO\]\S+ \S+ pattern_ranker.py:\d+: ([\d.]+) %")
 FAULTNUM_RE = re.compile(r"Fault numbuer : (\d+)-")
