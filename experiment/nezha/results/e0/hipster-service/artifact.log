@@ -1,0 +1,563 @@
+[INFO]2026-08-20 12:39:52,508 main.py:42: ------- OnlineBoutique Result at service level -------
+[INFO]2026-08-20 12:40:10,081 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:40:36,070 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:40:47,719 data_integrate.py:486: [{'pod': 'frontend-579b9bff58-t2dbm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:41:01,381 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:41:01,542 pattern_ranker.py:192: Soted Result List: [{'events': '76_4', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm', 'resource': 'CpuUsageRate(%)'}, {'events': '104_106', 'score': 0.7028169014084507, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:545: 2022-08-22 03:53:54 Inject RCA Pod Result:
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:546: 2022-08-22 03:53:54 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_contention
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:559: 2022-08-22 03:53:54 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_contention score 1
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:597: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:600: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: currencyservice hipstershop.CurrencyService/Carry start, score: 0.7028169014084507, deepth: 2, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:41:01,617 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:41:10,664 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:41:28,613 data_integrate.py:555: Data Integrate Complete!
+[ERROR]2026-08-20 12:41:29,748 pattern_ranker.py:185: Catch an exception: pop index out of range
+[INFO]2026-08-20 12:41:29,749 pattern_ranker.py:192: Soted Result List: [{'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_119', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_120', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '18_78', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_17', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_80', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_82', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_86', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:41:29,856 pattern_ranker.py:545: 2022-08-22 04:02:07 Inject RCA Pod Result:
+[INFO]2026-08-20 12:41:29,856 pattern_ranker.py:546: 2022-08-22 04:02:07 Inject Ground Truth: frontend-579b9bff58-t2dbm, return
+[INFO]2026-08-20 12:41:29,856 pattern_ranker.py:575: 2022-08-22 04:02:07 Inject Ground Truth: frontend-579b9bff58-t2dbm, return score 2
+[INFO]2026-08-20 12:41:29,856 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdServiceImpl/getAds end, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdService/<:SPANID:> start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.ProductCatalogService/GetProduct start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/GetSupportedCurrencies start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CartService/GetCart start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.RecommendationService/ListRecommendations start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:41:29,857 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:41:42,552 data_integrate.py:486: [{'pod': 'frontend-579b9bff58-t2dbm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:41:58,303 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:41:58,507 pattern_ranker.py:192: Soted Result List: [{'events': '76_4', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.75, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:41:58,591 pattern_ranker.py:545: 2022-08-22 04:10:20 Inject RCA Pod Result:
+[INFO]2026-08-20 12:41:58,591 pattern_ranker.py:546: 2022-08-22 04:10:20 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_consumed
+[INFO]2026-08-20 12:41:58,591 pattern_ranker.py:559: 2022-08-22 04:10:20 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_consumed score 1
+[INFO]2026-08-20 12:41:58,592 pattern_ranker.py:597: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:41:58,592 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.75, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:41:58,592 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:42:15,583 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:42:43,041 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:42:43,115 pattern_ranker.py:192: Soted Result List: [{'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:42:43,221 pattern_ranker.py:545: 2022-08-22 04:18:35 Inject RCA Pod Result:
+[INFO]2026-08-20 12:42:43,221 pattern_ranker.py:546: 2022-08-22 04:18:35 Inject Ground Truth: frontend-579b9bff58-t2dbm, exception
+[INFO]2026-08-20 12:42:43,221 pattern_ranker.py:575: 2022-08-22 04:18:35 Inject Ground Truth: frontend-579b9bff58-t2dbm, exception score 1
+[INFO]2026-08-20 12:42:43,221 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:42:43,221 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:42:59,038 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'cartservice-579f59597d-wc2lz', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:43:21,293 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:43:21,637 pattern_ranker.py:192: Soted Result List: [{'events': '102_25', 'score': 1.0, 'deepth': 6, 'pod': 'cartservice-579f59597d-wc2lz', 'resource': 'NetworkP90(ms)'}, {'events': '24_100', 'score': 1.0, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:545: 2022-08-22 04:27:03 Inject RCA Pod Result:
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:546: 2022-08-22 04:27:03 Inject Ground Truth: cartservice-579f59597d-wc2lz, network_delay
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:559: 2022-08-22 04:27:03 Inject Ground Truth: cartservice-579f59597d-wc2lz, network_delay score 1
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:597: source :cartservice hipstershop.CartService/GetCart start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> GetCartAsync called with userId=<:USERID:>, score: 1.0, deepth: 6, pod cartservice-579f59597d-wc2lz, resource NetworkP90(ms)
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 1.0, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:43:21,737 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:43:40,085 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'cartservice-579f59597d-wc2lz', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:44:08,524 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:44:08,771 pattern_ranker.py:192: Soted Result List: [{'events': '102_25', 'score': 1.0, 'deepth': 6, 'pod': 'cartservice-579f59597d-wc2lz', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:44:08,875 pattern_ranker.py:545: 2022-08-22 04:36:03 Inject RCA Pod Result:
+[INFO]2026-08-20 12:44:08,876 pattern_ranker.py:546: 2022-08-22 04:36:03 Inject Ground Truth: cartservice-579f59597d-wc2lz, cpu_contention
+[INFO]2026-08-20 12:44:08,876 pattern_ranker.py:559: 2022-08-22 04:36:03 Inject Ground Truth: cartservice-579f59597d-wc2lz, cpu_contention score 1
+[INFO]2026-08-20 12:44:08,876 pattern_ranker.py:597: source :cartservice hipstershop.CartService/GetCart start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> GetCartAsync called with userId=<:USERID:>, score: 1.0, deepth: 6, pod cartservice-579f59597d-wc2lz, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:44:08,876 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:44:26,198 data_integrate.py:486: [{'pod': 'checkoutservice-578fcf4766-9csqn', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:44:53,653 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:44:54,055 pattern_ranker.py:192: Soted Result List: [{'events': '158_65', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:44:54,166 pattern_ranker.py:545: 2022-08-22 04:44:16 Inject RCA Pod Result:
+[INFO]2026-08-20 12:44:54,166 pattern_ranker.py:546: 2022-08-22 04:44:16 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, cpu_contention
+[INFO]2026-08-20 12:44:54,166 pattern_ranker.py:559: 2022-08-22 04:44:16 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, cpu_contention score 1
+[INFO]2026-08-20 12:44:54,166 pattern_ranker.py:597: source :checkoutservice hipstershop.CheckoutService/ConvertCurrency start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Start convert currency from currency code:<:ITEM:>, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:44:54,166 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:45:12,606 data_integrate.py:486: [{'pod': 'checkoutservice-578fcf4766-9csqn', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:45:37,114 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:45:37,502 pattern_ranker.py:192: Soted Result List: [{'events': '158_65', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:45:37,606 pattern_ranker.py:545: 2022-08-22 04:52:55 Inject RCA Pod Result:
+[INFO]2026-08-20 12:45:37,606 pattern_ranker.py:546: 2022-08-22 04:52:55 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, network_delay
+[INFO]2026-08-20 12:45:37,607 pattern_ranker.py:559: 2022-08-22 04:52:55 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, network_delay score 1
+[INFO]2026-08-20 12:45:37,607 pattern_ranker.py:597: source :checkoutservice hipstershop.CheckoutService/ConvertCurrency start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Start convert currency from currency code:<:ITEM:>, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn, resource NetworkP90(ms)
+[INFO]2026-08-20 12:45:37,607 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:45:55,881 data_integrate.py:486: [{'pod': 'currencyservice-cf787dd48-vpjrd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:46:20,557 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:46:21,216 pattern_ranker.py:192: Soted Result List: [{'events': '62_61', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '62_150', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_60', 'score': 1.0, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '104_23', 'score': 1.0, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd', 'resource': 'CpuUsageRate(%)'}, {'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:46:21,311 pattern_ranker.py:545: 2022-08-22 05:01:13 Inject RCA Pod Result:
+[INFO]2026-08-20 12:46:21,311 pattern_ranker.py:546: 2022-08-22 05:01:13 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, exception
+[INFO]2026-08-20 12:46:21,311 pattern_ranker.py:575: 2022-08-22 05:01:13 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, exception score 1
+[INFO]2026-08-20 12:46:21,311 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Charge successfully, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:46:21,312 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: checkoutservice hipstershop.PaymentService/Charge start, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:46:21,312 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Get OrderID <:USERID:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Payment went through (transaction id: <:*:>, score: 1.0, deepth: 3, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:46:21,312 pattern_ranker.py:597: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, score: 1.0, deepth: 2, pod currencyservice-cf787dd48-vpjrd, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:46:21,312 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:46:21,312 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:46:38,925 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:47:03,943 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:47:04,094 pattern_ranker.py:192: Soted Result List: [{'events': '62_61', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_60', 'score': 1.0, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:545: 2022-08-22 05:09:50 Inject RCA Pod Result:
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:546: 2022-08-22 05:09:50 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, return
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:575: 2022-08-22 05:09:50 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, return score 1
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Charge successfully, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Get OrderID <:USERID:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Payment went through (transaction id: <:*:>, score: 1.0, deepth: 3, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:04,191 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:47:07,163 data_integrate.py:486: [{'pod': 'currencyservice-cf787dd48-vpjrd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:47:10,563 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:47:12,291 pattern_ranker.py:192: Soted Result List: [{'events': '104_23', 'score': 1.0, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd', 'resource': 'CpuUsageRate(%)'}, {'events': '4_18', 'score': 0.8644688644688645, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 0.8644688644688645, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '120_198', 'score': 0.8567493112947658, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '4_3', 'score': 0.8285714285714286, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '76_4', 'score': 0.8116883116883117, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '69_146', 'score': 0.7924528301886793, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '69_158', 'score': 0.7924528301886793, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '38_84', 'score': 0.7769607843137255, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:545: 2022-08-22 05:18:09 Inject RCA Pod Result:
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:546: 2022-08-22 05:18:09 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, cpu_contention
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:559: 2022-08-22 05:18:09 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, cpu_contention score 1
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:597: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, score: 1.0, deepth: 2, pod currencyservice-cf787dd48-vpjrd, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, score: 0.8644688644688645, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page complete, score: 0.8644688644688645, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 0.8567493112947658, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:47:12,320 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Adding to cart started, score: 0.8285714285714286, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:12,321 pattern_ranker.py:600: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 0.8116883116883117, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:12,321 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.ProductCatalogService/GetProduct start, score: 0.7924528301886793, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:47:12,321 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.CheckoutService/ConvertCurrency start, score: 0.7924528301886793, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 12:47:12,321 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart start, target: frontend hipstershop.CurrencyService/Convert start, score: 0.7769607843137255, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:47:12,321 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:47:21,652 data_integrate.py:486: [{'pod': 'currencyservice-cf787dd48-vpjrd', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:47:32,659 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:47:33,159 pattern_ranker.py:192: Soted Result List: [{'events': '104_23', 'score': 1.0, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:47:33,224 pattern_ranker.py:545: 2022-08-22 05:27:06 Inject RCA Pod Result:
+[INFO]2026-08-20 12:47:33,224 pattern_ranker.py:546: 2022-08-22 05:27:06 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, network_delay
+[INFO]2026-08-20 12:47:33,224 pattern_ranker.py:559: 2022-08-22 05:27:06 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, network_delay score 1
+[INFO]2026-08-20 12:47:33,224 pattern_ranker.py:597: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, score: 1.0, deepth: 2, pod currencyservice-cf787dd48-vpjrd, resource NetworkP90(ms)
+[INFO]2026-08-20 12:47:33,224 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:47:50,927 data_integrate.py:486: [{'pod': 'emailservice-55fdc5b988-f6xth', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:48:17,544 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:48:17,624 pattern_ranker.py:192: Soted Result List: [{'events': '187_52', 'score': 1.0, 'deepth': 5, 'pod': 'emailservice-55fdc5b988-f6xth', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:48:17,726 pattern_ranker.py:545: 2022-08-22 05:35:34 Inject RCA Pod Result:
+[INFO]2026-08-20 12:48:17,726 pattern_ranker.py:546: 2022-08-22 05:35:34 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_contention
+[INFO]2026-08-20 12:48:17,726 pattern_ranker.py:559: 2022-08-22 05:35:34 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_contention score 1
+[INFO]2026-08-20 12:48:17,726 pattern_ranker.py:597: source :emailservice /hipstershop.EmailService/SendOrderConfirmation start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start., score: 1.0, deepth: 5, pod emailservice-55fdc5b988-f6xth, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:48:17,726 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:48:35,203 data_integrate.py:486: [{'pod': 'emailservice-55fdc5b988-f6xth', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:49:02,237 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:49:02,319 pattern_ranker.py:192: Soted Result List: [{'events': '187_52', 'score': 1.0, 'deepth': 5, 'pod': 'emailservice-55fdc5b988-f6xth', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:49:02,428 pattern_ranker.py:545: 2022-08-22 05:43:48 Inject RCA Pod Result:
+[INFO]2026-08-20 12:49:02,428 pattern_ranker.py:546: 2022-08-22 05:43:48 Inject Ground Truth: emailservice-55fdc5b988-f6xth, network_delay
+[INFO]2026-08-20 12:49:02,428 pattern_ranker.py:559: 2022-08-22 05:43:48 Inject Ground Truth: emailservice-55fdc5b988-f6xth, network_delay score 1
+[INFO]2026-08-20 12:49:02,428 pattern_ranker.py:597: source :emailservice /hipstershop.EmailService/SendOrderConfirmation start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start., score: 1.0, deepth: 5, pod emailservice-55fdc5b988-f6xth, resource NetworkP90(ms)
+[INFO]2026-08-20 12:49:02,428 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:49:20,801 data_integrate.py:486: [{'pod': 'paymentservice-9cdb6588f-554sm', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:49:48,578 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:49:48,657 pattern_ranker.py:192: Soted Result List: [{'events': '165_48', 'score': 1.0, 'deepth': 5, 'pod': 'paymentservice-9cdb6588f-554sm', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:49:48,759 pattern_ranker.py:545: 2022-08-22 05:52:54 Inject RCA Pod Result:
+[INFO]2026-08-20 12:49:48,759 pattern_ranker.py:546: 2022-08-22 05:52:54 Inject Ground Truth: paymentservice-9cdb6588f-554sm, network_delay
+[INFO]2026-08-20 12:49:48,759 pattern_ranker.py:559: 2022-08-22 05:52:54 Inject Ground Truth: paymentservice-9cdb6588f-554sm, network_delay score 1
+[INFO]2026-08-20 12:49:48,759 pattern_ranker.py:597: source :paymentservice grpc.hipstershop.PaymentService/Charge start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> PaymentService#Charge invoked with request<:ITEM:>, score: 1.0, deepth: 5, pod paymentservice-9cdb6588f-554sm, resource NetworkP90(ms)
+[INFO]2026-08-20 12:49:48,759 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:50:06,087 data_integrate.py:486: [{'pod': 'paymentservice-9cdb6588f-554sm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:50:36,187 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:50:36,266 pattern_ranker.py:192: Soted Result List: [{'events': '165_48', 'score': 1.0, 'deepth': 5, 'pod': 'paymentservice-9cdb6588f-554sm', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:50:36,370 pattern_ranker.py:545: 2022-08-22 06:01:18 Inject RCA Pod Result:
+[INFO]2026-08-20 12:50:36,370 pattern_ranker.py:546: 2022-08-22 06:01:18 Inject Ground Truth: paymentservice-9cdb6588f-554sm, cpu_contention
+[INFO]2026-08-20 12:50:36,370 pattern_ranker.py:559: 2022-08-22 06:01:18 Inject Ground Truth: paymentservice-9cdb6588f-554sm, cpu_contention score 1
+[INFO]2026-08-20 12:50:36,371 pattern_ranker.py:597: source :paymentservice grpc.hipstershop.PaymentService/Charge start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> PaymentService#Charge invoked with request<:ITEM:>, score: 1.0, deepth: 5, pod paymentservice-9cdb6588f-554sm, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:50:36,371 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:50:50,792 data_integrate.py:486: [{'pod': 'productcatalogservice-668d5f85fb-wckp8', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:51:13,080 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:51:13,773 pattern_ranker.py:192: Soted Result List: [{'events': '90_8', 'score': 1.0, 'deepth': 6, 'pod': 'productcatalogservice-668d5f85fb-wckp8', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:51:13,861 pattern_ranker.py:545: 2022-08-22 06:35:39 Inject RCA Pod Result:
+[INFO]2026-08-20 12:51:13,862 pattern_ranker.py:546: 2022-08-22 06:35:39 Inject Ground Truth: productcatalogservice-668d5f85fb-wckp8, cpu_consumed
+[INFO]2026-08-20 12:51:13,862 pattern_ranker.py:559: 2022-08-22 06:35:39 Inject Ground Truth: productcatalogservice-668d5f85fb-wckp8, cpu_consumed score 1
+[INFO]2026-08-20 12:51:13,862 pattern_ranker.py:597: source :productcatalogservice hipstershop.ProductCatalogService/GetProduct start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product with name and description <:*:>, score: 1.0, deepth: 6, pod productcatalogservice-668d5f85fb-wckp8, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:51:13,862 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:51:27,967 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:51:51,073 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:51:51,192 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:51:51,281 pattern_ranker.py:545: 2022-08-22 06:52:56 Inject RCA Pod Result:
+[INFO]2026-08-20 12:51:51,281 pattern_ranker.py:546: 2022-08-22 06:52:56 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, network_delay
+[INFO]2026-08-20 12:51:51,281 pattern_ranker.py:559: 2022-08-22 06:52:56 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, network_delay score 1
+[INFO]2026-08-20 12:51:51,281 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource NetworkP90(ms)
+[INFO]2026-08-20 12:51:51,281 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:52:04,683 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:52:25,656 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:52:25,769 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:52:25,857 pattern_ranker.py:545: 2022-08-22 07:01:25 Inject RCA Pod Result:
+[INFO]2026-08-20 12:52:25,857 pattern_ranker.py:546: 2022-08-22 07:01:25 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_contention
+[INFO]2026-08-20 12:52:25,857 pattern_ranker.py:559: 2022-08-22 07:01:25 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_contention score 1
+[INFO]2026-08-20 12:52:25,857 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:52:25,857 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:52:33,487 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:52:44,645 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:52:45,469 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'CpuUsageRate(%)'}, {'events': '104_106', 'score': 0.7067988668555241, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '28_208', 'score': 0.6753246753246753, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '4_42', 'score': 0.6753246753246753, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_41', 'score': 0.6753246753246753, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_40', 'score': 0.6744186046511628, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:52:45,528 pattern_ranker.py:545: 2022-08-22 07:10:43 Inject RCA Pod Result:
+[INFO]2026-08-20 12:52:45,528 pattern_ranker.py:546: 2022-08-22 07:10:43 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_consumed
+[INFO]2026-08-20 12:52:45,528 pattern_ranker.py:559: 2022-08-22 07:10:43 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_consumed score 1
+[INFO]2026-08-20 12:52:45,528 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:600: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: currencyservice hipstershop.CurrencyService/Carry start, score: 0.7067988668555241, deepth: 2, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 0.6753246753246753, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home started, score: 0.6753246753246753, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 0.6753246753246753, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Setting currency started, score: 0.6744186046511628, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:52:45,529 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:53:01,535 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'shippingservice-7b598fc7d-lmggd', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:53:26,755 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:53:27,187 pattern_ranker.py:192: Soted Result List: [{'events': '130_34', 'score': 1.0, 'deepth': 8, 'pod': 'shippingservice-7b598fc7d-lmggd', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 12:53:27,285 pattern_ranker.py:545: 2022-08-22 07:17:55 Inject RCA Pod Result:
+[INFO]2026-08-20 12:53:27,285 pattern_ranker.py:546: 2022-08-22 07:17:55 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, network_delay
+[INFO]2026-08-20 12:53:27,285 pattern_ranker.py:559: 2022-08-22 07:17:55 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, network_delay score 1
+[INFO]2026-08-20 12:53:27,285 pattern_ranker.py:597: source :shippingservice hipstershop.ShippingService/QuoteByCountFloat start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request, score: 1.0, deepth: 8, pod shippingservice-7b598fc7d-lmggd, resource NetworkP90(ms)
+[INFO]2026-08-20 12:53:27,285 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:53:43,641 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'shippingservice-7b598fc7d-lmggd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:54:11,736 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:54:12,149 pattern_ranker.py:192: Soted Result List: [{'events': '130_34', 'score': 1.0, 'deepth': 8, 'pod': 'shippingservice-7b598fc7d-lmggd', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 12:54:12,245 pattern_ranker.py:545: 2022-08-22 07:26:48 Inject RCA Pod Result:
+[INFO]2026-08-20 12:54:12,245 pattern_ranker.py:546: 2022-08-22 07:26:48 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_contention
+[INFO]2026-08-20 12:54:12,245 pattern_ranker.py:559: 2022-08-22 07:26:48 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_contention score 1
+[INFO]2026-08-20 12:54:12,245 pattern_ranker.py:597: source :shippingservice hipstershop.ShippingService/QuoteByCountFloat start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request, score: 1.0, deepth: 8, pod shippingservice-7b598fc7d-lmggd, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:54:12,245 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:54:28,870 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:54:59,525 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:54:59,991 pattern_ranker.py:192: Soted Result List: [{'events': '28_208', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '16_41', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:55:00,096 pattern_ranker.py:545: 2022-08-22 07:44:20 Inject RCA Pod Result:
+[INFO]2026-08-20 12:55:00,096 pattern_ranker.py:546: 2022-08-22 07:44:20 Inject Ground Truth: adservice-5f6585d649-fnmft, return
+[INFO]2026-08-20 12:55:00,097 pattern_ranker.py:575: 2022-08-22 07:44:20 Inject Ground Truth: adservice-5f6585d649-fnmft, return score 1
+[INFO]2026-08-20 12:55:00,097 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:55:00,097 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:55:00,097 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:55:15,938 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:55:43,247 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:55:43,738 pattern_ranker.py:192: Soted Result List: [{'events': '28_208', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '16_41', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:545: 2022-08-22 07:53:33 Inject RCA Pod Result:
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:546: 2022-08-22 07:53:33 Inject Ground Truth: adservice-5f6585d649-fnmft, exception
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:575: 2022-08-22 07:53:33 Inject Ground Truth: adservice-5f6585d649-fnmft, exception score 1
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:55:43,841 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:56:00,845 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:56:26,373 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:56:38,415 data_integrate.py:486: [{'pod': 'frontend-579b9bff58-t2dbm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:56:54,615 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:56:54,801 pattern_ranker.py:192: Soted Result List: [{'events': '76_4', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.7368421052631579, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:545: 2022-08-23 12:01:25 Inject RCA Pod Result:
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:546: 2022-08-23 12:01:25 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_contention
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:559: 2022-08-23 12:01:25 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_contention score 1
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:597: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7368421052631579, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:56:54,887 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:57:03,012 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:57:23,843 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:57:25,228 pattern_ranker.py:192: Soted Result List: [{'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_119', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_120', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '18_78', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_17', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_80', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_82', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_86', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:57:25,326 pattern_ranker.py:545: 2022-08-23 12:10:21 Inject RCA Pod Result:
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:546: 2022-08-23 12:10:21 Inject Ground Truth: frontend-579b9bff58-t2dbm, return
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:575: 2022-08-23 12:10:21 Inject Ground Truth: frontend-579b9bff58-t2dbm, return score 2
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdServiceImpl/getAds end, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdService/<:SPANID:> start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.ProductCatalogService/GetProduct start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/GetSupportedCurrencies start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CartService/GetCart start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,327 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,328 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.RecommendationService/ListRecommendations start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,328 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:57:25,328 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:57:38,669 data_integrate.py:486: [{'pod': 'frontend-579b9bff58-t2dbm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:57:58,040 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:57:58,226 pattern_ranker.py:192: Soted Result List: [{'events': '76_4', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:57:58,313 pattern_ranker.py:545: 2022-08-23 12:18:23 Inject RCA Pod Result:
+[INFO]2026-08-20 12:57:58,313 pattern_ranker.py:546: 2022-08-23 12:18:23 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_consumed
+[INFO]2026-08-20 12:57:58,313 pattern_ranker.py:559: 2022-08-23 12:18:23 Inject Ground Truth: frontend-579b9bff58-t2dbm, cpu_consumed score 1
+[INFO]2026-08-20 12:57:58,314 pattern_ranker.py:597: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm, resource CpuUsageRate(%)
+[INFO]2026-08-20 12:57:58,314 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:57:58,314 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:58:14,098 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:58:43,111 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:58:43,184 pattern_ranker.py:192: Soted Result List: [{'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 12:58:43,292 pattern_ranker.py:545: 2022-08-23 12:27:23 Inject RCA Pod Result:
+[INFO]2026-08-20 12:58:43,292 pattern_ranker.py:546: 2022-08-23 12:27:23 Inject Ground Truth: frontend-579b9bff58-t2dbm, exception
+[INFO]2026-08-20 12:58:43,292 pattern_ranker.py:575: 2022-08-23 12:27:23 Inject Ground Truth: frontend-579b9bff58-t2dbm, exception score 1
+[INFO]2026-08-20 12:58:43,292 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 12:58:43,292 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:58:58,902 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'cartservice-579f59597d-wc2lz', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 12:59:24,374 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 12:59:24,906 pattern_ranker.py:192: Soted Result List: [{'events': '102_25', 'score': 1.0, 'deepth': 6, 'pod': 'cartservice-579f59597d-wc2lz', 'resource': 'NetworkP90(ms)'}, {'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '23_100', 'score': 0.6744186046511628, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 12:59:25,004 pattern_ranker.py:545: 2022-08-23 12:35:57 Inject RCA Pod Result:
+[INFO]2026-08-20 12:59:25,004 pattern_ranker.py:546: 2022-08-23 12:35:57 Inject Ground Truth: cartservice-579f59597d-wc2lz, network_delay
+[INFO]2026-08-20 12:59:25,004 pattern_ranker.py:559: 2022-08-23 12:35:57 Inject Ground Truth: cartservice-579f59597d-wc2lz, network_delay score 1
+[INFO]2026-08-20 12:59:25,005 pattern_ranker.py:597: source :cartservice hipstershop.CartService/GetCart start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> GetCartAsync called with userId=<:USERID:>, score: 1.0, deepth: 6, pod cartservice-579f59597d-wc2lz, resource NetworkP90(ms)
+[INFO]2026-08-20 12:59:25,005 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:59:25,005 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.6744186046511628, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 12:59:25,005 pattern_ranker.py:602: 
+[INFO]2026-08-20 12:59:40,876 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'cartservice-579f59597d-wc2lz', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:00:05,927 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:00:06,301 pattern_ranker.py:192: Soted Result List: [{'events': '102_25', 'score': 1.0, 'deepth': 6, 'pod': 'cartservice-579f59597d-wc2lz', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:00:06,401 pattern_ranker.py:545: 2022-08-23 12:45:08 Inject RCA Pod Result:
+[INFO]2026-08-20 13:00:06,401 pattern_ranker.py:546: 2022-08-23 12:45:08 Inject Ground Truth: cartservice-579f59597d-wc2lz, cpu_contention
+[INFO]2026-08-20 13:00:06,401 pattern_ranker.py:559: 2022-08-23 12:45:08 Inject Ground Truth: cartservice-579f59597d-wc2lz, cpu_contention score 1
+[INFO]2026-08-20 13:00:06,401 pattern_ranker.py:597: source :cartservice hipstershop.CartService/GetCart start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> GetCartAsync called with userId=<:USERID:>, score: 1.0, deepth: 6, pod cartservice-579f59597d-wc2lz, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:00:06,401 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:00:06,402 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:00:23,263 data_integrate.py:486: [{'pod': 'checkoutservice-578fcf4766-9csqn', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:00:51,296 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:00:51,747 pattern_ranker.py:192: Soted Result List: [{'events': '158_65', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn', 'resource': 'NetworkP90(ms)'}, {'events': '23_100', 'score': 0.7073170731707317, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:545: 2022-08-23 12:53:52 Inject RCA Pod Result:
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:546: 2022-08-23 12:53:52 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, network_delay
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:559: 2022-08-23 12:53:52 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, network_delay score 1
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:597: source :checkoutservice hipstershop.CheckoutService/ConvertCurrency start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Start convert currency from currency code:<:ITEM:>, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn, resource NetworkP90(ms)
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7073170731707317, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:00:51,842 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:01:09,275 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:01:38,942 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:01:39,283 pattern_ranker.py:192: Soted Result List: [{'events': '62_61', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '62_150', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_60', 'score': 1.0, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '23_100', 'score': 0.6904761904761905, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:01:39,377 pattern_ranker.py:545: 2022-08-23 13:02:09 Inject RCA Pod Result:
+[INFO]2026-08-20 13:01:39,377 pattern_ranker.py:546: 2022-08-23 13:02:09 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, exception
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:575: 2022-08-23 13:02:09 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, exception score 1
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Charge successfully, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: checkoutservice hipstershop.PaymentService/Charge start, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Get OrderID <:USERID:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Payment went through (transaction id: <:*:>, score: 1.0, deepth: 3, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.6904761904761905, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:01:39,378 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:01:57,182 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:02:28,176 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:02:28,343 pattern_ranker.py:192: Soted Result List: [{'events': '62_61', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_60', 'score': 1.0, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '50_49', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:545: 2022-08-23 13:10:36 Inject RCA Pod Result:
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:546: 2022-08-23 13:10:36 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, return
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:575: 2022-08-23 13:10:36 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, return score 1
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Charge successfully, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Get OrderID <:USERID:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Payment went through (transaction id: <:*:>, score: 1.0, deepth: 3, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:02:28,455 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:02:45,009 data_integrate.py:486: [{'pod': 'checkoutservice-578fcf4766-9csqn', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:03:14,628 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:03:14,970 pattern_ranker.py:192: Soted Result List: [{'events': '158_65', 'score': 1.0, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:03:15,068 pattern_ranker.py:545: 2022-08-23 13:19:06 Inject RCA Pod Result:
+[INFO]2026-08-20 13:03:15,068 pattern_ranker.py:546: 2022-08-23 13:19:06 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, cpu_consumed
+[INFO]2026-08-20 13:03:15,068 pattern_ranker.py:559: 2022-08-23 13:19:06 Inject Ground Truth: checkoutservice-578fcf4766-9csqn, cpu_consumed score 1
+[INFO]2026-08-20 13:03:15,068 pattern_ranker.py:597: source :checkoutservice hipstershop.CheckoutService/ConvertCurrency start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Start convert currency from currency code:<:ITEM:>, score: 1.0, deepth: 4, pod checkoutservice-578fcf4766-9csqn, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:03:15,068 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:03:18,583 data_integrate.py:486: [{'pod': 'currencyservice-cf787dd48-vpjrd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:03:23,740 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:03:25,508 pattern_ranker.py:192: Soted Result List: [{'events': '104_23', 'score': 1.0, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd', 'resource': 'CpuUsageRate(%)'}, {'events': '69_146', 'score': 0.8363636363636363, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '69_158', 'score': 0.8363636363636363, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '4_40', 'score': 0.8043478260869565, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_38', 'score': 0.7890625, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_18', 'score': 0.7864077669902912, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 0.7864077669902912, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_3', 'score': 0.7833333333333333, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_50', 'score': 0.782608695652174, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '76_4', 'score': 0.778816199376947, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '120_198', 'score': 0.7786069651741293, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}]
+[INFO]2026-08-20 13:03:25,543 pattern_ranker.py:545: 2022-08-23 13:27:51 Inject RCA Pod Result:
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:546: 2022-08-23 13:27:51 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, cpu_contention
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:559: 2022-08-23 13:27:51 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, cpu_contention score 1
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:597: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, score: 1.0, deepth: 2, pod currencyservice-cf787dd48-vpjrd, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.ProductCatalogService/GetProduct start, score: 0.8363636363636363, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.CheckoutService/ConvertCurrency start, score: 0.8363636363636363, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Setting currency started, score: 0.8043478260869565, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart start, score: 0.7890625, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, score: 0.7864077669902912, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page complete, score: 0.7864077669902912, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Adding to cart started, score: 0.7833333333333333, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, score: 0.782608695652174, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:600: source :frontend hipstershop.Frontend/Recv. start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, score: 0.778816199376947, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:03:25,544 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:03:34,735 data_integrate.py:486: [{'pod': 'currencyservice-cf787dd48-vpjrd', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:03:49,191 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:03:49,706 pattern_ranker.py:192: Soted Result List: [{'events': '104_23', 'score': 1.0, 'deepth': 2, 'pod': 'currencyservice-cf787dd48-vpjrd', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 13:03:49,777 pattern_ranker.py:545: 2022-08-23 13:37:08 Inject RCA Pod Result:
+[INFO]2026-08-20 13:03:49,777 pattern_ranker.py:546: 2022-08-23 13:37:08 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, network_delay
+[INFO]2026-08-20 13:03:49,777 pattern_ranker.py:559: 2022-08-23 13:37:08 Inject Ground Truth: currencyservice-cf787dd48-vpjrd, network_delay score 1
+[INFO]2026-08-20 13:03:49,777 pattern_ranker.py:597: source :currencyservice grpc.hipstershop.CurrencyService/Convert start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, score: 1.0, deepth: 2, pod currencyservice-cf787dd48-vpjrd, resource NetworkP90(ms)
+[INFO]2026-08-20 13:03:49,777 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:04:08,133 data_integrate.py:486: [{'pod': 'emailservice-55fdc5b988-f6xth', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:04:40,991 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:04:41,323 pattern_ranker.py:192: Soted Result List: [{'events': '187_52', 'score': 1.0, 'deepth': 5, 'pod': 'emailservice-55fdc5b988-f6xth', 'resource': 'CpuUsageRate(%)'}, {'events': '23_100', 'score': 0.725, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:04:41,421 pattern_ranker.py:545: 2022-08-23 13:45:53 Inject RCA Pod Result:
+[INFO]2026-08-20 13:04:41,421 pattern_ranker.py:546: 2022-08-23 13:45:53 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_contention
+[INFO]2026-08-20 13:04:41,421 pattern_ranker.py:559: 2022-08-23 13:45:53 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_contention score 1
+[INFO]2026-08-20 13:04:41,422 pattern_ranker.py:597: source :emailservice /hipstershop.EmailService/SendOrderConfirmation start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start., score: 1.0, deepth: 5, pod emailservice-55fdc5b988-f6xth, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:04:41,422 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.725, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:04:41,422 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:04:41,422 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:04:58,757 data_integrate.py:486: [{'pod': 'emailservice-55fdc5b988-f6xth', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:05:30,126 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:05:30,346 pattern_ranker.py:192: Soted Result List: [{'events': '187_52', 'score': 1.0, 'deepth': 5, 'pod': 'emailservice-55fdc5b988-f6xth', 'resource': 'NetworkP90(ms)'}, {'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:05:30,454 pattern_ranker.py:545: 2022-08-23 13:54:37 Inject RCA Pod Result:
+[INFO]2026-08-20 13:05:30,454 pattern_ranker.py:546: 2022-08-23 13:54:37 Inject Ground Truth: emailservice-55fdc5b988-f6xth, network_delay
+[INFO]2026-08-20 13:05:30,454 pattern_ranker.py:559: 2022-08-23 13:54:37 Inject Ground Truth: emailservice-55fdc5b988-f6xth, network_delay score 1
+[INFO]2026-08-20 13:05:30,454 pattern_ranker.py:597: source :emailservice /hipstershop.EmailService/SendOrderConfirmation start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start., score: 1.0, deepth: 5, pod emailservice-55fdc5b988-f6xth, resource NetworkP90(ms)
+[INFO]2026-08-20 13:05:30,455 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:05:30,455 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:05:48,845 data_integrate.py:486: [{'pod': 'emailservice-55fdc5b988-f6xth', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:06:19,905 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:06:19,992 pattern_ranker.py:192: Soted Result List: [{'events': '187_52', 'score': 1.0, 'deepth': 5, 'pod': 'emailservice-55fdc5b988-f6xth', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:06:20,100 pattern_ranker.py:545: 2022-08-23 14:03:48 Inject RCA Pod Result:
+[INFO]2026-08-20 13:06:20,100 pattern_ranker.py:546: 2022-08-23 14:03:48 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_consumed
+[INFO]2026-08-20 13:06:20,100 pattern_ranker.py:559: 2022-08-23 14:03:48 Inject Ground Truth: emailservice-55fdc5b988-f6xth, cpu_consumed score 1
+[INFO]2026-08-20 13:06:20,100 pattern_ranker.py:597: source :emailservice /hipstershop.EmailService/SendOrderConfirmation start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start., score: 1.0, deepth: 5, pod emailservice-55fdc5b988-f6xth, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:06:20,100 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:06:36,091 data_integrate.py:486: [{'pod': 'paymentservice-9cdb6588f-554sm', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:07:01,527 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:07:01,737 pattern_ranker.py:192: Soted Result List: [{'events': '165_48', 'score': 1.0, 'deepth': 5, 'pod': 'paymentservice-9cdb6588f-554sm', 'resource': 'NetworkP90(ms)'}, {'events': '23_100', 'score': 0.725, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:545: 2022-08-23 14:12:52 Inject RCA Pod Result:
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:546: 2022-08-23 14:12:52 Inject Ground Truth: paymentservice-9cdb6588f-554sm, network_delay
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:559: 2022-08-23 14:12:52 Inject Ground Truth: paymentservice-9cdb6588f-554sm, network_delay score 1
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:597: source :paymentservice grpc.hipstershop.PaymentService/Charge start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> PaymentService#Charge invoked with request<:ITEM:>, score: 1.0, deepth: 5, pod paymentservice-9cdb6588f-554sm, resource NetworkP90(ms)
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.725, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:07:01,845 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:07:19,053 data_integrate.py:486: [{'pod': 'paymentservice-9cdb6588f-554sm', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:07:48,864 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:07:49,077 pattern_ranker.py:192: Soted Result List: [{'events': '165_48', 'score': 1.0, 'deepth': 5, 'pod': 'paymentservice-9cdb6588f-554sm', 'resource': 'CpuUsageRate(%)'}, {'events': '23_100', 'score': 0.6744186046511628, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:07:49,183 pattern_ranker.py:545: 2022-08-23 14:21:54 Inject RCA Pod Result:
+[INFO]2026-08-20 13:07:49,183 pattern_ranker.py:546: 2022-08-23 14:21:54 Inject Ground Truth: paymentservice-9cdb6588f-554sm, cpu_contention
+[INFO]2026-08-20 13:07:49,183 pattern_ranker.py:559: 2022-08-23 14:21:54 Inject Ground Truth: paymentservice-9cdb6588f-554sm, cpu_contention score 1
+[INFO]2026-08-20 13:07:49,184 pattern_ranker.py:597: source :paymentservice grpc.hipstershop.PaymentService/Charge start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> PaymentService#Charge invoked with request<:ITEM:>, score: 1.0, deepth: 5, pod paymentservice-9cdb6588f-554sm, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:07:49,184 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.6744186046511628, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:07:49,184 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:08:03,419 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:08:25,451 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:08:25,616 pattern_ranker.py:192: Soted Result List: [{'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:08:25,712 pattern_ranker.py:545: 2022-08-23 14:30:10 Inject RCA Pod Result:
+[INFO]2026-08-20 13:08:25,712 pattern_ranker.py:546: 2022-08-23 14:30:10 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, network_delay
+[INFO]2026-08-20 13:08:25,712 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:08:25,712 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:08:29,534 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:08:44,490 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:08:46,464 pattern_ranker.py:192: Soted Result List: [{'events': '8_214', 'score': 1.0, 'deepth': 7, 'pod': 'productcatalogservice-668d5f85fb-jhwx9'}, {'events': '69_158', 'score': 1.0, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_120', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '24_100', 'score': 1.0, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '38_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_17', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_80', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_82', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_86', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_37', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_124', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '3_2', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '3_167', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_78', 'score': 0.9027595269382391, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '49_78', 'score': 0.8653846153846154, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_78', 'score': 0.8551319648093841, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '23_100', 'score': 0.8529411764705882, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '23_106', 'score': 0.694478527607362, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:08:46,559 pattern_ranker.py:545: 2022-08-23 14:47:40 Inject RCA Pod Result:
+[INFO]2026-08-20 13:08:46,559 pattern_ranker.py:546: 2022-08-23 14:47:40 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, return
+[INFO]2026-08-20 13:08:46,559 pattern_ranker.py:575: 2022-08-23 14:47:40 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, return score 1
+[INFO]2026-08-20 13:08:46,559 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product with name and description <:*:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product successfully, score: 1.0, deepth: 7, pod productcatalogservice-668d5f85fb-jhwx9
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.CheckoutService/ConvertCurrency start, score: 1.0, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdService/<:SPANID:> start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 1.0, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart start, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/GetSupportedCurrencies start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CartService/GetCart start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:08:46,560 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:08:59,645 data_integrate.py:486: [{'pod': 'productcatalogservice-668d5f85fb-jhwx9', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:09:21,220 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:09:21,992 pattern_ranker.py:192: Soted Result List: [{'events': '90_8', 'score': 1.0, 'deepth': 6, 'pod': 'productcatalogservice-668d5f85fb-jhwx9', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:09:22,097 pattern_ranker.py:545: 2022-08-23 14:55:55 Inject RCA Pod Result:
+[INFO]2026-08-20 13:09:22,098 pattern_ranker.py:546: 2022-08-23 14:55:55 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, cpu_consumed
+[INFO]2026-08-20 13:09:22,098 pattern_ranker.py:559: 2022-08-23 14:55:55 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, cpu_consumed score 1
+[INFO]2026-08-20 13:09:22,098 pattern_ranker.py:597: source :productcatalogservice hipstershop.ProductCatalogService/GetProduct start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product with name and description <:*:>, score: 1.0, deepth: 6, pod productcatalogservice-668d5f85fb-jhwx9, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:09:22,098 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:09:25,559 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:09:39,555 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:09:41,902 pattern_ranker.py:192: Soted Result List: [{'events': '8_214', 'score': 1.0, 'deepth': 7, 'pod': 'productcatalogservice-668d5f85fb-jhwx9'}, {'events': '69_158', 'score': 1.0, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '28_120', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '38_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_17', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_80', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_82', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_84', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '18_86', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_15', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_37', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_124', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '3_2', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '3_167', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '49_78', 'score': 0.9574468085106383, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '38_78', 'score': 0.9123505976095617, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '24_100', 'score': 0.875, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '23_100', 'score': 0.8529411764705882, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '18_78', 'score': 0.8476744186046512, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '69_68', 'score': 0.8181818181818182, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '72_63', 'score': 0.8181818181818182, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '72_160', 'score': 0.8181818181818182, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '72_158', 'score': 0.8181818181818182, 'deepth': 4, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_60', 'score': 0.8181818181818182, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '73_162', 'score': 0.8181818181818182, 'deepth': 3, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '50_49', 'score': 0.8181818181818182, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '23_106', 'score': 0.6767636508569151, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:09:42,003 pattern_ranker.py:545: 2022-08-23 15:04:28 Inject RCA Pod Result:
+[INFO]2026-08-20 13:09:42,003 pattern_ranker.py:546: 2022-08-23 15:04:28 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, exception
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:575: 2022-08-23 15:04:28 Inject Ground Truth: productcatalogservice-668d5f85fb-jhwx9, exception score 1
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product with name and description <:*:>, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product successfully, score: 1.0, deepth: 7, pod productcatalogservice-668d5f85fb-jhwx9
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.CheckoutService/ConvertCurrency start, score: 1.0, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: adservice hipstershop.AdService/<:SPANID:> start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart start, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/GetSupportedCurrencies start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CartService/GetCart start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.CurrencyService/Convert start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,004 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, target: frontend hipstershop.RecommendationService/ListRecommendations start, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:09:42,005 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:09:57,979 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:10:21,461 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:10:21,589 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'NetworkP90(ms)'}]
+[INFO]2026-08-20 13:10:21,687 pattern_ranker.py:545: 2022-08-23 15:12:49 Inject RCA Pod Result:
+[INFO]2026-08-20 13:10:21,688 pattern_ranker.py:546: 2022-08-23 15:12:49 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, network_delay
+[INFO]2026-08-20 13:10:21,688 pattern_ranker.py:559: 2022-08-23 15:12:49 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, network_delay score 1
+[INFO]2026-08-20 13:10:21,688 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource NetworkP90(ms)
+[INFO]2026-08-20 13:10:21,688 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:10:34,112 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:10:53,583 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:10:53,821 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.7368421052631579, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:10:53,903 pattern_ranker.py:545: 2022-08-23 15:21:41 Inject RCA Pod Result:
+[INFO]2026-08-20 13:10:53,903 pattern_ranker.py:546: 2022-08-23 15:21:41 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_contention
+[INFO]2026-08-20 13:10:53,903 pattern_ranker.py:559: 2022-08-23 15:21:41 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_contention score 1
+[INFO]2026-08-20 13:10:53,904 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:10:53,904 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7368421052631579, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:10:53,904 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:11:01,530 data_integrate.py:486: [{'pod': 'recommendationservice-6cfdd55578-gfj6q', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:11:12,006 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:11:13,133 pattern_ranker.py:192: Soted Result List: [{'events': '108_7', 'score': 1.0, 'deepth': 2, 'pod': 'recommendationservice-6cfdd55578-gfj6q', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.7777777777777778, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '69_146', 'score': 0.7666666666666667, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '69_158', 'score': 0.7666666666666667, 'deepth': 5, 'pod': 'checkoutservice-578fcf4766-9csqn'}, {'events': '4_50', 'score': 0.6923076923076923, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '28_208', 'score': 0.675, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '4_42', 'score': 0.675, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '16_41', 'score': 0.675, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '4_18', 'score': 0.6712707182320442, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:545: 2022-08-23 15:29:49 Inject RCA Pod Result:
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:546: 2022-08-23 15:29:49 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_consumed
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:559: 2022-08-23 15:29:49 Inject Ground Truth: recommendationservice-6cfdd55578-gfj6q, cpu_consumed score 1
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:597: source :recommendationservice /hipstershop.RecommendationService/ListRecommendations start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations, score: 1.0, deepth: 2, pod recommendationservice-6cfdd55578-gfj6q, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7777777777777778, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.ProductCatalogService/GetProduct start, score: 0.7666666666666667, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>, target: checkoutservice hipstershop.CheckoutService/ConvertCurrency start, score: 0.7666666666666667, deepth: 5, pod checkoutservice-578fcf4766-9csqn
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started, score: 0.6923076923076923, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:11:13,195 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 0.675, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:11:13,196 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home started, score: 0.675, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:11:13,196 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 0.675, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:11:13,196 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started, score: 0.6712707182320442, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:11:13,196 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:11:29,401 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'shippingservice-7b598fc7d-lmggd', 'alarm': [{'metric_type': 'NetworkP90(ms)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:11:56,504 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:11:57,042 pattern_ranker.py:192: Soted Result List: [{'events': '130_34', 'score': 1.0, 'deepth': 8, 'pod': 'shippingservice-7b598fc7d-lmggd', 'resource': 'NetworkP90(ms)'}, {'events': '24_100', 'score': 0.8235294117647058, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:545: 2022-08-23 15:38:52 Inject RCA Pod Result:
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:546: 2022-08-23 15:38:52 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, network_delay
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:559: 2022-08-23 15:38:52 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, network_delay score 1
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:597: source :shippingservice hipstershop.ShippingService/QuoteByCountFloat start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request, score: 1.0, deepth: 8, pod shippingservice-7b598fc7d-lmggd, resource NetworkP90(ms)
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.8235294117647058, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:11:57,137 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:12:13,531 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'shippingservice-7b598fc7d-lmggd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:12:40,583 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:12:41,020 pattern_ranker.py:192: Soted Result List: [{'events': '130_34', 'score': 1.0, 'deepth': 8, 'pod': 'shippingservice-7b598fc7d-lmggd', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:12:41,126 pattern_ranker.py:545: 2022-08-23 15:47:43 Inject RCA Pod Result:
+[INFO]2026-08-20 13:12:41,126 pattern_ranker.py:546: 2022-08-23 15:47:43 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_contention
+[INFO]2026-08-20 13:12:41,126 pattern_ranker.py:559: 2022-08-23 15:47:43 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_contention score 1
+[INFO]2026-08-20 13:12:41,126 pattern_ranker.py:597: source :shippingservice hipstershop.ShippingService/QuoteByCountFloat start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request, score: 1.0, deepth: 8, pod shippingservice-7b598fc7d-lmggd, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:12:41,126 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:12:58,056 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}, {'pod': 'shippingservice-7b598fc7d-lmggd', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:13:24,365 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:13:24,797 pattern_ranker.py:192: Soted Result List: [{'events': '130_34', 'score': 1.0, 'deepth': 8, 'pod': 'shippingservice-7b598fc7d-lmggd', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:13:24,894 pattern_ranker.py:545: 2022-08-23 15:56:24 Inject RCA Pod Result:
+[INFO]2026-08-20 13:13:24,894 pattern_ranker.py:546: 2022-08-23 15:56:24 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_consumed
+[INFO]2026-08-20 13:13:24,894 pattern_ranker.py:559: 2022-08-23 15:56:24 Inject Ground Truth: shippingservice-7b598fc7d-lmggd, cpu_consumed score 1
+[INFO]2026-08-20 13:13:24,894 pattern_ranker.py:597: source :shippingservice hipstershop.ShippingService/QuoteByCountFloat start, target: TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request, score: 1.0, deepth: 8, pod shippingservice-7b598fc7d-lmggd, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:13:24,894 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:13:39,964 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:14:01,913 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:14:02,199 pattern_ranker.py:192: Soted Result List: [{'events': '24_100', 'score': 0.7, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '23_100', 'score': 0.6744186046511628, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:14:02,292 pattern_ranker.py:545: 2022-08-23 16:05:02 Inject RCA Pod Result:
+[INFO]2026-08-20 13:14:02,292 pattern_ranker.py:546: 2022-08-23 16:05:02 Inject Ground Truth: adservice-5f6585d649-fnmft, network_delay
+[INFO]2026-08-20 13:14:02,293 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.7, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:14:02,293 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.6744186046511628, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:14:02,293 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:14:19,273 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:14:46,758 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:14:47,251 pattern_ranker.py:192: Soted Result List: [{'events': '28_208', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '16_41', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 13:14:47,351 pattern_ranker.py:545: 2022-08-23 16:13:38 Inject RCA Pod Result:
+[INFO]2026-08-20 13:14:47,351 pattern_ranker.py:546: 2022-08-23 16:13:38 Inject Ground Truth: adservice-5f6585d649-fnmft, return
+[INFO]2026-08-20 13:14:47,351 pattern_ranker.py:575: 2022-08-23 16:13:38 Inject Ground Truth: adservice-5f6585d649-fnmft, return score 1
+[INFO]2026-08-20 13:14:47,352 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:14:47,352 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:14:47,352 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:15:04,805 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'MemoryUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:15:35,522 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:15:36,054 pattern_ranker.py:192: Soted Result List: [{'events': '28_208', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'MemoryUsageRate(%)'}, {'events': '16_41', 'score': 1.0, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}]
+[INFO]2026-08-20 13:15:36,169 pattern_ranker.py:545: 2022-08-23 16:22:53 Inject RCA Pod Result:
+[INFO]2026-08-20 13:15:36,170 pattern_ranker.py:546: 2022-08-23 16:22:53 Inject Ground Truth: adservice-5f6585d649-fnmft, exception
+[INFO]2026-08-20 13:15:36,170 pattern_ranker.py:575: 2022-08-23 16:22:53 Inject Ground Truth: adservice-5f6585d649-fnmft, exception score 1
+[INFO]2026-08-20 13:15:36,170 pattern_ranker.py:597: source :<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>, target: <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start, score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource MemoryUsageRate(%)
+[INFO]2026-08-20 13:15:36,170 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 1.0, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:15:36,170 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:15:50,023 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:16:09,829 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:16:10,559 pattern_ranker.py:192: Soted Result List: [{'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'CpuUsageRate(%)'}, {'events': '24_100', 'score': 0.8235294117647058, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}, {'events': '16_41', 'score': 0.8059701492537313, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '17_16', 'score': 0.6988235294117647, 'deepth': 1, 'pod': 'frontend-579b9bff58-t2dbm'}, {'events': '23_100', 'score': 0.6904761904761905, 'deepth': 3, 'pod': 'currencyservice-cf787dd48-vpjrd'}]
+[INFO]2026-08-20 13:16:10,647 pattern_ranker.py:545: 2022-08-23 16:31:35 Inject RCA Pod Result:
+[INFO]2026-08-20 13:16:10,647 pattern_ranker.py:546: 2022-08-23 16:31:35 Inject Ground Truth: adservice-5f6585d649-fnmft, cpu_contention
+[INFO]2026-08-20 13:16:10,647 pattern_ranker.py:559: 2022-08-23 16:31:35 Inject Ground Truth: adservice-5f6585d649-fnmft, cpu_contention score 1
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..., target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.8235294117647058, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete, score: 0.8059701492537313, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started, target: TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete, score: 0.6988235294117647, deepth: 1, pod frontend-579b9bff58-t2dbm
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:600: source :TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request, target: currencyservice hipstershop.CurrencyService/GetCurrencyData start, score: 0.6904761904761905, deepth: 3, pod currencyservice-cf787dd48-vpjrd
+[INFO]2026-08-20 13:16:10,648 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:16:27,402 data_integrate.py:486: [{'pod': 'adservice-5f6585d649-fnmft', 'alarm': [{'metric_type': 'CpuUsageRate(%)', 'alarm_flag': True}]}]
+[INFO]2026-08-20 13:16:56,787 data_integrate.py:555: Data Integrate Complete!
+[INFO]2026-08-20 13:16:57,148 pattern_ranker.py:192: Soted Result List: [{'events': '120_198', 'score': 1.0, 'deepth': 4, 'pod': 'adservice-5f6585d649-fnmft', 'resource': 'CpuUsageRate(%)'}]
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:545: 2022-08-23 16:40:57 Inject RCA Pod Result:
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:546: 2022-08-23 16:40:57 Inject Ground Truth: adservice-5f6585d649-fnmft, cpu_consumed
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:559: 2022-08-23 16:40:57 Inject Ground Truth: adservice-5f6585d649-fnmft, cpu_consumed score 1
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:597: source :adservice hipstershop.AdService/<:SPANID:> start, target: MemoryUsageRate(%), score: 1.0, deepth: 4, pod adservice-5f6585d649-fnmft, resource CpuUsageRate(%)
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:602: 
+[INFO]2026-08-20 13:16:57,258 pattern_ranker.py:603: [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:616: -------- hipster Fault numbuer : 56-------
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:617: --------AS@1 Result-------
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:618: 92.857143 %
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:619: --------AS@3 Result-------
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:620: 96.428571 %
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:621: --------AS@5 Result-------
+[INFO]2026-08-20 13:16:57,259 pattern_ranker.py:622: 96.428571 %

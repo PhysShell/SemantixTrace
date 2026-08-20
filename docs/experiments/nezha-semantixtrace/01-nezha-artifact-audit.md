@@ -12,8 +12,10 @@ machine artifact in `experiment/nezha/results/`), or **inference** (marked).
 - Environment: `experiment/nezha/manifests/environment.md`
 - Appendices: `appendix/paper-claims.md` (verbatim paper extraction),
   `appendix/upstream-issues-audit.md`, `appendix/dataset-inventory.md`
-- Reproduction status: **runs in progress**; the "Reproduced?" column is
-  filled only from machine artifacts in `02-e0-reproduction.md`.
+- Reproduction status: **complete** — all four headline configurations
+  reproduce the committed author logs exactly (`02-e0-reproduction.md`,
+  machine artifacts in `experiment/nezha/results/e0/`); measurement audit
+  in `03-e1-measurement-audit.md`.
 
 ## 0. Provenance of the artifact's own numbers
 
@@ -100,12 +102,18 @@ Source-code facts and dataset facts:
   issues #8/#14 are open and unfixed at the pinned commit.
 - No merged fix exists after the pinned commit.
 
-## 5. What remains to establish in E0 proper
+## 5. E0/E1 outcomes (filled after the runs)
 
-1. Do the four headline runs reproduce the committed logs under the pinned
-   commit (modern-Python environment)? → `02-e0-reproduction.md`.
-2. Per-case ranks, unlocalized cases, run-to-run stability (drain3 state
-   nondeterminism), wall-clock cost.
-3. Does the independent evaluator (`experiment/nezha/evaluators/independent_eval.py`),
-   consuming only ranked candidates + frozen ground truth, confirm the
-   artifact's arithmetic on its own semantics?
+1. All four headline runs reproduce the committed logs exactly (rank
+   vectors byte-identical; the one per-case textual diff is the PR #7
+   ground-truth timestamp fix) → `02-e0-reproduction.md`.
+2. Per-case ranks and candidate lists are archived per config
+   (`experiment/nezha/results/e0/eval/*.eval.json`); 2 OB + 1 TT faults
+   unlocalized; metrics deterministic across repeated runs, TT candidate
+   *composition* below the match is not (02 §4).
+3. The independent evaluator confirms the artifact's arithmetic on all 101
+   cases (0 mismatches); corrected semantics shift results by at most
+   +2.22 pp (in Nezha's favor, TT) → `03-e1-measurement-audit.md`.
+4. Claim I-#10 (get_deepth_pod cycling): **no hang was observed in any
+   run** (6 complete + 2 OOM-partial); the cycle risk remains a code-level
+   hazard, not a shipped-data behavior.

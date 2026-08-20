@@ -1,0 +1,2702 @@
+{
+ "cluster_count": 674,
+ "clusters": {
+  "1": {
+   "size": 604069,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Request complete"
+  },
+  "2": {
+   "size": 62554,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Adding to cart complete"
+  },
+  "3": {
+   "size": 64128,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Adding to cart started"
+  },
+  "4": {
+   "size": 604136,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Request started"
+  },
+  "5": {
+   "size": 62551,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> AddItemAsync called with userId=<:USERID:>, productId=<:PRODUCTID:>, quantity=<:NUM:>"
+  },
+  "6": {
+   "size": 412469,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> List Recommendations product ids=<:ITEM:>"
+  },
+  "7": {
+   "size": 413271,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations"
+  },
+  "8": {
+   "size": 3944533,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product with name and description <:*:>"
+  },
+  "9": {
+   "size": 479345,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> List products end"
+  },
+  "10": {
+   "size": 479458,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Parse catalog successfully"
+  },
+  "11": {
+   "size": 4315118,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> get results: <:ITEM:>"
+  },
+  "12": {
+   "size": 479457,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query product catalog"
+  },
+  "13": {
+   "size": 479457,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start parse catalog"
+  },
+  "14": {
+   "size": 479460,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start list products"
+  },
+  "15": {
+   "size": 265769,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page complete"
+  },
+  "16": {
+   "size": 326635,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad complete"
+  },
+  "17": {
+   "size": 331217,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Choose Ad started"
+  },
+  "18": {
+   "size": 281058,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Serving product page started"
+  },
+  "19": {
+   "size": 1725087,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Get currency data successful"
+  },
+  "20": {
+   "size": 1245628,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Conversion request successful"
+  },
+  "21": {
+   "size": 2491256,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Handles decimal or fractional carrying"
+  },
+  "22": {
+   "size": 1725087,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting currency data"
+  },
+  "23": {
+   "size": 1245628,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Received conversion request"
+  },
+  "24": {
+   "size": 479459,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Getting supported currencies..."
+  },
+  "25": {
+   "size": 481322,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> GetCartAsync called with userId=<:USERID:>"
+  },
+  "26": {
+   "size": 707200,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Get Ads by Category <:*:>"
+  },
+  "27": {
+   "size": 416099,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Query items successfully."
+  },
+  "28": {
+   "size": 331107,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Received ad request (context words=<:ITEM:>"
+  },
+  "29": {
+   "size": 147770,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[GetQuote] completed request"
+  },
+  "30": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[CreateQuoteFromCount] completed request"
+  },
+  "31": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[CreateQuoteFromFloat] completed request"
+  },
+  "32": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[CreateQuoteFromFloat] received request"
+  },
+  "33": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] completed request"
+  },
+  "34": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[QuoteByCountFloat] received request"
+  },
+  "35": {
+   "size": 147997,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[CreateQuoteFromCount] received request"
+  },
+  "36": {
+   "size": 147998,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[GetQuote] received request"
+  },
+  "37": {
+   "size": 126083,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart complete"
+  },
+  "38": {
+   "size": 127934,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> View user cart start"
+  },
+  "39": {
+   "size": 43380,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Setting currency complete"
+  },
+  "40": {
+   "size": 43380,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Setting currency started"
+  },
+  "41": {
+   "size": 63905,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home complete"
+  },
+  "42": {
+   "size": 65450,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Request home started"
+  },
+  "43": {
+   "size": 62515,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> Constructe random Ads <:*:>"
+  },
+  "44": {
+   "size": 14,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided."
+  },
+  "45": {
+   "size": 20796,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[ShipOrder] completed request"
+  },
+  "46": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:>[ShipOrder] received request"
+  },
+  "47": {
+   "size": 21241,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Transaction processed: visa ending<:ITEM:>"
+  },
+  "48": {
+   "size": 21241,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> PaymentService#Charge invoked with request<:ITEM:>"
+  },
+  "49": {
+   "size": 20313,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Order placed complete"
+  },
+  "50": {
+   "size": 22186,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Placing order started"
+  },
+  "51": {
+   "size": 20832,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> A request to send order confirmation email to someone@example.com has been received."
+  },
+  "52": {
+   "size": 20832,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Send order confirmation email to someone@example.com start."
+  },
+  "53": {
+   "size": 20835,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> PlaceOrder user id<:ITEM:>"
+  },
+  "54": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Order confirmation email sent to \"someone@example.com\""
+  },
+  "55": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start send Order Confirmation to email someone@example.com"
+  },
+  "56": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Empty the cart of user <:USERID:> successfully"
+  },
+  "57": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start empty the cart of user <:USERID:>"
+  },
+  "58": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Ship Order to address street address:\"<:NUM:> Amphitheatre Parkway\" city:\"Mountain View\" state:\"CA\" country:\"United States\" zip code:<:NUM:> successfully"
+  },
+  "59": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start ship Order to address street address:\"<:NUM:> Amphitheatre Parkway\" city:\"Mountain View\" state:\"CA\" country:\"United States\" zip code:<:NUM:>"
+  },
+  "60": {
+   "size": 20835,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Payment went through (transaction id: <:*:>"
+  },
+  "61": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Charge successfully"
+  },
+  "62": {
+   "size": 21916,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start charge card"
+  },
+  "63": {
+   "size": 21918,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Prepare order of user <:USERID:> successfully"
+  },
+  "64": {
+   "size": 76737,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Convert currency from currency code:<:ITEM:>"
+  },
+  "65": {
+   "size": 76737,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start convert currency from currency code:<:ITEM:>"
+  },
+  "66": {
+   "size": 21917,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Get shipping cost currency code:<:ITEM:>"
+  },
+  "67": {
+   "size": 21917,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Quote shipping with items<:ITEM:>"
+  },
+  "68": {
+   "size": 21917,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Query cost of products<:ITEM:>"
+  },
+  "69": {
+   "size": 22175,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start query cost of products<:ITEM:>"
+  },
+  "70": {
+   "size": 21940,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Get user <:USERID:> cart items:<:ITEM:>"
+  },
+  "71": {
+   "size": 22176,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Query cart of user <:USERID:>"
+  },
+  "72": {
+   "size": 22177,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start prepare order of user <:USERID:>"
+  },
+  "73": {
+   "size": 22177,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Get OrderID <:USERID:>"
+  },
+  "74": {
+   "size": 22177,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Start PlaceOrder user id<:ITEM:>"
+  },
+  "75": {
+   "size": 20833,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> EmptyCartAsync called with userId=<:USERID:>"
+  },
+  "76": {
+   "size": 177,
+   "template": "frontend hipstershop.Frontend/Recv. start"
+  },
+  "77": {
+   "size": 123,
+   "template": "frontend hipstershop.Frontend/Recv. end"
+  },
+  "78": {
+   "size": 417,
+   "template": "frontend hipstershop.ProductCatalogService/GetProduct start"
+  },
+  "79": {
+   "size": 417,
+   "template": "frontend hipstershop.ProductCatalogService/GetProduct end"
+  },
+  "80": {
+   "size": 79,
+   "template": "frontend hipstershop.CurrencyService/GetSupportedCurrencies start"
+  },
+  "81": {
+   "size": 79,
+   "template": "frontend hipstershop.CurrencyService/GetSupportedCurrencies end"
+  },
+  "82": {
+   "size": 72,
+   "template": "frontend hipstershop.CartService/GetCart start"
+  },
+  "83": {
+   "size": 72,
+   "template": "frontend hipstershop.CartService/GetCart end"
+  },
+  "84": {
+   "size": 234,
+   "template": "frontend hipstershop.CurrencyService/Convert start"
+  },
+  "85": {
+   "size": 234,
+   "template": "frontend hipstershop.CurrencyService/Convert end"
+  },
+  "86": {
+   "size": 63,
+   "template": "frontend hipstershop.RecommendationService/ListRecommendations start"
+  },
+  "87": {
+   "size": 63,
+   "template": "frontend hipstershop.RecommendationService/ListRecommendations end"
+  },
+  "88": {
+   "size": 52,
+   "template": "frontend hipstershop.AdService/GetAds start"
+  },
+  "89": {
+   "size": 52,
+   "template": "frontend hipstershop.AdService/GetAds end"
+  },
+  "90": {
+   "size": 406,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/GetProduct start"
+  },
+  "91": {
+   "size": 406,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/GetProduct end"
+  },
+  "92": {
+   "size": 73,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ListProducts start"
+  },
+  "93": {
+   "size": 73,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ListProducts end"
+  },
+  "94": {
+   "size": 476,
+   "template": "productcatalogservice sql.conn.query start"
+  },
+  "95": {
+   "size": 476,
+   "template": "productcatalogservice sql.conn.query end"
+  },
+  "96": {
+   "size": 476,
+   "template": "productcatalogservice sql.rows start"
+  },
+  "97": {
+   "size": 476,
+   "template": "productcatalogservice sql.rows end"
+  },
+  "98": {
+   "size": 72,
+   "template": "currencyservice grpc.hipstershop.CurrencyService/GetSupportedCurrencies start"
+  },
+  "99": {
+   "size": 72,
+   "template": "currencyservice grpc.hipstershop.CurrencyService/GetSupportedCurrencies end"
+  },
+  "100": {
+   "size": 299,
+   "template": "currencyservice hipstershop.CurrencyService/GetCurrencyData start"
+  },
+  "101": {
+   "size": 299,
+   "template": "currencyservice hipstershop.CurrencyService/GetCurrencyData end"
+  },
+  "102": {
+   "size": 75,
+   "template": "cartservice hipstershop.CartService/GetCart start"
+  },
+  "103": {
+   "size": 75,
+   "template": "cartservice hipstershop.CartService/GetCart end"
+  },
+  "104": {
+   "size": 227,
+   "template": "currencyservice grpc.hipstershop.CurrencyService/Convert start"
+  },
+  "105": {
+   "size": 227,
+   "template": "currencyservice grpc.hipstershop.CurrencyService/Convert end"
+  },
+  "106": {
+   "size": 454,
+   "template": "currencyservice hipstershop.CurrencyService/Carry start"
+  },
+  "107": {
+   "size": 454,
+   "template": "currencyservice hipstershop.CurrencyService/Carry end"
+  },
+  "108": {
+   "size": 59,
+   "template": "recommendationservice /hipstershop.RecommendationService/ListRecommendations start"
+  },
+  "109": {
+   "size": 58,
+   "template": "recommendationservice /hipstershop.RecommendationService/ListRecommendations end"
+  },
+  "110": {
+   "size": 56,
+   "template": "recommendationservice /hipstershop.ProductCatalogService/ListProducts start"
+  },
+  "111": {
+   "size": 56,
+   "template": "recommendationservice /hipstershop.ProductCatalogService/ListProducts end"
+  },
+  "112": {
+   "size": 70,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ParseCatalog start"
+  },
+  "113": {
+   "size": 70,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ParseCatalog end"
+  },
+  "114": {
+   "size": 70,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ReadCatalog start"
+  },
+  "115": {
+   "size": 70,
+   "template": "productcatalogservice hipstershop.ProductCatalogService/ReadCatalog end"
+  },
+  "116": {
+   "size": 50,
+   "template": "adservice hipstershop.AdService/GetAds start"
+  },
+  "117": {
+   "size": 50,
+   "template": "adservice hipstershop.AdService/GetAds end"
+  },
+  "118": {
+   "size": 50,
+   "template": "adservice hipstershop.AdServiceImpl/getAds start"
+  },
+  "119": {
+   "size": 50,
+   "template": "adservice hipstershop.AdServiceImpl/getAds end"
+  },
+  "120": {
+   "size": 48,
+   "template": "adservice hipstershop.AdService/<:SPANID:> start"
+  },
+  "121": {
+   "size": 48,
+   "template": "adservice hipstershop.AdService/<:SPANID:> end"
+  },
+  "122": {
+   "size": 60,
+   "template": "adservice SELECT addatabase.aditems start"
+  },
+  "123": {
+   "size": 60,
+   "template": "adservice SELECT addatabase.aditems end"
+  },
+  "124": {
+   "size": 18,
+   "template": "frontend hipstershop.ShippingService/GetQuote start"
+  },
+  "125": {
+   "size": 18,
+   "template": "frontend hipstershop.ShippingService/GetQuote end"
+  },
+  "126": {
+   "size": 21,
+   "template": "shippingservice hipstershop.ShippingService/GetQuote start"
+  },
+  "127": {
+   "size": 21,
+   "template": "shippingservice hipstershop.ShippingService/GetQuote end"
+  },
+  "128": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/CreateQuoteFromCount start"
+  },
+  "129": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/CreateQuoteFromCount end"
+  },
+  "130": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/QuoteByCountFloat start"
+  },
+  "131": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/QuoteByCountFloat end"
+  },
+  "132": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/CreateQuoteFromFloat start"
+  },
+  "133": {
+   "size": 20,
+   "template": "shippingservice hipstershop.ShippingService/CreateQuoteFromFloat end"
+  },
+  "134": {
+   "size": 14,
+   "template": "frontend hipstershop.ProductCatalogService/ListProducts start"
+  },
+  "135": {
+   "size": 14,
+   "template": "frontend hipstershop.ProductCatalogService/ListProducts end"
+  },
+  "136": {
+   "size": 13,
+   "template": "adservice hipstershop.AdService/getRandomAds start"
+  },
+  "137": {
+   "size": 13,
+   "template": "adservice hipstershop.AdService/getRandomAds end"
+  },
+  "138": {
+   "size": 20593,
+   "template": "TraceID: <:TRACEID:>, SpanID: <:SPANID:> Request error"
+  },
+  "139": {
+   "size": 1873,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to complete the order"
+  },
+  "140": {
+   "size": 9,
+   "template": "frontend hipstershop.CheckoutService/PlaceOrder start"
+  },
+  "141": {
+   "size": 9,
+   "template": "frontend hipstershop.CheckoutService/PlaceOrder end"
+  },
+  "142": {
+   "size": 9,
+   "template": "checkoutservice hipstershop.CheckoutService/PlaceOrder start"
+  },
+  "143": {
+   "size": 9,
+   "template": "checkoutservice hipstershop.CheckoutService/PlaceOrder end"
+  },
+  "144": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CartService/GetCart start"
+  },
+  "145": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CartService/GetCart end"
+  },
+  "146": {
+   "size": 18,
+   "template": "checkoutservice hipstershop.ProductCatalogService/GetProduct start"
+  },
+  "147": {
+   "size": 18,
+   "template": "checkoutservice hipstershop.ProductCatalogService/GetProduct end"
+  },
+  "148": {
+   "size": 6,
+   "template": "checkoutservice hipstershop.ShippingService/GetQuote start"
+  },
+  "149": {
+   "size": 6,
+   "template": "checkoutservice hipstershop.ShippingService/GetQuote end"
+  },
+  "150": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.PaymentService/Charge start"
+  },
+  "151": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.PaymentService/Charge end"
+  },
+  "152": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CheckoutService/PrepareOrderItemsAndShippingQuoteFromCart start"
+  },
+  "153": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CheckoutService/PrepareOrderItemsAndShippingQuoteFromCart end"
+  },
+  "154": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CheckoutService/GetUserCart start"
+  },
+  "155": {
+   "size": 8,
+   "template": "checkoutservice hipstershop.CheckoutService/GetUserCart end"
+  },
+  "156": {
+   "size": 7,
+   "template": "checkoutservice hipstershop.CheckoutService/PrepOrderItems start"
+  },
+  "157": {
+   "size": 7,
+   "template": "checkoutservice hipstershop.CheckoutService/PrepOrderItems end"
+  },
+  "158": {
+   "size": 22,
+   "template": "checkoutservice hipstershop.CheckoutService/ConvertCurrency start"
+  },
+  "159": {
+   "size": 22,
+   "template": "checkoutservice hipstershop.CheckoutService/ConvertCurrency end"
+  },
+  "160": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.CheckoutService/QuoteShipping start"
+  },
+  "161": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.CheckoutService/QuoteShipping end"
+  },
+  "162": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.CheckoutService/ChargeCard start"
+  },
+  "163": {
+   "size": 5,
+   "template": "checkoutservice hipstershop.CheckoutService/ChargeCard end"
+  },
+  "164": {
+   "size": 409,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Could not charge the card: charge card error."
+  },
+  "165": {
+   "size": 4,
+   "template": "paymentservice grpc.hipstershop.PaymentService/Charge start"
+  },
+  "166": {
+   "size": 4,
+   "template": "paymentservice grpc.hipstershop.PaymentService/Charge end"
+  },
+  "167": {
+   "size": 11,
+   "template": "frontend hipstershop.CartService/AddItem start"
+  },
+  "168": {
+   "size": 11,
+   "template": "frontend hipstershop.CartService/AddItem end"
+  },
+  "169": {
+   "size": 9,
+   "template": "cartservice hipstershop.CartService/AddItem start"
+  },
+  "170": {
+   "size": 9,
+   "template": "cartservice hipstershop.CartService/AddItem end"
+  },
+  "171": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.ShippingService/ShipOrder start"
+  },
+  "172": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.ShippingService/ShipOrder end"
+  },
+  "173": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.CartService/EmptyCart start"
+  },
+  "174": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.CartService/EmptyCart end"
+  },
+  "175": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.EmailService/SendOrderConfirmation start"
+  },
+  "176": {
+   "size": 4,
+   "template": "checkoutservice hipstershop.EmailService/SendOrderConfirmation end"
+  },
+  "177": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/ShipOrder start"
+  },
+  "178": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/ShipOrder end"
+  },
+  "179": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/EmptyUserCart start"
+  },
+  "180": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/EmptyUserCart end"
+  },
+  "181": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/SendOrderConfirmation start"
+  },
+  "182": {
+   "size": 3,
+   "template": "checkoutservice hipstershop.CheckoutService/SendOrderConfirmation end"
+  },
+  "183": {
+   "size": 3,
+   "template": "cartservice hipstershop.CartService/EmptyCart start"
+  },
+  "184": {
+   "size": 3,
+   "template": "cartservice hipstershop.CartService/EmptyCart end"
+  },
+  "185": {
+   "size": 3,
+   "template": "shippingservice hipstershop.ShippingService/ShipOrder start"
+  },
+  "186": {
+   "size": 3,
+   "template": "shippingservice hipstershop.ShippingService/ShipOrder end"
+  },
+  "187": {
+   "size": 3,
+   "template": "emailservice /hipstershop.EmailService/SendOrderConfirmation start"
+  },
+  "188": {
+   "size": 3,
+   "template": "emailservice /hipstershop.EmailService/SendOrderConfirmation end"
+  },
+  "189": {
+   "size": 675,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to connect payment service: connect error."
+  },
+  "190": {
+   "size": 3039,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to retrieve ads"
+  },
+  "191": {
+   "size": 8039,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Product id not specified"
+  },
+  "192": {
+   "size": 7251,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Could not retrieve product"
+  },
+  "193": {
+   "size": 6155,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> failed to scan mysql query result: Query product error."
+  },
+  "194": {
+   "size": 1574,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to convert product"
+  },
+  "195": {
+   "size": 1852,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to get product recommendations"
+  },
+  "196": {
+   "size": 237,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Get user <:USERID:> cart"
+  },
+  "197": {
+   "size": 25,
+   "template": "CpuUsageRate(%)"
+  },
+  "198": {
+   "size": 19,
+   "template": "MemoryUsageRate(%)"
+  },
+  "199": {
+   "size": 25,
+   "template": "NetworkP90(ms)"
+  },
+  "200": {
+   "size": 1,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to add to cart"
+  },
+  "201": {
+   "size": 1,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to do currency conversion for product <:PRODUCTID:>"
+  },
+  "202": {
+   "size": 834,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": <:*:> \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> List Recommendations product ids=<:ITEM:>"
+  },
+  "203": {
+   "size": 1,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-14T08:<:NUM:>:<:NUM:>.083578Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-14T08:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}"
+  },
+  "204": {
+   "size": 1,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-14T08:<:NUM:>:<:NUM:>.680626Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-14T08:<:NUM:>:<:NUM:>.68091567Z\"}"
+  },
+  "205": {
+   "size": 258,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to prepare order: failed to get product #\"<:PRODUCTID:>\""
+  },
+  "206": {
+   "size": 258,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to get product #\"<:PRODUCTID:>\""
+  },
+  "207": {
+   "size": 4999,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> No product with ID <:PRODUCTID:>"
+  },
+  "208": {
+   "size": 63875,
+   "template": "<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO - TraceID: <:TRACEID:> SpanID: <:SPANID:> No context provided. Constructe random Ads start"
+  },
+  "209": {
+   "size": 9,
+   "template": "{\"log\":\"Inject cpu successfullyInject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.040061Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.04024563Z\"}"
+  },
+  "210": {
+   "size": 2,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Could not retrieve currencies"
+  },
+  "211": {
+   "size": 1,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to prepare order: failed to convert price of \"<:PRODUCTID:>\" to CAD"
+  },
+  "212": {
+   "size": 1,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to convert price of \"<:PRODUCTID:>\" to CAD"
+  },
+  "213": {
+   "size": 1,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Failed to convert currency: rpc error: code = Unavailable desc = upstream connect error or disconnect/reset before headers. reset reason: connection failure, transport failure reason: delayed connect error: <:NUM:>"
+  },
+  "214": {
+   "size": 1436283,
+   "template": "TraceID: <:TRACEID:> SpanID: <:SPANID:> Query product successfully"
+  },
+  "215": {
+   "size": 6,
+   "template": "ts-gateway-service /* start"
+  },
+  "216": {
+   "size": 6,
+   "template": "ts-gateway-service /* end"
+  },
+  "217": {
+   "size": 6,
+   "template": "ts-gateway-service FilteringWebHandler.handle start"
+  },
+  "218": {
+   "size": 6,
+   "template": "ts-gateway-service FilteringWebHandler.handle end"
+  },
+  "219": {
+   "size": 5,
+   "template": "ts-gateway-service HTTP POST start"
+  },
+  "220": {
+   "size": 5,
+   "template": "ts-gateway-service HTTP POST end"
+  },
+  "221": {
+   "size": 2,
+   "template": "ts-preserve-service /api/v1/preserveservice/preserve start"
+  },
+  "222": {
+   "size": 5059,
+   "template": "ERROR o.a.c.c.C.[.[.[.[dispatcherServlet]#<:NUM:>"
+  },
+  "223": {
+   "size": 2,
+   "template": "ts-preserve-service /api/v1/preserveservice/preserve end"
+  },
+  "224": {
+   "size": 2,
+   "template": "ts-preserve-service PreserveController.preserve start"
+  },
+  "225": {
+   "size": 45372,
+   "template": "p.s.PreserveServiceImpl#<:NUM:>"
+  },
+  "226": {
+   "size": 3146,
+   "template": "p.c.PreserveController#<:NUM:>"
+  },
+  "227": {
+   "size": 2,
+   "template": "ts-preserve-service PreserveController.preserve end"
+  },
+  "228": {
+   "size": 1,
+   "template": "ts-preserve-service BasicErrorController.error start"
+  },
+  "229": {
+   "size": 1,
+   "template": "ts-preserve-service BasicErrorController.error end"
+  },
+  "230": {
+   "size": 5,
+   "template": "ts-preserve-service HTTP GET start"
+  },
+  "231": {
+   "size": 5,
+   "template": "ts-preserve-service HTTP GET end"
+  },
+  "232": {
+   "size": 7,
+   "template": "ts-preserve-service HTTP POST start"
+  },
+  "233": {
+   "size": 7,
+   "template": "ts-preserve-service HTTP POST end"
+  },
+  "234": {
+   "size": 3,
+   "template": "ts-security-service /api/v1/securityservice/securityConfigs/{accountId} start"
+  },
+  "235": {
+   "size": 3,
+   "template": "ts-security-service /api/v1/securityservice/securityConfigs/{accountId} end"
+  },
+  "236": {
+   "size": 3,
+   "template": "ts-security-service SecurityController.check start"
+  },
+  "237": {
+   "size": 16293,
+   "template": "s.s.SecurityServiceImpl#<:NUM:>"
+  },
+  "238": {
+   "size": 5475,
+   "template": "s.c.SecurityController#<:NUM:>"
+  },
+  "239": {
+   "size": 3,
+   "template": "ts-security-service SecurityController.check end"
+  },
+  "240": {
+   "size": 6,
+   "template": "ts-security-service HTTP GET start"
+  },
+  "241": {
+   "size": 6,
+   "template": "ts-security-service HTTP GET end"
+  },
+  "242": {
+   "size": 3,
+   "template": "ts-order-service /api/v1/orderservice/order/security/{checkDate}/{accountId} start"
+  },
+  "243": {
+   "size": 3,
+   "template": "ts-order-service /api/v1/orderservice/order/security/{checkDate}/{accountId} end"
+  },
+  "244": {
+   "size": 5,
+   "template": "ts-order-service /api/v1/orderservice/order/tickets start"
+  },
+  "245": {
+   "size": 5,
+   "template": "ts-order-service /api/v1/orderservice/order/tickets end"
+  },
+  "246": {
+   "size": 3,
+   "template": "ts-order-service OrderController.securityInfoCheck start"
+  },
+  "247": {
+   "size": 63809,
+   "template": "o.c.OrderController#<:NUM:>"
+  },
+  "248": {
+   "size": 3,
+   "template": "ts-order-service OrderController.securityInfoCheck end"
+  },
+  "249": {
+   "size": 5,
+   "template": "ts-order-service OrderController.getTicketListByDateAndTripId start"
+  },
+  "250": {
+   "size": 60867,
+   "template": "o.s.<:SPANID:>#<:NUM:>"
+  },
+  "251": {
+   "size": 5,
+   "template": "ts-order-service OrderController.getTicketListByDateAndTripId end"
+  },
+  "252": {
+   "size": 4,
+   "template": "ts-order-service OrderRepository.findByAccountId start"
+  },
+  "253": {
+   "size": 4,
+   "template": "ts-order-service OrderRepository.findByAccountId end"
+  },
+  "254": {
+   "size": 5,
+   "template": "ts-order-service OrderRepository.findByTravelDateAndTrainNumber start"
+  },
+  "255": {
+   "size": 5,
+   "template": "ts-order-service OrderRepository.findByTravelDateAndTrainNumber end"
+  },
+  "256": {
+   "size": 9,
+   "template": "ts-order-service SELECT Order start"
+  },
+  "257": {
+   "size": 9,
+   "template": "ts-order-service SELECT Order end"
+  },
+  "258": {
+   "size": 12,
+   "template": "ts-order-service SELECT ts.orders start"
+  },
+  "259": {
+   "size": 12,
+   "template": "ts-order-service SELECT ts.orders end"
+  },
+  "260": {
+   "size": 3,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId} start"
+  },
+  "261": {
+   "size": 3,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId} end"
+  },
+  "262": {
+   "size": 3,
+   "template": "ts-order-other-service OrderOtherController.securityInfoCheck start"
+  },
+  "263": {
+   "size": 37745,
+   "template": "o.c.OrderOtherController#<:NUM:>"
+  },
+  "264": {
+   "size": 3,
+   "template": "ts-order-other-service OrderOtherController.securityInfoCheck end"
+  },
+  "265": {
+   "size": 4,
+   "template": "ts-order-other-service OrderOtherRepository.findByAccountId start"
+  },
+  "266": {
+   "size": 4,
+   "template": "ts-order-other-service OrderOtherRepository.findByAccountId end"
+  },
+  "267": {
+   "size": 7,
+   "template": "ts-order-other-service SELECT Order start"
+  },
+  "268": {
+   "size": 7,
+   "template": "ts-order-other-service SELECT Order end"
+  },
+  "269": {
+   "size": 10,
+   "template": "ts-order-other-service SELECT ts.orders other start"
+  },
+  "270": {
+   "size": 10,
+   "template": "ts-order-other-service SELECT ts.orders other end"
+  },
+  "271": {
+   "size": 6,
+   "template": "ts-security-service SecurityRepository.findByName start"
+  },
+  "272": {
+   "size": 6,
+   "template": "ts-security-service SecurityRepository.findByName end"
+  },
+  "273": {
+   "size": 6,
+   "template": "ts-security-service SELECT SecurityConfig start"
+  },
+  "274": {
+   "size": 6,
+   "template": "ts-security-service SELECT SecurityConfig end"
+  },
+  "275": {
+   "size": 6,
+   "template": "ts-security-service SELECT ts.security config start"
+  },
+  "276": {
+   "size": 6,
+   "template": "ts-security-service SELECT ts.security config end"
+  },
+  "277": {
+   "size": 3,
+   "template": "ts-contacts-service /api/v1/contactservice/contacts/{id} start"
+  },
+  "278": {
+   "size": 3,
+   "template": "ts-contacts-service /api/v1/contactservice/contacts/{id} end"
+  },
+  "279": {
+   "size": 3,
+   "template": "ts-contacts-service ContactsController.getContactsByContactsId start"
+  },
+  "280": {
+   "size": 10842,
+   "template": "c.s.ContactsServiceImpl#<:NUM:>"
+  },
+  "281": {
+   "size": 10842,
+   "template": "c.c.ContactsController#<:NUM:>"
+  },
+  "282": {
+   "size": 3,
+   "template": "ts-contacts-service ContactsController.getContactsByContactsId end"
+  },
+  "283": {
+   "size": 3,
+   "template": "ts-contacts-service ContactsRepository.findById start"
+  },
+  "284": {
+   "size": 3,
+   "template": "ts-contacts-service ContactsRepository.findById end"
+  },
+  "285": {
+   "size": 3,
+   "template": "ts-contacts-service Session.find contacts.entity.Contacts start"
+  },
+  "286": {
+   "size": 3,
+   "template": "ts-contacts-service Session.find contacts.entity.Contacts end"
+  },
+  "287": {
+   "size": 3,
+   "template": "ts-contacts-service Transaction.commit start"
+  },
+  "288": {
+   "size": 3,
+   "template": "ts-contacts-service Transaction.commit end"
+  },
+  "289": {
+   "size": 3,
+   "template": "ts-contacts-service SELECT ts.contacts start"
+  },
+  "290": {
+   "size": 3,
+   "template": "ts-contacts-service SELECT ts.contacts end"
+  },
+  "291": {
+   "size": 2,
+   "template": "ts-travel-service /api/v1/travelservice/trip detail start"
+  },
+  "292": {
+   "size": 2,
+   "template": "ts-travel-service /api/v1/travelservice/trip detail end"
+  },
+  "293": {
+   "size": 2,
+   "template": "ts-travel-service <:SPANID:>.getTripAllDetailInfo start"
+  },
+  "294": {
+   "size": 250387,
+   "template": "t.s.TravelServiceImpl#<:NUM:>"
+  },
+  "295": {
+   "size": 16592,
+   "template": "t.c.<:SPANID:>#<:NUM:>"
+  },
+  "296": {
+   "size": 2,
+   "template": "ts-travel-service <:SPANID:>.getTripAllDetailInfo end"
+  },
+  "297": {
+   "size": 4,
+   "template": "ts-travel-service TripRepository.findByTripId start"
+  },
+  "298": {
+   "size": 4,
+   "template": "ts-travel-service TripRepository.findByTripId end"
+  },
+  "299": {
+   "size": 4,
+   "template": "ts-travel-service SELECT Trip start"
+  },
+  "300": {
+   "size": 4,
+   "template": "ts-travel-service SELECT Trip end"
+  },
+  "301": {
+   "size": 4,
+   "template": "ts-travel-service SELECT ts.trip start"
+  },
+  "302": {
+   "size": 4,
+   "template": "ts-travel-service SELECT ts.trip end"
+  },
+  "303": {
+   "size": 6,
+   "template": "ts-travel-service HTTP POST start"
+  },
+  "304": {
+   "size": 6,
+   "template": "ts-travel-service HTTP POST end"
+  },
+  "305": {
+   "size": 6,
+   "template": "ts-basic-service /api/v1/basicservice/basic/travel start"
+  },
+  "306": {
+   "size": 6,
+   "template": "ts-basic-service /api/v1/basicservice/basic/travel end"
+  },
+  "307": {
+   "size": 6,
+   "template": "ts-basic-service BasicController.queryForTravel start"
+  },
+  "308": {
+   "size": 245209,
+   "template": "f.m.s.<:SPANID:>#<:NUM:>"
+  },
+  "309": {
+   "size": 29857,
+   "template": "f.m.c.BasicController#<:NUM:>"
+  },
+  "310": {
+   "size": 6,
+   "template": "ts-basic-service BasicController.queryForTravel end"
+  },
+  "311": {
+   "size": 30,
+   "template": "ts-basic-service HTTP GET start"
+  },
+  "312": {
+   "size": 30,
+   "template": "ts-basic-service HTTP GET end"
+  },
+  "313": {
+   "size": 12,
+   "template": "ts-station-service /api/v1/stationservice/stations/id/{<:SPANID:>} start"
+  },
+  "314": {
+   "size": 12,
+   "template": "ts-station-service /api/v1/stationservice/stations/id/{<:SPANID:>} end"
+  },
+  "315": {
+   "size": 12,
+   "template": "ts-station-service StationController.queryForStationId start"
+  },
+  "316": {
+   "size": 39589,
+   "template": "f.m.c.StationController#<:NUM:>"
+  },
+  "317": {
+   "size": 12,
+   "template": "ts-station-service StationController.queryForStationId end"
+  },
+  "318": {
+   "size": 12,
+   "template": "ts-station-service StationRepository.findByName start"
+  },
+  "319": {
+   "size": 12,
+   "template": "ts-station-service StationRepository.findByName end"
+  },
+  "320": {
+   "size": 12,
+   "template": "ts-station-service SELECT Station start"
+  },
+  "321": {
+   "size": 12,
+   "template": "ts-station-service SELECT Station end"
+  },
+  "322": {
+   "size": 13,
+   "template": "ts-station-service SELECT ts.station start"
+  },
+  "323": {
+   "size": 13,
+   "template": "ts-station-service SELECT ts.station end"
+  },
+  "324": {
+   "size": 6,
+   "template": "ts-train-service /api/v1/trainservice/trains/byName/{name} start"
+  },
+  "325": {
+   "size": 6,
+   "template": "ts-train-service /api/v1/trainservice/trains/byName/{name} end"
+  },
+  "326": {
+   "size": 7,
+   "template": "ts-train-service TrainController.retrieveByName start"
+  },
+  "327": {
+   "size": 29335,
+   "template": "t.c.TrainController#<:NUM:>"
+  },
+  "328": {
+   "size": 7,
+   "template": "ts-train-service TrainController.retrieveByName end"
+  },
+  "329": {
+   "size": 6,
+   "template": "ts-train-service TrainTypeRepository.findByName start"
+  },
+  "330": {
+   "size": 6,
+   "template": "ts-train-service TrainTypeRepository.findByName end"
+  },
+  "331": {
+   "size": 6,
+   "template": "ts-train-service SELECT TrainType start"
+  },
+  "332": {
+   "size": 6,
+   "template": "ts-train-service SELECT TrainType end"
+  },
+  "333": {
+   "size": 7,
+   "template": "ts-train-service SELECT ts.train type start"
+  },
+  "334": {
+   "size": 7,
+   "template": "ts-train-service SELECT ts.train type end"
+  },
+  "335": {
+   "size": 6,
+   "template": "ts-route-service /api/v1/routeservice/routes/{routeId} start"
+  },
+  "336": {
+   "size": 6,
+   "template": "ts-route-service /api/v1/routeservice/routes/{routeId} end"
+  },
+  "337": {
+   "size": 6,
+   "template": "ts-route-service RouteController.queryById start"
+  },
+  "338": {
+   "size": 30949,
+   "template": "r.c.RouteController#<:NUM:>"
+  },
+  "339": {
+   "size": 6,
+   "template": "ts-route-service RouteController.queryById end"
+  },
+  "340": {
+   "size": 6,
+   "template": "ts-route-service RouteRepository.findById start"
+  },
+  "341": {
+   "size": 6,
+   "template": "ts-route-service RouteRepository.findById end"
+  },
+  "342": {
+   "size": 6,
+   "template": "ts-route-service Session.find route.entity.Route start"
+  },
+  "343": {
+   "size": 6,
+   "template": "ts-route-service Session.find route.entity.Route end"
+  },
+  "344": {
+   "size": 6,
+   "template": "ts-route-service Transaction.commit start"
+  },
+  "345": {
+   "size": 6,
+   "template": "ts-route-service Transaction.commit end"
+  },
+  "346": {
+   "size": 7,
+   "template": "ts-route-service SELECT ts.route start"
+  },
+  "347": {
+   "size": 7,
+   "template": "ts-route-service SELECT ts.route end"
+  },
+  "348": {
+   "size": 11,
+   "template": "ts-route-service SELECT ts.route stations start"
+  },
+  "349": {
+   "size": 11,
+   "template": "ts-route-service SELECT ts.route stations end"
+  },
+  "350": {
+   "size": 11,
+   "template": "ts-route-service SELECT ts.route distances start"
+  },
+  "351": {
+   "size": 11,
+   "template": "ts-route-service SELECT ts.route distances end"
+  },
+  "352": {
+   "size": 6,
+   "template": "ts-price-service /api/v1/priceservice/prices/{routeId}/{trainType} start"
+  },
+  "353": {
+   "size": 6,
+   "template": "ts-price-service /api/v1/priceservice/prices/{routeId}/{trainType} end"
+  },
+  "354": {
+   "size": 7,
+   "template": "ts-price-service PriceController.query start"
+  },
+  "355": {
+   "size": 9732,
+   "template": "p.s.<:SPANID:>#<:NUM:>"
+  },
+  "356": {
+   "size": 28555,
+   "template": "p.c.PriceController#<:NUM:>"
+  },
+  "357": {
+   "size": 7,
+   "template": "ts-price-service PriceController.query end"
+  },
+  "358": {
+   "size": 6,
+   "template": "ts-price-service PriceConfigRepository.findByRouteIdAndTrainType start"
+  },
+  "359": {
+   "size": 6,
+   "template": "ts-price-service PriceConfigRepository.findByRouteIdAndTrainType end"
+  },
+  "360": {
+   "size": 6,
+   "template": "ts-price-service SELECT PriceConfig start"
+  },
+  "361": {
+   "size": 6,
+   "template": "ts-price-service SELECT PriceConfig end"
+  },
+  "362": {
+   "size": 7,
+   "template": "ts-price-service SELECT ts.price config start"
+  },
+  "363": {
+   "size": 7,
+   "template": "ts-price-service SELECT ts.price config end"
+  },
+  "364": {
+   "size": 8,
+   "template": "ts-seat-service /api/v1/seatservice/seats/left tickets start"
+  },
+  "365": {
+   "size": 8,
+   "template": "ts-seat-service /api/v1/seatservice/seats/left tickets end"
+  },
+  "366": {
+   "size": 8,
+   "template": "ts-seat-service SeatController.getLeftTicketOfInterval start"
+  },
+  "367": {
+   "size": 268766,
+   "template": "s.s.SeatServiceImpl#<:NUM:>"
+  },
+  "368": {
+   "size": 68356,
+   "template": "s.c.SeatController#<:NUM:>"
+  },
+  "369": {
+   "size": 8,
+   "template": "ts-seat-service SeatController.getLeftTicketOfInterval end"
+  },
+  "370": {
+   "size": 10,
+   "template": "ts-seat-service HTTP POST start"
+  },
+  "371": {
+   "size": 10,
+   "template": "ts-seat-service HTTP POST end"
+  },
+  "372": {
+   "size": 8,
+   "template": "ts-seat-service HTTP GET start"
+  },
+  "373": {
+   "size": 8,
+   "template": "ts-seat-service HTTP GET end"
+  },
+  "374": {
+   "size": 6,
+   "template": "ts-config-service /api/v1/configservice/configs/{configName} start"
+  },
+  "375": {
+   "size": 6,
+   "template": "ts-config-service /api/v1/configservice/configs/{configName} end"
+  },
+  "376": {
+   "size": 6,
+   "template": "ts-config-service <:SPANID:>.retrieve start"
+  },
+  "377": {
+   "size": 63696,
+   "template": "c.s.ConfigServiceImpl#<:NUM:>"
+  },
+  "378": {
+   "size": 67598,
+   "template": "c.c.<:SPANID:>#<:NUM:>"
+  },
+  "379": {
+   "size": 6,
+   "template": "ts-config-service <:SPANID:>.retrieve end"
+  },
+  "380": {
+   "size": 6,
+   "template": "ts-config-service <:SPANID:>.findByName start"
+  },
+  "381": {
+   "size": 6,
+   "template": "ts-config-service <:SPANID:>.findByName end"
+  },
+  "382": {
+   "size": 6,
+   "template": "ts-config-service SELECT Config start"
+  },
+  "383": {
+   "size": 6,
+   "template": "ts-config-service SELECT Config end"
+  },
+  "384": {
+   "size": 5,
+   "template": "ts-config-service SELECT ts.config start"
+  },
+  "385": {
+   "size": 5,
+   "template": "ts-config-service SELECT ts.config end"
+  },
+  "386": {
+   "size": 1,
+   "template": "ts-inside-payment-service /api/v1/inside pay service/inside payment start"
+  },
+  "387": {
+   "size": 1,
+   "template": "ts-inside-payment-service /api/v1/inside pay service/inside payment end"
+  },
+  "388": {
+   "size": 1,
+   "template": "ts-inside-payment-service InsidePaymentController.pay start"
+  },
+  "389": {
+   "size": 2977,
+   "template": "i.s.InsidePaymentServiceImpl#<:NUM:>"
+  },
+  "390": {
+   "size": 5126,
+   "template": "i.c.InsidePaymentController#<:NUM:>"
+  },
+  "391": {
+   "size": 1,
+   "template": "ts-inside-payment-service InsidePaymentController.pay end"
+  },
+  "392": {
+   "size": 2,
+   "template": "ts-inside-payment-service HTTP GET start"
+  },
+  "393": {
+   "size": 2,
+   "template": "ts-inside-payment-service HTTP GET end"
+  },
+  "394": {
+   "size": 1,
+   "template": "ts-inside-payment-service HTTP POST start"
+  },
+  "395": {
+   "size": 1,
+   "template": "ts-inside-payment-service HTTP POST end"
+  },
+  "396": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId} start"
+  },
+  "397": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId} end"
+  },
+  "398": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/status/{orderId}/{status} start"
+  },
+  "399": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/status/{orderId}/{status} end"
+  },
+  "400": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.getOrderById start"
+  },
+  "401": {
+   "size": 34107,
+   "template": "o.s.OrderOtherServiceImpl#<:NUM:>"
+  },
+  "402": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.getOrderById end"
+  },
+  "403": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.modifyOrder start"
+  },
+  "404": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.modifyOrder end"
+  },
+  "405": {
+   "size": 2,
+   "template": "ts-order-other-service OrderOtherRepository.findById start"
+  },
+  "406": {
+   "size": 2,
+   "template": "ts-order-other-service OrderOtherRepository.findById end"
+  },
+  "407": {
+   "size": 2,
+   "template": "ts-order-other-service OrderOtherRepository.save start"
+  },
+  "408": {
+   "size": 2,
+   "template": "ts-order-other-service OrderOtherRepository.save end"
+  },
+  "409": {
+   "size": 2,
+   "template": "ts-order-other-service Session.find other.entity.Order start"
+  },
+  "410": {
+   "size": 2,
+   "template": "ts-order-other-service Session.find other.entity.Order end"
+  },
+  "411": {
+   "size": 4,
+   "template": "ts-order-other-service Transaction.commit start"
+  },
+  "412": {
+   "size": 4,
+   "template": "ts-order-other-service Transaction.commit end"
+  },
+  "413": {
+   "size": 2,
+   "template": "ts-order-other-service Session.merge other.entity.Order start"
+  },
+  "414": {
+   "size": 2,
+   "template": "ts-order-other-service Session.merge other.entity.Order end"
+  },
+  "415": {
+   "size": 1,
+   "template": "ts-order-other-service UPDATE ts.orders other start"
+  },
+  "416": {
+   "size": 1,
+   "template": "ts-order-other-service UPDATE ts.orders other end"
+  },
+  "417": {
+   "size": 1,
+   "template": "ts-inside-payment-service PaymentRepository.findByUserId start"
+  },
+  "418": {
+   "size": 1,
+   "template": "ts-inside-payment-service PaymentRepository.findByUserId end"
+  },
+  "419": {
+   "size": 2,
+   "template": "ts-inside-payment-service AddMoneyRepository.findByUserId start"
+  },
+  "420": {
+   "size": 2,
+   "template": "ts-inside-payment-service AddMoneyRepository.findByUserId end"
+  },
+  "421": {
+   "size": 1,
+   "template": "ts-inside-payment-service PaymentRepository.save start"
+  },
+  "422": {
+   "size": 1,
+   "template": "ts-inside-payment-service PaymentRepository.save end"
+  },
+  "423": {
+   "size": 1,
+   "template": "ts-inside-payment-service SELECT Payment start"
+  },
+  "424": {
+   "size": 1,
+   "template": "ts-inside-payment-service SELECT Payment end"
+  },
+  "425": {
+   "size": 2,
+   "template": "ts-inside-payment-service SELECT Money start"
+  },
+  "426": {
+   "size": 2,
+   "template": "ts-inside-payment-service SELECT Money end"
+  },
+  "427": {
+   "size": 1,
+   "template": "ts-inside-payment-service Session.persist inside payment.entity.Payment start"
+  },
+  "428": {
+   "size": 1,
+   "template": "ts-inside-payment-service Session.persist inside payment.entity.Payment end"
+  },
+  "429": {
+   "size": 2,
+   "template": "ts-inside-payment-service Transaction.commit start"
+  },
+  "430": {
+   "size": 2,
+   "template": "ts-inside-payment-service Transaction.commit end"
+  },
+  "431": {
+   "size": 1,
+   "template": "ts-inside-payment-service SELECT ts.inside payment start"
+  },
+  "432": {
+   "size": 1,
+   "template": "ts-inside-payment-service SELECT ts.inside payment end"
+  },
+  "433": {
+   "size": 2,
+   "template": "ts-inside-payment-service SELECT ts.inside money start"
+  },
+  "434": {
+   "size": 2,
+   "template": "ts-inside-payment-service SELECT ts.inside money end"
+  },
+  "435": {
+   "size": 1,
+   "template": "ts-inside-payment-service INSERT ts.inside payment start"
+  },
+  "436": {
+   "size": 1,
+   "template": "ts-inside-payment-service INSERT ts.inside payment end"
+  },
+  "437": {
+   "size": 1,
+   "template": "ts-payment-service /api/v1/paymentservice/payment start"
+  },
+  "438": {
+   "size": 1,
+   "template": "ts-payment-service /api/v1/paymentservice/payment end"
+  },
+  "439": {
+   "size": 1,
+   "template": "ts-payment-service PaymentController.pay start"
+  },
+  "440": {
+   "size": 2311,
+   "template": "c.t.c.PaymentController#<:NUM:>"
+  },
+  "441": {
+   "size": 1,
+   "template": "ts-payment-service PaymentController.pay end"
+  },
+  "442": {
+   "size": 1,
+   "template": "ts-payment-service PaymentRepository.findByOrderId start"
+  },
+  "443": {
+   "size": 1,
+   "template": "ts-payment-service PaymentRepository.findByOrderId end"
+  },
+  "444": {
+   "size": 1,
+   "template": "ts-payment-service PaymentRepository.save start"
+  },
+  "445": {
+   "size": 1,
+   "template": "ts-payment-service PaymentRepository.save end"
+  },
+  "446": {
+   "size": 1,
+   "template": "ts-payment-service SELECT Payment start"
+  },
+  "447": {
+   "size": 1,
+   "template": "ts-payment-service SELECT Payment end"
+  },
+  "448": {
+   "size": 1,
+   "template": "ts-payment-service Session.merge com.trainticket.entity.Payment start"
+  },
+  "449": {
+   "size": 1,
+   "template": "ts-payment-service Session.merge com.trainticket.entity.Payment end"
+  },
+  "450": {
+   "size": 1,
+   "template": "ts-payment-service Transaction.commit start"
+  },
+  "451": {
+   "size": 1,
+   "template": "ts-payment-service Transaction.commit end"
+  },
+  "452": {
+   "size": 2,
+   "template": "ts-payment-service SELECT ts.payment start"
+  },
+  "453": {
+   "size": 2,
+   "template": "ts-payment-service SELECT ts.payment end"
+  },
+  "454": {
+   "size": 1,
+   "template": "ts-payment-service INSERT ts.payment start"
+  },
+  "455": {
+   "size": 1,
+   "template": "ts-payment-service INSERT ts.payment end"
+  },
+  "456": {
+   "size": 229,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": <:*:> \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-23T15:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}"
+  },
+  "457": {
+   "size": 432,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": <:*:> \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}"
+  },
+  "458": {
+   "size": 86,
+   "template": "{\"log\":\"Inject cpu successfullyInject cpu successfully{\\\"timestamp\\\": <:*:> \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> List Recommendations product ids=<:ITEM:>"
+  },
+  "459": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.654801Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.65499791Z\"}"
+  },
+  "460": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfullyInject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.540838Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}"
+  },
+  "461": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.540111Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.54026801Z\"}"
+  },
+  "462": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.340490Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.34064974Z\"}"
+  },
+  "463": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.845088Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.84525739Z\"}"
+  },
+  "464": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.140843Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.14100109Z\"}"
+  },
+  "465": {
+   "size": 8,
+   "template": "{\"log\":\"Inject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.440510Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-22T07:<:NUM:>:<:NUM:>.44068485Z\"}"
+  },
+  "466": {
+   "size": 6,
+   "template": "{\"log\":\"Inject cpu successfullyInject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-23T15:<:NUM:>:<:NUM:>.240007Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-23T15:<:NUM:>:<:NUM:>.24016991Z\"}"
+  },
+  "467": {
+   "size": 6,
+   "template": "{\"log\":\"Inject cpu successfullyInject cpu successfully{\\\"timestamp\\\": \\\"<:NUM:>-<:NUM:>-23T15:<:NUM:>:<:NUM:>.551299Z\\\", \\\"severity\\\": \\\"INFO\\\", \\\"name\\\": \\\"recommendationservice-server\\\", \\\"message\\\": \\\"TraceID: <:TRACEID:> SpanID: <:SPANID:> Query Recommendations\\\"}\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-23T15:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}"
+  },
+  "468": {
+   "size": 34415,
+   "template": "p.s.PreserveOtherServiceImpl#<:NUM:>"
+  },
+  "469": {
+   "size": 2353,
+   "template": "p.c.PreserveOtherController#<:NUM:>"
+  },
+  "470": {
+   "size": 6894,
+   "template": "v.c.VerifyCodeController#<:NUM:>"
+  },
+  "471": {
+   "size": 7080,
+   "template": "v.s.i.VerifyCodeServiceImpl#<:NUM:>"
+  },
+  "472": {
+   "size": 3540,
+   "template": "a.s.i.<:SPANID:>#<:NUM:>"
+  },
+  "473": {
+   "size": 3540,
+   "template": "a.s.UserDetailsServiceImpl#<:NUM:>"
+  },
+  "474": {
+   "size": 3600,
+   "template": "a.c.UserController#<:NUM:>"
+  },
+  "475": {
+   "size": 12458,
+   "template": "t.c.Travel2Controller#<:NUM:>"
+  },
+  "476": {
+   "size": 5299,
+   "template": "u.c.UserController#<:NUM:>"
+  },
+  "477": {
+   "size": 7800,
+   "template": "e.s.ExecuteServiceImpl#<:NUM:>"
+  },
+  "478": {
+   "size": 4146,
+   "template": "e.c.ExecuteControlller#<:NUM:>"
+  },
+  "479": {
+   "size": 2070,
+   "template": "ERROR e.s.ExecuteServiceImpl#<:NUM:>"
+  },
+  "480": {
+   "size": 22163,
+   "template": "c.s.CancelServiceImpl#<:NUM:>"
+  },
+  "481": {
+   "size": 2143,
+   "template": "a.s.AssuranceServiceImpl#<:NUM:>"
+  },
+  "482": {
+   "size": 2143,
+   "template": "a.c.AssuranceController#<:NUM:>"
+  },
+  "483": {
+   "size": 2718,
+   "template": "t.c.TrainFoodController#<:NUM:>"
+  },
+  "484": {
+   "size": 2634,
+   "template": "f.c.StationFoodController#<:NUM:>"
+  },
+  "485": {
+   "size": 2634,
+   "template": "ERROR f.s.FoodServiceImpl#<:NUM:>"
+  },
+  "486": {
+   "size": 11894,
+   "template": "f.s.FoodServiceImpl#<:NUM:>"
+  },
+  "487": {
+   "size": 4627,
+   "template": "f.c.FoodController#<:NUM:>"
+  },
+  "488": {
+   "size": 1831,
+   "template": "f.mq.RabbitSend#<:NUM:>"
+  },
+  "489": {
+   "size": 5493,
+   "template": "d.m.RabbitReceive#<:NUM:>"
+  },
+  "490": {
+   "size": 12,
+   "template": "o.s.b.a.a.m.OnlyOnceLoggingDenyMeterFilter#<:NUM:>"
+  },
+  "491": {
+   "size": 6,
+   "template": "{\"log\":\"<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO u.c.UserController#<:NUM:> TraceID: <:TRACEID:> SpanID: <:SPANID:>[getUserByUserId][Get user by user id][UserId: <:USERID:>]\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-29T10:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}ulate distance][calculate time\uff1a<:NUM:> time: Sat May <:NUM:> <:NUM:>:<:NUM:>:<:NUM:> CST <:NUM:>]\\n\"\""
+  },
+  "492": {
+   "size": 6,
+   "template": "{\"log\":\"<:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> INFO u.c.UserController#<:NUM:> TraceID: <:TRACEID:> SpanID: <:SPANID:>[getUserByUserId][Get user by user id][UserId: <:USERID:>]\\n\",\"stream\":\"stdout\",\"time\":\"<:NUM:>-<:NUM:>-29T10:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"}:\"\"<:NUM:>-<:NUM:>-29T10:<:NUM:>:<:NUM:>.<:PRODUCTID:>\"\"}\""
+  },
+  "493": {
+   "size": 1,
+   "template": "ts-travel2-service /api/v1/travel2service/trips/left start"
+  },
+  "494": {
+   "size": 1,
+   "template": "ts-travel2-service /api/v1/travel2service/trips/left end"
+  },
+  "495": {
+   "size": 1,
+   "template": "ts-travel2-service Travel2Controller.queryInfo start"
+  },
+  "496": {
+   "size": 1,
+   "template": "ts-travel2-service Travel2Controller.queryInfo end"
+  },
+  "497": {
+   "size": 1,
+   "template": "ts-travel2-service TripRepository.findAll start"
+  },
+  "498": {
+   "size": 1,
+   "template": "ts-travel2-service TripRepository.findAll end"
+  },
+  "499": {
+   "size": 3,
+   "template": "ts-travel2-service SELECT Trip start"
+  },
+  "500": {
+   "size": 3,
+   "template": "ts-travel2-service SELECT Trip end"
+  },
+  "501": {
+   "size": 1,
+   "template": "ts-travel2-service Transaction.commit start"
+  },
+  "502": {
+   "size": 1,
+   "template": "ts-travel2-service Transaction.commit end"
+  },
+  "503": {
+   "size": 3,
+   "template": "ts-travel2-service SELECT ts.trip2 start"
+  },
+  "504": {
+   "size": 3,
+   "template": "ts-travel2-service SELECT ts.trip2 end"
+  },
+  "505": {
+   "size": 6,
+   "template": "ts-travel2-service HTTP POST start"
+  },
+  "506": {
+   "size": 6,
+   "template": "ts-travel2-service HTTP POST end"
+  },
+  "507": {
+   "size": 1,
+   "template": "ts-basic-service /api/v1/basicservice/basic/travels start"
+  },
+  "508": {
+   "size": 1,
+   "template": "ts-basic-service /api/v1/basicservice/basic/travels end"
+  },
+  "509": {
+   "size": 1,
+   "template": "ts-basic-service BasicController.queryForTravels start"
+  },
+  "510": {
+   "size": 1,
+   "template": "ts-basic-service BasicController.queryForTravels end"
+  },
+  "511": {
+   "size": 4,
+   "template": "ts-basic-service HTTP POST start"
+  },
+  "512": {
+   "size": 4,
+   "template": "ts-basic-service HTTP POST end"
+  },
+  "513": {
+   "size": 1,
+   "template": "ts-station-service /api/v1/stationservice/stations/idlist start"
+  },
+  "514": {
+   "size": 1,
+   "template": "ts-station-service /api/v1/stationservice/stations/idlist end"
+  },
+  "515": {
+   "size": 1,
+   "template": "ts-station-service StationController.queryForIdBatch start"
+  },
+  "516": {
+   "size": 1,
+   "template": "ts-station-service StationController.queryForIdBatch end"
+  },
+  "517": {
+   "size": 1,
+   "template": "ts-station-service StationRepository.findByNames start"
+  },
+  "518": {
+   "size": 1,
+   "template": "ts-station-service StationRepository.findByNames end"
+  },
+  "519": {
+   "size": 1,
+   "template": "ts-station-service SELECT station start"
+  },
+  "520": {
+   "size": 1,
+   "template": "ts-station-service SELECT station end"
+  },
+  "521": {
+   "size": 1,
+   "template": "ts-train-service /api/v1/trainservice/trains/byNames start"
+  },
+  "522": {
+   "size": 1,
+   "template": "ts-train-service /api/v1/trainservice/trains/byNames end"
+  },
+  "523": {
+   "size": 1,
+   "template": "ts-train-service TrainTypeRepository.findByNames start"
+  },
+  "524": {
+   "size": 1,
+   "template": "ts-train-service TrainTypeRepository.findByNames end"
+  },
+  "525": {
+   "size": 1,
+   "template": "ts-train-service SELECT train type start"
+  },
+  "526": {
+   "size": 1,
+   "template": "ts-train-service SELECT train type end"
+  },
+  "527": {
+   "size": 1,
+   "template": "ts-route-service /api/v1/routeservice/routes/byIds/ start"
+  },
+  "528": {
+   "size": 1,
+   "template": "ts-route-service /api/v1/routeservice/routes/byIds/ end"
+  },
+  "529": {
+   "size": 1,
+   "template": "ts-route-service RouteController.queryByIds start"
+  },
+  "530": {
+   "size": 1,
+   "template": "ts-route-service RouteController.queryByIds end"
+  },
+  "531": {
+   "size": 1,
+   "template": "ts-route-service RouteRepository.findByIds start"
+  },
+  "532": {
+   "size": 1,
+   "template": "ts-route-service RouteRepository.findByIds end"
+  },
+  "533": {
+   "size": 1,
+   "template": "ts-route-service SELECT route start"
+  },
+  "534": {
+   "size": 1,
+   "template": "ts-route-service SELECT route end"
+  },
+  "535": {
+   "size": 1,
+   "template": "ts-price-service /api/v1/priceservice/prices/byRouteIdsAndTrainTypes start"
+  },
+  "536": {
+   "size": 1,
+   "template": "ts-price-service /api/v1/priceservice/prices/byRouteIdsAndTrainTypes end"
+  },
+  "537": {
+   "size": 1,
+   "template": "ts-price-service PriceConfigRepository.findByRouteIdsAndTrainTypes start"
+  },
+  "538": {
+   "size": 1,
+   "template": "ts-price-service PriceConfigRepository.findByRouteIdsAndTrainTypes end"
+  },
+  "539": {
+   "size": 1,
+   "template": "ts-price-service SELECT price config start"
+  },
+  "540": {
+   "size": 1,
+   "template": "ts-price-service SELECT price config end"
+  },
+  "541": {
+   "size": 5,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/tickets start"
+  },
+  "542": {
+   "size": 5,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther/tickets end"
+  },
+  "543": {
+   "size": 5,
+   "template": "ts-order-other-service OrderOtherController.getTicketListByDateAndTripId start"
+  },
+  "544": {
+   "size": 5,
+   "template": "ts-order-other-service OrderOtherController.getTicketListByDateAndTripId end"
+  },
+  "545": {
+   "size": 4,
+   "template": "ts-order-other-service OrderOtherRepository.findByTravelDateAndTrainNumber start"
+  },
+  "546": {
+   "size": 4,
+   "template": "ts-order-other-service OrderOtherRepository.findByTravelDateAndTrainNumber end"
+  },
+  "547": {
+   "size": 2,
+   "template": "ts-order-service /api/v1/orderservice/order start"
+  },
+  "548": {
+   "size": 2,
+   "template": "ts-order-service /api/v1/orderservice/order end"
+  },
+  "549": {
+   "size": 1,
+   "template": "ts-order-service OrderController.createNewOrder start"
+  },
+  "550": {
+   "size": 1,
+   "template": "ts-order-service OrderController.createNewOrder end"
+  },
+  "551": {
+   "size": 2,
+   "template": "ts-order-service OrderRepository.save start"
+  },
+  "552": {
+   "size": 2,
+   "template": "ts-order-service OrderRepository.save end"
+  },
+  "553": {
+   "size": 2,
+   "template": "ts-order-service Session.merge order.entity.Order start"
+  },
+  "554": {
+   "size": 2,
+   "template": "ts-order-service Session.merge order.entity.Order end"
+  },
+  "555": {
+   "size": 4,
+   "template": "ts-order-service Transaction.commit start"
+  },
+  "556": {
+   "size": 4,
+   "template": "ts-order-service Transaction.commit end"
+  },
+  "557": {
+   "size": 1,
+   "template": "ts-order-service INSERT ts.orders start"
+  },
+  "558": {
+   "size": 1,
+   "template": "ts-order-service INSERT ts.orders end"
+  },
+  "559": {
+   "size": 2,
+   "template": "ts-seat-service /api/v1/seatservice/seats start"
+  },
+  "560": {
+   "size": 2,
+   "template": "ts-seat-service /api/v1/seatservice/seats end"
+  },
+  "561": {
+   "size": 2,
+   "template": "ts-seat-service SeatController.create start"
+  },
+  "562": {
+   "size": 2,
+   "template": "ts-seat-service SeatController.create end"
+  },
+  "563": {
+   "size": 1,
+   "template": "ts-food-service /api/v1/foodservice/orders start"
+  },
+  "564": {
+   "size": 1,
+   "template": "ts-food-service /api/v1/foodservice/orders end"
+  },
+  "565": {
+   "size": 1,
+   "template": "ts-food-service FoodController.createFoodOrder start"
+  },
+  "566": {
+   "size": 1,
+   "template": "ts-food-service FoodController.createFoodOrder end"
+  },
+  "567": {
+   "size": 1,
+   "template": "ts-food-service FoodOrderRepository.findByOrderId start"
+  },
+  "568": {
+   "size": 1,
+   "template": "ts-food-service FoodOrderRepository.findByOrderId end"
+  },
+  "569": {
+   "size": 1,
+   "template": "ts-food-service FoodOrderRepository.save start"
+  },
+  "570": {
+   "size": 1,
+   "template": "ts-food-service FoodOrderRepository.save end"
+  },
+  "571": {
+   "size": 1,
+   "template": "ts-food-service SELECT FoodOrder start"
+  },
+  "572": {
+   "size": 1,
+   "template": "ts-food-service SELECT FoodOrder end"
+  },
+  "573": {
+   "size": 1,
+   "template": "ts-food-service Session.merge foodsearch.entity.FoodOrder start"
+  },
+  "574": {
+   "size": 1,
+   "template": "ts-food-service Session.merge foodsearch.entity.FoodOrder end"
+  },
+  "575": {
+   "size": 1,
+   "template": "ts-food-service Transaction.commit start"
+  },
+  "576": {
+   "size": 1,
+   "template": "ts-food-service Transaction.commit end"
+  },
+  "577": {
+   "size": 2,
+   "template": "ts-food-service SELECT ts.food order start"
+  },
+  "578": {
+   "size": 2,
+   "template": "ts-food-service SELECT ts.food order end"
+  },
+  "579": {
+   "size": 1,
+   "template": "ts-food-service INSERT ts.food order start"
+  },
+  "580": {
+   "size": 1,
+   "template": "ts-food-service INSERT ts.food order end"
+  },
+  "581": {
+   "size": 1,
+   "template": "ts-food-service <default> send start"
+  },
+  "582": {
+   "size": 1,
+   "template": "ts-food-service <default> send end"
+  },
+  "583": {
+   "size": 2,
+   "template": "ts-delivery-service food delivery process start"
+  },
+  "584": {
+   "size": 2,
+   "template": "ts-delivery-service food delivery process end"
+  },
+  "585": {
+   "size": 1,
+   "template": "ts-delivery-service DeliveryRepository.save start"
+  },
+  "586": {
+   "size": 1,
+   "template": "ts-delivery-service DeliveryRepository.save end"
+  },
+  "587": {
+   "size": 1,
+   "template": "ts-delivery-service Session.merge delivery.entity.Delivery start"
+  },
+  "588": {
+   "size": 1,
+   "template": "ts-delivery-service Session.merge delivery.entity.Delivery end"
+  },
+  "589": {
+   "size": 1,
+   "template": "ts-delivery-service Transaction.commit start"
+  },
+  "590": {
+   "size": 1,
+   "template": "ts-delivery-service Transaction.commit end"
+  },
+  "591": {
+   "size": 1,
+   "template": "ts-delivery-service SELECT ts.delivery start"
+  },
+  "592": {
+   "size": 1,
+   "template": "ts-delivery-service SELECT ts.delivery end"
+  },
+  "593": {
+   "size": 1,
+   "template": "ts-delivery-service INSERT ts.delivery start"
+  },
+  "594": {
+   "size": 1,
+   "template": "ts-delivery-service INSERT ts.delivery end"
+  },
+  "595": {
+   "size": 1,
+   "template": "ts-user-service /api/v1/userservice/users/id/{userId} start"
+  },
+  "596": {
+   "size": 1,
+   "template": "ts-user-service /api/v1/userservice/users/id/{userId} end"
+  },
+  "597": {
+   "size": 1,
+   "template": "ts-user-service UserController.getUserByUserId start"
+  },
+  "598": {
+   "size": 1,
+   "template": "ts-user-service UserController.getUserByUserId end"
+  },
+  "599": {
+   "size": 1,
+   "template": "ts-user-service UserRepository.findByUserId start"
+  },
+  "600": {
+   "size": 1,
+   "template": "ts-user-service UserRepository.findByUserId end"
+  },
+  "601": {
+   "size": 1,
+   "template": "ts-user-service SELECT User start"
+  },
+  "602": {
+   "size": 1,
+   "template": "ts-user-service SELECT User end"
+  },
+  "603": {
+   "size": 1,
+   "template": "ts-user-service SELECT ts.user start"
+  },
+  "604": {
+   "size": 1,
+   "template": "ts-user-service SELECT ts.user end"
+  },
+  "605": {
+   "size": 1,
+   "template": "ts-preserve-other-service /api/v1/preserveotherservice/preserveOther start"
+  },
+  "606": {
+   "size": 1,
+   "template": "ts-preserve-other-service /api/v1/preserveotherservice/preserveOther end"
+  },
+  "607": {
+   "size": 1,
+   "template": "ts-preserve-other-service PreserveOtherController.preserve start"
+  },
+  "608": {
+   "size": 1,
+   "template": "ts-preserve-other-service PreserveOtherController.preserve end"
+  },
+  "609": {
+   "size": 4,
+   "template": "ts-preserve-other-service HTTP GET start"
+  },
+  "610": {
+   "size": 4,
+   "template": "ts-preserve-other-service HTTP GET end"
+  },
+  "611": {
+   "size": 4,
+   "template": "ts-preserve-other-service HTTP POST start"
+  },
+  "612": {
+   "size": 4,
+   "template": "ts-preserve-other-service HTTP POST end"
+  },
+  "613": {
+   "size": 1,
+   "template": "ts-travel2-service /api/v1/travel2service/trip detail start"
+  },
+  "614": {
+   "size": 1,
+   "template": "ts-travel2-service /api/v1/travel2service/trip detail end"
+  },
+  "615": {
+   "size": 1,
+   "template": "ts-travel2-service Travel2Controller.getTripAllDetailInfo start"
+  },
+  "616": {
+   "size": 1,
+   "template": "ts-travel2-service Travel2Controller.getTripAllDetailInfo end"
+  },
+  "617": {
+   "size": 2,
+   "template": "ts-travel2-service TripRepository.findByTripId start"
+  },
+  "618": {
+   "size": 2,
+   "template": "ts-travel2-service TripRepository.findByTripId end"
+  },
+  "619": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther start"
+  },
+  "620": {
+   "size": 1,
+   "template": "ts-order-other-service /api/v1/orderOtherService/orderOther end"
+  },
+  "621": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.createNewOrder start"
+  },
+  "622": {
+   "size": 1,
+   "template": "ts-order-other-service OrderOtherController.createNewOrder end"
+  },
+  "623": {
+   "size": 1,
+   "template": "ts-order-other-service INSERT ts.orders other start"
+  },
+  "624": {
+   "size": 1,
+   "template": "ts-order-other-service INSERT ts.orders other end"
+  },
+  "625": {
+   "size": 1,
+   "template": "ts-assurance-service /api/v1/<:SPANID:>/assurances/{typeIndex}/{orderId} start"
+  },
+  "626": {
+   "size": 1,
+   "template": "ts-assurance-service /api/v1/<:SPANID:>/assurances/{typeIndex}/{orderId} end"
+  },
+  "627": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceController.createNewAssurance start"
+  },
+  "628": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceController.createNewAssurance end"
+  },
+  "629": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceRepository.findByOrderId start"
+  },
+  "630": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceRepository.findByOrderId end"
+  },
+  "631": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceRepository.save start"
+  },
+  "632": {
+   "size": 1,
+   "template": "ts-assurance-service AssuranceRepository.save end"
+  },
+  "633": {
+   "size": 1,
+   "template": "ts-assurance-service SELECT Assurance start"
+  },
+  "634": {
+   "size": 1,
+   "template": "ts-assurance-service SELECT Assurance end"
+  },
+  "635": {
+   "size": 1,
+   "template": "ts-assurance-service Session.merge assurance.entity.Assurance start"
+  },
+  "636": {
+   "size": 1,
+   "template": "ts-assurance-service Session.merge assurance.entity.Assurance end"
+  },
+  "637": {
+   "size": 1,
+   "template": "ts-assurance-service Transaction.commit start"
+  },
+  "638": {
+   "size": 1,
+   "template": "ts-assurance-service Transaction.commit end"
+  },
+  "639": {
+   "size": 2,
+   "template": "ts-assurance-service SELECT ts.assurance start"
+  },
+  "640": {
+   "size": 2,
+   "template": "ts-assurance-service SELECT ts.assurance end"
+  },
+  "641": {
+   "size": 1,
+   "template": "ts-assurance-service INSERT ts.assurance start"
+  },
+  "642": {
+   "size": 1,
+   "template": "ts-assurance-service INSERT ts.assurance end"
+  },
+  "643": {
+   "size": 1,
+   "template": "ts-gateway-service HTTP GET start"
+  },
+  "644": {
+   "size": 1,
+   "template": "ts-gateway-service HTTP GET end"
+  },
+  "645": {
+   "size": 1,
+   "template": "ts-cancel-service /api/v1/cancelservice/cancel/{orderId}/{loginId} start"
+  },
+  "646": {
+   "size": 1,
+   "template": "ts-cancel-service /api/v1/cancelservice/cancel/{orderId}/{loginId} end"
+  },
+  "647": {
+   "size": 1,
+   "template": "ts-cancel-service <:SPANID:>.cancelTicket start"
+  },
+  "648": {
+   "size": 1,
+   "template": "ts-cancel-service <:SPANID:>.cancelTicket end"
+  },
+  "649": {
+   "size": 3,
+   "template": "ts-cancel-service HTTP GET start"
+  },
+  "650": {
+   "size": 3,
+   "template": "ts-cancel-service HTTP GET end"
+  },
+  "651": {
+   "size": 1,
+   "template": "ts-cancel-service HTTP PUT start"
+  },
+  "652": {
+   "size": 1,
+   "template": "ts-cancel-service HTTP PUT end"
+  },
+  "653": {
+   "size": 1,
+   "template": "ts-order-service /api/v1/orderservice/order/{orderId} start"
+  },
+  "654": {
+   "size": 1,
+   "template": "ts-order-service /api/v1/orderservice/order/{orderId} end"
+  },
+  "655": {
+   "size": 1,
+   "template": "ts-order-service OrderController.getOrderById start"
+  },
+  "656": {
+   "size": 1,
+   "template": "ts-order-service OrderController.getOrderById end"
+  },
+  "657": {
+   "size": 1,
+   "template": "ts-order-service OrderController.saveOrderInfo start"
+  },
+  "658": {
+   "size": 1,
+   "template": "ts-order-service OrderController.saveOrderInfo end"
+  },
+  "659": {
+   "size": 2,
+   "template": "ts-order-service OrderRepository.findById start"
+  },
+  "660": {
+   "size": 2,
+   "template": "ts-order-service OrderRepository.findById end"
+  },
+  "661": {
+   "size": 2,
+   "template": "ts-order-service Session.find order.entity.Order start"
+  },
+  "662": {
+   "size": 2,
+   "template": "ts-order-service Session.find order.entity.Order end"
+  },
+  "663": {
+   "size": 1,
+   "template": "ts-order-service UPDATE ts.orders start"
+  },
+  "664": {
+   "size": 1,
+   "template": "ts-order-service UPDATE ts.orders end"
+  },
+  "665": {
+   "size": 1,
+   "template": "ts-inside-payment-service /api/v1/inside pay service/inside payment/drawback/{userId}/{money} start"
+  },
+  "666": {
+   "size": 1,
+   "template": "ts-inside-payment-service /api/v1/inside pay service/inside payment/drawback/{userId}/{money} end"
+  },
+  "667": {
+   "size": 1,
+   "template": "ts-inside-payment-service InsidePaymentController.drawBack start"
+  },
+  "668": {
+   "size": 1,
+   "template": "ts-inside-payment-service InsidePaymentController.drawBack end"
+  },
+  "669": {
+   "size": 1,
+   "template": "ts-inside-payment-service AddMoneyRepository.save start"
+  },
+  "670": {
+   "size": 1,
+   "template": "ts-inside-payment-service AddMoneyRepository.save end"
+  },
+  "671": {
+   "size": 1,
+   "template": "ts-inside-payment-service Session.persist inside payment.entity.Money start"
+  },
+  "672": {
+   "size": 1,
+   "template": "ts-inside-payment-service Session.persist inside payment.entity.Money end"
+  },
+  "673": {
+   "size": 1,
+   "template": "ts-inside-payment-service INSERT ts.inside money start"
+  },
+  "674": {
+   "size": 1,
+   "template": "ts-inside-payment-service INSERT ts.inside money end"
+  }
+ },
+ "ns": "hipster"
+}

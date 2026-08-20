@@ -1,0 +1,19 @@
+[2026-08-20T12:14:05Z] START ts/service
+[2026-08-20T12:14:05Z] START hipster/service
+[2026-08-20T12:20:05Z] DONE ts/service rc=0 wall=360s
+[2026-08-20T12:20:06Z] START ts/inner
+[2026-08-20T12:25:54Z] DONE ts/inner rc=0 wall=348s
+[2026-08-20T12:26:09Z] START ts/service run2
+[2026-08-20T12:32:04Z] DONE ts/service run2 rc=0 wall=355s
+[2026-08-20T12:34:39Z] DONE hipster/service rc=137 wall=1234s
+[2026-08-20T12:34:39Z] START hipster/inner
+[2026-08-20T12:37:18Z] DONE hipster/inner rc=1 wall=159s
+[2026-08-20T12:37:18Z] ALL DONE
+[2026-08-20T12:37:37Z] START hipster/service run2
+[2026-08-20T12:39:51Z] START hipster/service -> hipster-service (workers=8)
+[2026-08-20T13:16:57Z] DONE hipster/service -> hipster-service rc=0 wall=2226s
+[2026-08-20T13:16:57Z] START hipster/inner -> hipster-inner (workers=8)
+[2026-08-20T13:54:35Z] DONE hipster/inner -> hipster-inner rc=0 wall=2258s
+[2026-08-20T13:54:35Z] START hipster/service -> hipster-service-run2 (workers=8)
+[2026-08-20T14:32:12Z] DONE hipster/service -> hipster-service-run2 rc=0 wall=2257s
+[2026-08-20T14:32:12Z] HIPSTER RETRY ALL DONE
