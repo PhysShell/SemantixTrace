@@ -26,13 +26,15 @@ precisely the S1↔S2 comparison itself.
 |---|---|---|---|---|
 | OB (56) | AC@1 service_dedup | 8.93% | 10.71% | 92.86% |
 | OB | AC@1 inner | 1.79% | 3.57% | 92.86% |
-| TT (45) | AC@1 service_dedup | 20.00% | 28.89% | 86.67% |
-| TT | AC@1 inner | 11.11% | 8.89% | 86.67% |
+| TT (45) | AC@1 service_dedup | 22.22% | 28.89% | 88.89% |
+| TT | AC@1 inner | 11.11% | 8.89% | 88.89% |
 
 Candidate sets and unlocalized counts are identical between S1 and S2
 (same retained patterns; only order changes). The tie-break shuffles
 ranks in 7/56 (OB) and 15/45 (TT) cases, moving aggregates by −2.2 to
-+8.9 pp depending on dataset and level, in both directions.
++6.7 pp depending on dataset and level, in both directions. (Numbers
+regenerated after the re-gate service_dedup fix; hipster unchanged,
+TT S1 20.00 → 22.22 — D-008.)
 
 **H2 verdict: falsified.** Under the frozen kill criteria ("adjacent-edge
 differential performs equivalently"), the graph layer adds no material
@@ -50,10 +52,10 @@ dataset where S1 retains signal:
 
 | variant | svc AC@1/AC@3 | svc MRR | unloc | inner AC@1/AC@3 | inner MRR | unloc |
 |---|---|---|---|---|---|---|
-| full S1 | 20.00/44.44 | 0.373 | 10 | 11.11/26.67 | 0.203 | 22 |
-| no-alerts | 20.00/42.22 | 0.364 | 10 | 11.11/24.44 | 0.197 | 22 |
+| full S1 | 22.22/46.67 | 0.386 | 10 | 11.11/26.67 | 0.203 | 22 |
+| no-alerts | 22.22/44.44 | 0.377 | 10 | 11.11/24.44 | 0.197 | 22 |
 | no-logs | 11.11/15.56 | 0.152 | 31 | 4.44/4.44 | 0.056 | 38 |
-| no-spans | 17.78/44.44 | 0.324 | 18 | **40.00**/48.89 | 0.451 | 20 |
+| no-spans | **40.00**/51.11 | 0.467 | 18 | **40.00**/48.89 | 0.451 | 20 |
 
 Three sharp findings:
 
@@ -64,11 +66,19 @@ Three sharp findings:
 2. **Logs carry most of the remaining signal** (removing them collapses
    service AC@1 to 11% and triples the unlocalized count).
 3. **Span events actively destroy the log signal**: removing them
-   *quadruples* inner-service AC@1 (11.11 → 40.00). This is the E2
-   mechanism confirmed by intervention, not just inspection: in a single
+   *quadruples* inner-service AC@1 (11.11 → 40.00) and nearly doubles
+   service-level AC@1 (22.22 → 40.00) — the log-only stream beats the
+   full multimodal mix on both levels. This is the E2 mechanism
+   confirmed by intervention, not just inspection: in a single
    timestamp-ordered stream, span events interleave into log-template
    chains and break the adjacent pairs the differential feeds on.
    Nezha's representation avoids this by keeping per-span event groups.
+   (A methodological footnote: the preregistered tie-sharing dense
+   ranks systematically benefit high-tie conditions, and the S-side
+   lists carry more ties than N1's; the no-spans service jump from the
+   pre-fix 17.78 to 40.00 is largely tie-group collapse. The frozen
+   semantics apply identically to every condition, so comparisons
+   remain internally consistent.)
 
 Combined E2+E3 conclusion: the damage is not "SemantixTrace lost
 information" — it is **structural flattening**. The v2 linear session
@@ -85,10 +95,28 @@ experiment per its scope control).
 of every S1 case — 1494/1494 chains (100%)** — from candidate through
 (session, seq) to the canonical event, its provenance record, and the
 source dataset row, verifying content consistency (pod/span id) at each
-step. Zero failures. Contrast: the Nezha artifact attributes pods
-through a template-ID graph walk with a hardcoded fallback pod, its
-displayed "actual pattern" is selected by a sorting bug (#11), and its
-candidate-list composition below the match is not stable across runs
-(02 §4). **H4 is supported with the strongest evidence this experiment
-produced.** The candidate a SemantixTrace-side pipeline emits can always
-say exactly which source records, through which transforms, produced it.
+step. Zero failures — under a checker with **no special-case success**.
+
+The re-gate review caught that the first version of this claim was
+weaker than the preregistered chain: alert-event provenance terminated
+at the string `generate_alarm()` (a computation name, not telemetry),
+and the checker special-cased it as a pass — a live population of 22
+candidate chains (RED artifacts: `results/regate/h4-RED.txt`,
+`h4-provenance-check.RED.json`). The repair materializes a verified
+*derivation* per alarm (118 across all 105 windows: 90 metric-sample,
+28 trace-derived-p90; 4,191 source refs in total; the metric_threshold
+fallback path was never needed). CPU/Memory alarms walk to the exact
+metric-CSV row; NetworkP90 alarms walk to every contributing trace-CSV
+row *pair* via an exact shadow replication of the artifact's derivation
+(fail-closed float-equality check against the value the artifact used).
+A useful product finding fell out of the fix: **alarm provenance is a
+DAG, not a single pointer** — one alert ← one derivation ← N source
+records — and the evidence model has to represent that.
+
+Contrast: the Nezha artifact attributes pods through a template-ID
+graph walk with a hardcoded fallback pod, its displayed "actual
+pattern" is selected by a sorting bug (#11), and its candidate-list
+composition below the match is not stable across runs (02 §4). **H4 is
+supported with the strongest evidence this experiment produced**, now
+at its declared strength: every candidate chain ends at immutable
+source records or a materialized, verified derivation over them.

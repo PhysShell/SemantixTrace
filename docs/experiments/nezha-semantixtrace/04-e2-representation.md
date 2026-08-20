@@ -73,10 +73,13 @@ per-case evidence records with candidates and provenance:
 | OnlineBoutique | AC@1 inner | 92.86% | 1.79% | −91.1 pp |
 | OnlineBoutique | MRR (service_dedup) | 0.946 | 0.177 | −0.769 |
 | OnlineBoutique | unlocalized | 2 | 37 | +35 |
-| TrainTicket (45) | AC@1 service_dedup | 86.67% | 20.00% | −66.7 pp |
-| TrainTicket | AC@1 inner | 86.67% | 11.11% | −75.6 pp |
-| TrainTicket | MRR (service_dedup) | 0.915 | 0.373 | −0.542 |
+| TrainTicket (45) | AC@1 service_dedup | 88.89% | 22.22% | −66.7 pp |
+| TrainTicket | AC@1 inner | 88.89% | 11.11% | −77.8 pp |
+| TrainTicket | MRR (service_dedup) | 0.926 | 0.386 | −0.540 |
 | TrainTicket | unlocalized | 1 | 10 | +25% of cases |
+
+(Numbers regenerated after the re-gate service_dedup semantics fix;
+hipster unchanged, TT rows moved ≤2.3 pp in both columns — D-008.)
 
 Ingestion on the S1 side was clean: zero rejected records across all
 101 cases, zero new drain3 clusters, one tokenization repair class
@@ -86,7 +89,8 @@ per window).
 ## 5. Verdict on H1 and mechanism
 
 **H1 is falsified on both development datasets — in the negative
-direction.** The frozen canonical representation does not merely fail to
+direction** (OB 92.86 → 8.93, TT 88.89 → 22.22 on the corrected primary
+metric). The frozen canonical representation does not merely fail to
 improve the fixed Nezha scorer; it removes most of the signal the scorer
 feeds on. The mechanism was established by per-case inspection (verified
 mechanically, not inferred):

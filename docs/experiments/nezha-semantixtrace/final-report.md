@@ -48,9 +48,9 @@ k-sigma detection) is absent from the artifact that produces the
 headline numbers. Nothing we built beat it.
 
 **4. Does replacing Nezha's representation with SemantixTrace improve anything?**
-No — it is catastrophic for this scorer. With the algorithm held fixed:
-OB service AC@1 92.86% → 8.93%, inner 92.86% → 1.79%; TT 86.67% → 20.00%
-and 86.67% → 11.11%. The mechanism is identified and interventionally
+No — it is catastrophic for this scorer. With the algorithm held fixed,
+on the corrected primary metric: OB service AC@1 92.86% → 8.93%, inner
+92.86% → 1.79%; TT 88.89% → 22.22% and 88.89% → 11.11%. The mechanism is identified and interventionally
 confirmed: the v2 canonical session is one timestamp-ordered linear
 stream; folding all modalities into it destroys intra-span adjacency
 (code-region template pairs never form) and shrinks the stable pattern
@@ -62,8 +62,8 @@ accuracy (11.11 → 40.00) — the interleaving itself is the damage.
 **5. Does the graph/oracle machinery add value beyond the adjacent-edge differential?**
 No. ActionGraph transition frequencies are definitionally equal to
 adjacent-pair supports; the only frozen S2 delta (Heuristics anomaly
-tie-break) reorders ties for −2.2…+8.9 pp depending on dataset/level,
-both directions, on a base 58–91 pp below the N1 baseline. The oracle
+tie-break) reorders ties for −2.2…+6.7 pp depending on dataset/level,
+both directions, on a base 60–91 pp below the N1 baseline. The oracle
 layer, frozen as annotation-only, contributes nothing measurable to
 ranking. (`05-e3-algorithm.md`)
 
@@ -75,22 +75,31 @@ remains open. (`06-…`)
 **7. Which fault classes benefit, if any?**
 Under the S-conditions, none benefit; the classes *degrade* differently.
 TT code-defect faults retain the most signal, and it lives almost
-entirely in the log modality (log-dominant ablation: inner AC@1 40%).
-Resource faults lose nearly everything because alarm decoration requires
-surviving pattern candidates. Alert events as vocabulary carry no signal
-at all (no-alerts ≡ full S1).
+entirely in the log modality: the span-free (log-dominant) ablation
+reaches AC@1 40% on both the inner and service levels — beating the
+full multimodal mix (22.22% service). Resource faults lose nearly
+everything because alarm decoration requires surviving pattern
+candidates. Alert events as vocabulary carry no signal at all
+(no-alerts ≡ full S1).
 
 **8. Which SemantixTrace components are justified by evidence?**
 The provenance/evidence architecture. The H4 check mechanically
 reconstructed **1494/1494 (100%)** candidate chains from RCA candidate
 through canonical event and provenance record to the exact source
-dataset row, with zero failures — against a baseline whose attribution
-uses a template-ID walk with a hardcoded fallback pod equal to a
-ground-truth pod, and whose explanation surface is bugged and
-nondeterministic. Also validated in passing: the fail-closed schema
-readers (every imported line passed `read_event` round-trip), the
-normalizer's determinism, and the FoldReport loss accounting
-(cardinality laws held on every window).
+dataset rows, with zero failures, under a checker with no special-case
+success: alert chains walk into materialized, verified derivations
+(118 across all windows, 4,191 source refs) rather than ending at a
+computation name — the re-gate review caught the earlier weaker form
+of this claim (22 alert chains; RED→GREEN in `results/regate/`,
+D-008). A product finding from the fix: alarm provenance is a DAG
+(one alert ← one derivation ← N source records), which the evidence
+model must represent. Contrast: the baseline's attribution uses a
+template-ID walk with a hardcoded fallback pod equal to a ground-truth
+pod, and its explanation surface is bugged and nondeterministic. Also
+validated in passing: the fail-closed schema readers (every imported
+line passed `read_event` round-trip), the normalizer's determinism,
+and the FoldReport loss accounting (cardinality laws held on every
+window).
 
 **9. Which components should be deleted, simplified, or postponed?**
 Evidence-based recommendations, not decrees:
@@ -126,7 +135,7 @@ recorder/replay/evidence infrastructure — deterministic canonical
 capture with machine-reconstructable provenance (H4, 100%) — not as an
 RCA engine. On RCA specifically the evidence supports STOP for the
 current architecture: H1 and H2 are falsified on development data with
-effect sizes (−67…−84 pp AC@1) that no measurement correction
+effect sizes (−66.7…−83.9 pp AC@1) that no measurement correction
 approaches, and the frozen kill criteria are met. A single precisely
 scoped open question survives for any future RCA revisit: whether a
 causally-grouped canonical representation (v3-scope) can preserve the

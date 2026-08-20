@@ -150,3 +150,64 @@ a fresh E2-style check plus the still-intact external lock).
 **Outcome data seen at decision time:** all E0–E3 development results
 (per D-001, exploratory by construction). No RCAEval data was ever
 downloaded or inspected.
+
+---
+
+## 2026-08-20 — D-008: Re-gate wave — evaluator drift and H4 shortcut, both RED→GREEN
+
+**Trigger.** Owner re-gate review (merge HOLD) found two defects in the
+evidence contract, both discovered AFTER all E0–E3 outcomes were seen:
+
+1. **service_dedup evaluator drift.** Both our evaluators
+   (`independent_eval.rank_service`, `s1_eval.evaluate_case`)
+   implemented the preregistered primary metric as a positional rank in
+   the dedup list (`len(seen)`), not as dense competition ranks over
+   the dedup list — tied dedup representatives did not share a rank,
+   violating the frozen §5 definition. This corrects the *measurement
+   implementation*, not the frozen definition; the definition is
+   unchanged. RED: `01ad936` (+ `results/regate/eval-semantics-RED.txt`);
+   GREEN: `02a3729` (test 5/5).
+
+2. **H4 alert-provenance shortcut.** The provenance checker granted
+   special-case success to alert events whose provenance ended at the
+   string `generate_alarm()` — a live population of 22 candidate
+   chains, so the "1494/1494 to exact source rows" claim was stronger
+   than what was verified. The checker is now strengthened TO the
+   originally declared contract (no special-case success; alert chains
+   must walk into materialized derivations whose inputs are verifiable
+   source records). RED: `fbca830` (1472/1494, 22 failures,
+   `results/regate/h4-*.RED.*`); GREEN: this commit — after
+   `repair_alert_provenance.py` materialized 118 verified derivations
+   (90 metric-sample, 28 trace-derived-p90, 4,191 source refs; 22,421
+   alert provenance records rewired across 105 windows), the
+   strengthened walk passes 1494/1494 with zero failures
+   (`results/regate/h4-GREEN.txt`, `results/e3/h4-provenance-check.json`).
+   Product finding: alarm provenance is a DAG (alert ← derivation ← N
+   source records), not a single pointer.
+
+**Per-case / aggregate deltas from correction 1** (machine records:
+`results/regate/regate-dedup-deltas.json`,
+`results/e0/eval/regate-dedup-deltas-e1.json`; all other rank modes
+asserted unchanged case-by-case):
+
+- E1 / N1: hipster both configs — 0 cases changed. TT both configs —
+  1 case (`ts-2023-01-29-011`: 2→1); service_dedup AC@1
+  86.67 → **88.89**, MRR 0.915 → 0.926.
+- E2 / S1: hipster — 0 cases. TT — 3 cases; AC@1 20.00 → **22.22**,
+  MRR 0.373 → 0.386.
+- E3 / S2: hipster — 0 cases. TT — 2 cases; AC@1 28.89 (unchanged),
+  MRR 0.411 → 0.413.
+- E3 ablations (re-run): no-alerts 22.22; no-logs 11.11 (unchanged);
+  no-spans service AC@1 17.78 → **40.00** — dense tie-sharing collapses
+  the positional-rank inflation of the high-tie log-only condition.
+  Methodological note recorded in 05 §3: tie-sharing systematically
+  benefits high-tie (S-side) conditions; the frozen semantics apply
+  identically to every condition, so comparisons remain internally
+  consistent.
+
+**Effect on conclusions.** None on H1/H2/PIVOT: every delta is ≤2.3 pp
+on N1/S1/S2 aggregates, uniformly favorable-or-neutral, and S1/S2
+remain 60–84 pp below N1 (H1 falsification also stands on service_raw,
+which never had the drift). H4 is now supported at its declared
+strength. **All quantitative results remain development/exploratory**
+(D-001); the RCAEval lock is untouched; E4 remains unexecuted.

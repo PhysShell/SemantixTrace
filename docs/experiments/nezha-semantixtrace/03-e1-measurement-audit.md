@@ -29,7 +29,13 @@ deduplicated to first candidate per service.
 | dataset | metric | HISTORICAL @1/@3/@5 | DENSE @1/@3/@5 | SERVICE_raw @1 | SERVICE_dedup @1 |
 |---|---|---|---|---|---|
 | OnlineBoutique (n=56) | labeled AS@k and AIS@k | 92.86 / 96.43 / 96.43 | 92.86 / 96.43 / 96.43 | 92.86 | 92.86 |
-| TrainTicket (n=45) | labeled AS@k and AIS@k | 86.67 / 97.78 / 97.78 | 88.89 / 97.78 / 97.78 | 88.89 | 86.67 |
+| TrainTicket (n=45) | labeled AS@k and AIS@k | 86.67 / 97.78 / 97.78 | 88.89 / 97.78 / 97.78 | 88.89 | 88.89 |
+
+(Regeneration note: the first release of this table reported
+SERVICE_dedup 86.67 for TT — an implementation drift in our own
+evaluator, caught in the re-gate review: dedup used positional ranks
+instead of the preregistered dedup-then-dense-rank tie semantics.
+RED→GREEN and per-case deltas: D-008, `results/regate/`.)
 
 **Every changed case** (contract requirement): exactly one —
 `ts-2023-01-29-011` (ts-verification-code-service, return, 09:58:04):
@@ -78,10 +84,11 @@ by 2.22 pp. No OB case changes under any semantics.
    candidate-composition instability on TT (02 §4), explanation output is
    not a reliable artifact surface.
 7. **Duplicate/equivalent candidates** — TT lists (median 18) contain
-   multiple candidates per service; deduplication to first-per-service
-   moves TT AC@1 from 88.89 (raw) back to 86.67: the tie-fixed case sits
-   behind another candidate of a *different* service after dedup. OB lists
-   (median 2) are unaffected. Duplicates matter at the margin only.
+   multiple candidates per service; under the preregistered
+   dedup-then-dense-rank semantics deduplication leaves TT AC@1 at
+   88.89 (equal to the raw list — the tie group survives dedup). OB
+   lists (median 2) are unaffected. Duplicates matter at the margin
+   only, through tie-group composition.
 8. **Evaluator/pipeline use of root-cause knowledge** — three findings:
    - *Structural (not evaluator-fixable):* the RCA window is
      `inject_time + 2 min` from the ground-truth file; the paper's Anomaly
