@@ -115,3 +115,19 @@ untouched.
 **Binding consequences.** No E2/E3 run may deviate from the frozen
 metrics, thresholds (§7), mapping, or tie/missing rules without a new
 D-entry that demotes affected results to exploratory.
+
+---
+
+## 2026-08-20 — D-006: E2 design completions frozen; single-case smoke disclosure
+
+**Decision.** The frozen mapping table left three operational points
+open; they are fixed as documented in 04-e2-representation.md §2 (alert
+session assignment, seq tie-break, linear depth analog, provenance-based
+pod attribution, TraceID-based log join) before the full E2 run.
+
+**Outcome data seen at decision time.** One mechanical smoke case
+(hipster 2022-08-22 03:53:54 cpu_contention) was scored to validate
+pipeline plumbing before this entry; its S1 output was inspected (top
+candidate: the background adservice memory alarm; no frontend
+candidate). No design parameter was changed in response. All E2 numbers
+remain development/exploratory per D-001 regardless.
