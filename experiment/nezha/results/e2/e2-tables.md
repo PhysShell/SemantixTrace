@@ -75,7 +75,7 @@ Ingestion: total rejected records across cases = 0; drain3 new clusters = 0
 
 | metric | N1 @1/@3/@5 | N1 MRR | N1 unloc | S1 @1/@3/@5 | S1 MRR | S1 unloc |
 |---|---|---|---|---|---|---|
-| AC@1 service (primary) | 86.67/97.78/97.78 | 0.915 | 1 | 22.22/46.67/60.00 | 0.386 | 10 |
+| AC@1 service (primary) | 88.89/97.78/97.78 | 0.926 | 1 | 22.22/46.67/60.00 | 0.386 | 10 |
 | AC@1 service raw | 88.89/97.78/97.78 | 0.926 | 1 | 22.22/46.67/55.56 | 0.367 | 10 |
 | AC@1 inner (dense) | 88.89/97.78/97.78 | 0.926 | 1 | 11.11/26.67/33.33 | 0.203 | 22 |
 
@@ -91,7 +91,7 @@ Candidate sets: N1 min/med/max = 4/18/63; S1 = 6/24/77
 | ts-2023-01-29-004 | return | 1 | 5 |
 | ts-2023-01-29-009 | return | 1 | 3 |
 | ts-2023-01-29-010 | return | 1 | 4 |
-| ts-2023-01-29-011 | return | 2 | 6 |
+| ts-2023-01-29-011 | return | 1 | 6 |
 | ts-2023-01-29-013 | exception | 1 | 2 |
 | ts-2023-01-29-014 | exception | 1 | 5 |
 | ts-2023-01-29-015 | exception | 1 | 2 |
