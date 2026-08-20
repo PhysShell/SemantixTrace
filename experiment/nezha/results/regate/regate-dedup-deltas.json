@@ -1,0 +1,102 @@
+{
+ "s1-hipster": {
+  "changed_cases": [],
+  "aggregate_old": {
+   "AC@1_pct": 8.928571428571429,
+   "AC@3_pct": 26.785714285714285,
+   "AC@5_pct": 32.142857142857146,
+   "MRR": 0.17728174603174604,
+   "unlocalized": 37
+  },
+  "aggregate_new": {
+   "AC@1_pct": 8.928571428571429,
+   "AC@3_pct": 26.785714285714285,
+   "AC@5_pct": 32.142857142857146,
+   "MRR": 0.17728174603174604,
+   "unlocalized": 37
+  }
+ },
+ "s1-ts": {
+  "changed_cases": [
+   {
+    "case_id": "ts-2023-01-29-008",
+    "inject_type": "return",
+    "old": 4,
+    "new": 3
+   },
+   {
+    "case_id": "ts-2023-01-30-001",
+    "inject_type": "cpu_contention",
+    "old": 2,
+    "new": 1
+   },
+   {
+    "case_id": "ts-2023-01-30-010",
+    "inject_type": "network_delay",
+    "old": 16,
+    "new": 15
+   }
+  ],
+  "aggregate_old": {
+   "AC@1_pct": 20.0,
+   "AC@3_pct": 44.44444444444444,
+   "AC@5_pct": 60.0,
+   "MRR": 0.37287999037999037,
+   "unlocalized": 10
+  },
+  "aggregate_new": {
+   "AC@1_pct": 22.22222222222222,
+   "AC@3_pct": 46.666666666666664,
+   "AC@5_pct": 60.0,
+   "MRR": 0.3859355459355459,
+   "unlocalized": 10
+  }
+ },
+ "s2-hipster": {
+  "changed_cases": [],
+  "aggregate_old": {
+   "AC@1_pct": 10.714285714285714,
+   "AC@3_pct": 23.214285714285715,
+   "AC@5_pct": 30.357142857142858,
+   "MRR": 0.1773809523809524,
+   "unlocalized": 37
+  },
+  "aggregate_new": {
+   "AC@1_pct": 10.714285714285714,
+   "AC@3_pct": 23.214285714285715,
+   "AC@5_pct": 30.357142857142858,
+   "MRR": 0.1773809523809524,
+   "unlocalized": 37
+  }
+ },
+ "s2-ts": {
+  "changed_cases": [
+   {
+    "case_id": "ts-2023-01-29-008",
+    "inject_type": "return",
+    "old": 4,
+    "new": 3
+   },
+   {
+    "case_id": "ts-2023-01-30-010",
+    "inject_type": "network_delay",
+    "old": 16,
+    "new": 15
+   }
+  ],
+  "aggregate_old": {
+   "AC@1_pct": 28.88888888888889,
+   "AC@3_pct": 46.666666666666664,
+   "AC@5_pct": 57.77777777777778,
+   "MRR": 0.41142496392496386,
+   "unlocalized": 10
+  },
+  "aggregate_new": {
+   "AC@1_pct": 28.88888888888889,
+   "AC@3_pct": 48.888888888888886,
+   "AC@5_pct": 57.77777777777778,
+   "MRR": 0.4133694083694083,
+   "unlocalized": 10
+  }
+ }
+}

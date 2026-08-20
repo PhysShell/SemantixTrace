@@ -74,14 +74,21 @@ def evaluate_case(cands, rc_parts, inject_pod, templates):
         if service_of(str(c.get("pod", ""))) == inject_svc:
             out["rank_service_raw"] = ranks[i]
             break
-    seen = []
+    # Preregistered primary semantics (00-preregistration.md §5):
+    # deduplicate to the first occurrence per service, THEN dense-rank
+    # the deduplicated list — tied representatives share a rank.
+    seen = set()
+    dedup = []
     for c in cands:
         svc = service_of(str(c.get("pod", "")))
         if svc in seen:
             continue
-        seen.append(svc)
+        seen.add(svc)
+        dedup.append((svc, c))
+    dedup_ranks = dense_ranks([c for _svc, c in dedup])
+    for i, (svc, _c) in enumerate(dedup):
         if svc == inject_svc:
-            out["rank_service_dedup"] = len(seen)
+            out["rank_service_dedup"] = dedup_ranks[i]
             break
     return out
 

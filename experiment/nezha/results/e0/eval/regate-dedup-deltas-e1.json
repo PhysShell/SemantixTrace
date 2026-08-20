@@ -1,0 +1,114 @@
+{
+ "hipster-service": {
+  "changed_cases": [],
+  "aggregate_old": {
+   "top1": 52,
+   "AC@1_pct": 92.85714285714286,
+   "top3": 54,
+   "AC@3_pct": 96.42857142857143,
+   "top5": 54,
+   "AC@5_pct": 96.42857142857143,
+   "MRR": 0.9464285714285714,
+   "localized": 54,
+   "unlocalized": 2
+  },
+  "aggregate_new": {
+   "top1": 52,
+   "AC@1_pct": 92.85714285714286,
+   "top3": 54,
+   "AC@3_pct": 96.42857142857143,
+   "top5": 54,
+   "AC@5_pct": 96.42857142857143,
+   "MRR": 0.9464285714285714,
+   "localized": 54,
+   "unlocalized": 2
+  }
+ },
+ "hipster-inner": {
+  "changed_cases": [],
+  "aggregate_old": {
+   "top1": 52,
+   "AC@1_pct": 92.85714285714286,
+   "top3": 54,
+   "AC@3_pct": 96.42857142857143,
+   "top5": 54,
+   "AC@5_pct": 96.42857142857143,
+   "MRR": 0.9464285714285714,
+   "localized": 54,
+   "unlocalized": 2
+  },
+  "aggregate_new": {
+   "top1": 52,
+   "AC@1_pct": 92.85714285714286,
+   "top3": 54,
+   "AC@3_pct": 96.42857142857143,
+   "top5": 54,
+   "AC@5_pct": 96.42857142857143,
+   "MRR": 0.9464285714285714,
+   "localized": 54,
+   "unlocalized": 2
+  }
+ },
+ "ts-service": {
+  "changed_cases": [
+   {
+    "case_id": "ts-2023-01-29-011",
+    "old": 2,
+    "new": 1
+   }
+  ],
+  "aggregate_old": {
+   "top1": 39,
+   "AC@1_pct": 86.66666666666667,
+   "top3": 44,
+   "AC@3_pct": 97.77777777777777,
+   "top5": 44,
+   "AC@5_pct": 97.77777777777777,
+   "MRR": 0.914814814814815,
+   "localized": 44,
+   "unlocalized": 1
+  },
+  "aggregate_new": {
+   "top1": 40,
+   "AC@1_pct": 88.88888888888889,
+   "top3": 44,
+   "AC@3_pct": 97.77777777777777,
+   "top5": 44,
+   "AC@5_pct": 97.77777777777777,
+   "MRR": 0.925925925925926,
+   "localized": 44,
+   "unlocalized": 1
+  }
+ },
+ "ts-inner": {
+  "changed_cases": [
+   {
+    "case_id": "ts-2023-01-29-011",
+    "old": 2,
+    "new": 1
+   }
+  ],
+  "aggregate_old": {
+   "top1": 39,
+   "AC@1_pct": 86.66666666666667,
+   "top3": 44,
+   "AC@3_pct": 97.77777777777777,
+   "top5": 44,
+   "AC@5_pct": 97.77777777777777,
+   "MRR": 0.914814814814815,
+   "localized": 44,
+   "unlocalized": 1
+  },
+  "aggregate_new": {
+   "top1": 40,
+   "AC@1_pct": 88.88888888888889,
+   "top3": 44,
+   "AC@3_pct": 97.77777777777777,
+   "top5": 44,
+   "AC@5_pct": 97.77777777777777,
+   "MRR": 0.925925925925926,
+   "localized": 44,
+   "unlocalized": 1
+  }
+ }
+}

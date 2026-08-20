@@ -9,9 +9,9 @@
     "unlocalized": 22
    },
    "rank_service_dedup": {
-    "AC@1_pct": 20.0,
-    "AC@3_pct": 42.22222222222222,
-    "MRR": 0.36399110149110153,
+    "AC@1_pct": 22.22222222222222,
+    "AC@3_pct": 44.44444444444444,
+    "MRR": 0.377046657046657,
     "unlocalized": 10
    }
   },
@@ -103,7 +103,7 @@
      "n_candidates": 28,
      "rank_inner": 3,
      "rank_service_raw": 3,
-     "rank_service_dedup": 4
+     "rank_service_dedup": 3
     }
    },
    {
@@ -313,7 +313,7 @@
      "n_candidates": 48,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -403,7 +403,7 @@
      "n_candidates": 54,
      "rank_inner": 51,
      "rank_service_raw": 51,
-     "rank_service_dedup": 16
+     "rank_service_dedup": 15
     }
    },
    {
@@ -947,9 +947,9 @@
     "unlocalized": 20
    },
    "rank_service_dedup": {
-    "AC@1_pct": 17.77777777777778,
-    "AC@3_pct": 44.44444444444444,
-    "MRR": 0.32412698412698404,
+    "AC@1_pct": 40.0,
+    "AC@3_pct": 51.111111111111114,
+    "MRR": 0.4668783068783068,
     "unlocalized": 18
    }
   },
@@ -981,7 +981,7 @@
      "n_candidates": 4,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -991,7 +991,7 @@
      "n_candidates": 8,
      "rank_inner": null,
      "rank_service_raw": 5,
-     "rank_service_dedup": 6
+     "rank_service_dedup": 5
     }
    },
    {
@@ -1011,7 +1011,7 @@
      "n_candidates": 13,
      "rank_inner": null,
      "rank_service_raw": 4,
-     "rank_service_dedup": 7
+     "rank_service_dedup": 4
     }
    },
    {
@@ -1041,7 +1041,7 @@
      "n_candidates": 14,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1051,7 +1051,7 @@
      "n_candidates": 3,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1061,7 +1061,7 @@
      "n_candidates": 8,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 3
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1071,7 +1071,7 @@
      "n_candidates": 16,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 3
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1091,7 +1091,7 @@
      "n_candidates": 13,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1101,7 +1101,7 @@
      "n_candidates": 14,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1111,7 +1111,7 @@
      "n_candidates": 5,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1121,7 +1121,7 @@
      "n_candidates": 5,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1131,7 +1131,7 @@
      "n_candidates": 6,
      "rank_inner": 1,
      "rank_service_raw": 1,
-     "rank_service_dedup": 2
+     "rank_service_dedup": 1
     }
    },
    {
@@ -1241,7 +1241,7 @@
      "n_candidates": 8,
      "rank_inner": 4,
      "rank_service_raw": 4,
-     "rank_service_dedup": 6
+     "rank_service_dedup": 4
     }
    },
    {
@@ -1251,7 +1251,7 @@
      "n_candidates": 14,
      "rank_inner": 9,
      "rank_service_raw": 9,
-     "rank_service_dedup": 10
+     "rank_service_dedup": 7
     }
    },
    {
@@ -1261,7 +1261,7 @@
      "n_candidates": 10,
      "rank_inner": 4,
      "rank_service_raw": 4,
-     "rank_service_dedup": 6
+     "rank_service_dedup": 3
     }
    },
    {
@@ -1351,7 +1351,7 @@
      "n_candidates": 11,
      "rank_inner": 3,
      "rank_service_raw": 3,
-     "rank_service_dedup": 7
+     "rank_service_dedup": 2
     }
    },
    {
@@ -1381,7 +1381,7 @@
      "n_candidates": 13,
      "rank_inner": 3,
      "rank_service_raw": 3,
-     "rank_service_dedup": 5
+     "rank_service_dedup": 3
     }
    },
    {
@@ -1401,7 +1401,7 @@
      "n_candidates": 8,
      "rank_inner": 2,
      "rank_service_raw": 2,
-     "rank_service_dedup": 3
+     "rank_service_dedup": 2
     }
    }
   ]

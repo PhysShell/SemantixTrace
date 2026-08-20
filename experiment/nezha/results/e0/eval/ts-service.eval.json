@@ -63,13 +63,13 @@
     "unlocalized": 1
    },
    "service_dedup": {
-    "top1": 39,
-    "AC@1_pct": 86.66666666666667,
+    "top1": 40,
+    "AC@1_pct": 88.88888888888889,
     "top3": 44,
     "AC@3_pct": 97.77777777777777,
     "top5": 44,
     "AC@5_pct": 97.77777777777777,
-    "MRR": 0.914814814814815,
+    "MRR": 0.925925925925926,
     "localized": 44,
     "unlocalized": 1
    }
@@ -1469,7 +1469,7 @@
    "rank_historical": 2,
    "rank_dense": 1,
    "rank_service_raw": 1,
-   "rank_service_dedup": 2,
+   "rank_service_dedup": 1,
    "candidates": [
     {
      "events": "116_128",

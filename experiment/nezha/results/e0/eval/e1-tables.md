@@ -51,20 +51,20 @@
 | historical | 86.67% | 97.78% | 97.78% | 0.915 | 1 |
 | dense | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
 | service_raw | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
-| service_dedup | 86.67% | 97.78% | 97.78% | 0.915 | 1 |
+| service_dedup | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
 
 ### Cases whose rank differs across semantics
 
 | case | inject | type | artifact | historical | dense | service_raw | service_dedup |
 |---|---|---|---|---|---|---|---|
-| ts-2023-01-29-011 | 2023-01-29 09:58:04 | return | 2 | 2 | 1 | 1 | 2 |
+| ts-2023-01-29-011 | 2023-01-29 09:58:04 | return | 2 | 2 | 1 | 1 | 1 |
 
 ### Fault-type breakdown (AC@1 hits / cases)
 
 | class | cases | historical | dense | service_raw | service_dedup |
 |---|---|---|---|---|---|
 | resource | 21 | 17/21 | 17/21 | 17/21 | 17/21 |
-| code-defect | 24 | 22/24 | 23/24 | 23/24 | 22/24 |
+| code-defect | 24 | 22/24 | 23/24 | 23/24 | 23/24 |
 
 ## ts-inner (n=45)
 
@@ -73,17 +73,17 @@
 | historical | 86.67% | 97.78% | 97.78% | 0.915 | 1 |
 | dense | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
 | service_raw | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
-| service_dedup | 86.67% | 97.78% | 97.78% | 0.915 | 1 |
+| service_dedup | 88.89% | 97.78% | 97.78% | 0.926 | 1 |
 
 ### Cases whose rank differs across semantics
 
 | case | inject | type | artifact | historical | dense | service_raw | service_dedup |
 |---|---|---|---|---|---|---|---|
-| ts-2023-01-29-011 | 2023-01-29 09:58:04 | return | 2 | 2 | 1 | 1 | 2 |
+| ts-2023-01-29-011 | 2023-01-29 09:58:04 | return | 2 | 2 | 1 | 1 | 1 |
 
 ### Fault-type breakdown (AC@1 hits / cases)
 
 | class | cases | historical | dense | service_raw | service_dedup |
 |---|---|---|---|---|---|
 | resource | 21 | 17/21 | 17/21 | 17/21 | 17/21 |
-| code-defect | 24 | 22/24 | 23/24 | 23/24 | 22/24 |
+| code-defect | 24 | 22/24 | 23/24 | 23/24 | 23/24 |

@@ -201,7 +201,13 @@ def rank_dense(cands, root_cause_parts, inject_pod, templates):
 
 
 def rank_service(cands, inject_pod):
-    """(raw_rank, dedup_rank) where correct = candidate service == injected."""
+    """(raw_rank, dedup_rank) where correct = candidate service == injected.
+
+    dedup_rank implements the preregistered primary semantics
+    (00-preregistration.md §5): deduplicate to the first occurrence per
+    service, THEN dense-rank the deduplicated list — tied
+    representatives share a rank.
+    """
     inject_svc = service_of(inject_pod)
     ranks = dense_ranks(cands)
     raw = None
@@ -209,15 +215,20 @@ def rank_service(cands, inject_pod):
         if service_of(str(cand.get("pod", ""))) == inject_svc:
             raw = ranks[i]
             break
-    seen = []
-    dedup_rank = None
+    seen = set()
+    dedup = []
     for cand in cands:
         svc = service_of(str(cand.get("pod", "")))
         if svc in seen:
             continue
-        seen.append(svc)
-        if svc == inject_svc and dedup_rank is None:
-            dedup_rank = len(seen)
+        seen.add(svc)
+        dedup.append((svc, cand))
+    dedup_ranks = dense_ranks([c for _svc, c in dedup])
+    dedup_rank = None
+    for i, (svc, _c) in enumerate(dedup):
+        if svc == inject_svc:
+            dedup_rank = dedup_ranks[i]
+            break
     return raw, dedup_rank
 
 

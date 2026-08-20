@@ -75,7 +75,7 @@ Ingestion: total rejected records across cases = 0; drain3 new clusters = 0
 
 | metric | N1 @1/@3/@5 | N1 MRR | N1 unloc | S1 @1/@3/@5 | S1 MRR | S1 unloc |
 |---|---|---|---|---|---|---|
-| AC@1 service (primary) | 86.67/97.78/97.78 | 0.915 | 1 | 20.00/44.44/60.00 | 0.373 | 10 |
+| AC@1 service (primary) | 86.67/97.78/97.78 | 0.915 | 1 | 22.22/46.67/60.00 | 0.386 | 10 |
 | AC@1 service raw | 88.89/97.78/97.78 | 0.926 | 1 | 22.22/46.67/55.56 | 0.367 | 10 |
 | AC@1 inner (dense) | 88.89/97.78/97.78 | 0.926 | 1 | 11.11/26.67/33.33 | 0.203 | 22 |
 
@@ -89,7 +89,6 @@ Candidate sets: N1 min/med/max = 4/18/63; S1 = 6/24/77
 | ts-2023-01-29-002 | return | 1 | 2 |
 | ts-2023-01-29-003 | return | 1 | 6 |
 | ts-2023-01-29-004 | return | 1 | 5 |
-| ts-2023-01-29-008 | return | 3 | 4 |
 | ts-2023-01-29-009 | return | 1 | 3 |
 | ts-2023-01-29-010 | return | 1 | 4 |
 | ts-2023-01-29-011 | return | 2 | 6 |
@@ -105,7 +104,6 @@ Candidate sets: N1 min/med/max = 4/18/63; S1 = 6/24/77
 | ts-2023-01-29-026 | cpu_contention | 2 | 8 |
 | ts-2023-01-29-027 | cpu_contention | 1 | None |
 | ts-2023-01-30-000 | network_delay | 1 | None |
-| ts-2023-01-30-001 | cpu_contention | 1 | 2 |
 | ts-2023-01-30-002 | network_delay | 1 | 8 |
 | ts-2023-01-30-003 | network_delay | 1 | None |
 | ts-2023-01-30-004 | network_delay | 1 | None |
@@ -114,7 +112,7 @@ Candidate sets: N1 min/med/max = 4/18/63; S1 = 6/24/77
 | ts-2023-01-30-007 | network_delay | 1 | None |
 | ts-2023-01-30-008 | network_delay | 1 | None |
 | ts-2023-01-30-009 | cpu_contention | 1 | 4 |
-| ts-2023-01-30-010 | network_delay | 3 | 16 |
+| ts-2023-01-30-010 | network_delay | 3 | 15 |
 | ts-2023-01-30-011 | network_delay | 1 | 11 |
 | ts-2023-01-30-013 | network_delay | 1 | 2 |
 | ts-2023-01-30-014 | network_delay | 1 | 2 |
@@ -123,7 +121,7 @@ Candidate sets: N1 min/med/max = 4/18/63; S1 = 6/24/77
 
 ### S1 fault-type breakdown (hits@1 / cases, service_dedup)
 
-- resource: 0/21
+- resource: 1/21
 - code-defect: 9/24
 
 Ingestion: total rejected records across cases = 0; drain3 new clusters = 0

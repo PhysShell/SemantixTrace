@@ -19,9 +19,9 @@
    },
    "rank_service_dedup": {
     "AC@1_pct": 28.88888888888889,
-    "AC@3_pct": 46.666666666666664,
+    "AC@3_pct": 48.888888888888886,
     "AC@5_pct": 57.77777777777778,
-    "MRR": 0.41142496392496386,
+    "MRR": 0.4133694083694083,
     "unlocalized": 10
    }
   },
@@ -7722,7 +7722,7 @@
     "n_candidates": 28,
     "rank_inner": 3,
     "rank_service_raw": 3,
-    "rank_service_dedup": 4
+    "rank_service_dedup": 3
    },
    "runtime_ms": 213
   },
@@ -48750,7 +48750,7 @@
     "n_candidates": 54,
     "rank_inner": 51,
     "rank_service_raw": 51,
-    "rank_service_dedup": 16
+    "rank_service_dedup": 15
    },
    "runtime_ms": 225
   },
