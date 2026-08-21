@@ -7,21 +7,21 @@
     "AC@1_pct": 8.88888888888889,
     "AC@3_pct": 22.22222222222222,
     "AC@5_pct": 31.11111111111111,
-    "MRR": 0.17287033228209697,
+    "MRR": 0.1775915370033017,
     "unlocalized": 22
    },
    "rank_service_raw": {
     "AC@1_pct": 28.88888888888889,
     "AC@3_pct": 48.888888888888886,
     "AC@5_pct": 55.55555555555556,
-    "MRR": 0.39694440635617106,
+    "MRR": 0.40166561107737586,
     "unlocalized": 10
    },
    "rank_service_dedup": {
     "AC@1_pct": 28.88888888888889,
     "AC@3_pct": 48.888888888888886,
     "AC@5_pct": 57.77777777777778,
-    "MRR": 0.4133694083694083,
+    "MRR": 0.4187662337662337,
     "unlocalized": 10
    }
   },
@@ -183,6 +183,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.875,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-travel-service /api/v1/travelservice/routes/{tripId}",
        {
         "parent_id": {
@@ -231,40 +265,6 @@
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
       "first_seq": 18
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.875,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
      }
     },
     {
@@ -754,7 +754,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 227
+   "runtime_ms": 329
   },
   {
    "case_id": "ts-2023-01-29-001",
@@ -1502,7 +1502,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 216
+   "runtime_ms": 332
   },
   {
    "case_id": "ts-2023-01-29-002",
@@ -1942,7 +1942,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 219
+   "runtime_ms": 329
   },
   {
    "case_id": "ts-2023-01-29-003",
@@ -2920,7 +2920,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 6
    },
-   "runtime_ms": 208
+   "runtime_ms": 345
   },
   {
    "case_id": "ts-2023-01-29-004",
@@ -3928,7 +3928,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 203
+   "runtime_ms": 329
   },
   {
    "case_id": "ts-2023-01-29-005",
@@ -4710,7 +4710,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 231
+   "runtime_ms": 317
   },
   {
    "case_id": "ts-2023-01-29-006",
@@ -5407,6 +5407,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-travel-service /api/v1/travelservice/routes/{tripId}",
        {
         "parent_id": {
@@ -5455,40 +5489,6 @@
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
       "first_seq": 18
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
      }
     },
     {
@@ -5603,60 +5603,6 @@
      "pattern": [
       [
        "<unknown>",
-       "span:ts-gateway-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-preserve-service /api/v1/preserveservice/preserve",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7,
-     "anomaly": 0.0625,
-     "deepth": 3,
-     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
-     "provenance": {
-      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
-      "first_seq": 2
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-gateway-service HTTP GET",
        {
         "parent_id": {
@@ -5704,6 +5650,60 @@
      "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
+      "first_seq": 2
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-gateway-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-service /api/v1/preserveservice/preserve",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "anomaly": 0.0625,
+     "deepth": 3,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
+     "provenance": {
+      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
       "first_seq": 2
      }
     },
@@ -5988,7 +5988,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 207
+   "runtime_ms": 308
   },
   {
    "case_id": "ts-2023-01-29-007",
@@ -6408,7 +6408,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 226
+   "runtime_ms": 320
   },
   {
    "case_id": "ts-2023-01-29-008",
@@ -6507,6 +6507,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 1.0,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId}",
        {
         "parent_id": {
@@ -6555,40 +6589,6 @@
      "provenance": {
       "normal_session": "85576790-0d40-5031-95b1-0f82bee0fc25",
       "first_seq": 18
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 1.0,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
      }
     },
     {
@@ -7724,7 +7724,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 213
+   "runtime_ms": 295
   },
   {
    "case_id": "ts-2023-01-29-009",
@@ -8178,7 +8178,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 205
+   "runtime_ms": 316
   },
   {
    "case_id": "ts-2023-01-29-010",
@@ -10538,7 +10538,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 203
+   "runtime_ms": 312
   },
   {
    "case_id": "ts-2023-01-29-011",
@@ -10911,6 +10911,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:460",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:459",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 1.0,
+     "anomaly": 0.0625,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 6
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-train-food-service /api/v1/trainfoodservice/trainfoods/{tripId}",
        {
         "parent_id": {
@@ -10959,40 +10993,6 @@
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
       "first_seq": 8
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:460",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:459",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 1.0,
-     "anomaly": 0.0625,
-     "deepth": 7,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 6
      }
     },
     {
@@ -13760,7 +13760,7 @@
     "rank_service_raw": 10,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 198
+   "runtime_ms": 275
   },
   {
    "case_id": "ts-2023-01-29-012",
@@ -14890,7 +14890,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 245
+   "runtime_ms": 300
   },
   {
    "case_id": "ts-2023-01-29-013",
@@ -17363,60 +17363,6 @@
      "pattern": [
       [
        "<unknown>",
-       "span:ts-gateway-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-preserve-service /api/v1/preserveservice/preserve",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7,
-     "anomaly": 0.0625,
-     "deepth": 3,
-     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
-     "provenance": {
-      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
-      "first_seq": 2
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-gateway-service HTTP GET",
        {
         "parent_id": {
@@ -17464,6 +17410,60 @@
      "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
+      "first_seq": 2
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-gateway-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-service /api/v1/preserveservice/preserve",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "anomaly": 0.0625,
+     "deepth": 3,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
+     "provenance": {
+      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
       "first_seq": 2
      }
     },
@@ -17798,7 +17798,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 201
+   "runtime_ms": 281
   },
   {
    "case_id": "ts-2023-01-29-014",
@@ -21520,7 +21520,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 182
+   "runtime_ms": 271
   },
   {
    "case_id": "ts-2023-01-29-015",
@@ -22268,7 +22268,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 214
+   "runtime_ms": 314
   },
   {
    "case_id": "ts-2023-01-29-016",
@@ -23628,7 +23628,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 223
+   "runtime_ms": 309
   },
   {
    "case_id": "ts-2023-01-29-017",
@@ -24362,7 +24362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 224
+   "runtime_ms": 353
   },
   {
    "case_id": "ts-2023-01-29-018",
@@ -24924,7 +24924,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 219
+   "runtime_ms": 318
   },
   {
    "case_id": "ts-2023-01-29-019",
@@ -26128,7 +26128,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 208
+   "runtime_ms": 290
   },
   {
    "case_id": "ts-2023-01-29-020",
@@ -26697,6 +26697,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-travel-service /api/v1/travelservice/routes/{tripId}",
        {
         "parent_id": {
@@ -26745,40 +26779,6 @@
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
       "first_seq": 18
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
      }
     },
     {
@@ -27048,7 +27048,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 226
+   "runtime_ms": 306
   },
   {
    "case_id": "ts-2023-01-29-021",
@@ -27712,7 +27712,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 228
+   "runtime_ms": 293
   },
   {
    "case_id": "ts-2023-01-29-022",
@@ -28362,7 +28362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 211
+   "runtime_ms": 298
   },
   {
    "case_id": "ts-2023-01-29-023",
@@ -29141,6 +29141,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7777777777777778,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId}",
        {
         "parent_id": {
@@ -29189,40 +29223,6 @@
      "provenance": {
       "normal_session": "85576790-0d40-5031-95b1-0f82bee0fc25",
       "first_seq": 18
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7777777777777778,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
      }
     },
     {
@@ -29425,60 +29425,6 @@
      "pattern": [
       [
        "<unknown>",
-       "span:ts-gateway-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-preserve-service /api/v1/preserveservice/preserve",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7777777777777778,
-     "anomaly": 0.0625,
-     "deepth": 3,
-     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
-     "provenance": {
-      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
-      "first_seq": 2
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-gateway-service HTTP GET",
        {
         "parent_id": {
@@ -29526,6 +29472,60 @@
      "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
      "provenance": {
       "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84",
+      "first_seq": 2
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-gateway-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-service /api/v1/preserveservice/preserve",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7777777777777778,
+     "anomaly": 0.0625,
+     "deepth": 3,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n",
+     "provenance": {
+      "normal_session": "5d5e30aa-1e42-5a0a-b3d4-906db635289a",
       "first_seq": 2
      }
     },
@@ -31010,7 +31010,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 203
+   "runtime_ms": 284
   },
   {
    "case_id": "ts-2023-01-29-024",
@@ -32404,7 +32404,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 249
+   "runtime_ms": 303
   },
   {
    "case_id": "ts-2023-01-29-025",
@@ -32963,7 +32963,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 249
+   "runtime_ms": 309
   },
   {
    "case_id": "ts-2023-01-29-026",
@@ -34168,7 +34168,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 218
+   "runtime_ms": 294
   },
   {
    "case_id": "ts-2023-01-29-027",
@@ -34608,7 +34608,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 250
+   "runtime_ms": 317
   },
   {
    "case_id": "ts-2023-01-30-000",
@@ -35397,6 +35397,50 @@
      "pattern": [
       [
        "<unknown>",
+       "log:531",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-order-other-service OrderOtherRepository.save",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.75,
+     "anomaly": 0.07142857142857145,
+     "deepth": 160,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5",
+     "provenance": {
+      "normal_session": "63e82f8f-cccf-5bcc-8c05-809c0be71226",
+      "first_seq": 249
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-order-service OrderRepository.save",
        {
         "parent_id": {
@@ -35445,50 +35489,6 @@
      "provenance": {
       "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
       "first_seq": 252
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:531",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-order-other-service OrderOtherRepository.save",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.75,
-     "anomaly": 0.07142857142857145,
-     "deepth": 160,
-     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5",
-     "provenance": {
-      "normal_session": "63e82f8f-cccf-5bcc-8c05-809c0be71226",
-      "first_seq": 249
      }
     },
     {
@@ -36344,7 +36344,7 @@
       ],
       [
        "<unknown>",
-       "span:ts-preserve-other-service /api/v1/preserveotherservice/preserveOther",
+       "span:ts-auth-service /api/v1/users/login",
        {
         "parent_id": {
          "_abstract": "string",
@@ -36354,7 +36354,7 @@
         "pod": {
          "_abstract": "string",
          "class": "free",
-         "len": "33-128"
+         "len": "9-32"
         },
         "span_id": {
          "_abstract": "string",
@@ -36398,7 +36398,7 @@
       ],
       [
        "<unknown>",
-       "span:ts-auth-service /api/v1/users/login",
+       "span:ts-preserve-other-service /api/v1/preserveotherservice/preserveOther",
        {
         "parent_id": {
          "_abstract": "string",
@@ -36408,7 +36408,7 @@
         "pod": {
          "_abstract": "string",
          "class": "free",
-         "len": "9-32"
+         "len": "33-128"
         },
         "span_id": {
          "_abstract": "string",
@@ -36532,7 +36532,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 207
+   "runtime_ms": 287
   },
   {
    "case_id": "ts-2023-01-30-001",
@@ -36636,51 +36636,6 @@
       "normal_session": "07b08e4c-c9a2-518d-9580-2074441c3784",
       "first_seq": 223
      }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:134",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-travel2-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 1.0,
-     "anomaly": 0.0625,
-     "deepth": 145,
-     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
-     "provenance": {
-      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
-      "first_seq": 225
-     },
-     "resource": "CpuUsageRate(%)"
     },
     {
      "pattern": [
@@ -37135,6 +37090,51 @@
       "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
       "first_seq": 242
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-other-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.8571428571428571,
+     "anomaly": 0.07142857142857145,
+     "deepth": 145,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
+      "first_seq": 225
+     },
+     "resource": "CpuUsageRate(%)"
     },
     {
      "pattern": [
@@ -38685,11 +38685,11 @@
    ],
    "evaluation": {
     "n_candidates": 48,
-    "rank_inner": 3,
-    "rank_service_raw": 3,
-    "rank_service_dedup": 3
+    "rank_inner": 14,
+    "rank_service_raw": 14,
+    "rank_service_dedup": 7
    },
-   "runtime_ms": 207
+   "runtime_ms": 283
   },
   {
    "case_id": "ts-2023-01-30-002",
@@ -40224,7 +40224,7 @@
     "rank_service_raw": 22,
     "rank_service_dedup": 10
    },
-   "runtime_ms": 214
+   "runtime_ms": 301
   },
   {
    "case_id": "ts-2023-01-30-003",
@@ -40566,7 +40566,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 210
+   "runtime_ms": 321
   },
   {
    "case_id": "ts-2023-01-30-004",
@@ -40952,7 +40952,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 211
+   "runtime_ms": 314
   },
   {
    "case_id": "ts-2023-01-30-005",
@@ -41210,7 +41210,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 223
+   "runtime_ms": 301
   },
   {
    "case_id": "ts-2023-01-30-006",
@@ -43230,7 +43230,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 203
+   "runtime_ms": 282
   },
   {
    "case_id": "ts-2023-01-30-007",
@@ -44486,7 +44486,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 201
+   "runtime_ms": 298
   },
   {
    "case_id": "ts-2023-01-30-008",
@@ -45526,7 +45526,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 210
+   "runtime_ms": 300
   },
   {
    "case_id": "ts-2023-01-30-009",
@@ -46211,7 +46211,7 @@
     "rank_service_raw": 5,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 211
+   "runtime_ms": 341
   },
   {
    "case_id": "ts-2023-01-30-010",
@@ -46878,6 +46878,40 @@
      "pattern": [
       [
        "<unknown>",
+       "log:514",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:513",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "score": 0.875,
+     "anomaly": 0.0625,
+     "deepth": 35,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6",
+     "provenance": {
+      "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
+      "first_seq": 50
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-travel2-service /api/v1/travel2service/trip_detail",
        {
         "parent_id": {
@@ -46926,40 +46960,6 @@
      "provenance": {
       "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
       "first_seq": 52
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:514",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:513",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ]
-     ],
-     "score": 0.875,
-     "anomaly": 0.0625,
-     "deepth": 35,
-     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6",
-     "provenance": {
-      "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
-      "first_seq": 50
      }
     },
     {
@@ -48752,7 +48752,7 @@
     "rank_service_raw": 51,
     "rank_service_dedup": 15
    },
-   "runtime_ms": 225
+   "runtime_ms": 290
   },
   {
    "case_id": "ts-2023-01-30-011",
@@ -50479,7 +50479,7 @@
     "rank_service_raw": 26,
     "rank_service_dedup": 11
    },
-   "runtime_ms": 199
+   "runtime_ms": 284
   },
   {
    "case_id": "ts-2023-01-30-012",
@@ -50697,7 +50697,7 @@
       ],
       [
        "<unknown>",
-       "span:ts-travel2-service TripRepository.findByTripId",
+       "span:ts-travel-service HTTP POST",
        {
         "parent_id": {
          "_abstract": "string",
@@ -50741,7 +50741,7 @@
       ],
       [
        "<unknown>",
-       "span:ts-travel-service HTTP POST",
+       "span:ts-travel2-service TripRepository.findByTripId",
        {
         "parent_id": {
          "_abstract": "string",
@@ -51183,7 +51183,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 209
+   "runtime_ms": 296
   },
   {
    "case_id": "ts-2023-01-30-013",
@@ -51243,6 +51243,61 @@
       "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
       "first_seq": 220
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-route-service SELECT ts.route_distances",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-basic-service HTTP GET",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 1.0,
+     "anomaly": 0.07142857142857145,
+     "deepth": 138,
+     "pod": "ts-route-service-b6c59fb57-dz9bw",
+     "provenance": {
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
+      "first_seq": 210
+     },
+     "resource": "NetworkP90(ms)"
     },
     {
      "pattern": [
@@ -52926,61 +52981,6 @@
      "pattern": [
       [
        "<unknown>",
-       "span:ts-route-service SELECT ts.route_distances",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-basic-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7407407407407407,
-     "anomaly": 0.023809523809523836,
-     "deepth": 138,
-     "pod": "ts-route-service-b6c59fb57-dz9bw",
-     "provenance": {
-      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
-      "first_seq": 210
-     },
-     "resource": "NetworkP90(ms)"
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "log:368",
        {
         "pod": {
@@ -53396,11 +53396,11 @@
    ],
    "evaluation": {
     "n_candidates": 48,
-    "rank_inner": 39,
-    "rank_service_raw": 39,
-    "rank_service_dedup": 15
+    "rank_inner": 2,
+    "rank_service_raw": 2,
+    "rank_service_dedup": 2
    },
-   "runtime_ms": 211
+   "runtime_ms": 281
   },
   {
    "case_id": "ts-2023-01-30-014",
@@ -56181,7 +56181,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 199
+   "runtime_ms": 277
   },
   {
    "case_id": "ts-2023-01-30-015",
@@ -57732,7 +57732,7 @@
     "rank_service_raw": 15,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 207
+   "runtime_ms": 298
   },
   {
    "case_id": "ts-2023-01-30-016",
@@ -59553,7 +59553,7 @@
     "rank_service_raw": 30,
     "rank_service_dedup": 12
    },
-   "runtime_ms": 210
+   "runtime_ms": 314
   }
  ]
 }

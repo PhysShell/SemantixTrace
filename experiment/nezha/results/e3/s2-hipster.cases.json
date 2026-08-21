@@ -6,22 +6,22 @@
    "rank_inner": {
     "AC@1_pct": 3.5714285714285716,
     "AC@3_pct": 8.928571428571429,
-    "AC@5_pct": 10.714285714285714,
-    "MRR": 0.06427045177045178,
+    "AC@5_pct": 8.928571428571429,
+    "MRR": 0.06315192743764173,
     "unlocalized": 47
    },
    "rank_service_raw": {
     "AC@1_pct": 10.714285714285714,
     "AC@3_pct": 21.428571428571427,
-    "AC@5_pct": 25.0,
-    "MRR": 0.16818910256410255,
+    "AC@5_pct": 23.214285714285715,
+    "MRR": 0.1670705782312925,
     "unlocalized": 37
    },
    "rank_service_dedup": {
     "AC@1_pct": 10.714285714285714,
     "AC@3_pct": 23.214285714285715,
     "AC@5_pct": 30.357142857142858,
-    "MRR": 0.1773809523809524,
+    "MRR": 0.17713293650793652,
     "unlocalized": 37
    }
   },
@@ -231,7 +231,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1014
+   "runtime_ms": 1502
   },
   {
    "case_id": "hipster-2022-08-22-001",
@@ -710,7 +710,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 1032
+   "runtime_ms": 1479
   },
   {
    "case_id": "hipster-2022-08-22-002",
@@ -823,7 +823,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1095
+   "runtime_ms": 1392
   },
   {
    "case_id": "hipster-2022-08-22-003",
@@ -915,7 +915,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1115
+   "runtime_ms": 1434
   },
   {
    "case_id": "hipster-2022-08-22-004",
@@ -1028,7 +1028,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1095
+   "runtime_ms": 1419
   },
   {
    "case_id": "hipster-2022-08-22-005",
@@ -1131,7 +1131,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1107
+   "runtime_ms": 1562
   },
   {
    "case_id": "hipster-2022-08-22-006",
@@ -1154,7 +1154,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1135
+   "runtime_ms": 1479
   },
   {
    "case_id": "hipster-2022-08-22-007",
@@ -1177,7 +1177,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1092
+   "runtime_ms": 1569
   },
   {
    "case_id": "hipster-2022-08-22-008",
@@ -1325,7 +1325,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 1104
+   "runtime_ms": 1526
   },
   {
    "case_id": "hipster-2022-08-22-009",
@@ -1417,7 +1417,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1073
+   "runtime_ms": 1737
   },
   {
    "case_id": "hipster-2022-08-22-010",
@@ -1585,51 +1585,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:19",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:frontend hipstershop.RecommendationService/ListRecommendations",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.8639705882352942,
-     "anomaly": 0.0021186440677966045,
-     "deepth": 91,
-     "pod": "currencyservice-cf787dd48-vpjrd",
-     "provenance": {
-      "normal_session": "3f04f288-89c9-5c2f-a0d9-0a9f5803d87c",
-      "first_seq": 179
-     },
-     "resource": "CpuUsageRate(%)"
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "log:8",
        {
         "pod": {
@@ -1723,6 +1678,51 @@
       "normal_session": "b3fa1f7f-c590-542b-b177-61c3e178101d",
       "first_seq": 133
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:19",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:frontend hipstershop.CartService/GetCart",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.8386308068459658,
+     "anomaly": 0.0014534883720930258,
+     "deepth": 91,
+     "pod": "currencyservice-cf787dd48-vpjrd",
+     "provenance": {
+      "normal_session": "3f04f288-89c9-5c2f-a0d9-0a9f5803d87c",
+      "first_seq": 179
+     },
+     "resource": "CpuUsageRate(%)"
     },
     {
      "pattern": [
@@ -2127,11 +2127,11 @@
    ],
    "evaluation": {
     "n_candidates": 17,
-    "rank_inner": 5,
-    "rank_service_raw": 5,
+    "rank_inner": 7,
+    "rank_service_raw": 7,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 937
+   "runtime_ms": 1254
   },
   {
    "case_id": "hipster-2022-08-22-011",
@@ -2333,7 +2333,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 1007
+   "runtime_ms": 1420
   },
   {
    "case_id": "hipster-2022-08-22-012",
@@ -2356,7 +2356,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1108
+   "runtime_ms": 1527
   },
   {
    "case_id": "hipster-2022-08-22-013",
@@ -2379,7 +2379,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1122
+   "runtime_ms": 1552
   },
   {
    "case_id": "hipster-2022-08-22-014",
@@ -2402,7 +2402,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1099
+   "runtime_ms": 1535
   },
   {
    "case_id": "hipster-2022-08-22-015",
@@ -2425,7 +2425,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1074
+   "runtime_ms": 1555
   },
   {
    "case_id": "hipster-2022-08-22-016",
@@ -2494,7 +2494,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1107
+   "runtime_ms": 1478
   },
   {
    "case_id": "hipster-2022-08-22-017",
@@ -2563,7 +2563,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1135
+   "runtime_ms": 1407
   },
   {
    "case_id": "hipster-2022-08-22-018",
@@ -2632,7 +2632,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1166
+   "runtime_ms": 1445
   },
   {
    "case_id": "hipster-2022-08-22-019",
@@ -3112,7 +3112,7 @@
     "rank_service_raw": 10,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 1004
+   "runtime_ms": 1397
   },
   {
    "case_id": "hipster-2022-08-22-020",
@@ -3135,7 +3135,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1128
+   "runtime_ms": 1556
   },
   {
    "case_id": "hipster-2022-08-22-021",
@@ -3158,7 +3158,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1052
+   "runtime_ms": 1507
   },
   {
    "case_id": "hipster-2022-08-22-022",
@@ -3217,7 +3217,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1129
+   "runtime_ms": 1523
   },
   {
    "case_id": "hipster-2022-08-22-023",
@@ -3276,7 +3276,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1106
+   "runtime_ms": 1516
   },
   {
    "case_id": "hipster-2022-08-23-000",
@@ -3433,7 +3433,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1066
+   "runtime_ms": 1463
   },
   {
    "case_id": "hipster-2022-08-23-001",
@@ -4220,7 +4220,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 1004
+   "runtime_ms": 1418
   },
   {
    "case_id": "hipster-2022-08-23-002",
@@ -4333,7 +4333,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1107
+   "runtime_ms": 1542
   },
   {
    "case_id": "hipster-2022-08-23-003",
@@ -4425,7 +4425,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1120
+   "runtime_ms": 1529
   },
   {
    "case_id": "hipster-2022-08-23-004",
@@ -4582,7 +4582,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1139
+   "runtime_ms": 1504
   },
   {
    "case_id": "hipster-2022-08-23-005",
@@ -4695,7 +4695,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1099
+   "runtime_ms": 1570
   },
   {
    "case_id": "hipster-2022-08-23-006",
@@ -4808,7 +4808,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1100
+   "runtime_ms": 1551
   },
   {
    "case_id": "hipster-2022-08-23-007",
@@ -4999,7 +4999,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 1137
+   "runtime_ms": 1565
   },
   {
    "case_id": "hipster-2022-08-23-008",
@@ -5135,7 +5135,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1104
+   "runtime_ms": 1590
   },
   {
    "case_id": "hipster-2022-08-23-009",
@@ -5158,7 +5158,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1139
+   "runtime_ms": 1580
   },
   {
    "case_id": "hipster-2022-08-23-010",
@@ -6218,7 +6218,7 @@
     "rank_service_raw": 18,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 1002
+   "runtime_ms": 1418
   },
   {
    "case_id": "hipster-2022-08-23-011",
@@ -6376,7 +6376,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 1027
+   "runtime_ms": 1421
   },
   {
    "case_id": "hipster-2022-08-23-012",
@@ -6577,7 +6577,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1199
+   "runtime_ms": 1443
   },
   {
    "case_id": "hipster-2022-08-23-013",
@@ -6645,7 +6645,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1184
+   "runtime_ms": 1533
   },
   {
    "case_id": "hipster-2022-08-23-014",
@@ -6668,7 +6668,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1115
+   "runtime_ms": 1418
   },
   {
    "case_id": "hipster-2022-08-23-015",
@@ -6825,7 +6825,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1092
+   "runtime_ms": 1456
   },
   {
    "case_id": "hipster-2022-08-23-016",
@@ -6937,7 +6937,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1155
+   "runtime_ms": 1503
   },
   {
    "case_id": "hipster-2022-08-23-017",
@@ -7005,7 +7005,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1110
+   "runtime_ms": 1590
   },
   {
    "case_id": "hipster-2022-08-23-018",
@@ -7758,7 +7758,7 @@
     "rank_service_raw": 9,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 971
+   "runtime_ms": 1329
   },
   {
    "case_id": "hipster-2022-08-23-019",
@@ -7827,7 +7827,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1050
+   "runtime_ms": 1551
   },
   {
    "case_id": "hipster-2022-08-23-020",
@@ -8912,7 +8912,7 @@
     "rank_service_raw": 8,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 974
+   "runtime_ms": 1303
   },
   {
    "case_id": "hipster-2022-08-23-021",
@@ -9025,7 +9025,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1112
+   "runtime_ms": 1452
   },
   {
    "case_id": "hipster-2022-08-23-022",
@@ -9138,7 +9138,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1065
+   "runtime_ms": 1489
   },
   {
    "case_id": "hipster-2022-08-23-023",
@@ -9155,6 +9155,51 @@
     "tie_break": "score,anomaly,deepth desc"
    },
    "candidates": [
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "alert:MemoryUsageRate(%)",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:frontend hipstershop.Frontend/Recv.",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "1-8"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.9078947368421053,
+     "anomaly": 0.003597122302158251,
+     "deepth": 63,
+     "pod": "adservice-5f6585d649-fnmft",
+     "provenance": {
+      "normal_session": "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+      "first_seq": 144
+     },
+     "resource": "MemoryUsageRate(%)"
+    },
     {
      "pattern": [
       [
@@ -9750,41 +9795,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:27",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:43",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.675,
-     "anomaly": 0.009090909090909094,
-     "deepth": 63,
-     "pod": "adservice-5f6585d649-fnmft",
-     "provenance": {
-      "normal_session": "1165c427-ca29-50ea-95c3-ee24c1e104c4",
-      "first_seq": 140
-     },
-     "resource": "MemoryUsageRate(%)"
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "log:9",
        {
         "pod": {
@@ -9984,11 +9994,11 @@
    ],
    "evaluation": {
     "n_candidates": 21,
-    "rank_inner": 13,
-    "rank_service_raw": 13,
-    "rank_service_dedup": 8
+    "rank_inner": 14,
+    "rank_service_raw": 14,
+    "rank_service_dedup": 9
    },
-   "runtime_ms": 1013
+   "runtime_ms": 1485
   },
   {
    "case_id": "hipster-2022-08-23-024",
@@ -10056,7 +10066,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1071
+   "runtime_ms": 1525
   },
   {
    "case_id": "hipster-2022-08-23-025",
@@ -10079,7 +10089,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1090
+   "runtime_ms": 1526
   },
   {
    "case_id": "hipster-2022-08-23-026",
@@ -10102,7 +10112,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1124
+   "runtime_ms": 1572
   },
   {
    "case_id": "hipster-2022-08-23-027",
@@ -10258,7 +10268,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 1077
+   "runtime_ms": 1465
   },
   {
    "case_id": "hipster-2022-08-23-028",
@@ -10317,7 +10327,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1125
+   "runtime_ms": 1513
   },
   {
    "case_id": "hipster-2022-08-23-029",
@@ -10376,7 +10386,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1121
+   "runtime_ms": 1582
   },
   {
    "case_id": "hipster-2022-08-23-030",
@@ -10601,7 +10611,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 1163
+   "runtime_ms": 1494
   },
   {
    "case_id": "hipster-2022-08-23-031",
@@ -10748,7 +10758,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1207
+   "runtime_ms": 1608
   }
  ]
 }

@@ -292,3 +292,50 @@ run metadata rather than asserted — post-hoc verifiable.
 
 **Outcome data seen at decision time:** all; irrelevant to this
 tooling fix.
+
+---
+
+## 2026-08-21 — D-011: S2 regeneration made deterministic; canonical results re-drawn (RED→GREEN)
+
+**Trigger.** Codex incremental review P1 on PR #20 (second finding):
+st-graph serialized its transition table from a randomized HashMap, and
+s2_scorer's alarm dedup keeps the FIRST max-depth resource candidate —
+so S2 candidate retention was order-dependent across regenerations.
+
+**RED (`8c61fed`).** Empirical check over all 101 cases with the
+unsorted binary (`results/regate/s2-order-stability-unsorted.json`):
+2/101 windows produced different candidate multisets across two fresh
+regenerations; 1 case changed ranks between them; **3 TT cases drifted
+from the committed evaluations** — i.e. the committed S2 evaluations
+for those cases were one arbitrary draw of an order-dependent process.
+
+**GREEN (`22ee45f` + this commit).** st-graph now sorts transitions by
+their (src,dst) keys before serialization. Verification
+(`s2-order-stability-sorted.json`): 0 unstable windows, 0 run-to-run
+rank differences — the pipeline is deterministic end-to-end. The
+deterministic regeneration is adopted as the canonical S2 result of
+record (`results/e3/s2-*.cases.json`, `e3-tables.md` regenerated).
+
+**Per-case deltas, previously-committed → canonical** (4 cases):
+- hipster-2022-08-22-010: inner/raw 5→7 (dedup 4 unchanged)
+- hipster-2022-08-23-023: inner/raw 13→14, dedup 8→9
+- ts-2023-01-30-001: inner/raw 3→14, dedup 3→7
+- ts-2023-01-30-013: inner/raw 39→2, dedup 15→2
+
+**Aggregate deltas:** every AC@1 value unchanged (OB 10.71/3.57,
+TT 28.89/8.89). Tails move within tie-shuffle territory: OB inner AC@5
+10.71→8.93 (−1.78 pp), TT service_dedup AC@3 46.67→48.89 (+2.22 pp),
+MRR ±0.008 max; the two TT case drifts offset each other at @3/@5.
+S1↔S2 comparison range stays −2.2…+6.7 pp. **H2 verdict (falsified)
+and PIVOT unchanged.** Docs cite only AC@1 values, which did not move;
+no document-number changes were required beyond regenerated tables.
+
+**Note.** This is the third silent-sink class found by layered review
+in this branch (evaluator drift, ignore-rule swallow, now HashMap-order
+dependence) — and the same failure family as the Nezha artifact's own
+run-to-run candidate instability documented in 02 §4. The S2 scorer
+mirrored the artifact's order-sensitive dedup faithfully; determinism
+had to come from stabilizing its input.
+
+**Outcome data seen at decision time:** all; the fix changes tooling
+determinism and re-draws 4 exploratory case evaluations, no verdicts.
