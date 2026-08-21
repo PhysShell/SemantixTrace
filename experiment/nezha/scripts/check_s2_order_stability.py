@@ -49,8 +49,14 @@ def main():
         os.path.join(RUNROOT, f"templates-{ns}.json")))["clusters"]
         for ns in ("hipster", "ts")}
     committed = {}
+    # Baseline = the CHECKED-IN canonical results, not the mutable
+    # workspace (Codex P2 on PR #20): the gate must validate the
+    # artifacts being adopted, independently of $E2_RUNROOT state.
+    baseline_dir = os.environ.get(
+        "S2_BASELINE_DIR",
+        os.path.join(os.path.dirname(__file__), "..", "results", "e3"))
     for ns in ("hipster", "ts"):
-        d = json.load(open(os.path.join(RUNROOT, "results",
+        d = json.load(open(os.path.join(baseline_dir,
                                         f"s2-{ns}.cases.json")))
         for c in d["cases"]:
             committed[c["case_id"]] = c["evaluation"]
