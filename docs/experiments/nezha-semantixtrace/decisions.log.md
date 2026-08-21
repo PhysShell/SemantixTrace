@@ -367,3 +367,39 @@ being merged.
 
 **Outcome data seen at decision time:** all; tooling hygiene only, no
 result or verdict changes.
+
+---
+
+## 2026-08-21 — D-013: Stability gate strengthened to full-candidate comparison; D-012 claim verified at artifact level
+
+**Trigger.** Codex P2 on PR #20 (fourth-round, head `c18004e`): the
+gate `check_s2_order_stability.py` compared regenerated runs against
+the repository baseline only through each case's `evaluation` (rank
+tuples), while D-012's prose claims "0 drift from the checked-in
+canonical artifacts". Ranks are a projection of the artifacts: equal
+ranks do not by themselves prove the candidate lists (patterns,
+scores, anomaly values, depths, pods, resource tags, provenance
+records) match the checked-in `s2-*.cases.json`. Claim and check were
+misaligned — the same claim-vs-checker family as D-009, milder.
+
+**Remedy chosen: strengthen the check, not narrow the claim** (the
+inverse of D-009's resolution, because here the stronger check is a
+~10-line addition rather than a new verification layer). The gate now
+also compares, per case, the regenerated run-1 candidate list against
+the committed one as a multiset of fully-serialized candidates —
+every field participates, including resource attachment and
+provenance — and exits non-zero on any of four drift classes
+(run1↔run2 candidate sets, run1↔run2 evaluations, run1↔committed
+evaluations, run1↔committed full candidates).
+
+**Verification (`results/regate/s2-order-stability-sorted-fullcand.json`).**
+Sorted st-graph binary, fresh double regeneration of all 101 windows /
+101 cases, compared against the repository baseline: 0 unstable
+windows, 0 run-to-run rank differences, 0 evaluation drift, **0
+full-candidate drift from the checked-in canonical artifacts**.
+D-012's artifact-level claim is therefore verified as stated, not
+narrowed.
+
+**Outcome data seen at decision time:** all; gate hygiene only — no
+number, table, or verdict changes (H1/H2 falsified, H3 untested,
+frozen H4 inconclusive, PIVOT all unchanged).
