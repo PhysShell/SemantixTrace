@@ -9,7 +9,7 @@ Every number below is backed by a machine artifact under
 name. **Epistemic status of everything here: development/exploratory**
 (D-001) — the locked confirmatory data was deliberately never consumed
 (07). Phase docs: 00–07 in this directory; append-only decision log in
-`decisions.log.md` (D-001…D-007).
+`decisions.log.md` (D-001…D-009).
 
 ## Answers to the contract's ten questions
 
@@ -83,23 +83,30 @@ candidates. Alert events as vocabulary carry no signal at all
 (no-alerts ≡ full S1).
 
 **8. Which SemantixTrace components are justified by evidence?**
-The provenance/evidence architecture. The H4 check mechanically
-reconstructed **1494/1494 (100%)** candidate chains from RCA candidate
-through canonical event and provenance record to the exact source
-dataset rows, with zero failures, under a checker with no special-case
-success: alert chains walk into materialized, verified derivations
-(118 across all windows, 4,191 source refs) rather than ending at a
-computation name — the re-gate review caught the earlier weaker form
-of this claim (22 alert chains; RED→GREEN in `results/regate/`,
-D-008). A product finding from the fix: alarm provenance is a DAG
-(one alert ← one derivation ← N source records), which the evidence
-model must represent. Contrast: the baseline's attribution uses a
-template-ID walk with a hardcoded fallback pod equal to a ground-truth
-pod, and its explanation surface is bugged and nondeterministic. Also
-validated in passing: the fail-closed schema readers (every imported
-line passed `read_event` round-trip), the normalizer's determinism,
-and the FoldReport loss accounting (cardinality laws held on every
-window).
+The source-attribution provenance machinery — with the claim stated at
+exactly its verified strength (D-009). What is verified, with no
+special-case success: **H4-source-attribution** — 1494/1494 (100%)
+candidate chains walk mechanically from RCA candidate through canonical
+event and provenance record to the exact source dataset rows, alert
+chains included via materialized, verified derivations (118 across all
+windows, 4,191 source refs; earlier weaker form caught by re-gate,
+RED→GREEN in `results/regate/`, D-008). What is **not** verified —
+frozen H4 in full: the checker does not reconstruct the
+normalization → pattern/graph-transition → supports → score →
+root-most-pruning → emission segment (candidate records carry no
+support/score derivation), and it walks S1 candidates while frozen H4
+names the graph/oracle chain. **Frozen H4: INCONCLUSIVE — not
+verified**; verifying it would require a derivation-replay checker that
+was deliberately not built (D-009: the experiment's own lesson argues
+against building infrastructure to prove infrastructure). A product
+finding stands regardless: alarm provenance is a DAG (one alert ← one
+derivation ← N source records), which the evidence model must
+represent. Contrast: the baseline's attribution uses a template-ID walk
+with a hardcoded fallback pod equal to a ground-truth pod, and its
+explanation surface is bugged and nondeterministic. Also validated in
+passing: the fail-closed schema readers (every imported line passed
+`read_event` round-trip), the normalizer's determinism, and the
+FoldReport loss accounting (cardinality laws held on every window).
 
 **9. Which components should be deleted, simplified, or postponed?**
 Evidence-based recommendations, not decrees:
@@ -125,15 +132,17 @@ Nothing here is confirmatory. All quantitative claims are development/
 exploratory by construction (D-001: E0/E1 exposed per-case outcomes on
 the only datasets used). The locked RCAEval confirmatory resource was
 never consumed and remains intact (07). The strongest-evidence items are
-the reproduced facts (E0: exact reproduction; H4: 100% provenance walk),
-which are mechanical rather than statistical claims.
+the reproduced facts (E0: exact reproduction; H4-source-attribution:
+100% provenance walk), which are mechanical rather than statistical
+claims. Frozen H4 itself is INCONCLUSIVE (D-009).
 
 ## Verdict
 
 **PIVOT.** SemantixTrace's demonstrated value in this experiment is as
 recorder/replay/evidence infrastructure — deterministic canonical
-capture with machine-reconstructable provenance (H4, 100%) — not as an
-RCA engine. On RCA specifically the evidence supports STOP for the
+capture with verified source-attribution provenance
+(H4-source-attribution, 1494/1494; frozen end-to-end H4 itself
+INCONCLUSIVE, D-009) — not as an RCA engine. On RCA specifically the evidence supports STOP for the
 current architecture: H1 and H2 are falsified on development data with
 effect sizes (−66.7…−83.9 pp AC@1) that no measurement correction
 approaches, and the frozen kill criteria are met. A single precisely

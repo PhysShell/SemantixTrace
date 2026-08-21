@@ -89,13 +89,22 @@ representation requires causal grouping as a first-class feature (a v3
 schema / normalizer concern — new product scope, out of this
 experiment per its scope control).
 
-## 4. H4: provenance (the experiment's positive result)
+## 4. H4: source-attribution provenance (verified subclaim; frozen H4 inconclusive)
 
-`scripts/check_h4_provenance.py` mechanically walked **every candidate
-of every S1 case — 1494/1494 chains (100%)** — from candidate through
-(session, seq) to the canonical event, its provenance record, and the
-source dataset row, verifying content consistency (pod/span id) at each
-step. Zero failures — under a checker with **no special-case success**.
+Claim scope (D-009). What `scripts/check_h4_provenance.py` verifies is
+the **H4-source-attribution** subclaim: it mechanically walked **every
+candidate of every S1 case — 1494/1494 chains (100%)** — from candidate
+through (session, seq) to the canonical event, its provenance record,
+and the source dataset row, verifying content consistency (pod/span id)
+at each step. Zero failures — under a checker with **no special-case
+success**. What it does **not** verify is the frozen H4 chain in full:
+the segment normalization → pattern/graph transition → supports (n, a)
+→ score → root-most pruning → emission is not reconstructed (candidate
+records carry score but no support derivation), and the walk covers S1
+candidates while the frozen wording names the graph/oracle chain.
+**Frozen H4 therefore remains INCONCLUSIVE — not verified**; per D-009
+the derivation-replay checker that full verification would require was
+deliberately not built.
 
 The re-gate review caught that the first version of this claim was
 weaker than the preregistered chain: alert-event provenance terminated
@@ -116,7 +125,8 @@ records — and the evidence model has to represent that.
 Contrast: the Nezha artifact attributes pods through a template-ID
 graph walk with a hardcoded fallback pod, its displayed "actual
 pattern" is selected by a sorting bug (#11), and its candidate-list
-composition below the match is not stable across runs (02 §4). **H4 is
-supported with the strongest evidence this experiment produced**, now
-at its declared strength: every candidate chain ends at immutable
-source records or a materialized, verified derivation over them.
+composition below the match is not stable across runs (02 §4).
+**H4-source-attribution is the strongest positive evidence this
+experiment produced**: every candidate chain ends at immutable source
+records or a materialized, verified derivation over them. The full
+frozen H4 stays unclaimed (INCONCLUSIVE, D-009).

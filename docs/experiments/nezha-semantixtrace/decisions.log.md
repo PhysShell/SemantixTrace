@@ -211,3 +211,46 @@ remain 60–84 pp below N1 (H1 falsification also stands on service_raw,
 which never had the drift). H4 is now supported at its declared
 strength. **All quantitative results remain development/exploratory**
 (D-001); the RCAEval lock is untouched; E4 remains unexecuted.
+
+---
+
+## 2026-08-20 — D-009: H4 narrowed to its verified subclaim; frozen H4 recorded INCONCLUSIVE
+
+**Trigger.** Second owner re-gate: the frozen H4 wording requires
+machine-reconstructable provenance "through every transform"
+(source → canonical event → normalization → graph element → score →
+candidate). The strengthened checker verifies a narrower property:
+candidate → (session, seq) → canonical event → provenance record →
+source rows / verified alarm derivation → source rows. It does NOT
+reconstruct normalization → pattern/graph-transition → supports (n, a)
+→ score → root-most pruning → emission (candidate records carry no
+support/score derivation), and it walks S1 candidates while the frozen
+wording names the graph/oracle chain. "1494/1494" therefore proves
+100% *source-attribution* provenance, not 100% *end-to-end candidate
+derivation* provenance.
+
+**Decision (owner's option 2, adopted).** No further verifier is built.
+The frozen preregistration stays untouched. The claim ledger is
+corrected instead:
+
+- **Frozen H4: NOT VERIFIED / INCONCLUSIVE.** Verifying it would
+  require a derivation-replay checker (recompute supports, score, and
+  pruning per candidate from the folded scenarios); deliberately not
+  built — the experiment's own headline lesson is to stop building
+  infrastructure whose main purpose is to justify infrastructure.
+- **Verified post-hoc subclaim `H4-source-attribution`:** 1494/1494
+  (100%) candidate chains to immutable source records, alert chains via
+  materialized, verified derivations (118 derivations, 4,191 source
+  refs), no special-case success (RED→GREEN in D-008).
+- **Alarm-provenance DAG finding stands** (alert ← derivation ← N
+  source records).
+- **H1, H2, PIVOT, STOP-RCA-on-v2-linear-session: unchanged.**
+
+Docs updated to the narrowed claim: final-report Q8/Q10/verdict,
+05 §4, 04 §5.3; the final-report header's fossil "D-001…D-007" range
+corrected to D-009. The subclaim is labeled *post-hoc* because this
+narrowing was formulated after all outcomes were seen — consistent
+with the experiment-wide exploratory labeling (D-001).
+
+**Outcome data seen at decision time:** all E0–E3 results and both
+re-gate reviews.

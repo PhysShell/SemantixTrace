@@ -117,7 +117,8 @@ mechanically, not inferred):
    the pod attribution runs source-event provenance instead of the
    artifact's graph-walk + hardcoded fallback, and it never
    misattributes for structural reasons (0 unattributed patterns across
-   all cases). This is evidence *for* H4's machinery and *against* H1's
+   all cases). This is evidence *for* the source-attribution machinery
+   underlying H4 (claim scope: D-009) and *against* H1's
    representation claim — worth keeping apart.
 
 ## 6. What this does and does not mean
