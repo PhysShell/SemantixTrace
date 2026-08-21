@@ -76,8 +76,15 @@ fn main() -> ExitCode {
     let ntab = edge_table(&normal);
     let atab = edge_table(&abnormal);
 
+    // Deterministic serialization: HashMap iteration order is randomized
+    // per process, and the downstream S2 scorer's alarm dedup is
+    // order-sensitive (keeps the first max-depth resource candidate), so
+    // an arbitrary transition order makes regeneration non-reproducible
+    // (PR #20 Codex incremental P1, D-011). Sort by the (src, dst) keys.
+    let mut entries: Vec<_> = ntab.iter().collect();
+    entries.sort_by(|a, b| a.0.cmp(b.0));
     let mut transitions = Vec::new();
-    for ((src, dst), (freq, anomaly)) in &ntab {
+    for ((src, dst), (freq, anomaly)) in entries {
         let a = atab.get(&(src.clone(), dst.clone())).map_or(0, |t| t.0);
         transitions.push(serde_json::json!({
             "src": serde_json::from_str::<serde_json::Value>(src).unwrap_or_default(),
