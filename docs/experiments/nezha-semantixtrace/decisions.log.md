@@ -339,3 +339,31 @@ had to come from stabilizing its input.
 
 **Outcome data seen at decision time:** all; the fix changes tooling
 determinism and re-draws 4 exploratory case evaluations, no verdicts.
+
+---
+
+## 2026-08-21 — D-012: Stability gate re-pointed at checked-in baseline; canonical artifacts re-verified
+
+**Trigger.** Codex P2 on PR #20 (third-round): the S2 stability gate
+loaded its "committed" baseline from the mutable `$E2_RUNROOT/results`
+workspace rather than the repository's `results/e3`, so a regenerated
+cache could in principle mask drift against the checked-in artifacts.
+
+**Facts.** No recorded number is invalidated: at every recorded
+execution the workspace files WERE the byte-identical source of the
+repo copies (re-verified via `cmp` before the fix — both s2-*.cases.json
+pairs identical). The weakness was prospective gate hygiene, the same
+family as the D-009 checker-scope finding, milder.
+
+**Fix (`de69f74` + this commit).** Baseline now defaults to the
+script-relative `experiment/nezha/results/e3` (env `S2_BASELINE_DIR`
+to override). Verification
+(`results/regate/s2-order-stability-sorted-repobaseline.json`): the
+sorted pipeline re-run over all 101 cases against the REPOSITORY
+baseline — 0 unstable windows, 0 run-to-run rank differences,
+**0 drift from the checked-in canonical artifacts**. The gate now
+proves exactly the property it claims about exactly the artifacts
+being merged.
+
+**Outcome data seen at decision time:** all; tooling hygiene only, no
+result or verdict changes.
