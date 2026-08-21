@@ -35,9 +35,10 @@ RUNROOT = os.environ.get("E2_RUNROOT", "/home/user/e2-runs")
 
 
 def cand_multiset(cands):
-    return sorted(json.dumps(
-        {k: c[k] for k in ("pattern", "score", "anomaly", "deepth", "pod")},
-        sort_keys=True) for c in cands)
+    """Full-candidate multiset: every field, including resource tags and
+    provenance records, participates in the equality (Codex P2 #2 on
+    PR #20: comparing only ranks understates the claim)."""
+    return sorted(json.dumps(c, sort_keys=True) for c in cands)
 
 
 def main():
@@ -55,15 +56,18 @@ def main():
     baseline_dir = os.environ.get(
         "S2_BASELINE_DIR",
         os.path.join(os.path.dirname(__file__), "..", "results", "e3"))
+    committed_cands = {}
     for ns in ("hipster", "ts"):
         d = json.load(open(os.path.join(baseline_dir,
                                         f"s2-{ns}.cases.json")))
         for c in d["cases"]:
             committed[c["case_id"]] = c["evaluation"]
+            committed_cands[c["case_id"]] = cand_multiset(c["candidates"])
 
     unstable_windows = []
     rank_diff_cases = []
     drift_from_committed = []
+    drift_candidates_from_committed = []
     n_windows = n_cases = 0
 
     for ns in ("hipster", "ts"):
@@ -130,6 +134,10 @@ def main():
                         drift_from_committed.append(
                             {"case": case_id, "regen": ev1,
                              "committed": committed.get(case_id)})
+                    # full-artifact comparison: candidate lists (all
+                    # fields incl. provenance) as multisets
+                    if cand_multiset(pair[0]) != committed_cands.get(case_id):
+                        drift_candidates_from_committed.append(case_id)
 
     summary = {
         "binary": stgraph, "tag": tag,
@@ -137,14 +145,18 @@ def main():
         "unstable_windows": unstable_windows,
         "rank_diff_cases_run1_vs_run2": rank_diff_cases,
         "drift_from_committed_run1": drift_from_committed,
+        "drift_candidates_from_committed_run1": drift_candidates_from_committed,
     }
     with open(out_path, "w") as f:
         json.dump(summary, f, indent=1)
     print(f"[{tag}] windows={n_windows} cases={n_cases} "
           f"unstable_candidate_sets={len(unstable_windows)} "
           f"rank_diffs_r1_vs_r2={len(rank_diff_cases)} "
-          f"drift_vs_committed={len(drift_from_committed)}")
-    ok = not unstable_windows and not rank_diff_cases and not drift_from_committed
+          f"drift_vs_committed={len(drift_from_committed)} "
+          f"candidate_drift_vs_committed={len(drift_candidates_from_committed)}")
+    ok = (not unstable_windows and not rank_diff_cases
+          and not drift_from_committed
+          and not drift_candidates_from_committed)
     sys.exit(0 if ok else 1)
 
 
