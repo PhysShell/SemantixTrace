@@ -254,3 +254,41 @@ with the experiment-wide exploratory labeling (D-001).
 
 **Outcome data seen at decision time:** all E0–E3 results and both
 re-gate reviews.
+
+---
+
+## 2026-08-21 — D-010: External review found the E3 tool source untracked; RED→GREEN
+
+**Trigger.** Codex review P1 on PR #20: `run_e3.py` invokes an
+`st-graph` binary whose source was nowhere in the repository, so the
+committed S2 results were not regenerable from a fresh checkout —
+a violation of the reproducible-from-clean-checkout quality gate.
+
+**Verified root cause.** `src/bin/st-graph.rs` existed on disk and
+built the committed S2 artifacts, but the root `.gitignore`'s .NET
+rule `**/bin/` silently matched Rust's `src/bin/` convention
+directory: `git add` skipped it and `git status` stayed clean. A
+silent sink in the repository's own ignore rules — the same failure
+class this experiment spent three re-gates hunting in evaluators.
+
+**Fix (RED `80b2e20` → GREEN).** RED records the machine evidence
+(`results/regate/st-graph-missing-RED.txt`: empty `git ls-files`
+match, `git check-ignore -v` naming the rule). GREEN narrows the rule
+to its declared .NET intent (`adapters/**/bin/`) and tracks the source
+via a *plain* `git add` — proving the rule fix rather than forcing
+past it. Verification (`st-graph-GREEN.txt`): fresh clone builds
+st-graph; the fresh binary regenerates the cached E3 transition table
+exactly (set-equality, 647/842 edges; array order differs by the known
+HashMap iteration nondeterminism).
+
+**Scope.** Tooling reproducibility only: no result, metric, document,
+or verdict changes. H1/H2/H4/PIVOT untouched. The two P2 findings of
+the same review (harness exit-code propagation; pinned-commit
+assertion) are answered on their threads without pushes: the evidence
+contract never trusted harness exit codes (acceptance gates are
+downstream rank-vector comparisons, per D-004 and the never-infer-
+success-from-green-exit rule), and checkout identity is recorded in
+run metadata rather than asserted — post-hoc verifiable.
+
+**Outcome data seen at decision time:** all; irrelevant to this
+tooling fix.
