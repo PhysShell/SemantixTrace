@@ -13,10 +13,17 @@ For every distinct abnormal window of both datasets this script:
   2. runs the unchanged s2_scorer on each;
   3. evaluates each with the preregistered semantics;
   4. compares run1 vs run2 (candidate identity + per-case ranks) and
-     run1 vs the committed s2-*.cases.json evaluations.
+     run1 vs the committed s2-*.cases.json artifacts: evaluations,
+     full-candidate multisets, the complete per-case record (every
+     field except the volatile wall-clock `runtime_ms`), and the
+     per-namespace `summary` block recomputed with run_e3.py's exact
+     formula (Codex round-5 P2 on PR #20: stable fields such as
+     algorithm/parameters/ground_truth and the summary aggregates must
+     participate, or the "artifact level" claim is broader than the
+     check).
 
 Output: a machine-readable summary; exit 1 if any instability or drift
-from committed evaluations is observed (RED for the unsorted binary,
+from the committed artifacts is observed (RED for the unsorted binary,
 expected-green for the sorted one).
 """
 import json
@@ -41,6 +48,29 @@ def cand_multiset(cands):
     return sorted(json.dumps(c, sort_keys=True) for c in cands)
 
 
+def summarize(records, ns):
+    """Recompute the per-namespace summary block with run_e3.py's exact
+    formula (same expressions, same iteration order) so the committed
+    `summary` can be compared bit-for-bit against the regeneration."""
+    n = len(records)
+    agg = {}
+    for mode in ("rank_inner", "rank_service_raw", "rank_service_dedup"):
+        ranks = [r["evaluation"][mode] for r in records]
+        hit = [x for x in ranks if x is not None]
+        agg[mode] = {
+            "AC@1_pct": 100.0 * sum(1 for x in hit if x <= 1) / n,
+            "AC@3_pct": 100.0 * sum(1 for x in hit if x <= 3) / n,
+            "AC@5_pct": 100.0 * sum(1 for x in hit if x <= 5) / n,
+            "MRR": sum(1.0 / x for x in hit) / n,
+            "unlocalized": n - len(hit),
+        }
+    sizes = sorted(r["evaluation"]["n_candidates"] for r in records)
+    return {"ns": ns, "n_cases": n, "aggregates": agg,
+            "candidate_sizes": {"min": sizes[0],
+                                "median": sizes[len(sizes) // 2],
+                                "max": sizes[-1]}}
+
+
 def main():
     stgraph = sys.argv[1]
     tag = sys.argv[2]  # label for scratch dirs, e.g. 'unsorted' or 'sorted'
@@ -57,17 +87,25 @@ def main():
         "S2_BASELINE_DIR",
         os.path.join(os.path.dirname(__file__), "..", "results", "e3"))
     committed_cands = {}
+    committed_records = {}
+    committed_summary = {}
     for ns in ("hipster", "ts"):
         d = json.load(open(os.path.join(baseline_dir,
                                         f"s2-{ns}.cases.json")))
+        committed_summary[ns] = d["summary"]
         for c in d["cases"]:
             committed[c["case_id"]] = c["evaluation"]
             committed_cands[c["case_id"]] = cand_multiset(c["candidates"])
+            # full record minus the volatile wall-clock field
+            committed_records[c["case_id"]] = {
+                k: v for k, v in c.items() if k != "runtime_ms"}
 
     unstable_windows = []
     rank_diff_cases = []
     drift_from_committed = []
     drift_candidates_from_committed = []
+    drift_records_from_committed = []
+    run1_records = {"hipster": [], "ts": []}
     n_windows = n_cases = 0
 
     for ns in ("hipster", "ts"):
@@ -112,20 +150,22 @@ def main():
                                  "--alarms",
                                  os.path.join(abn_dir, "import-report.json"),
                                  "--out", sc])
-                            pair.append(json.load(open(sc))["candidates"])
-                        stable = cand_multiset(pair[0]) == cand_multiset(pair[1])
+                            pair.append(json.load(open(sc)))
+                        stable = (cand_multiset(pair[0]["candidates"])
+                                  == cand_multiset(pair[1]["candidates"]))
                         if not stable:
                             unstable_windows.append(f"{ns}/{win}")
                         done_windows[win] = pair
                     pair = done_windows[win]
                     svc = service_of(fault["inject_pod"])
                     try:
-                        rc_parts = root_cause_map[svc][fault["inject_type"]].split("_")
+                        rc = root_cause_map[svc][fault["inject_type"]]
+                        rc_parts = rc.split("_")
                     except KeyError:
-                        rc_parts = []
-                    ev1 = evaluate_case(pair[0], rc_parts,
+                        rc, rc_parts = None, []
+                    ev1 = evaluate_case(pair[0]["candidates"], rc_parts,
                                         fault["inject_pod"], templates[ns])
-                    ev2 = evaluate_case(pair[1], rc_parts,
+                    ev2 = evaluate_case(pair[1]["candidates"], rc_parts,
                                         fault["inject_pod"], templates[ns])
                     if ev1 != ev2:
                         rank_diff_cases.append(
@@ -136,8 +176,36 @@ def main():
                              "committed": committed.get(case_id)})
                     # full-artifact comparison: candidate lists (all
                     # fields incl. provenance) as multisets
-                    if cand_multiset(pair[0]) != committed_cands.get(case_id):
+                    if cand_multiset(pair[0]["candidates"]) \
+                            != committed_cands.get(case_id):
                         drift_candidates_from_committed.append(case_id)
+                    # complete case record, assembled exactly as
+                    # run_e3.py writes it (minus volatile runtime_ms):
+                    # covers case identity, ground truth,
+                    # representation, algorithm, parameters, and the
+                    # ordered candidate list (Codex round-5 P2)
+                    record1 = {
+                        "case_id": case_id, "dataset": date,
+                        "inject_time": fault["inject_time"],
+                        "inject_pod": fault["inject_pod"],
+                        "inject_type": fault["inject_type"],
+                        "ground_truth": rc,
+                        "representation": "semantixtrace-v2-canonical",
+                        "algorithm": pair[0]["algorithm"],
+                        "parameters": pair[0]["parameters"],
+                        "candidates": pair[0]["candidates"],
+                        "evaluation": ev1,
+                    }
+                    run1_records[ns].append(record1)
+                    if record1 != committed_records.get(case_id):
+                        drift_records_from_committed.append(case_id)
+
+    # committed summary block vs run_e3's formula applied to the run-1
+    # regeneration: catches drifted aggregates / candidate-size stats
+    summary_mismatches = []
+    for ns in ("hipster", "ts"):
+        if summarize(run1_records[ns], ns) != committed_summary.get(ns):
+            summary_mismatches.append(ns)
 
     summary = {
         "binary": stgraph, "tag": tag,
@@ -146,6 +214,8 @@ def main():
         "rank_diff_cases_run1_vs_run2": rank_diff_cases,
         "drift_from_committed_run1": drift_from_committed,
         "drift_candidates_from_committed_run1": drift_candidates_from_committed,
+        "drift_records_from_committed_run1": drift_records_from_committed,
+        "summary_mismatches": summary_mismatches,
     }
     with open(out_path, "w") as f:
         json.dump(summary, f, indent=1)
@@ -153,10 +223,14 @@ def main():
           f"unstable_candidate_sets={len(unstable_windows)} "
           f"rank_diffs_r1_vs_r2={len(rank_diff_cases)} "
           f"drift_vs_committed={len(drift_from_committed)} "
-          f"candidate_drift_vs_committed={len(drift_candidates_from_committed)}")
+          f"candidate_drift_vs_committed={len(drift_candidates_from_committed)} "
+          f"record_drift_vs_committed={len(drift_records_from_committed)} "
+          f"summary_mismatches={len(summary_mismatches)}")
     ok = (not unstable_windows and not rank_diff_cases
           and not drift_from_committed
-          and not drift_candidates_from_committed)
+          and not drift_candidates_from_committed
+          and not drift_records_from_committed
+          and not summary_mismatches)
     sys.exit(0 if ok else 1)
 
 
