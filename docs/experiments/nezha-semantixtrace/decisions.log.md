@@ -403,3 +403,51 @@ narrowed.
 **Outcome data seen at decision time:** all; gate hygiene only — no
 number, table, or verdict changes (H1/H2 falsified, H3 untested,
 frozen H4 inconclusive, PIVOT all unchanged).
+
+---
+
+## 2026-08-21 — D-014: Stability gate extended to full-record + summary comparison; mutation-test RED→GREEN
+
+**Trigger.** Codex P2 on PR #20 (fifth-round, head `cd73291`): the gate
+compared regenerated runs against the committed `s2-*.cases.json` only
+via evaluations and full-candidate multisets. Stable per-case fields
+(case identity, `ground_truth`, `representation`, `algorithm`,
+`parameters`) and the per-namespace `summary` block (aggregates,
+candidate sizes) sat outside every comparison, so a corrupted or
+edited committed artifact could pass the gate as long as candidates
+and ranks matched — and D-013's "verified at the artifact level"
+wording was, for the third time in this family (D-009, D-013), still
+broader than the check.
+
+**Remedy: strengthen the check again, with mutation-test evidence.**
+
+**RED (`results/regate/s2-order-stability-fullrecord-mutation-RED.json`
++ `s2-stability-mutation-manifest.json`).** A copy of the committed
+baseline was given five planted mutations in exactly the unchecked
+fields (min_score parameter, algorithm name, ground_truth,
+representation, one hipster summary aggregate), candidates and
+evaluations untouched. The pre-fix gate (as of `0900a0c`) ran all
+101 windows / 101 cases against it and reported 0/0/0/0, exit 0 —
+machine proof of the blindness.
+
+**GREEN (`cd73291` + this commit).** The gate now also compares, per
+case, the complete record assembled exactly as `run_e3.py` writes it —
+every field including the ordered candidate list, excluding only the
+volatile wall-clock `runtime_ms` — and recomputes each namespace's
+`summary` block with run_e3.py's exact formula. Six drift classes,
+exit non-zero on any. Verification:
+- vs the mutated baseline
+  (`s2-order-stability-fullrecord-mutation-caught.json`): exactly the
+  five planted mutations caught (4 record drifts + 1 hipster summary
+  mismatch), all other classes zero, exit 1;
+- vs the real repository baseline
+  (`s2-order-stability-sorted-fullrecord.json`): fresh double
+  regeneration, 0 across all six classes, exit 0.
+
+The committed canonical artifacts are therefore verified at the level
+D-012/D-013 claim: every stable field of every case record and both
+summary blocks, with `runtime_ms` as the sole documented exclusion.
+
+**Outcome data seen at decision time:** all; gate hygiene only — no
+number, table, or verdict changes (H1/H2 falsified, H3 untested,
+frozen H4 inconclusive, PIVOT all unchanged).

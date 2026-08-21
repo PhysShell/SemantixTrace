@@ -1,0 +1,27 @@
+{
+ "purpose": "mutation-test baseline for stability-gate RED (PR #20 Codex round-5 P2)",
+ "source": "experiment/nezha/results/e3 at 0900a0c",
+ "mutations": [
+  [
+   "hipster-2022-08-22-000",
+   "parameters.min_score -> 0.5"
+  ],
+  [
+   "hipster-2022-08-22-001",
+   "algorithm -> *-MUTATED"
+  ],
+  [
+   "hipster-2022-08-22-002",
+   "ground_truth -> Mutated(%)"
+  ],
+  [
+   "hipster summary",
+   "aggregates.rank_inner.AC@1_pct += 1.0"
+  ],
+  [
+   "ts-2023-01-29-000",
+   "representation -> mutated-representation"
+  ]
+ ],
+ "note": "candidates and evaluation fields untouched, so the pre-fix gate (c18004e) must exit 0 against this baseline"
+}

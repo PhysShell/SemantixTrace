@@ -1,0 +1,10 @@
+{
+ "binary": "experiment/nezha/adapters/st-fold/target/release/st-graph",
+ "tag": "fullrec-red",
+ "windows": 101,
+ "cases": 101,
+ "unstable_windows": [],
+ "rank_diff_cases_run1_vs_run2": [],
+ "drift_from_committed_run1": [],
+ "drift_candidates_from_committed_run1": []
+}
