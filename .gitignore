@@ -16,8 +16,10 @@ fuzz/corpus/
 fuzz/artifacts/
 fuzz/coverage/
 
-# .NET (adapters/trace-wpf, etc.)
-**/bin/
+# .NET build output (adapters/Trace.Wpf, etc.). Scoped to adapters/ —
+# a bare '**/bin/' also swallows Rust's src/bin/ convention directory
+# and silently untracked an experiment binary's source (PR #20, D-010).
+adapters/**/bin/
 **/obj/
 *.user
 *.suo
