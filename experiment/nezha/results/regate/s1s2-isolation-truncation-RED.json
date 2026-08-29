@@ -1,0 +1,11 @@
+{
+ "purpose": "truncation-blindness RED for check_s1s2_isolation.py (PR #20 Codex round-7 P2)",
+ "gate_at": "44b89a8",
+ "mutation": "removed case ts-2023-01-29-000 from a copy of results/e3/s2-ts.cases.json (S1 untouched)",
+ "pre_fix_result": {
+  "cases": 100,
+  "isolation_violations": 0,
+  "exit": 0
+ },
+ "expected_post_fix": "the missing case is reported as a violation and the gate exits 1"
+}
