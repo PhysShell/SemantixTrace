@@ -62,8 +62,11 @@ accuracy (11.11 → 40.00) — the interleaving itself is the damage.
 **5. Does the graph/oracle machinery add value beyond the adjacent-edge differential?**
 No. ActionGraph transition frequencies are definitionally equal to
 adjacent-pair supports; the only frozen S2 delta (Heuristics anomaly
-tie-break) reorders ties for −2.2…+6.7 pp depending on dataset/level,
-both directions, on a base 60–91 pp below the N1 baseline. The oracle
+tie-break) reorders ties for −5.4…+6.7 pp depending on dataset/level,
+both directions, on a base 60–91 pp below the N1 baseline. That the
+tie-break is the *only* candidate-level delta is machine-gated per
+case since D-015 (a round-6 review found 4/101 retention draws
+confounding the earlier attribution; re-aligned, no AC@1 change). The oracle
 layer, frozen as annotation-only, contributes nothing measurable to
 ranking. (`05-e3-algorithm.md`)
 

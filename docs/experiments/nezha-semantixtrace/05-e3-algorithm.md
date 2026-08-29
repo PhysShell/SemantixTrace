@@ -20,6 +20,18 @@ only algorithmic delta between S1 and S2 is the anomaly tie-break** —
 which means the contract's required ablation for the new component is
 precisely the S1↔S2 comparison itself.
 
+This contract is machine-enforced: `scripts/check_s1s2_isolation.py`
+compares the checked-in S1/S2 candidate multisets per case over every
+field except `anomaly` (provenance included) and exits non-zero on any
+divergence. Round-6 external review caught the contract broken at the
+artifact level: the lexicographically sorted transition order (D-011)
+fed the order-sensitive keep-first-max-depth alarm dedup a different
+retention draw than S1's encounter order in 4/101 cases, so part of
+the S1↔S2 delta was a retention artifact, not the tie-break. Fixed by
+re-aligning S2's pre-dedup ordering to S1's first-encounter order over
+the same normal sessions (dedup semantics untouched) — RED/GREEN
+artifacts in `results/regate/s1s2-isolation-{RED,GREEN}.json`, D-015.
+
 ## 2. Results (generated: results/e3/e3-tables.md)
 
 | dataset | metric | S1 | S2 | N1 (reference) |
@@ -30,15 +42,19 @@ precisely the S1↔S2 comparison itself.
 | TT | AC@1 inner | 11.11% | 8.89% | 88.89% |
 
 Candidate sets and unlocalized counts are identical between S1 and S2
-(same retained patterns; only order changes). The tie-break shuffles
-ranks in 7/56 (OB) and 15/45 (TT) cases, moving aggregates by −2.2 to
-+6.7 pp depending on dataset and level, in both directions. (Numbers
-regenerated after the re-gate service_dedup fix; hipster unchanged,
-TT S1 20.00 → 22.22 — D-008.)
+(same retained patterns; only order changes) — machine-verified per
+case by the isolation gate (101/101,
+`regate/s1s2-isolation-GREEN.json`, D-015). The tie-break shuffles
+ranks in 5/56 (OB) and 17/45 (TT) cases, moving aggregates by −5.4 to
++6.7 pp depending on dataset and level, in both directions; no AC@1
+value moved in the D-015 re-draw. (History: numbers regenerated after
+the re-gate service_dedup fix — hipster unchanged, TT S1
+20.00 → 22.22, D-008 — and again after the encounter-order alignment
+restored the isolation contract — 4 cases re-drawn, D-015.)
 
 **H2 verdict: falsified.** Under the frozen kill criteria ("adjacent-edge
 differential performs equivalently"), the graph layer adds no material
-value: both conditions sit 58–91 pp below the N1 baseline, and the only
+value: both conditions sit 60–91 pp below the N1 baseline, and the only
 S2-specific component produces small, direction-inconsistent
 reorderings. The oracle layer was frozen as candidate annotation only
 and therefore contributes nothing measurable to ranking (by design; an

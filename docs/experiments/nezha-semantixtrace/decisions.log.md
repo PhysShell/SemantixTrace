@@ -451,3 +451,99 @@ summary blocks, with `runtime_ms` as the sole documented exclusion.
 **Outcome data seen at decision time:** all; gate hygiene only — no
 number, table, or verdict changes (H1/H2 falsified, H3 untested,
 frozen H4 inconclusive, PIVOT all unchanged).
+
+---
+
+## 2026-08-21 — D-015: S1↔S2 retention confound removed; encounter-order alignment + permanent isolation gate
+
+**Trigger.** Codex P1 on PR #20 (sixth-round, head `20d7e0a`),
+independently verified before action: the checked-in S1 and S2
+candidate multisets — compared over every field except S2's `anomaly`
+(provenance included) — diverged in 4/101 cases. Mechanism: the
+keep-first-max-depth alarm dedup retains the FIRST depth-tied
+(pod, resource) candidate in list order; S1's list follows
+first-encounter order over the normal sessions (`pair_support`
+insertion order) while S2's followed the lexicographically sorted
+st-graph transitions (D-011), so the retention draw differed. Score is
+not part of the dedup key, so the draw was material: `ts-2023-01-30-001`
+retained score 1.0 in S1 (rank 1/1/1) but 0.857 in S2 (14/14/7). The
+05 §1/§2 claims "the only algorithmic delta is the anomaly tie-break" /
+"candidate sets are identical" were therefore overclaims at the
+artifact level, and the primary E3 ablation carried a retention
+confound. Owner gate: **fix the ordering, not the dedup semantics**
+(the mirrored Nezha dedup is the object under study; only the ordering
+witness may be restored) — the inverse case of D-009's "don't build
+meta-infrastructure": here the fix is small and restores the frozen
+intended contrast.
+
+**RED (`52dde2e`, `regate/s1s2-isolation-RED.json`).** New permanent
+gate `scripts/check_s1s2_isolation.py` — the machine formulation of
+the ablation contract: per-case S1/S2 candidate multisets over all
+shared fields must be equal, counts included. Against the `20d7e0a`
+canonical artifacts: 101 cases, **4 violations** (the cases above),
+exit 1.
+
+**Fix (`6b8755b`).** s2_scorer records each adjacent pair's
+first-encounter position over the same normal sessions and orders the
+scored patterns by it before materialization and dedup. The graph
+remains the sole source of supports and anomaly scores; dedup and all
+frozen scoring semantics untouched. Fail-closed counter
+`encounter_unaligned_patterns` (scored pattern with no encounter
+position) — 0 in all 101 windows, as the support-floor contract
+requires.
+
+**GREEN (this commit).**
+- Isolation gate vs regenerated canonical: **101/101, 0 violations**
+  (`regate/s1s2-isolation-GREEN.json`) — S1↔S2 identical per case in
+  pattern, score (bit-exact), depth, pod, resource, provenance and
+  candidate count; the only S2 ranking input beyond S1 is `anomaly`,
+  so rank differences can arise only where the tie-break resolves
+  ordering.
+- Six-class stability gate re-run against the NEW canonical baseline:
+  launched at commit time (fresh double regeneration of all 101
+  windows); its artifact
+  (`regate/s2-order-stability-sorted-fullrecord-d015.json`) and the
+  zero-across-six-classes confirmation are adopted in the follow-up
+  commit — adoption gate: any non-zero class reopens this entry per
+  the no-silent-sink rule (see the D-015 addendum below).
+
+**Old → new deltas** (all changed cases; full byte-level detail in
+`regate/d015-old-new-deltas.json`; the retained candidate differs in
+its non-dedup-key fields, pod/resource/depth are tied by construction):
+
+| case | retained (old → new) | ranks inner/raw/dedup (old → new) |
+|---|---|---|
+| hipster-2022-08-22-010 | alert-src score 1.0 → log-src 0.857 | 7/7/4 → 7/7/4 |
+| hipster-2022-08-23-010 | score 0.783 → 0.792 | 18/18/8 → 6/6/5 |
+| ts-2023-01-30-001 | score 0.857 → 1.000 | 14/14/7 → 3/3/3 |
+| ts-2023-01-30-002 | score 0.750 → 0.778 | 22/22/10 → 15/15/9 |
+
+Five further cases changed list order only (stable final sort now
+starts from the encounter order), with candidates and evaluations
+unchanged.
+
+**Aggregate effect.** Every AC@1 value unchanged (OB 3.57/10.71,
+TT 8.89/28.89). Tails move toward S1 (TT dedup AC@5 57.78 → 60.00 =
+S1's value; TT dedup AC@3 48.89 → 51.11; OB dedup AC@5 30.36 → 32.14).
+Tie-shuffle counts: OB 7 → 5, TT 15 → 17 of the respective case
+totals. S1↔S2 delta range −2.2…+6.7 → **−5.4…+6.7 pp** — the range
+now measures the tie-break alone. Sensitivity note (post-hoc,
+diagnostic only, NOT a primary result): excluding the 4 confounded
+cases from the OLD artifacts eliminated the TT inner AC@1 deficit
+entirely — i.e. the confound produced no hidden S2 advantage; its
+removal makes the falsification cleaner, not different.
+
+**Verdict impact.** H2 stays **FALSIFIED** — the confound could only
+have flattered or penalized S2 by retention noise; with it removed,
+S2 still sits 60–91 pp below N1 with small direction-inconsistent
+tie-break effects. Owner formulation during the fix window: H2
+falsification conclusion robust, primary S1↔S2 attribution temporarily
+ungated pending this correction; final ACCEPT withdrawn and merge
+HOLD until GREEN (this entry closes it). Fossil correction logged: 05
+§2 said "58–91 pp below N1" where the numbers (current and prior) give
+60–91, as final-report already stated; corrected to 60–91.
+
+**Outcome data seen at decision time:** all. Post-outcome
+implementation correction of the S2 condition's ordering witness; the
+frozen scoring semantics, metric definitions, and all verdicts are
+unchanged; results remain exploratory per D-001/D-008.

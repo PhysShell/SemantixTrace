@@ -5,23 +5,23 @@
   "aggregates": {
    "rank_inner": {
     "AC@1_pct": 8.88888888888889,
-    "AC@3_pct": 22.22222222222222,
-    "AC@5_pct": 31.11111111111111,
-    "MRR": 0.1775915370033017,
+    "AC@3_pct": 24.444444444444443,
+    "AC@5_pct": 33.333333333333336,
+    "MRR": 0.18388302329478795,
     "unlocalized": 22
    },
    "rank_service_raw": {
     "AC@1_pct": 28.88888888888889,
-    "AC@3_pct": 48.888888888888886,
-    "AC@5_pct": 55.55555555555556,
-    "MRR": 0.40166561107737586,
+    "AC@3_pct": 51.111111111111114,
+    "AC@5_pct": 57.77777777777778,
+    "MRR": 0.40795709736886204,
     "unlocalized": 10
    },
    "rank_service_dedup": {
     "AC@1_pct": 28.88888888888889,
-    "AC@3_pct": 48.888888888888886,
-    "AC@5_pct": 57.77777777777778,
-    "MRR": 0.4187662337662337,
+    "AC@3_pct": 51.111111111111114,
+    "AC@5_pct": 60.0,
+    "MRR": 0.4232459515792848,
     "unlocalized": 10
    }
   },
@@ -754,7 +754,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 329
+   "runtime_ms": 1382
   },
   {
    "case_id": "ts-2023-01-29-001",
@@ -1502,7 +1502,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 332
+   "runtime_ms": 199
   },
   {
    "case_id": "ts-2023-01-29-002",
@@ -1942,7 +1942,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 329
+   "runtime_ms": 155
   },
   {
    "case_id": "ts-2023-01-29-003",
@@ -2920,7 +2920,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 6
    },
-   "runtime_ms": 345
+   "runtime_ms": 251
   },
   {
    "case_id": "ts-2023-01-29-004",
@@ -3928,7 +3928,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 329
+   "runtime_ms": 158
   },
   {
    "case_id": "ts-2023-01-29-005",
@@ -4710,7 +4710,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 317
+   "runtime_ms": 280
   },
   {
    "case_id": "ts-2023-01-29-006",
@@ -5988,7 +5988,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 308
+   "runtime_ms": 159
   },
   {
    "case_id": "ts-2023-01-29-007",
@@ -6408,7 +6408,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 320
+   "runtime_ms": 154
   },
   {
    "case_id": "ts-2023-01-29-008",
@@ -6507,40 +6507,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 1.0,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId}",
        {
         "parent_id": {
@@ -6589,6 +6555,40 @@
      "provenance": {
       "normal_session": "85576790-0d40-5031-95b1-0f82bee0fc25",
       "first_seq": 18
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 1.0,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
      }
     },
     {
@@ -7724,7 +7724,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 295
+   "runtime_ms": 160
   },
   {
    "case_id": "ts-2023-01-29-009",
@@ -8178,7 +8178,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 316
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-29-010",
@@ -10538,7 +10538,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 312
+   "runtime_ms": 163
   },
   {
    "case_id": "ts-2023-01-29-011",
@@ -13760,7 +13760,7 @@
     "rank_service_raw": 10,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 275
+   "runtime_ms": 171
   },
   {
    "case_id": "ts-2023-01-29-012",
@@ -14890,7 +14890,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 300
+   "runtime_ms": 158
   },
   {
    "case_id": "ts-2023-01-29-013",
@@ -17798,7 +17798,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 281
+   "runtime_ms": 248
   },
   {
    "case_id": "ts-2023-01-29-014",
@@ -21520,7 +21520,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 271
+   "runtime_ms": 174
   },
   {
    "case_id": "ts-2023-01-29-015",
@@ -22268,7 +22268,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 314
+   "runtime_ms": 176
   },
   {
    "case_id": "ts-2023-01-29-016",
@@ -23628,7 +23628,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 309
+   "runtime_ms": 160
   },
   {
    "case_id": "ts-2023-01-29-017",
@@ -24362,7 +24362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 353
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-29-018",
@@ -24924,7 +24924,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 318
+   "runtime_ms": 158
   },
   {
    "case_id": "ts-2023-01-29-019",
@@ -26128,7 +26128,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 290
+   "runtime_ms": 160
   },
   {
    "case_id": "ts-2023-01-29-020",
@@ -27048,7 +27048,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 306
+   "runtime_ms": 165
   },
   {
    "case_id": "ts-2023-01-29-021",
@@ -27712,7 +27712,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 293
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-29-022",
@@ -28362,7 +28362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 298
+   "runtime_ms": 343
   },
   {
    "case_id": "ts-2023-01-29-023",
@@ -29141,40 +29141,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:458",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:457",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.7777777777777778,
-     "anomaly": 0.0625,
-     "deepth": 14,
-     "pod": "ts-food-service-f5756978c-k8vqf",
-     "provenance": {
-      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
-      "first_seq": 16
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId}",
        {
         "parent_id": {
@@ -29223,6 +29189,40 @@
      "provenance": {
       "normal_session": "85576790-0d40-5031-95b1-0f82bee0fc25",
       "first_seq": 18
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:458",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:457",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7777777777777778,
+     "anomaly": 0.0625,
+     "deepth": 14,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "provenance": {
+      "normal_session": "dc76f4d7-86f6-5ddf-8948-9126668e31db",
+      "first_seq": 16
      }
     },
     {
@@ -31010,7 +31010,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 284
+   "runtime_ms": 162
   },
   {
    "case_id": "ts-2023-01-29-024",
@@ -32404,7 +32404,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 303
+   "runtime_ms": 159
   },
   {
    "case_id": "ts-2023-01-29-025",
@@ -32963,7 +32963,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 309
+   "runtime_ms": 160
   },
   {
    "case_id": "ts-2023-01-29-026",
@@ -34168,7 +34168,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 294
+   "runtime_ms": 157
   },
   {
    "case_id": "ts-2023-01-29-027",
@@ -34608,7 +34608,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 317
+   "runtime_ms": 158
   },
   {
    "case_id": "ts-2023-01-30-000",
@@ -35397,50 +35397,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:531",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-order-other-service OrderOtherRepository.save",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.75,
-     "anomaly": 0.07142857142857145,
-     "deepth": 160,
-     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5",
-     "provenance": {
-      "normal_session": "63e82f8f-cccf-5bcc-8c05-809c0be71226",
-      "first_seq": 249
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-order-service OrderRepository.save",
        {
         "parent_id": {
@@ -35489,6 +35445,50 @@
      "provenance": {
       "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
       "first_seq": 252
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:531",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-order-other-service OrderOtherRepository.save",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.75,
+     "anomaly": 0.07142857142857145,
+     "deepth": 160,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5",
+     "provenance": {
+      "normal_session": "63e82f8f-cccf-5bcc-8c05-809c0be71226",
+      "first_seq": 249
      }
     },
     {
@@ -36532,7 +36532,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 287
+   "runtime_ms": 237
   },
   {
    "case_id": "ts-2023-01-30-001",
@@ -36636,6 +36636,51 @@
       "normal_session": "07b08e4c-c9a2-518d-9580-2074441c3784",
       "first_seq": 223
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel2-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 1.0,
+     "anomaly": 0.0625,
+     "deepth": 145,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
+      "first_seq": 225
+     },
+     "resource": "CpuUsageRate(%)"
     },
     {
      "pattern": [
@@ -37090,51 +37135,6 @@
       "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
       "first_seq": 242
      }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:134",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-preserve-other-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.8571428571428571,
-     "anomaly": 0.07142857142857145,
-     "deepth": 145,
-     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
-     "provenance": {
-      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
-      "first_seq": 225
-     },
-     "resource": "CpuUsageRate(%)"
     },
     {
      "pattern": [
@@ -38685,11 +38685,11 @@
    ],
    "evaluation": {
     "n_candidates": 48,
-    "rank_inner": 14,
-    "rank_service_raw": 14,
-    "rank_service_dedup": 7
+    "rank_inner": 3,
+    "rank_service_raw": 3,
+    "rank_service_dedup": 3
    },
-   "runtime_ms": 283
+   "runtime_ms": 153
   },
   {
    "case_id": "ts-2023-01-30-002",
@@ -39336,6 +39336,51 @@
      "pattern": [
       [
        "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel2-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7777777777777778,
+     "anomaly": 0.0625,
+     "deepth": 145,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
+      "first_seq": 225
+     },
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
        "span:ts-travel2-service /api/v1/travel2service/trip_detail",
        {
         "parent_id": {
@@ -39619,51 +39664,6 @@
       "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
       "first_seq": 241
      }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
-       "log:134",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "span:ts-preserve-other-service HTTP POST",
-       {
-        "parent_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        },
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        },
-        "span_id": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.75,
-     "anomaly": 0.07142857142857145,
-     "deepth": 145,
-     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
-     "provenance": {
-      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8",
-      "first_seq": 225
-     },
-     "resource": "NetworkP90(ms)"
     },
     {
      "pattern": [
@@ -40220,11 +40220,11 @@
    ],
    "evaluation": {
     "n_candidates": 35,
-    "rank_inner": 22,
-    "rank_service_raw": 22,
-    "rank_service_dedup": 10
+    "rank_inner": 15,
+    "rank_service_raw": 15,
+    "rank_service_dedup": 9
    },
-   "runtime_ms": 301
+   "runtime_ms": 154
   },
   {
    "case_id": "ts-2023-01-30-003",
@@ -40566,7 +40566,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 321
+   "runtime_ms": 150
   },
   {
    "case_id": "ts-2023-01-30-004",
@@ -40952,7 +40952,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 314
+   "runtime_ms": 221
   },
   {
    "case_id": "ts-2023-01-30-005",
@@ -41210,7 +41210,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 301
+   "runtime_ms": 163
   },
   {
    "case_id": "ts-2023-01-30-006",
@@ -43230,7 +43230,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 282
+   "runtime_ms": 154
   },
   {
    "case_id": "ts-2023-01-30-007",
@@ -44486,7 +44486,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 298
+   "runtime_ms": 161
   },
   {
    "case_id": "ts-2023-01-30-008",
@@ -45526,7 +45526,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 300
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-30-009",
@@ -46211,7 +46211,7 @@
     "rank_service_raw": 5,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 341
+   "runtime_ms": 159
   },
   {
    "case_id": "ts-2023-01-30-010",
@@ -48752,7 +48752,7 @@
     "rank_service_raw": 51,
     "rank_service_dedup": 15
    },
-   "runtime_ms": 290
+   "runtime_ms": 155
   },
   {
    "case_id": "ts-2023-01-30-011",
@@ -49453,40 +49453,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:520",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "log:519",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "33-128"
-        }
-       }
-      ]
-     ],
-     "score": 0.875,
-     "anomaly": 0.0625,
-     "deepth": 7,
-     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6",
-     "provenance": {
-      "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
-      "first_seq": 6
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "span:ts-verification-code-service /api/v1/verifycode/verify/{verifyCode}",
        {
         "parent_id": {
@@ -49535,6 +49501,40 @@
      "provenance": {
       "normal_session": "09b8fb32-97f6-5e3a-a0bc-4d751bcc5e0e",
       "first_seq": 7
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:520",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:519",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "score": 0.875,
+     "anomaly": 0.0625,
+     "deepth": 7,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6",
+     "provenance": {
+      "normal_session": "48da6d79-5485-54db-9339-30b45d8f3a41",
+      "first_seq": 6
      }
     },
     {
@@ -50479,7 +50479,7 @@
     "rank_service_raw": 26,
     "rank_service_dedup": 11
    },
-   "runtime_ms": 284
+   "runtime_ms": 151
   },
   {
    "case_id": "ts-2023-01-30-012",
@@ -51183,7 +51183,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 296
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-30-013",
@@ -53400,7 +53400,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 281
+   "runtime_ms": 164
   },
   {
    "case_id": "ts-2023-01-30-014",
@@ -56181,7 +56181,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 277
+   "runtime_ms": 239
   },
   {
    "case_id": "ts-2023-01-30-015",
@@ -57732,7 +57732,7 @@
     "rank_service_raw": 15,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 298
+   "runtime_ms": 156
   },
   {
    "case_id": "ts-2023-01-30-016",
@@ -59553,7 +59553,7 @@
     "rank_service_raw": 30,
     "rank_service_dedup": 12
    },
-   "runtime_ms": 314
+   "runtime_ms": 160
   }
  ]
 }
