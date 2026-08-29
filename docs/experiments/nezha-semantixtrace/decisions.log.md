@@ -638,3 +638,45 @@ INCONCLUSIVE per D-009; docs re-derived (05 §4, final-report Q8).
 
 **Outcome data seen at decision time:** all; checker hardening with an
 unchanged pass population.
+
+---
+
+## 2026-08-29 — D-018: Scorer fails closed on unaligned patterns; stability gate compares complete run outputs
+
+**Trigger.** CodeRabbit's exact-head review of `340e811` (final round,
+two actionable findings, both independently reproduced with machine
+evidence before acting):
+1. (Minor) `s2_scorer` only REPORTED `encounter_unaligned_patterns`:
+   on a smoke input whose scored pattern never occurs in the normal
+   sessions it exited 0 and wrote an artifact with the counter at 1 —
+   although D-015 describes the counter as fail-closed.
+2. (Major) the stability gate's run1↔run2 verdict compared candidate
+   MULTISETS, so two regenerations identical except candidate order
+   counted as stable; since D-015 the list order is a semantic input
+   (encounter order feeds the order-sensitive dedup), a pure reorder
+   must count as instability.
+
+**RED (`3563218`).** `regate/s2-scorer-unaligned-RED.json` (pre-fix
+scorer: exit 0, artifact written, counter=1 on the smoke input) and
+`regate/s2-stability-comparator-RED.json` (two scored outputs
+differing only in candidate order: multiset comparison says stable,
+full-record comparison says not).
+
+**Fix (`c385f27`).** The scorer raises before sorting or
+materializing when any scored pattern lacks an encounter position
+(smoke re-run: exit 1, no artifact — genuinely fail-closed; the
+ordering lookup no longer needs a fallback key). The gate's stable
+verdict now compares the COMPLETE run-1 and run-2 scorer outputs.
+
+**GREEN (this commit,
+`regate/s2-order-stability-sorted-fullrecord-d018.json`).** Full
+101-window double regeneration with the fixed scorer under the
+strengthened comparator: 0 across all six drift classes, exit 0 —
+202 scorer invocations, none tripped the fail-closed guard.
+
+**Verdict impact.** None — no number, table, or scientific verdict
+changes; the D-015 "fail-closed" description is now enforced rather
+than aspirational. Same silent-sink family as D-013/D-014/D-016/D-017.
+
+**Outcome data seen at decision time:** all; gate/scorer hardening
+with byte-identical canonical artifacts.
