@@ -88,6 +88,30 @@ def main():
     for k in drop:
         score.pop(k)
 
+    # Encounter-order alignment (PR #20 Codex round-6 P1, D-015). The
+    # alarm dedup below keeps the FIRST max-depth candidate, so list
+    # order is semantically significant before the anomaly tie-break
+    # ever applies. S1 builds its dicts in first-encounter order over
+    # the normal sessions (pair_support insertion order); the sorted
+    # st-graph transition order differs, which retained different
+    # depth-tied (pod, resource) candidates in 4/101 cases. Restore
+    # S1's ordering witness: record each adjacent pair's
+    # first-encounter position over the same normal sessions and order
+    # the scored patterns by it. The graph remains the sole source of
+    # supports and anomaly scores; the dedup rule itself (mirrored
+    # Nezha semantics) is untouched.
+    first_seen = {}
+    for sess in normal_sessions:
+        keys = [action_key_from_value(a) for a in sess["actions"]]
+        for i in range(1, len(keys)):
+            k = keys[i - 1] + SEP + keys[i]
+            if k not in first_seen:
+                first_seen[k] = len(first_seen)
+    unaligned = sum(1 for k in score if k not in first_seen)
+    score = dict(sorted(score.items(),
+                        key=lambda kv: first_seen.get(kv[0],
+                                                      len(first_seen))))
+
     # depth/pod attribution (same as S1)
     occ_index = {}
     for sess in normal_sessions:
@@ -159,6 +183,7 @@ def main():
         "normal_edges": gdata["normal_edges"],
         "abnormal_edges": gdata["abnormal_edges"],
         "unattributed_patterns": unattributed,
+        "encounter_unaligned_patterns": unaligned,
         "candidates": result_list,
     }
     with open(args.out, "w") as f:
