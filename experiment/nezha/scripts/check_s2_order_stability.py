@@ -151,8 +151,13 @@ def main():
                                  os.path.join(abn_dir, "import-report.json"),
                                  "--out", sc])
                             pair.append(json.load(open(sc)))
-                        stable = (cand_multiset(pair[0]["candidates"])
-                                  == cand_multiset(pair[1]["candidates"]))
+                        # complete-output equality: since D-015 the
+                        # candidate LIST order is a semantic input
+                        # (encounter order feeds the order-sensitive
+                        # dedup), so a pure reorder counts as
+                        # instability — multiset equality is not
+                        # enough (CodeRabbit final round, D-018)
+                        stable = pair[0] == pair[1]
                         if not stable:
                             unstable_windows.append(f"{ns}/{win}")
                         done_windows[win] = pair

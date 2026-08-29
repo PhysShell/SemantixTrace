@@ -108,9 +108,16 @@ def main():
             if k not in first_seen:
                 first_seen[k] = len(first_seen)
     unaligned = sum(1 for k in score if k not in first_seen)
+    if unaligned:
+        # fail closed (D-018): a scored pattern with no encounter
+        # position means the graph and the normal sessions diverge —
+        # the ordering witness is undefined and the order-sensitive
+        # dedup below must not run on an arbitrary draw.
+        raise RuntimeError(
+            f"{unaligned} scored patterns lack an encounter position "
+            "in the normal sessions; refusing to materialize")
     score = dict(sorted(score.items(),
-                        key=lambda kv: first_seen.get(kv[0],
-                                                      len(first_seen))))
+                        key=lambda kv: first_seen[kv[0]]))
 
     # depth/pod attribution (same as S1)
     occ_index = {}
