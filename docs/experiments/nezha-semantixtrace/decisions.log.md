@@ -556,3 +556,31 @@ regeneration of all 101 windows / 101 cases with the encounter-aligned
 scorer — **0 across all six drift classes** (exit 0,
 `regate/s2-order-stability-sorted-fullrecord-d015.json`). The adoption
 gate holds; nothing to reopen. D-015 is closed.
+
+---
+
+## 2026-08-29 — D-016: Isolation gate hardened against truncated artifacts
+
+**Trigger.** Codex P2 on PR #20 (seventh-round, head `44b89a8`): the
+D-015 isolation gate iterated only the S2 cases, looking each up in
+S1, so a case missing from S2 was never compared — a truncated S2
+artifact passed with fewer than the expected comparisons. The reviewer
+demonstrated it machine-checked; independently reproduced here.
+
+**RED (`29fd383`, `regate/s1s2-isolation-truncation-RED.json`).** With
+`ts-2023-01-29-000` removed from a copy of `s2-ts.cases.json`, the
+pre-fix gate passed: cases=100, isolation_violations=0, exit 0.
+
+**Fix + GREEN (this commit).** The gate now iterates the union of the
+two case-id sets; a case present on only one side is itself a
+violation (`missing_from`). Verification:
+- truncated copy (`regate/s1s2-isolation-truncation-caught.json`):
+  cases=101, 1 violation naming the missing case, exit 1;
+- real artifacts (`regate/s1s2-isolation-GREEN-d016.json`): 101/101,
+  0 violations, exit 0.
+
+Same silent-sink family as D-013/D-014 (gate weaker than its stated
+contract), caught before any truncation ever occurred — no artifact
+was ever actually truncated, no number, table, or verdict changes.
+
+**Outcome data seen at decision time:** all; gate hygiene only.

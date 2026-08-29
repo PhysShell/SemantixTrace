@@ -45,26 +45,34 @@ def main():
         s2 = json.load(open(os.path.join(base, "e3",
                                          f"s2-{ns}.cases.json")))
         s1_by_id = {c["case_id"]: c for c in s1["cases"]}
-        for c2 in s2["cases"]:
+        s2_by_id = {c["case_id"]: c for c in s2["cases"]}
+        # Union of the two id sets: a case present on only one side is
+        # itself a violation — a truncated artifact must not pass with
+        # fewer comparisons (Codex round-7 P2 on PR #20, D-016).
+        for case_id in sorted(set(s1_by_id) | set(s2_by_id)):
             n_cases += 1
-            c1 = s1_by_id.get(c2["case_id"])
-            m1 = (sorted(shared_candidate_semantics(c)
-                         for c in c1["candidates"])
-                  if c1 is not None else None)
+            c1 = s1_by_id.get(case_id)
+            c2 = s2_by_id.get(case_id)
+            if c1 is None or c2 is None:
+                violations.append({
+                    "case_id": case_id,
+                    "missing_from": "s1" if c1 is None else "s2",
+                })
+                continue
+            m1 = sorted(shared_candidate_semantics(c)
+                        for c in c1["candidates"])
             m2 = sorted(shared_candidate_semantics(c)
                         for c in c2["candidates"])
             if m1 != m2:
-                only1 = [] if m1 is None else [c for c in m1 if c not in m2]
-                only2 = m2 if m1 is None else [c for c in m2 if c not in m1]
+                only1 = [c for c in m1 if c not in m2]
+                only2 = [c for c in m2 if c not in m1]
                 violations.append({
-                    "case_id": c2["case_id"],
-                    "n_candidates_s1": None if c1 is None
-                    else len(c1["candidates"]),
+                    "case_id": case_id,
+                    "n_candidates_s1": len(c1["candidates"]),
                     "n_candidates_s2": len(c2["candidates"]),
                     "s1_only_candidates": [json.loads(c) for c in only1],
                     "s2_only_candidates": [json.loads(c) for c in only2],
-                    "s1_ranks": None if c1 is None
-                    else ranks(c1["evaluation"]),
+                    "s1_ranks": ranks(c1["evaluation"]),
                     "s2_ranks": ranks(c2["evaluation"]),
                 })
 
