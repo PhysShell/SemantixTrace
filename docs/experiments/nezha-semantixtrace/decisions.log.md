@@ -584,3 +584,57 @@ contract), caught before any truncation ever occurred — no artifact
 was ever actually truncated, no number, table, or verdict changes.
 
 **Outcome data seen at decision time:** all; gate hygiene only.
+
+---
+
+## 2026-08-29 — D-017: H4 checker strengthened to joint-identity row matching and independent value re-parse
+
+**Trigger.** Codex P1 on PR #20 (eighth-round, head `340e811`),
+independently verified: `check_h4_provenance.py` verified a span/log
+source row by pod SUBSTRING only, consulting the span id merely as a
+fallback after a pod mismatch — so a provenance pointer re-aimed at a
+different row of the same pod passed; and it verified a metric
+derivation input by pod substring plus the derivation's own stored
+`verified` flag, never re-parsing the row against the recorded value.
+The checker was therefore weaker than the "exact candidate-to-source
+attribution" the H4-source-attribution claim states.
+
+**RED (`10a1425`, `regate/h4-pointer-mutation-RED.json` +
+`h4-mutation-manifest.json`).** A copy of the walked runroot got two
+plants: (A) one span-v1 pointer re-aimed at a different trace-CSV row
+mentioning the same pod but not the span id; (B) the metric-sample
+derivation input re-aimed at a row whose recorded column parses to a
+different value (81.125 vs recorded 81.0794…), pod-containment
+preserved. The pre-fix checker: **1494/1494, 0 failures, exit 0** —
+blind to both.
+
+**Fix + GREEN (this commit).**
+- `check_source_row` now requires EVERY identity token jointly: for
+  span/log chains the recorded row must contain the pod AND the
+  span/log identity, with the old line-shift fallback removed (it
+  proved unnecessary — the joint requirement passes everywhere on real
+  data).
+- Alert chains: metric-sample inputs are independently re-parsed — the
+  recorded column's cell must equal the recorded value exactly (float
+  equality, as the materialization used); the stored `verified` flag
+  is no longer trusted as a substitute.
+- The checker now exits non-zero when any chain fails (it previously
+  reported failures but exited 0 — a latent gate weakness fixed in
+  passing).
+
+Verification: mutated runroot → 1482/1494 with all 12 failures tracing
+exactly to the two plants (11 chains through the mutated derivation, 1
+through the mutated pointer), exit 1
+(`regate/h4-pointer-mutation-caught.json`); real runroot →
+**1494/1494, 0 failures, exit 0** — the H4-source-attribution claim
+holds at the strengthened checker's full strength. The trace-derived
+pair path is untouched beyond token-list plumbing; no such derivation
+occurs in the walked normal-window population (the 118/4,191 totals
+are materialization-wide statistics, D-008).
+
+**Verdict impact.** None: H4-source-attribution stays VERIFIED
+1494/1494 — now under a strictly stronger checker; frozen H4 stays
+INCONCLUSIVE per D-009; docs re-derived (05 §4, final-report Q8).
+
+**Outcome data seen at decision time:** all; checker hardening with an
+unchanged pass population.

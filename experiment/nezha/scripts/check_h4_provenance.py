@@ -57,9 +57,12 @@ class RowCache:
         return self.cache[path]
 
 
-def check_source_row(code_dir, rel_file, row, must_contain, rows_cache):
+def check_source_row(code_dir, rel_file, row, required_tokens, rows_cache):
     """One immutable source record: file exists, row in range, content
-    mentions `must_contain`. Returns None on success, reason on failure."""
+    mentions EVERY required token (Codex round-8 P1, D-017: a single
+    pod substring also matches other rows of the same pod, so identity
+    tokens such as the span id must be required jointly, never as a
+    fallback). Returns None on success, reason on failure."""
     path = os.path.join(code_dir, rel_file)
     if not os.path.exists(path):
         return f"source file missing: {rel_file}"
@@ -67,8 +70,35 @@ def check_source_row(code_dir, rel_file, row, must_contain, rows_cache):
     rownum = row + 1  # +1 for the CSV header
     if rownum >= len(rows):
         return f"row out of range: {rel_file}:{rownum}"
-    if must_contain and must_contain not in rows[rownum]:
-        return f"source row content mismatch: {rel_file}:{rownum}"
+    for tok in required_tokens:
+        if tok and tok not in rows[rownum]:
+            return (f"source row content mismatch: {rel_file}:{rownum} "
+                    f"(missing {tok!r})")
+    return None
+
+
+def check_metric_cell(code_dir, inp, rows_cache):
+    """Independently re-parse a metric-sample input row and compare the
+    recorded column's cell to the recorded value (exact float equality,
+    as the materialization used) — the derivation's own 'verified' flag
+    is not trusted as a substitute (Codex round-8 P1, D-017)."""
+    path = os.path.join(code_dir, inp["file"])
+    rows = rows_cache.rows(path)
+    header = rows[0].split(",")
+    if inp.get("column") not in header:
+        return f"metric column {inp.get('column')!r} not in {inp['file']}"
+    col = header.index(inp["column"])
+    cells = rows[inp["row"] + 1].split(",")
+    if col >= len(cells):
+        return f"metric row too short: {inp['file']}:{inp['row'] + 1}"
+    try:
+        cell_value = float(cells[col])
+    except ValueError:
+        return (f"metric cell not numeric: {inp['file']}:{inp['row'] + 1} "
+                f"col {inp['column']!r}")
+    if cell_value != inp.get("value"):
+        return (f"metric value mismatch: {inp['file']}:{inp['row'] + 1} "
+                f"cell {cell_value!r} != recorded {inp.get('value')!r}")
     return None
 
 
@@ -90,18 +120,22 @@ def check_alert_derivation(code_dir, prov_rec, report, rows_cache):
     pod = prov_rec.get("pod", "")
     for inp in inputs:
         if "row" in inp:  # metric sample or fallback-threshold row
-            contain = pod if inp.get("kind") == "metric-sample" else None
+            contain = [pod] if inp.get("kind") == "metric-sample" else []
             reason = check_source_row(code_dir, inp["file"], inp["row"],
                                       contain, rows_cache)
             if reason:
                 return reason
+            if inp.get("kind") == "metric-sample":
+                reason = check_metric_cell(code_dir, inp, rows_cache)
+                if reason:
+                    return reason
         elif "child_row" in inp:  # trace-derived latency pair
             reason = check_source_row(code_dir, inp["file"],
-                                      inp["child_row"], pod, rows_cache)
+                                      inp["child_row"], [pod], rows_cache)
             if reason:
                 return reason
             reason = check_source_row(code_dir, inp["file"],
-                                      inp["parent_row"], None, rows_cache)
+                                      inp["parent_row"], [], rows_cache)
             if reason:
                 return reason
         else:
@@ -151,14 +185,14 @@ def main():
                 src_file = prov_rec["file"]
                 pod = prov_rec.get("pod", "")
                 span = prov_rec.get("span_id", "")
+                # BOTH identity tokens required at the recorded line —
+                # no fallback (Codex round-8 P1, D-017): a pod-only
+                # substring accepts any row of the same pod, and a
+                # fallback consulted only after a pod mismatch never
+                # fires on such a mis-pointed row.
                 reason = check_source_row(code_dir, src_file,
-                                          prov_rec["row"], pod, rows_cache)
-                if reason and span:
-                    # multi-line CSV records can shift line numbers; accept
-                    # if the span id is present at the computed line
-                    alt = check_source_row(code_dir, src_file,
-                                           prov_rec["row"], span, rows_cache)
-                    reason = alt
+                                          prov_rec["row"], [pod, span],
+                                          rows_cache)
                 if reason:
                     failures.append((case["case_id"], reason,
                                      src_file, prov_rec["row"]))
@@ -174,6 +208,8 @@ def main():
     with open(os.path.join(RUNROOT, "results", "h4-provenance-check.json"),
               "w") as fo:
         json.dump(out, fo, indent=1)
+    # a checker that reports failures must also FAIL (D-017)
+    raise SystemExit(0 if not failures else 1)
 
 
 if __name__ == "__main__":

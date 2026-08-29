@@ -111,9 +111,16 @@ Claim scope (D-009). What `scripts/check_h4_provenance.py` verifies is
 the **H4-source-attribution** subclaim: it mechanically walked **every
 candidate of every S1 case — 1494/1494 chains (100%)** — from candidate
 through (session, seq) to the canonical event, its provenance record,
-and the source dataset row, verifying content consistency (pod/span id)
-at each step. Zero failures — under a checker with **no special-case
-success**. What it does **not** verify is the frozen H4 chain in full:
+and the source dataset row, verifying content consistency at each
+step; since D-017 in the strong form: the recorded source row must
+contain the pod AND the span/log identity **jointly** (no fallback
+acceptance), and alert chains re-parse the recorded metric column's
+cell requiring exact float equality with the recorded value instead of
+trusting the derivation's stored `verified` flag. Zero failures —
+under a checker with **no special-case success**, mutation-tested for
+blindness: a provenance pointer re-aimed at a different same-pod row
+and a metric input re-aimed at a different-value row are both caught
+(`regate/h4-pointer-mutation-{RED,caught}.json`, D-017). What it does **not** verify is the frozen H4 chain in full:
 the segment normalization → pattern/graph transition → supports (n, a)
 → score → root-most pruning → emission is not reconstructed (candidate
 records carry score but no support derivation), and the walk covers S1
