@@ -547,3 +547,12 @@ HOLD until GREEN (this entry closes it). Fossil correction logged: 05
 implementation correction of the S2 condition's ordering witness; the
 frozen scoring semantics, metric definitions, and all verdicts are
 unchanged; results remain exploratory per D-001/D-008.
+
+### D-015 addendum — stability re-verification adopted
+
+The six-class stability gate launched in the GREEN (1/2) commit
+completed against the NEW canonical baseline: fresh double
+regeneration of all 101 windows / 101 cases with the encounter-aligned
+scorer — **0 across all six drift classes** (exit 0,
+`regate/s2-order-stability-sorted-fullrecord-d015.json`). The adoption
+gate holds; nothing to reopen. D-015 is closed.
