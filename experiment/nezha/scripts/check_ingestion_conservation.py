@@ -38,23 +38,38 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from run_e2 import DATES, NORMAL_WINDOWS, CODE_DIRS, abnormal_window  # noqa: E402
 
 
+MANIFEST = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        "..", "manifests", "expected-windows.json")
+
+
 def expected_windows():
-    """The window manifest the D-019 contract requires, derived from
-    the experiment's own fault lists and normal windows — the gate must
-    not certify a runroot that is missing evidence (Codex round-10 P2,
-    D-020: an empty or partial runroot previously exited 0)."""
-    expected = set()
+    """The COMMITTED expected-window manifest (D-020): the gate
+    certifies coverage against an independent, reviewable source —
+    never against the runroot it is checking (Codex round-10 P2: an
+    empty or partial runroot previously exited 0). The committed
+    manifest is additionally cross-checked against a fresh derivation
+    from the pinned fault lists and normal windows; a mismatch is a
+    hard error, so neither the file nor the derivation can drift
+    silently."""
+    m = json.load(open(MANIFEST))
+    manifest_set = {f"{w['ns']}/{w['phase']}/{w['window']}"
+                    for w in m["windows"]}
+    derived = set()
     for ns in ("hipster", "ts"):
         for date in DATES[ns]:
             tag = f"{date} {NORMAL_WINDOWS[date]}".replace(" ", "_").replace(":", "")
-            expected.add(f"{ns}/construct/{tag}")
+            derived.add(f"{ns}/construct/{tag}")
             fault_data = json.load(open(os.path.join(
                 CODE_DIRS[ns], "rca_data", date, f"{date}-fault_list.json")))
             for hour in fault_data:
                 for fault in fault_data[hour]:
                     win = abnormal_window(fault["inject_time"])
-                    expected.add(f"{ns}/rca/" + win.replace(" ", "_").replace(":", ""))
-    return expected
+                    derived.add(f"{ns}/rca/" + win.replace(" ", "_").replace(":", ""))
+    if manifest_set != derived:
+        raise SystemExit(
+            f"expected-window manifest disagrees with the fault-list "
+            f"derivation: {sorted(manifest_set ^ derived)}")
+    return manifest_set
 
 
 def check_window(d):
@@ -149,17 +164,18 @@ def main():
         n_bad += 1
         windows[tag] = {"problems": ["window not in the expected manifest"]}
     summary = {"runroot": runroot,
-               "windows_expected": len(expected),
-               "windows_checked": len(found),
-               "windows_missing": missing,
-               "windows_unexpected": unexpected,
+               "expected_windows": len(expected),
+               "discovered_windows": len(found),
+               "missing_windows": missing,
+               "unexpected_windows": unexpected,
                "windows_with_violations": n_bad,
                "windows_with_source_duplicates_observed": dup_sources,
                "violations": windows}
     if out_path:
         with open(out_path, "w") as f:
             json.dump(summary, f, indent=1)
-    print(f"conservation: windows={summary['windows_checked']} "
+    print(f"conservation: windows={summary['discovered_windows']}"
+          f"/{summary['expected_windows']} "
           f"violations={n_bad} source-dup-windows-observed={dup_sources}")
     for tag, res in list(windows.items())[:10]:
         print(" ", tag, res["problems"])

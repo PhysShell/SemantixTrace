@@ -1,0 +1,532 @@
+{
+ "purpose": "Expected import-window manifest (D-020): the exact set of (ns, phase, window) units the pinned dataset's fault lists and normal windows define. Committed so the conservation gate certifies coverage against an independent, reviewable source - never against the runroot it is checking.",
+ "derivation": "normal windows from run_e2 NORMAL_WINDOWS/DATES; abnormal windows = abnormal_window(inject_time) over every fault of every pinned fault list",
+ "count": 105,
+ "windows": [
+  {
+   "ns": "hipster",
+   "phase": "construct",
+   "window": "2022-08-22_0351"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0355"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0404"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0412"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0420"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0429"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0438"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0446"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0454"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0503"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0511"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0520"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0529"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0537"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0545"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0554"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0603"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0637"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0654"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0703"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0712"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0719"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0728"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0746"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-22_0755"
+  },
+  {
+   "ns": "hipster",
+   "phase": "construct",
+   "window": "2022-08-23_1700"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1203"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1212"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1220"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1229"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1237"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1247"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1255"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1304"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1312"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1321"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1329"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1339"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1347"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1356"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1405"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1414"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1423"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1432"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1449"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1457"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1506"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1514"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1523"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1531"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1540"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1549"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1558"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1607"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1615"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1624"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1633"
+  },
+  {
+   "ns": "hipster",
+   "phase": "rca",
+   "window": "2022-08-23_1642"
+  },
+  {
+   "ns": "ts",
+   "phase": "construct",
+   "window": "2023-01-29_0850"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0845"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0854"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0900"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0905"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0914"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0923"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0927"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0932"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0936"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0944"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_0951"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1000"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1006"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1014"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1022"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1028"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1047"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1052"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1058"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1106"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1115"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1121"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1131"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1138"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1333"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1425"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1451"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-29_1544"
+  },
+  {
+   "ns": "ts",
+   "phase": "construct",
+   "window": "2023-01-30_1139"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1153"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1201"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1208"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1217"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1231"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1238"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1246"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1254"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1301"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1308"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1317"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1324"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1332"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1346"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1354"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1402"
+  },
+  {
+   "ns": "ts",
+   "phase": "rca",
+   "window": "2023-01-30_1410"
+  }
+ ]
+}

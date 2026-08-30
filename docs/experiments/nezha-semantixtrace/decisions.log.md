@@ -790,3 +790,43 @@ still observed, exit 0
 
 **Outcome data seen at decision time:** all; gate hygiene only — no
 number, table, or verdict changes.
+
+---
+
+## 2026-08-30 — D-020 (completion): committed manifest, truncation and swap mutations, owner acceptance framing
+
+**Owner gate on D-019/D-020.** D-019 is ACCEPTED as a scientific
+re-gate; the scientific verdict is unchanged. D-020 is prospective
+gate-hardening only — the D-019 canonical data and metrics are not
+touched. **D-019's measurement remains valid regardless of the D-020
+defect**: its preserved conservation GREEN already shows all 105
+windows checked, and `d019-importer-differential.json` independently
+covers 98 unchanged + 7 changed = 105; what D-020 fixes is the
+permanent checker's prospective ability to detect an incomplete FUTURE
+run.
+
+**Completion beyond the first D-020 commit, per the owner contract:**
+- The expected-window set is now a COMMITTED manifest
+  (`manifests/expected-windows.json`, 105 entries derived once from
+  the pinned fault lists and normal windows) — never derived from the
+  runroot being checked; the gate additionally cross-checks the
+  committed file against a fresh fault-list derivation and hard-errors
+  on any disagreement, so neither can drift silently.
+- Two further mutation REDs against the f056a32 gate
+  (`regate/d020-conservation-mutations-RED.json`): a 104-window
+  runroot (one expected window removed) — old gate exit 0; and a SWAP
+  runroot (one expected window removed, a copy of another planted
+  under the foreign tag `2099-01-01_0000`, count still 105) — old gate
+  exit 0. The swap case defeats any lazy `count != 105` fix; the
+  manifest gate catches it as one missing PLUS one unexpected window.
+- GREEN (`regate/d020-conservation-mutations-caught.json`): the
+  manifest gate exits 1 on both mutations with every missing and
+  unexpected window named; on the real D-019 runroot
+  (`regate/d019-conservation-GREEN-final.json`):
+  expected_windows=105, discovered_windows=105, missing=[],
+  unexpected=[], windows_with_violations=0, the ts source duplicate
+  still observed, exit 0. Coverage and content conservation are now
+  separate, explicit facts in the gate result — not one green light.
+
+**Outcome data seen at decision time:** all; prospective gate
+hardening only.
