@@ -1,0 +1,13 @@
+{
+ "purpose": "D-020 RED: conservation gate accepts an empty runroot (PR #20 Codex round-10 P2)",
+ "gate_at": "f056a32",
+ "pre_fix_behavior": {
+  "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/empty-runroot",
+  "windows_checked": 0,
+  "windows_with_violations": 0,
+  "windows_with_source_duplicates_observed": 0,
+  "violations": {}
+ },
+ "pre_fix_exit": 0,
+ "expected_post_fix": "expected-window manifest derived from the fault lists and normal windows; any missing or unexpected window is a violation, empty runroot exits 1"
+}
