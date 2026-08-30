@@ -34,6 +34,28 @@ import os
 import sys
 from collections import Counter
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from run_e2 import DATES, NORMAL_WINDOWS, CODE_DIRS, abnormal_window  # noqa: E402
+
+
+def expected_windows():
+    """The window manifest the D-019 contract requires, derived from
+    the experiment's own fault lists and normal windows — the gate must
+    not certify a runroot that is missing evidence (Codex round-10 P2,
+    D-020: an empty or partial runroot previously exited 0)."""
+    expected = set()
+    for ns in ("hipster", "ts"):
+        for date in DATES[ns]:
+            tag = f"{date} {NORMAL_WINDOWS[date]}".replace(" ", "_").replace(":", "")
+            expected.add(f"{ns}/construct/{tag}")
+            fault_data = json.load(open(os.path.join(
+                CODE_DIRS[ns], "rca_data", date, f"{date}-fault_list.json")))
+            for hour in fault_data:
+                for fault in fault_data[hour]:
+                    win = abnormal_window(fault["inject_time"])
+                    expected.add(f"{ns}/rca/" + win.replace(" ", "_").replace(":", ""))
+    return expected
+
 
 def check_window(d):
     rep = json.load(open(os.path.join(d, "import-report.json")))
@@ -105,19 +127,32 @@ def main():
     windows = {}
     n_bad = 0
     dup_sources = 0
+    found = set()
     for rp in sorted(glob.glob(os.path.join(runroot, "*", "*", "*",
                                             "import-report.json"))):
         d = os.path.dirname(rp)
         tag = "/".join(d.split("/")[-3:])
+        found.add(tag)
         res = check_window(d)
         if res["traceids_duplicate_entries"]:
             dup_sources += 1
         if res["problems"]:
             n_bad += 1
             windows[tag] = res
+    expected = expected_windows()
+    missing = sorted(expected - found)
+    unexpected = sorted(found - expected)
+    for tag in missing:
+        n_bad += 1
+        windows[tag] = {"problems": ["expected window MISSING from runroot"]}
+    for tag in unexpected:
+        n_bad += 1
+        windows[tag] = {"problems": ["window not in the expected manifest"]}
     summary = {"runroot": runroot,
-               "windows_checked": len(glob.glob(os.path.join(
-                   runroot, "*", "*", "*", "import-report.json"))),
+               "windows_expected": len(expected),
+               "windows_checked": len(found),
+               "windows_missing": missing,
+               "windows_unexpected": unexpected,
                "windows_with_violations": n_bad,
                "windows_with_source_duplicates_observed": dup_sources,
                "violations": windows}

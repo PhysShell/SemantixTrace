@@ -763,3 +763,30 @@ under a preregistered radius and rule, not assumed.
 rule, and alert-scope rule were committed before any regenerated
 ranking existed; everything downstream is mechanical consequence.
 Results remain exploratory per D-001/D-008.
+
+---
+
+## 2026-08-30 — D-020: Conservation gate bound to the expected-window manifest
+
+**Trigger.** Codex P2 on PR #20 (tenth round, head `f056a32`): the
+D-019 conservation gate globbed whatever import reports existed, so an
+empty runroot exited 0 with windows=0 violations=0, and a regeneration
+missing entire windows could be certified green — silently accepted
+missing evidence, the same truncation-blindness family as D-016/D-018.
+
+**RED (`706a976`, `regate/d020-conservation-empty-RED.json`).** The
+pre-fix gate against an empty directory: windows=0, violations=0,
+exit 0.
+
+**Fix + GREEN (this commit).** The gate now derives the expected
+window manifest from the experiment's own fault lists and normal
+windows (the same source run_e2 drives imports from) and counts every
+missing or unexpected window as a violation. Verification: empty
+runroot → 105 violations, every expected window named MISSING, exit 1
+(`regate/d020-conservation-empty-caught.json`); the regenerated D-019
+runroot → 105 expected / 105 found, 0 violations, source duplicate
+still observed, exit 0
+(`regate/d019-conservation-GREEN-d020.json`).
+
+**Outcome data seen at decision time:** all; gate hygiene only — no
+number, table, or verdict changes.

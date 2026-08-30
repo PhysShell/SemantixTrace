@@ -1,0 +1,10 @@
+{
+ "runroot": "/home/user/e2-runs-d019",
+ "windows_expected": 105,
+ "windows_checked": 105,
+ "windows_missing": [],
+ "windows_unexpected": [],
+ "windows_with_violations": 0,
+ "windows_with_source_duplicates_observed": 1,
+ "violations": {}
+}
