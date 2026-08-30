@@ -49,6 +49,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 363,
+     "traceids_unique": 363,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 16833,
      "spans_accepted": 16833,
      "log_rows_read": 17924,
@@ -270,7 +272,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 16520
+   "runtime_ms": 16128
   },
   {
    "case_id": "hipster-2022-08-22-001",
@@ -289,6 +291,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 581,
+     "traceids_unique": 581,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 13837,
      "spans_accepted": 13837,
      "log_rows_read": 16769,
@@ -772,7 +776,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 13708
+   "runtime_ms": 14034
   },
   {
    "case_id": "hipster-2022-08-22-002",
@@ -791,6 +795,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 389,
+     "traceids_unique": 389,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 17973,
      "spans_accepted": 17973,
      "log_rows_read": 19328,
@@ -926,7 +932,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 18482
+   "runtime_ms": 16984
   },
   {
    "case_id": "hipster-2022-08-22-003",
@@ -945,6 +951,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 533,
+     "traceids_unique": 533,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23337,
      "spans_accepted": 23337,
      "log_rows_read": 25194,
@@ -1050,7 +1058,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23470
+   "runtime_ms": 23060
   },
   {
    "case_id": "hipster-2022-08-22-004",
@@ -1069,6 +1077,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 471,
+     "traceids_unique": 471,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 21662,
      "spans_accepted": 21662,
      "log_rows_read": 23345,
@@ -1204,7 +1214,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22108
+   "runtime_ms": 21168
   },
   {
    "case_id": "hipster-2022-08-22-005",
@@ -1223,6 +1233,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 521,
+     "traceids_unique": 521,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23929,
      "spans_accepted": 23929,
      "log_rows_read": 25762,
@@ -1348,7 +1360,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 24599
+   "runtime_ms": 23908
   },
   {
    "case_id": "hipster-2022-08-22-006",
@@ -1367,6 +1379,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 513,
+     "traceids_unique": 513,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23312,
      "spans_accepted": 23312,
      "log_rows_read": 25309,
@@ -1414,7 +1428,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22464
+   "runtime_ms": 22181
   },
   {
    "case_id": "hipster-2022-08-22-007",
@@ -1433,6 +1447,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 537,
+     "traceids_unique": 537,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 24697,
      "spans_accepted": 24697,
      "log_rows_read": 26616,
@@ -1480,7 +1496,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 24422
+   "runtime_ms": 24508
   },
   {
    "case_id": "hipster-2022-08-22-008",
@@ -1499,6 +1515,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 483,
+     "traceids_unique": 483,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23915,
      "spans_accepted": 23915,
      "log_rows_read": 25591,
@@ -1668,7 +1686,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 23474
+   "runtime_ms": 23066
   },
   {
    "case_id": "hipster-2022-08-22-009",
@@ -1687,6 +1705,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 506,
+     "traceids_unique": 506,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23839,
      "spans_accepted": 23839,
      "log_rows_read": 25400,
@@ -1792,7 +1812,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23488
+   "runtime_ms": 23319
   },
   {
    "case_id": "hipster-2022-08-22-010",
@@ -1811,6 +1831,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 116,
+     "traceids_unique": 116,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5321,
      "spans_accepted": 5321,
      "log_rows_read": 5874,
@@ -2522,7 +2544,7 @@
     "rank_service_raw": 7,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 5904
+   "runtime_ms": 6033
   },
   {
    "case_id": "hipster-2022-08-22-011",
@@ -2541,6 +2563,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 309,
+     "traceids_unique": 309,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 14045,
      "spans_accepted": 14045,
      "log_rows_read": 15394,
@@ -2763,7 +2787,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 13857
+   "runtime_ms": 13254
   },
   {
    "case_id": "hipster-2022-08-22-012",
@@ -2782,6 +2806,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 499,
+     "traceids_unique": 499,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23502,
      "spans_accepted": 23502,
      "log_rows_read": 25108,
@@ -2829,7 +2855,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23896
+   "runtime_ms": 53489
   },
   {
    "case_id": "hipster-2022-08-22-013",
@@ -2848,6 +2874,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 516,
+     "traceids_unique": 516,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23606,
      "spans_accepted": 23606,
      "log_rows_read": 25367,
@@ -2895,7 +2923,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23559
+   "runtime_ms": 22376
   },
   {
    "case_id": "hipster-2022-08-22-014",
@@ -2914,6 +2942,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 524,
+     "traceids_unique": 524,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23879,
      "spans_accepted": 23879,
      "log_rows_read": 25676,
@@ -2961,7 +2991,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23536
+   "runtime_ms": 23604
   },
   {
    "case_id": "hipster-2022-08-22-015",
@@ -2980,6 +3010,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 519,
+     "traceids_unique": 519,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23591,
      "spans_accepted": 23591,
      "log_rows_read": 25337,
@@ -3027,7 +3059,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22621
+   "runtime_ms": 22180
   },
   {
    "case_id": "hipster-2022-08-22-016",
@@ -3046,6 +3078,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 454,
+     "traceids_unique": 454,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 20415,
      "spans_accepted": 20415,
      "log_rows_read": 21880,
@@ -3138,7 +3172,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 19452
+   "runtime_ms": 19349
   },
   {
    "case_id": "hipster-2022-08-22-017",
@@ -3157,6 +3191,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 449,
+     "traceids_unique": 449,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 20207,
      "spans_accepted": 20207,
      "log_rows_read": 21787,
@@ -3249,7 +3285,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 19607
+   "runtime_ms": 19632
   },
   {
    "case_id": "hipster-2022-08-22-018",
@@ -3268,6 +3304,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 425,
+     "traceids_unique": 425,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 19697,
      "spans_accepted": 19697,
      "log_rows_read": 21174,
@@ -3360,7 +3398,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 18778
+   "runtime_ms": 18614
   },
   {
    "case_id": "hipster-2022-08-22-019",
@@ -3379,6 +3417,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 272,
+     "traceids_unique": 272,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 12657,
      "spans_accepted": 12657,
      "log_rows_read": 13492,
@@ -3872,7 +3912,7 @@
     "rank_service_raw": 10,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 12349
+   "runtime_ms": 12407
   },
   {
    "case_id": "hipster-2022-08-22-020",
@@ -3891,6 +3931,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 482,
+     "traceids_unique": 482,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22205,
      "spans_accepted": 22205,
      "log_rows_read": 23711,
@@ -3938,7 +3980,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22193
+   "runtime_ms": 21187
   },
   {
    "case_id": "hipster-2022-08-22-021",
@@ -3957,6 +3999,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 490,
+     "traceids_unique": 490,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22535,
      "spans_accepted": 22535,
      "log_rows_read": 24534,
@@ -4004,7 +4048,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22067
+   "runtime_ms": 21053
   },
   {
    "case_id": "hipster-2022-08-22-022",
@@ -4023,16 +4067,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 528,
+     "traceids_unique": 528,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23498,
      "spans_accepted": 23498,
      "log_rows_read": 25516,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 25516,
      "logs_accepted": 25516,
-     "alert_events": 300,
-     "sessions_emitted": 519,
+     "alert_events": 307,
+     "sessions_emitted": 528,
      "traceids_without_spans": 9,
-     "events_emitted": 48850
+     "log_only_sessions_emitted": 9,
+     "events_emitted": 49321
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -4050,9 +4097,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 519,
+    "abnormal_sessions": 528,
     "normal_patterns": 228,
-    "abnormal_patterns": 248,
+    "abnormal_patterns": 273,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -4097,7 +4144,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 24068
+   "runtime_ms": 21935
   },
   {
    "case_id": "hipster-2022-08-22-023",
@@ -4116,16 +4163,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 522,
+     "traceids_unique": 522,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22137,
      "spans_accepted": 22137,
      "log_rows_read": 24907,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 24907,
      "logs_accepted": 24907,
-     "sessions_emitted": 506,
-     "alert_events": 276,
+     "sessions_emitted": 522,
+     "alert_events": 285,
      "traceids_without_spans": 16,
-     "events_emitted": 46536
+     "log_only_sessions_emitted": 16,
+     "events_emitted": 47329
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -4143,9 +4193,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 506,
+    "abnormal_sessions": 522,
     "normal_patterns": 228,
-    "abnormal_patterns": 240,
+    "abnormal_patterns": 293,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -4190,7 +4240,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 21844
+   "runtime_ms": 21589
   },
   {
    "case_id": "hipster-2022-08-23-000",
@@ -4209,6 +4259,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 366,
+     "traceids_unique": 366,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 17021,
      "spans_accepted": 17021,
      "log_rows_read": 18265,
@@ -4387,7 +4439,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 16338
+   "runtime_ms": 16544
   },
   {
    "case_id": "hipster-2022-08-23-001",
@@ -4406,6 +4458,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 530,
+     "traceids_unique": 530,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 12865,
      "spans_accepted": 12865,
      "log_rows_read": 15643,
@@ -5190,7 +5244,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 12017
+   "runtime_ms": 12259
   },
   {
    "case_id": "hipster-2022-08-23-002",
@@ -5209,6 +5263,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 405,
+     "traceids_unique": 405,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 18993,
      "spans_accepted": 18993,
      "log_rows_read": 20280,
@@ -5344,7 +5400,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 18973
+   "runtime_ms": 18161
   },
   {
    "case_id": "hipster-2022-08-23-003",
@@ -5363,6 +5419,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 507,
+     "traceids_unique": 507,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22738,
      "spans_accepted": 22738,
      "log_rows_read": 24581,
@@ -5468,7 +5526,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22448
+   "runtime_ms": 22358
   },
   {
    "case_id": "hipster-2022-08-23-004",
@@ -5487,6 +5545,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 490,
+     "traceids_unique": 490,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22215,
      "spans_accepted": 22215,
      "log_rows_read": 23852,
@@ -5665,7 +5725,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22703
+   "runtime_ms": 20489
   },
   {
    "case_id": "hipster-2022-08-23-005",
@@ -5684,6 +5744,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 498,
+     "traceids_unique": 498,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22893,
      "spans_accepted": 22893,
      "log_rows_read": 24500,
@@ -5819,7 +5881,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22250
+   "runtime_ms": 22318
   },
   {
    "case_id": "hipster-2022-08-23-006",
@@ -5838,6 +5900,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 506,
+     "traceids_unique": 506,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23080,
      "spans_accepted": 23080,
      "log_rows_read": 24700,
@@ -5973,7 +6037,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 22759
+   "runtime_ms": 21585
   },
   {
    "case_id": "hipster-2022-08-23-007",
@@ -5992,6 +6056,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 481,
+     "traceids_unique": 481,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23896,
      "spans_accepted": 23896,
      "log_rows_read": 25428,
@@ -6194,7 +6260,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 25297
+   "runtime_ms": 22631
   },
   {
    "case_id": "hipster-2022-08-23-008",
@@ -6213,6 +6279,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 500,
+     "traceids_unique": 500,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 24055,
      "spans_accepted": 24055,
      "log_rows_read": 25605,
@@ -6361,7 +6429,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23767
+   "runtime_ms": 22822
   },
   {
    "case_id": "hipster-2022-08-23-009",
@@ -6380,6 +6448,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 507,
+     "traceids_unique": 507,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23072,
      "spans_accepted": 23072,
      "log_rows_read": 24832,
@@ -6427,7 +6497,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22982
+   "runtime_ms": 21374
   },
   {
    "case_id": "hipster-2022-08-23-010",
@@ -6446,6 +6516,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 142,
+     "traceids_unique": 142,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 6656,
      "spans_accepted": 6656,
      "log_rows_read": 7261,
@@ -7514,7 +7586,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 6652
+   "runtime_ms": 7034
   },
   {
    "case_id": "hipster-2022-08-23-011",
@@ -7533,6 +7605,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 329,
+     "traceids_unique": 329,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 15053,
      "spans_accepted": 15053,
      "log_rows_read": 16134,
@@ -7712,7 +7786,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 14430
+   "runtime_ms": 14109
   },
   {
    "case_id": "hipster-2022-08-23-012",
@@ -7731,6 +7805,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 511,
+     "traceids_unique": 511,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23758,
      "spans_accepted": 23758,
      "log_rows_read": 25531,
@@ -7952,7 +8028,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23827
+   "runtime_ms": 23641
   },
   {
    "case_id": "hipster-2022-08-23-013",
@@ -7971,6 +8047,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 539,
+     "traceids_unique": 539,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 24320,
      "spans_accepted": 24320,
      "log_rows_read": 26290,
@@ -8062,7 +8140,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 24245
+   "runtime_ms": 23786
   },
   {
    "case_id": "hipster-2022-08-23-014",
@@ -8081,6 +8159,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 550,
+     "traceids_unique": 550,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 25033,
      "spans_accepted": 25033,
      "log_rows_read": 26817,
@@ -8128,7 +8208,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 25174
+   "runtime_ms": 24403
   },
   {
    "case_id": "hipster-2022-08-23-015",
@@ -8147,16 +8227,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 508,
+     "traceids_unique": 508,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22026,
      "spans_accepted": 22026,
      "log_rows_read": 24702,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 24702,
      "logs_accepted": 24702,
-     "alert_events": 293,
-     "sessions_emitted": 490,
+     "alert_events": 301,
+     "sessions_emitted": 508,
      "traceids_without_spans": 18,
-     "events_emitted": 46174
+     "log_only_sessions_emitted": 18,
+     "events_emitted": 47029
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -8183,9 +8266,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 490,
+    "abnormal_sessions": 508,
     "normal_patterns": 254,
-    "abnormal_patterns": 233,
+    "abnormal_patterns": 284,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -8326,7 +8409,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 21934
+   "runtime_ms": 21191
   },
   {
    "case_id": "hipster-2022-08-23-016",
@@ -8345,16 +8428,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 521,
+     "traceids_unique": 521,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23103,
      "spans_accepted": 23103,
      "log_rows_read": 25220,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 25220,
      "logs_accepted": 25220,
-     "alert_events": 309,
-     "sessions_emitted": 513,
+     "alert_events": 314,
+     "sessions_emitted": 521,
      "traceids_without_spans": 8,
-     "events_emitted": 48246
+     "log_only_sessions_emitted": 8,
+     "events_emitted": 48637
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -8381,9 +8467,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 513,
+    "abnormal_sessions": 521,
     "normal_patterns": 254,
-    "abnormal_patterns": 256,
+    "abnormal_patterns": 281,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -8480,7 +8566,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22833
+   "runtime_ms": 21732
   },
   {
    "case_id": "hipster-2022-08-23-017",
@@ -8499,16 +8585,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 446,
+     "traceids_unique": 446,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 20650,
      "spans_accepted": 20650,
      "log_rows_read": 22349,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 22349,
      "logs_accepted": 22349,
-     "sessions_emitted": 443,
-     "alert_events": 252,
+     "sessions_emitted": 446,
+     "alert_events": 253,
      "traceids_without_spans": 3,
-     "events_emitted": 43082
+     "log_only_sessions_emitted": 3,
+     "events_emitted": 43252
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -8526,9 +8615,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 443,
+    "abnormal_sessions": 446,
     "normal_patterns": 254,
-    "abnormal_patterns": 254,
+    "abnormal_patterns": 281,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -8582,7 +8671,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 20135
+   "runtime_ms": 19577
   },
   {
    "case_id": "hipster-2022-08-23-018",
@@ -8601,16 +8690,19 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 504,
+     "traceids_unique": 504,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 6908,
      "spans_accepted": 6908,
      "log_rows_read": 9911,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 9911,
      "logs_accepted": 9911,
-     "sessions_emitted": 494,
-     "alert_events": 53,
+     "sessions_emitted": 504,
+     "alert_events": 55,
      "traceids_without_spans": 10,
-     "events_emitted": 16652
+     "log_only_sessions_emitted": 10,
+     "events_emitted": 16874
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -8628,9 +8720,9 @@
    ],
    "scoring": {
     "normal_sessions": 500,
-    "abnormal_sessions": 494,
+    "abnormal_sessions": 504,
     "normal_patterns": 254,
-    "abnormal_patterns": 193,
+    "abnormal_patterns": 206,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -9059,39 +9151,6 @@
      "pattern": [
       [
        "<unknown>",
-       "log:1",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ],
-      [
-       "<unknown>",
-       "alert:MemoryUsageRate(%)",
-       {
-        "pod": {
-         "_abstract": "string",
-         "class": "free",
-         "len": "9-32"
-        }
-       }
-      ]
-     ],
-     "score": 0.850828729281768,
-     "deepth": 86,
-     "pod": "frontend-579b9bff58-t2dbm",
-     "provenance": {
-      "normal_session": "25b4f670-ea8d-5114-b207-3a41b101c6c9",
-      "first_seq": 170
-     }
-    },
-    {
-     "pattern": [
-      [
-       "<unknown>",
        "log:25",
        {
         "pod": {
@@ -9129,6 +9188,39 @@
      "provenance": {
       "normal_session": "7deb154e-46f1-57b6-abf2-74b52b76d1a9",
       "first_seq": 25
+     }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:1",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "alert:MemoryUsageRate(%)",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.8415300546448088,
+     "deepth": 86,
+     "pod": "frontend-579b9bff58-t2dbm",
+     "provenance": {
+      "normal_session": "25b4f670-ea8d-5114-b207-3a41b101c6c9",
+      "first_seq": 170
      }
     },
     {
@@ -9353,7 +9445,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 6981
+   "runtime_ms": 7594
   },
   {
    "case_id": "hipster-2022-08-23-019",
@@ -9372,6 +9464,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 428,
+     "traceids_unique": 428,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 19386,
      "spans_accepted": 19386,
      "log_rows_read": 21097,
@@ -9464,7 +9558,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 18362
+   "runtime_ms": 17916
   },
   {
    "case_id": "hipster-2022-08-23-020",
@@ -9483,6 +9577,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 500,
+     "traceids_unique": 500,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 6682,
      "spans_accepted": 6682,
      "log_rows_read": 9313,
@@ -10558,7 +10654,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 6459
+   "runtime_ms": 7029
   },
   {
    "case_id": "hipster-2022-08-23-021",
@@ -10577,6 +10673,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 467,
+     "traceids_unique": 467,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 21458,
      "spans_accepted": 21458,
      "log_rows_read": 22944,
@@ -10712,7 +10810,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 21059
+   "runtime_ms": 20315
   },
   {
    "case_id": "hipster-2022-08-23-022",
@@ -10731,6 +10829,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 406,
+     "traceids_unique": 406,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 18569,
      "spans_accepted": 18569,
      "log_rows_read": 19906,
@@ -10866,7 +10966,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 17627
+   "runtime_ms": 17692
   },
   {
    "case_id": "hipster-2022-08-23-023",
@@ -10885,6 +10985,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 274,
+     "traceids_unique": 274,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 12458,
      "spans_accepted": 12458,
      "log_rows_read": 13305,
@@ -11748,7 +11850,7 @@
     "rank_service_raw": 14,
     "rank_service_dedup": 9
    },
-   "runtime_ms": 11343
+   "runtime_ms": 11572
   },
   {
    "case_id": "hipster-2022-08-23-024",
@@ -11767,6 +11869,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 498,
+     "traceids_unique": 498,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23053,
      "spans_accepted": 23053,
      "log_rows_read": 24700,
@@ -11858,7 +11962,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 23168
+   "runtime_ms": 21630
   },
   {
    "case_id": "hipster-2022-08-23-025",
@@ -11877,6 +11981,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 496,
+     "traceids_unique": 496,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22959,
      "spans_accepted": 22959,
      "log_rows_read": 24786,
@@ -11924,7 +12030,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22351
+   "runtime_ms": 21913
   },
   {
    "case_id": "hipster-2022-08-23-026",
@@ -11943,6 +12049,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 497,
+     "traceids_unique": 497,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23148,
      "spans_accepted": 23148,
      "log_rows_read": 24660,
@@ -11990,7 +12098,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 22208
+   "runtime_ms": 21261
   },
   {
    "case_id": "hipster-2022-08-23-027",
@@ -12009,6 +12117,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 458,
+     "traceids_unique": 458,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 21044,
      "spans_accepted": 21044,
      "log_rows_read": 22569,
@@ -12177,7 +12287,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 20528
+   "runtime_ms": 19632
   },
   {
    "case_id": "hipster-2022-08-23-028",
@@ -12196,6 +12306,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 504,
+     "traceids_unique": 504,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 22977,
      "spans_accepted": 22977,
      "log_rows_read": 24661,
@@ -12269,7 +12381,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 22499
+   "runtime_ms": 21113
   },
   {
    "case_id": "hipster-2022-08-23-029",
@@ -12288,6 +12400,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 528,
+     "traceids_unique": 528,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23957,
      "spans_accepted": 23957,
      "log_rows_read": 25942,
@@ -12361,7 +12475,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 23731
+   "runtime_ms": 23138
   },
   {
    "case_id": "hipster-2022-08-23-030",
@@ -12380,6 +12494,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 422,
+     "traceids_unique": 422,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 19124,
      "spans_accepted": 19124,
      "log_rows_read": 20582,
@@ -12615,7 +12731,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 18441
+   "runtime_ms": 17622
   },
   {
    "case_id": "hipster-2022-08-23-031",
@@ -12634,6 +12750,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 511,
+     "traceids_unique": 511,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 23430,
      "spans_accepted": 23430,
      "log_rows_read": 25234,
@@ -12793,7 +12911,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 23088
+   "runtime_ms": 22161
   }
  ]
 }

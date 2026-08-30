@@ -290,7 +290,7 @@
     "case_id": "ts-2023-01-29-027",
     "inject_type": "cpu_contention",
     "evaluation": {
-     "n_candidates": 9,
+     "n_candidates": 10,
      "rank_inner": null,
      "rank_service_raw": null,
      "rank_service_dedup": null

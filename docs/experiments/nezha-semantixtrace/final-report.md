@@ -88,7 +88,8 @@ candidates. Alert events as vocabulary carry no signal at all
 **8. Which SemantixTrace components are justified by evidence?**
 The source-attribution provenance machinery — with the claim stated at
 exactly its verified strength (D-009). What is verified, with no
-special-case success: **H4-source-attribution** — 1494/1494 (100%)
+special-case success: **H4-source-attribution** — 1495/1495 (100%;
+1494 before the D-019 ingestion repair added one candidate)
 candidate chains walk mechanically from RCA candidate through canonical
 event and provenance record to the exact source dataset rows, alert
 chains included via materialized, verified derivations (118 across all
@@ -96,7 +97,7 @@ windows, 4,191 source refs; earlier weaker form caught by re-gate,
 RED→GREEN in `results/regate/`, D-008; checker strengthened again per
 D-017 — joint pod+span/log-identity row match with no fallback, and
 independent re-parse of recorded metric values — mutation-tested and
-still 1494/1494). What is **not** verified —
+still passing in full, 1495/1495 after D-019). What is **not** verified —
 frozen H4 in full: the checker does not reconstruct the
 normalization → pattern/graph-transition → supports → score →
 root-most-pruning → emission segment (candidate records carry no
@@ -147,7 +148,7 @@ claims. Frozen H4 itself is INCONCLUSIVE (D-009).
 **PIVOT.** SemantixTrace's demonstrated value in this experiment is as
 recorder/replay/evidence infrastructure — deterministic canonical
 capture with verified source-attribution provenance
-(H4-source-attribution, 1494/1494; frozen end-to-end H4 itself
+(H4-source-attribution, 1495/1495; frozen end-to-end H4 itself
 INCONCLUSIVE, D-009) — not as an RCA engine. On RCA specifically the evidence supports STOP for the
 current architecture: H1 and H2 are falsified on development data with
 effect sizes (−66.7…−83.9 pp AC@1) that no measurement correction

@@ -86,6 +86,20 @@ Ingestion on the S1 side was clean: zero rejected records across all
 (embedded-quote log lines the artifact's C-parser read garbles; counted
 per window).
 
+Round-9 external review later found two ingestion conservation defects
+(D-019): a duplicate trace-ID selector re-emitted one abnormal ts
+session (448 duplicate events), and accepted log rows of spanless
+trace IDs were silently dropped in six abnormal hipster windows (2,870
+events) — both violations of the frozen session-v1 mapping, repaired
+under a preregistered impact-radius and decision-rule contract. The
+repair changed canonical payloads in exactly the seven pre-registered
+abnormal windows (all 98 others byte-identical under a full importer
+differential), altered no evaluation rank of any case in either
+condition, and left every generated table byte-identical; ingestion
+conservation is now machine-gated
+(`scripts/check_ingestion_conservation.py`, artifacts in
+`results/regate/d019-*`).
+
 ## 5. Verdict on H1 and mechanism
 
 **H1 is falsified on both development datasets — in the negative

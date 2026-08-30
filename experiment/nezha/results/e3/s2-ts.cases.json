@@ -754,7 +754,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 1382
+   "runtime_ms": 274
   },
   {
    "case_id": "ts-2023-01-29-001",
@@ -1502,7 +1502,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 199
+   "runtime_ms": 319
   },
   {
    "case_id": "ts-2023-01-29-002",
@@ -1942,7 +1942,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 155
+   "runtime_ms": 269
   },
   {
    "case_id": "ts-2023-01-29-003",
@@ -2920,7 +2920,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 6
    },
-   "runtime_ms": 251
+   "runtime_ms": 255
   },
   {
    "case_id": "ts-2023-01-29-004",
@@ -3928,7 +3928,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 158
+   "runtime_ms": 250
   },
   {
    "case_id": "ts-2023-01-29-005",
@@ -4710,7 +4710,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 280
+   "runtime_ms": 271
   },
   {
    "case_id": "ts-2023-01-29-006",
@@ -5988,7 +5988,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 159
+   "runtime_ms": 251
   },
   {
    "case_id": "ts-2023-01-29-007",
@@ -6408,7 +6408,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 154
+   "runtime_ms": 265
   },
   {
    "case_id": "ts-2023-01-29-008",
@@ -7724,7 +7724,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 160
+   "runtime_ms": 256
   },
   {
    "case_id": "ts-2023-01-29-009",
@@ -8178,7 +8178,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 156
+   "runtime_ms": 278
   },
   {
    "case_id": "ts-2023-01-29-010",
@@ -10538,7 +10538,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 163
+   "runtime_ms": 252
   },
   {
    "case_id": "ts-2023-01-29-011",
@@ -13760,7 +13760,7 @@
     "rank_service_raw": 10,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 171
+   "runtime_ms": 248
   },
   {
    "case_id": "ts-2023-01-29-012",
@@ -14890,7 +14890,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 158
+   "runtime_ms": 258
   },
   {
    "case_id": "ts-2023-01-29-013",
@@ -17798,7 +17798,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 248
+   "runtime_ms": 252
   },
   {
    "case_id": "ts-2023-01-29-014",
@@ -21520,7 +21520,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 174
+   "runtime_ms": 246
   },
   {
    "case_id": "ts-2023-01-29-015",
@@ -22268,7 +22268,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 176
+   "runtime_ms": 271
   },
   {
    "case_id": "ts-2023-01-29-016",
@@ -23628,7 +23628,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 160
+   "runtime_ms": 288
   },
   {
    "case_id": "ts-2023-01-29-017",
@@ -24362,7 +24362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 156
+   "runtime_ms": 268
   },
   {
    "case_id": "ts-2023-01-29-018",
@@ -24924,7 +24924,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 158
+   "runtime_ms": 274
   },
   {
    "case_id": "ts-2023-01-29-019",
@@ -26128,7 +26128,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 160
+   "runtime_ms": 262
   },
   {
    "case_id": "ts-2023-01-29-020",
@@ -27048,7 +27048,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 165
+   "runtime_ms": 369
   },
   {
    "case_id": "ts-2023-01-29-021",
@@ -27712,7 +27712,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 156
+   "runtime_ms": 260
   },
   {
    "case_id": "ts-2023-01-29-022",
@@ -28362,7 +28362,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 343
+   "runtime_ms": 249
   },
   {
    "case_id": "ts-2023-01-29-023",
@@ -31010,7 +31010,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 162
+   "runtime_ms": 242
   },
   {
    "case_id": "ts-2023-01-29-024",
@@ -32404,7 +32404,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 159
+   "runtime_ms": 252
   },
   {
    "case_id": "ts-2023-01-29-025",
@@ -32963,7 +32963,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 160
+   "runtime_ms": 270
   },
   {
    "case_id": "ts-2023-01-29-026",
@@ -34168,7 +34168,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 157
+   "runtime_ms": 274
   },
   {
    "case_id": "ts-2023-01-29-027",
@@ -34600,15 +34600,49 @@
       "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f",
       "first_seq": 222
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:613",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:205",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "anomaly": 0.0625,
+     "deepth": 131,
+     "pod": "ts-order-service-5b67c48447-mv5hb",
+     "provenance": {
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071",
+      "first_seq": 210
+     }
     }
    ],
    "evaluation": {
-    "n_candidates": 9,
+    "n_candidates": 10,
     "rank_inner": null,
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 158
+   "runtime_ms": 286
   },
   {
    "case_id": "ts-2023-01-30-000",
@@ -36532,7 +36566,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 237
+   "runtime_ms": 260
   },
   {
    "case_id": "ts-2023-01-30-001",
@@ -38689,7 +38723,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 153
+   "runtime_ms": 247
   },
   {
    "case_id": "ts-2023-01-30-002",
@@ -40224,7 +40258,7 @@
     "rank_service_raw": 15,
     "rank_service_dedup": 9
    },
-   "runtime_ms": 154
+   "runtime_ms": 250
   },
   {
    "case_id": "ts-2023-01-30-003",
@@ -40566,7 +40600,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 150
+   "runtime_ms": 273
   },
   {
    "case_id": "ts-2023-01-30-004",
@@ -40952,7 +40986,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 221
+   "runtime_ms": 272
   },
   {
    "case_id": "ts-2023-01-30-005",
@@ -41210,7 +41244,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 163
+   "runtime_ms": 251
   },
   {
    "case_id": "ts-2023-01-30-006",
@@ -43230,7 +43264,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 154
+   "runtime_ms": 240
   },
   {
    "case_id": "ts-2023-01-30-007",
@@ -44486,7 +44520,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 161
+   "runtime_ms": 254
   },
   {
    "case_id": "ts-2023-01-30-008",
@@ -45526,7 +45560,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 156
+   "runtime_ms": 260
   },
   {
    "case_id": "ts-2023-01-30-009",
@@ -46211,7 +46245,7 @@
     "rank_service_raw": 5,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 159
+   "runtime_ms": 257
   },
   {
    "case_id": "ts-2023-01-30-010",
@@ -48752,7 +48786,7 @@
     "rank_service_raw": 51,
     "rank_service_dedup": 15
    },
-   "runtime_ms": 155
+   "runtime_ms": 244
   },
   {
    "case_id": "ts-2023-01-30-011",
@@ -50479,7 +50513,7 @@
     "rank_service_raw": 26,
     "rank_service_dedup": 11
    },
-   "runtime_ms": 151
+   "runtime_ms": 254
   },
   {
    "case_id": "ts-2023-01-30-012",
@@ -51183,7 +51217,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 156
+   "runtime_ms": 252
   },
   {
    "case_id": "ts-2023-01-30-013",
@@ -53400,7 +53434,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 164
+   "runtime_ms": 257
   },
   {
    "case_id": "ts-2023-01-30-014",
@@ -56181,7 +56215,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 239
+   "runtime_ms": 240
   },
   {
    "case_id": "ts-2023-01-30-015",
@@ -57732,7 +57766,7 @@
     "rank_service_raw": 15,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 156
+   "runtime_ms": 300
   },
   {
    "case_id": "ts-2023-01-30-016",
@@ -59553,7 +59587,7 @@
     "rank_service_raw": 30,
     "rank_service_dedup": 12
    },
-   "runtime_ms": 160
+   "runtime_ms": 256
   }
  ]
 }

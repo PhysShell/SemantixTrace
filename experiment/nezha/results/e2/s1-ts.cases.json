@@ -49,9 +49,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 58,
+     "traceids_unique": 58,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5108,
      "spans_accepted": 5108,
      "log_rows_read": 2795,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2795,
      "logs_accepted": 2795,
      "sessions_emitted": 58,
      "events_emitted": 7903
@@ -760,7 +764,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 244
+   "runtime_ms": 7067
   },
   {
    "case_id": "ts-2023-01-29-001",
@@ -779,9 +783,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 61,
+     "traceids_unique": 61,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4376,
      "spans_accepted": 4376,
      "log_rows_read": 2336,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2336,
      "logs_accepted": 2336,
      "sessions_emitted": 61,
      "events_emitted": 6712
@@ -1513,7 +1521,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 209
+   "runtime_ms": 6004
   },
   {
    "case_id": "ts-2023-01-29-002",
@@ -1532,9 +1540,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 60,
+     "traceids_unique": 60,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5363,
      "spans_accepted": 5363,
      "log_rows_read": 2900,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2900,
      "logs_accepted": 2900,
      "sessions_emitted": 60,
      "events_emitted": 8263
@@ -1965,7 +1977,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 234
+   "runtime_ms": 6911
   },
   {
    "case_id": "ts-2023-01-29-003",
@@ -1984,9 +1996,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 58,
+     "traceids_unique": 58,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3821,
      "spans_accepted": 3821,
      "log_rows_read": 1954,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 1954,
      "logs_accepted": 1954,
      "sessions_emitted": 58,
      "events_emitted": 5775
@@ -2943,7 +2959,7 @@
     "rank_service_raw": 11,
     "rank_service_dedup": 6
    },
-   "runtime_ms": 202
+   "runtime_ms": 5203
   },
   {
    "case_id": "ts-2023-01-29-004",
@@ -2962,9 +2978,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 57,
+     "traceids_unique": 57,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4045,
      "spans_accepted": 4045,
      "log_rows_read": 2068,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2068,
      "logs_accepted": 2068,
      "sessions_emitted": 57,
      "events_emitted": 6113
@@ -3951,7 +3971,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 205
+   "runtime_ms": 5319
   },
   {
    "case_id": "ts-2023-01-29-005",
@@ -3970,9 +3990,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 65,
+     "traceids_unique": 65,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5617,
      "spans_accepted": 5617,
      "log_rows_read": 2993,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2993,
      "logs_accepted": 2993,
      "sessions_emitted": 65,
      "events_emitted": 8610
@@ -4737,7 +4761,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 235
+   "runtime_ms": 7925
   },
   {
    "case_id": "ts-2023-01-29-006",
@@ -4756,9 +4780,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 54,
+     "traceids_unique": 54,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3842,
      "spans_accepted": 3842,
      "log_rows_read": 2023,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2023,
      "logs_accepted": 2023,
      "sessions_emitted": 54,
      "events_emitted": 5865
@@ -6010,7 +6038,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 197
+   "runtime_ms": 5760
   },
   {
    "case_id": "ts-2023-01-29-007",
@@ -6029,9 +6057,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 67,
+     "traceids_unique": 67,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5662,
      "spans_accepted": 5662,
      "log_rows_read": 3035,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 3035,
      "logs_accepted": 3035,
      "sessions_emitted": 67,
      "events_emitted": 8697
@@ -6442,7 +6474,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 234
+   "runtime_ms": 7361
   },
   {
    "case_id": "ts-2023-01-29-008",
@@ -6461,9 +6493,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 42,
+     "traceids_unique": 42,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3119,
      "spans_accepted": 3119,
      "log_rows_read": 1623,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 1623,
      "logs_accepted": 1623,
      "sessions_emitted": 42,
      "events_emitted": 4742
@@ -7751,7 +7787,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 194
+   "runtime_ms": 4386
   },
   {
    "case_id": "ts-2023-01-29-009",
@@ -7770,9 +7806,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 56,
+     "traceids_unique": 56,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4540,
      "spans_accepted": 4540,
      "log_rows_read": 2452,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 2452,
      "logs_accepted": 2452,
      "sessions_emitted": 56,
      "events_emitted": 6992
@@ -8216,7 +8256,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 3
    },
-   "runtime_ms": 213
+   "runtime_ms": 6086
   },
   {
    "case_id": "ts-2023-01-29-010",
@@ -8235,9 +8275,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 47,
+     "traceids_unique": 47,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2901,
      "spans_accepted": 2901,
      "log_rows_read": 1515,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 1515,
      "logs_accepted": 1515,
      "sessions_emitted": 47,
      "events_emitted": 4416
@@ -10548,7 +10592,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 201
+   "runtime_ms": 4626
   },
   {
    "case_id": "ts-2023-01-29-011",
@@ -10567,9 +10611,13 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 45,
+     "traceids_unique": 45,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2250,
      "spans_accepted": 2250,
      "log_rows_read": 1119,
+     "log_rows_repaired_tokenization": 0,
+     "log_rows_artifact_style_read": 1119,
      "logs_accepted": 1119,
      "sessions_emitted": 45,
      "events_emitted": 3369
@@ -13724,7 +13772,7 @@
     "rank_service_raw": 7,
     "rank_service_dedup": 6
    },
-   "runtime_ms": 199
+   "runtime_ms": 3604
   },
   {
    "case_id": "ts-2023-01-29-012",
@@ -13743,6 +13791,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 50,
+     "traceids_unique": 50,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4102,
      "spans_accepted": 4102,
      "log_rows_read": 2127,
@@ -14853,7 +14903,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 5221
+   "runtime_ms": 5644
   },
   {
    "case_id": "ts-2023-01-29-013",
@@ -14872,6 +14922,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 49,
+     "traceids_unique": 49,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2334,
      "spans_accepted": 2334,
      "log_rows_read": 1161,
@@ -17723,7 +17775,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 3676
+   "runtime_ms": 4043
   },
   {
    "case_id": "ts-2023-01-29-014",
@@ -17742,6 +17794,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 36,
+     "traceids_unique": 36,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 1328,
      "spans_accepted": 1328,
      "log_rows_read": 634,
@@ -21391,7 +21445,7 @@
     "rank_service_raw": 6,
     "rank_service_dedup": 5
    },
-   "runtime_ms": 2753
+   "runtime_ms": 3137
   },
   {
    "case_id": "ts-2023-01-29-015",
@@ -21410,6 +21464,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 57,
+     "traceids_unique": 57,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4771,
      "spans_accepted": 4771,
      "log_rows_read": 2529,
@@ -22146,7 +22202,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 5846
+   "runtime_ms": 6936
   },
   {
    "case_id": "ts-2023-01-29-016",
@@ -22165,6 +22221,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 59,
+     "traceids_unique": 59,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4274,
      "spans_accepted": 4274,
      "log_rows_read": 2238,
@@ -23500,7 +23558,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 5344
+   "runtime_ms": 6115
   },
   {
    "case_id": "ts-2023-01-29-017",
@@ -23519,6 +23577,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 58,
+     "traceids_unique": 58,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5396,
      "spans_accepted": 5396,
      "log_rows_read": 2920,
@@ -24242,7 +24302,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 6464
+   "runtime_ms": 6851
   },
   {
    "case_id": "ts-2023-01-29-018",
@@ -24261,6 +24321,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 62,
+     "traceids_unique": 62,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5272,
      "spans_accepted": 5272,
      "log_rows_read": 2810,
@@ -24815,7 +24877,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 6471
+   "runtime_ms": 6978
   },
   {
    "case_id": "ts-2023-01-29-019",
@@ -24834,6 +24896,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 50,
+     "traceids_unique": 50,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4077,
      "spans_accepted": 4077,
      "log_rows_read": 2185,
@@ -26017,7 +26081,7 @@
     "rank_service_raw": 2,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 5120
+   "runtime_ms": 5388
   },
   {
    "case_id": "ts-2023-01-29-020",
@@ -26036,6 +26100,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 62,
+     "traceids_unique": 62,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4966,
      "spans_accepted": 4966,
      "log_rows_read": 2609,
@@ -26941,7 +27007,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 6298
+   "runtime_ms": 6127
   },
   {
    "case_id": "ts-2023-01-29-021",
@@ -26960,6 +27026,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 65,
+     "traceids_unique": 65,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4729,
      "spans_accepted": 4729,
      "log_rows_read": 2377,
@@ -27613,7 +27681,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 5598
+   "runtime_ms": 6220
   },
   {
    "case_id": "ts-2023-01-29-022",
@@ -27632,6 +27700,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 49,
+     "traceids_unique": 49,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3663,
      "spans_accepted": 3663,
      "log_rows_read": 1992,
@@ -28272,7 +28342,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 4844
+   "runtime_ms": 5016
   },
   {
    "case_id": "ts-2023-01-29-023",
@@ -28291,6 +28361,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 48,
+     "traceids_unique": 48,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2517,
      "spans_accepted": 2517,
      "log_rows_read": 1323,
@@ -30887,7 +30959,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 3847
+   "runtime_ms": 4127
   },
   {
    "case_id": "ts-2023-01-29-024",
@@ -30906,6 +30978,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 52,
+     "traceids_unique": 52,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4063,
      "spans_accepted": 4063,
      "log_rows_read": 2146,
@@ -32285,7 +32359,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 5469
+   "runtime_ms": 6097
   },
   {
    "case_id": "ts-2023-01-29-025",
@@ -32304,6 +32378,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 68,
+     "traceids_unique": 68,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5466,
      "spans_accepted": 5466,
      "log_rows_read": 2958,
@@ -32867,7 +32943,7 @@
     "rank_service_raw": 4,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 6565
+   "runtime_ms": 7004
   },
   {
    "case_id": "ts-2023-01-29-026",
@@ -32886,6 +32962,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 51,
+     "traceids_unique": 51,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3838,
      "spans_accepted": 3838,
      "log_rows_read": 2062,
@@ -34081,7 +34159,7 @@
     "rank_service_raw": 12,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 4860
+   "runtime_ms": 5224
   },
   {
    "case_id": "ts-2023-01-29-027",
@@ -34100,15 +34178,17 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 97,
+     "traceids_unique": 96,
+     "traceids_duplicate_entries": 1,
      "trace_rows_read": 6293,
      "spans_accepted": 6293,
      "log_rows_read": 3204,
      "log_rows_repaired_tokenization": 0,
      "log_rows_artifact_style_read": 3204,
      "logs_accepted": 3204,
-     "sessions_emitted": 97,
+     "sessions_emitted": 96,
      "alert_events": 7,
-     "events_emitted": 9952
+     "events_emitted": 9504
     },
     "rejections": {},
     "drain3_new_clusters": 0
@@ -34128,7 +34208,7 @@
     "normal_sessions": 66,
     "abnormal_sessions": 96,
     "normal_patterns": 647,
-    "abnormal_patterns": 790,
+    "abnormal_patterns": 789,
     "unattributed_patterns": 0
    },
    "candidates": [
@@ -34538,15 +34618,48 @@
       "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f",
       "first_seq": 222
      }
+    },
+    {
+     "pattern": [
+      [
+       "<unknown>",
+       "log:613",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:205",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "score": 0.7,
+     "deepth": 131,
+     "pod": "ts-order-service-5b67c48447-mv5hb",
+     "provenance": {
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071",
+      "first_seq": 210
+     }
     }
    ],
    "evaluation": {
-    "n_candidates": 9,
+    "n_candidates": 10,
     "rank_inner": null,
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 9051
+   "runtime_ms": 8768
   },
   {
    "case_id": "ts-2023-01-30-000",
@@ -34565,6 +34678,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 50,
+     "traceids_unique": 50,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3463,
      "spans_accepted": 3463,
      "log_rows_read": 1824,
@@ -36464,7 +36579,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 4588
+   "runtime_ms": 6654
   },
   {
    "case_id": "ts-2023-01-30-001",
@@ -36483,6 +36598,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 52,
+     "traceids_unique": 52,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2983,
      "spans_accepted": 2983,
      "log_rows_read": 1408,
@@ -38607,7 +38724,7 @@
     "rank_service_raw": 1,
     "rank_service_dedup": 1
    },
-   "runtime_ms": 4116
+   "runtime_ms": 4438
   },
   {
    "case_id": "ts-2023-01-30-002",
@@ -38626,6 +38743,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 45,
+     "traceids_unique": 45,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3186,
      "spans_accepted": 3186,
      "log_rows_read": 1638,
@@ -40141,7 +40260,7 @@
     "rank_service_raw": 14,
     "rank_service_dedup": 8
    },
-   "runtime_ms": 4307
+   "runtime_ms": 4867
   },
   {
    "case_id": "ts-2023-01-30-003",
@@ -40160,6 +40279,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 56,
+     "traceids_unique": 56,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4335,
      "spans_accepted": 4335,
      "log_rows_read": 2293,
@@ -40510,7 +40631,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 5382
+   "runtime_ms": 6201
   },
   {
    "case_id": "ts-2023-01-30-004",
@@ -40529,6 +40650,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 66,
+     "traceids_unique": 66,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 5316,
      "spans_accepted": 5316,
      "log_rows_read": 2870,
@@ -40922,7 +41045,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 6423
+   "runtime_ms": 7471
   },
   {
    "case_id": "ts-2023-01-30-005",
@@ -40941,6 +41064,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 57,
+     "traceids_unique": 57,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4408,
      "spans_accepted": 4408,
      "log_rows_read": 2322,
@@ -41208,7 +41333,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 5474
+   "runtime_ms": 18484
   },
   {
    "case_id": "ts-2023-01-30-006",
@@ -41227,6 +41352,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 41,
+     "traceids_unique": 41,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2380,
      "spans_accepted": 2380,
      "log_rows_read": 1206,
@@ -43218,7 +43345,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 3920
+   "runtime_ms": 3905
   },
   {
    "case_id": "ts-2023-01-30-007",
@@ -43237,6 +43364,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 48,
+     "traceids_unique": 48,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3406,
      "spans_accepted": 3406,
      "log_rows_read": 1820,
@@ -44480,7 +44609,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 4745
+   "runtime_ms": 5091
   },
   {
    "case_id": "ts-2023-01-30-008",
@@ -44499,6 +44628,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 58,
+     "traceids_unique": 58,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4258,
      "spans_accepted": 4258,
      "log_rows_read": 2314,
@@ -45530,7 +45661,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 5678
+   "runtime_ms": 5587
   },
   {
    "case_id": "ts-2023-01-30-009",
@@ -45549,6 +45680,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 60,
+     "traceids_unique": 60,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 4290,
      "spans_accepted": 4290,
      "log_rows_read": 2284,
@@ -46234,7 +46367,7 @@
     "rank_service_raw": 5,
     "rank_service_dedup": 4
    },
-   "runtime_ms": 5803
+   "runtime_ms": 5940
   },
   {
    "case_id": "ts-2023-01-30-010",
@@ -46253,6 +46386,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 31,
+     "traceids_unique": 31,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2170,
      "spans_accepted": 2170,
      "log_rows_read": 1169,
@@ -48755,7 +48890,7 @@
     "rank_service_raw": 51,
     "rank_service_dedup": 15
    },
-   "runtime_ms": 3452
+   "runtime_ms": 3545
   },
   {
    "case_id": "ts-2023-01-30-011",
@@ -48774,6 +48909,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 44,
+     "traceids_unique": 44,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3510,
      "spans_accepted": 3510,
      "log_rows_read": 1845,
@@ -50478,7 +50615,7 @@
     "rank_service_raw": 25,
     "rank_service_dedup": 11
    },
-   "runtime_ms": 4730
+   "runtime_ms": 4809
   },
   {
    "case_id": "ts-2023-01-30-012",
@@ -50497,6 +50634,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 45,
+     "traceids_unique": 45,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3942,
      "spans_accepted": 3942,
      "log_rows_read": 2076,
@@ -51201,7 +51340,7 @@
     "rank_service_raw": null,
     "rank_service_dedup": null
    },
-   "runtime_ms": 5018
+   "runtime_ms": 5244
   },
   {
    "case_id": "ts-2023-01-30-013",
@@ -51220,6 +51359,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 35,
+     "traceids_unique": 35,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 2774,
      "spans_accepted": 2774,
      "log_rows_read": 1477,
@@ -53404,7 +53545,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 3890
+   "runtime_ms": 4176
   },
   {
    "case_id": "ts-2023-01-30-014",
@@ -53423,6 +53564,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 33,
+     "traceids_unique": 33,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 1994,
      "spans_accepted": 1994,
      "log_rows_read": 917,
@@ -56160,7 +56303,7 @@
     "rank_service_raw": 3,
     "rank_service_dedup": 2
    },
-   "runtime_ms": 3173
+   "runtime_ms": 3696
   },
   {
    "case_id": "ts-2023-01-30-015",
@@ -56179,6 +56322,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 37,
+     "traceids_unique": 37,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3204,
      "spans_accepted": 3204,
      "log_rows_read": 1699,
@@ -57711,7 +57856,7 @@
     "rank_service_raw": 16,
     "rank_service_dedup": 7
    },
-   "runtime_ms": 4555
+   "runtime_ms": 5038
   },
   {
    "case_id": "ts-2023-01-30-016",
@@ -57730,6 +57875,8 @@
    "ingestion": {
     "counters": {
      "traceids_listed": 49,
+     "traceids_unique": 49,
+     "traceids_duplicate_entries": 0,
      "trace_rows_read": 3537,
      "spans_accepted": 3537,
      "log_rows_read": 1937,
@@ -59527,7 +59674,7 @@
     "rank_service_raw": 30,
     "rank_service_dedup": 12
    },
-   "runtime_ms": 4744
+   "runtime_ms": 5173
   }
  ]
 }

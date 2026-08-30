@@ -1,0 +1,353 @@
+{
+ "purpose": "D-019 old->new deltas for the frozen affected set (contract item 6)",
+ "cases_changed_outside_frozen_set": 0,
+ "every_evaluation_rank_unchanged": true,
+ "cases": [
+  {
+   "case_id": "hipster-2022-08-22-022",
+   "window": "hipster/rca/2022-08-22_0746",
+   "events_emitted_old_new": [
+    48850,
+    49321
+   ],
+   "sessions_emitted_old_new": [
+    519,
+    528
+   ],
+   "log_only_sessions_new": 9,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s2_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     1,
+     1
+    ],
+    [
+     null,
+     1,
+     1
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     1,
+     1
+    ],
+    [
+     null,
+     1,
+     1
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true
+   }
+  },
+  {
+   "case_id": "hipster-2022-08-22-023",
+   "window": "hipster/rca/2022-08-22_0755",
+   "events_emitted_old_new": [
+    46536,
+    47329
+   ],
+   "sessions_emitted_old_new": [
+    506,
+    522
+   ],
+   "log_only_sessions_new": 16,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s2_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     1,
+     1
+    ],
+    [
+     null,
+     1,
+     1
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     1,
+     1
+    ],
+    [
+     null,
+     1,
+     1
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true
+   }
+  },
+  {
+   "case_id": "hipster-2022-08-23-015",
+   "window": "hipster/rca/2022-08-23_1414",
+   "events_emitted_old_new": [
+    46174,
+    47029
+   ],
+   "sessions_emitted_old_new": [
+    490,
+    508
+   ],
+   "log_only_sessions_new": 18,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    3,
+    3
+   ],
+   "s2_n_candidates_old_new": [
+    3,
+    3
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true
+   }
+  },
+  {
+   "case_id": "hipster-2022-08-23-016",
+   "window": "hipster/rca/2022-08-23_1423",
+   "events_emitted_old_new": [
+    48246,
+    48637
+   ],
+   "sessions_emitted_old_new": [
+    513,
+    521
+   ],
+   "log_only_sessions_new": 8,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    2,
+    2
+   ],
+   "s2_n_candidates_old_new": [
+    2,
+    2
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true
+   }
+  },
+  {
+   "case_id": "hipster-2022-08-23-017",
+   "window": "hipster/rca/2022-08-23_1432",
+   "events_emitted_old_new": [
+    43082,
+    43252
+   ],
+   "sessions_emitted_old_new": [
+    443,
+    446
+   ],
+   "log_only_sessions_new": 3,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s2_n_candidates_old_new": [
+    1,
+    1
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true
+   }
+  },
+  {
+   "case_id": "hipster-2022-08-23-018",
+   "window": "hipster/rca/2022-08-23_1449",
+   "events_emitted_old_new": [
+    16652,
+    16874
+   ],
+   "sessions_emitted_old_new": [
+    494,
+    504
+   ],
+   "log_only_sessions_new": 10,
+   "traceids_duplicate_entries_new": 0,
+   "s1_n_candidates_old_new": [
+    17,
+    17
+   ],
+   "s2_n_candidates_old_new": [
+    17,
+    17
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     3,
+     2
+    ],
+    [
+     null,
+     3,
+     2
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     9,
+     5
+    ],
+    [
+     null,
+     9,
+     5
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true,
+    "candidates": true
+   }
+  },
+  {
+   "case_id": "ts-2023-01-29-027",
+   "window": "ts/rca/2023-01-29_1544",
+   "events_emitted_old_new": [
+    9952,
+    9504
+   ],
+   "sessions_emitted_old_new": [
+    97,
+    96
+   ],
+   "log_only_sessions_new": 0,
+   "traceids_duplicate_entries_new": 1,
+   "s1_n_candidates_old_new": [
+    9,
+    10
+   ],
+   "s2_n_candidates_old_new": [
+    9,
+    10
+   ],
+   "s1_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s2_ranks_old_new": [
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "s1_result_fields_changed": {
+    "scoring": true,
+    "candidates": true,
+    "evaluation": true
+   }
+  }
+ ]
+}

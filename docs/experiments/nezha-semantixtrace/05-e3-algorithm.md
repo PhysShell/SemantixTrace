@@ -109,7 +109,9 @@ experiment per its scope control).
 
 Claim scope (D-009). What `scripts/check_h4_provenance.py` verifies is
 the **H4-source-attribution** subclaim: it mechanically walked **every
-candidate of every S1 case — 1494/1494 chains (100%)** — from candidate
+candidate of every S1 case — 1495/1495 chains (100%)** (1494 before the
+D-019 ingestion repair; the repaired ts window contributes one further
+candidate) — from candidate
 through (session, seq) to the canonical event, its provenance record,
 and the source dataset row, verifying content consistency at each
 step; since D-017 in the strong form: the recorded source row must
