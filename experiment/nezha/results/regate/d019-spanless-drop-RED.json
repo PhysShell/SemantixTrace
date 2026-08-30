@@ -1,0 +1,41 @@
+{
+ "purpose": "D-019 RED: accepted log rows of spanless trace IDs silently dropped (PR #20 Codex round-9 P1-B), importer at c75fc79",
+ "mechanism": "import_nezha.py:229-231 'if not spans: continue' skips the session AFTER its log rows were counted logs_accepted; the counter records trace IDs, not the lost rows - a silent sink",
+ "windows": [
+  {
+   "window": "hipster/rca/2022-08-22_0746",
+   "traceids_without_spans": 9,
+   "accepted_minus_emitted": 464
+  },
+  {
+   "window": "hipster/rca/2022-08-22_0755",
+   "traceids_without_spans": 16,
+   "accepted_minus_emitted": 784
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1414",
+   "traceids_without_spans": 18,
+   "accepted_minus_emitted": 847
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1423",
+   "traceids_without_spans": 8,
+   "accepted_minus_emitted": 386
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1432",
+   "traceids_without_spans": 3,
+   "accepted_minus_emitted": 169
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1449",
+   "traceids_without_spans": 10,
+   "accepted_minus_emitted": 220
+  }
+ ],
+ "total_accepted_log_events_unemitted": 2870,
+ "frozen_violations": [
+  "session-v1 defines sessions per (dataset, window, TraceID) with no span requirement",
+  "contract rule: never hide data loss"
+ ]
+}

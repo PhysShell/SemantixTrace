@@ -1,0 +1,17 @@
+{
+ "purpose": "D-019 RED: duplicate trace-ID selector re-emits a session (PR #20 Codex round-9 P1-A), importer at c75fc79",
+ "window": "ts/rca/2023-01-29_1544",
+ "mechanism": "import_nezha.py:139 reads the trace-ID CSV as a raw list; :227 iterates it as-is, so a repeated ID re-emits the same deterministic session with seq restarting at 0",
+ "duplicate_session_seq_pairs": 448,
+ "sessions_affected": [
+  "e45c98fa-a6c9-533f-9930-d727a04d4450"
+ ],
+ "counters": {
+  "events_emitted": 9952,
+  "accepted_spans_logs_alerts": 9504
+ },
+ "frozen_violations": [
+  "session-v1: ONE session per (dataset, window, TraceID)",
+  "unique seq per session (v2 event identity)"
+ ]
+}

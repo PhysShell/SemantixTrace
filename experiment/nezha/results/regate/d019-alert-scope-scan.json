@@ -1,0 +1,9 @@
+{
+ "purpose": "D-019 pre-result alert-scope structural scan",
+ "question": "for span-containing sessions, log_pods subset-of span_pods?",
+ "windows_scanned": 105,
+ "span_and_log_sessions_checked": 29283,
+ "violations": [],
+ "n_violations": 0,
+ "rule_adopted": "union: session_pods = span_pods | log_pods"
+}
