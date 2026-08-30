@@ -680,3 +680,86 @@ than aspirational. Same silent-sink family as D-013/D-014/D-016/D-017.
 
 **Outcome data seen at decision time:** all; gate/scorer hardening
 with byte-identical canonical artifacts.
+
+---
+
+## 2026-08-30 — D-019: Ingestion conservation repair — owner-gated scientific re-gate, full regeneration, verdict not reopened
+
+**Trigger.** Codex P1×2 on PR #20 (ninth round, head `c75fc79`), both
+independently verified before action: (A) the importer read the
+trace-ID selector CSV as a raw list and iterated it as-is, so a
+repeated ID re-emitted the same deterministic session with seq
+restarting at 0 — 448 duplicate (session_id, seq) pairs in
+`ts/rca/2023-01-29_1544`, violating frozen session-v1 ("ONE session
+per (dataset, window, TraceID)") and v2 seq identity; (B) `if not
+spans: continue` silently dropped accepted log rows of spanless trace
+IDs — 2,870 events across six hipster rca windows — although frozen
+session-v1 has no span requirement: a silent sink. Owner gate: GO
+under an explicit contract (RED before new rankings; frozen impact
+radius; historical counter semantics preserved; source dirt observable
+but not laundered; conditional alert scope; full 105-window importer
+differential; a conservation gate attacking the defect CLASS;
+preregistered verdict decision rule — no verdict declared immune).
+
+**RED (`bda294a`, before any regeneration).** Machine records of both
+defects; structural impact scan of all 105 windows freezing the
+affected set at 7 abnormal windows / 7 cases (no normal window
+affected); the preregistered decision rule; and the pre-result alert
+scope scan — 105 windows, 29,283 span+log sessions, 0 sessions where
+log pods leave span pods, so the UNION rule (session_pods = span_pods
+| log_pods) was adopted, provably byte-identical for every previously
+emitted session.
+
+**Fix (`ef17c1b`).** Order-preserving selector dedup
+(dict.fromkeys); `traceids_listed` keeps its historical raw meaning,
+new counters `traceids_unique` / `traceids_duplicate_entries` keep the
+source file's duplication observable; log-only sessions are emitted
+(`log_only_sessions_emitted`, `traceids_without_events`;
+`traceids_without_spans` becomes diagnostic-only); union alert scope.
+Smoke on both defect windows: conservation exact (ts 9,504==9,504 with
+dup_entries=1 still visible; hipster 49,321==49,321 with 9 log-only
+sessions and 7 restored alert injections).
+
+**Conservation gate (`0bd8642`,
+`scripts/check_ingestion_conservation.py`).** Attacks the class:
+(sid,seq) uniqueness, per-kind accepted==emitted, provenance<->event
+bijection, one-session-per-unique-traceid, source dups observed but
+not multiplying output. RED against the pre-fix canonical: exactly the
+frozen 7 windows flagged — a third independent confirmation of the
+impact set.
+
+**GREEN (`74c0f31` + this commit).** Full 105-window regeneration with
+the fixed importer:
+- importer differential: **98/98 unaffected windows byte-identical**
+  (events + decompressed provenance; the 13 earliest ts reports differ
+  only by two counters the ORIGINAL run's importer gained after they
+  were imported — schema evolution of the original run, root-caused);
+  changed windows == the frozen 7, zero impact-radius violations;
+- conservation on the new runroot: 105 windows, **0 violations**, the
+  ts source duplicate still observed;
+- S1/S2 old->new: result fields changed in exactly the frozen 7 cases;
+  **no evaluation rank of any case changed in either condition**; the
+  single evaluation delta is n_candidates 9->10 for ts-2023-01-29-027;
+  e2-tables and e3-tables **byte-identical**; ablations differ only in
+  that same case's n_candidates (`d019-case-deltas.json`);
+- isolation gate 101/101; six-class stability gate **0 across all six
+  classes** (`s2-order-stability-sorted-fullrecord-d019.json`); H4
+  walk **1495/1495** (one candidate added by the repaired ts window),
+  zero failures under the strengthened D-017 checker;
+- per the preregistered decision rule (`d019-threshold-recheck.json`):
+  no frozen useful-effect threshold changes its pass/fail state —
+  **the scientific verdict is NOT reopened**: H1 falsified, H2
+  falsified, H3 untested, frozen H4 inconclusive, H4-source-attribution
+  verified (now 1495/1495), PIVOT stand.
+
+**Fact for the record.** This was the first external finding against
+the canonical DATA rather than a checker or claim: 3,318 events were
+mis-multiplied or silently destroyed at ingestion, and after repair
+not a single ranking moved. The evidence pipeline's verdicts were
+robust to its own ingestion defects — established by regeneration
+under a preregistered radius and rule, not assumed.
+
+**Outcome data seen at decision time:** the RED, impact scan, decision
+rule, and alert-scope rule were committed before any regenerated
+ranking existed; everything downstream is mechanical consequence.
+Results remain exploratory per D-001/D-008.
