@@ -136,9 +136,18 @@ def main():
         alarm_list)
 
     # --- trace ids (the artifact's own selection) -------------------------
-    traceids = pd.read_csv(traceid_file, header=None)[0].astype(str).tolist()
+    raw_traceids = pd.read_csv(traceid_file, header=None)[0].astype(str).tolist()
+    # Order-preserving dedup (D-019): a repeated selector row must not
+    # re-emit its session (session-v1: ONE session per triple; unique
+    # seq per session). The source duplication itself stays observable
+    # in the counters - the input file's dirt is a fact to record, not
+    # to launder. traceids_listed keeps its historical meaning (raw
+    # source rows).
+    traceids = list(dict.fromkeys(raw_traceids))
     traceid_set = set(traceids)
-    counters["traceids_listed"] = len(traceids)
+    counters["traceids_listed"] = len(raw_traceids)
+    counters["traceids_unique"] = len(traceids)
+    counters["traceids_duplicate_entries"] = len(raw_traceids) - len(traceids)
 
     # --- spans ------------------------------------------------------------
     tdf = pd.read_csv(trace_file, dtype=str)
@@ -226,10 +235,19 @@ def main():
     with open(ev_path, "w") as ef, gzip.open(prov_path, "wt") as pf:
         for tid in traceids:
             spans = spans_by_trace.get(tid, [])
-            if not spans:
-                counters["traceids_without_spans"] += 1
-                continue
             logs = logs_by_trace.get(tid, [])
+            if not spans:
+                # diagnostic only since D-019 - no longer a discard
+                counters["traceids_without_spans"] += 1
+            if not spans and not logs:
+                counters["traceids_without_events"] += 1
+                continue
+            # Log-only sessions ARE sessions (D-019): frozen session-v1
+            # defines one session per (dataset, window, TraceID) with no
+            # span requirement; the old 'if not spans: continue'
+            # silently dropped accepted log rows - a silent sink.
+            if not spans:
+                counters["log_only_sessions_emitted"] += 1
             session_id = str(uuid.uuid5(
                 NAMESPACE, f"{args.ns}/{args.phase}/{args.window}/{tid}"))
             corr = str(uuid.uuid5(NAMESPACE, tid))
@@ -255,7 +273,15 @@ def main():
                 }, {"rule": "log-v1", "file": report["sources"]["log"],
                     "row": lg["row"], "span_id": lg["span_id"],
                     "pod": lg["pod"], "cluster_id": lg["cluster_id"]}))
-            session_pods = {s["pod"] for s in spans}
+            # Alert scope (D-019): pods reach a session through ANY of
+            # its source events. The union rule was adopted only after
+            # the preregistered pre-result structural scan
+            # (d019-alert-scope-scan.json) proved log pods never leave
+            # span pods in any of the 29,283 existing span+log sessions
+            # - so this is byte-identical for every previously emitted
+            # session and simply extends to restored log-only sessions.
+            session_pods = ({s["pod"] for s in spans}
+                            | {lg["pod"] for lg in logs})
             for pod in sorted(session_pods & set(pod_alarms)):
                 for a_idx, entry in enumerate(pod_alarms[pod]):
                     pending.append((window_start_ns, KIND_RANK["alert"], a_idx, {
