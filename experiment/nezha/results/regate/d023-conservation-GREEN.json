@@ -1,0 +1,15 @@
+{
+ "decision": "D-023",
+ "runroot": "/home/user/e2-runs-d019",
+ "gate": "check_ingestion_conservation.py (fail-closed counters, D-023)",
+ "exit_code": 0,
+ "stdout": "conservation: windows=105/105 violations=0 source-dup-windows-observed=1",
+ "summary": {
+  "expected_windows": 105,
+  "discovered_windows": 105,
+  "missing_windows": [],
+  "unexpected_windows": [],
+  "windows_with_violations": 0,
+  "windows_with_source_duplicates_observed": 1
+ }
+}

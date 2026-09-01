@@ -107,7 +107,9 @@ differential), altered no evaluation rank of any case in either
 condition, and left every generated table byte-identical; ingestion
 conservation is now machine-gated
 (`scripts/check_ingestion_conservation.py`, artifacts in
-`results/regate/d019-*`).
+`results/regate/d019-*`; coverage certified against a committed
+window manifest since D-020, absent counters fail closed since
+D-023).
 
 ## 5. Verdict on H1 and mechanism
 

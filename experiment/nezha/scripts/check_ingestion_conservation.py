@@ -109,17 +109,43 @@ def check_window(d):
         ("logs_accepted", kinds["log"], "log events"),
         ("alert_events", kinds["alert"], "alert events"),
     ]
+    # Fail closed on ABSENT counters (CodeRabbit final round, D-023):
+    # `c.get(name, 0)` let an expected window with empty outputs and an
+    # empty counter block satisfy every conservation equation as
+    # 0 == 0. The importer writes ANCHOR counters unconditionally (by
+    # assignment), so their absence proves a gutted/foreign report;
+    # occurrence counters (spans_accepted, alert_events, ...) are only
+    # incremented, so absence is a true zero IFF nothing of that kind
+    # was emitted.
+    for counter_name in ("traceids_listed", "traceids_unique",
+                         "traceids_duplicate_entries", "trace_rows_read",
+                         "log_rows_read", "log_rows_repaired_tokenization",
+                         "log_rows_artifact_style_read", "events_emitted"):
+        if counter_name not in c:
+            problems.append(f"required counter missing: {counter_name}")
+    total_emitted = sum(ev_keys.values())
+    if "events_emitted" in c and c["events_emitted"] != total_emitted:
+        problems.append(f"events_emitted={c['events_emitted']} but "
+                        f"{total_emitted} events in events.jsonl")
     for counter_name, emitted, label in checks:
-        if c.get(counter_name, 0) != emitted:
-            problems.append(f"{counter_name}={c.get(counter_name, 0)} but "
+        if counter_name not in c:
+            if emitted:
+                problems.append(f"{emitted} {label} emitted but "
+                                f"{counter_name} counter missing")
+        elif c[counter_name] != emitted:
+            problems.append(f"{counter_name}={c[counter_name]} but "
                             f"{emitted} {label} emitted")
     for rule, kind in (("span-v1", "span"), ("log-v1", "log"),
                        ("alert-v1", "alert")):
         if rules.get(rule, 0) != kinds[kind]:
             problems.append(f"{rules.get(rule, 0)} {rule} provenance vs "
                             f"{kinds[kind]} {kind} events")
-    if c.get("sessions_emitted", 0) != len(sids):
-        problems.append(f"sessions_emitted={c.get('sessions_emitted', 0)} "
+    if "sessions_emitted" not in c:
+        if sids:
+            problems.append(f"{len(sids)} distinct session_ids but "
+                            f"sessions_emitted counter missing")
+    elif c["sessions_emitted"] != len(sids):
+        problems.append(f"sessions_emitted={c['sessions_emitted']} "
                         f"but {len(sids)} distinct session_ids")
     if "traceids_unique" in c:
         expect = c["traceids_unique"] - c.get("traceids_without_events", 0)

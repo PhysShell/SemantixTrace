@@ -1,0 +1,12 @@
+{
+ "decision": "D-022",
+ "finding": "Codex round-11 P2 on scripts/run_e2.py: neither E2/E3 driver implemented the frozen 00-preregistration.md section-8 failure policy ('a fault whose pipeline run crashes is counted as unlocalized and the cause reported separately') \u2014 any single-case crash raised out of main() and aborted the whole namespace, losing every case",
+ "sandbox": "symlink copy of the real ts runroot (/home/user/e2-runs-d019) with ts/rca/2023-01-29_0854/scenarios.jsonl replaced by the corrupt line '{\"broken json line' and its cached graph.json removed \u2014 exactly one case (ts-2023-01-29-001) can crash",
+ "old_driver": {
+  "script": "run_e2.py at baca6df (pre-fix copy)",
+  "exit_code": 1,
+  "outcome": "no s1-ts.cases.json written \u2014 the whole 45-case ts namespace lost",
+  "cause": "json.decoder.JSONDecodeError: Invalid control character at: line 1 column 19 (char 18) raised through s1_scorer -> run() -> RuntimeError, uncaught"
+ },
+ "interpretation": "The frozen section-8 policy existed only on paper: one corrupt window would have silently converted 'one unlocalized case' into 'no results at all'."
+}

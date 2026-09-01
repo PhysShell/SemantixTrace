@@ -874,3 +874,96 @@ is detectable. Docs re-derived (04, 05 §2, final-report Q5).
 specified in full (tests, resamples, seed, alpha) before any outcome
 existed; only their execution was late. Results remain exploratory
 per D-001/D-008.
+
+---
+
+## 2026-09-01 — D-022: Frozen §8 case-failure policy enforced in the E2/E3 drivers
+
+**Trigger.** Codex P2 on PR #20 (eleventh round, head `baca6df`),
+verified against the frozen text: 00-preregistration.md §8 says "a
+fault whose pipeline run crashes is counted as unlocalized and the
+cause reported separately" — but neither `scripts/run_e2.py` nor
+`scripts/run_e3.py` implemented it. Any single-case crash (importer,
+fold, scorer, graph build) propagated out of `main()` and aborted the
+whole namespace: instead of one unlocalized case, ALL cases of the
+namespace were lost. The policy existed only on paper; nothing in the
+committed results is wrong (no crash ever occurred on the real data),
+but the enforcement gap was real.
+
+**RED (`regate/d022-driver-abort-RED.json`).** Sandbox = symlink copy
+of the real ts runroot with one abnormal window's `scenarios.jsonl`
+replaced by a corrupt JSON line (its cached `graph.json` removed).
+Pre-fix `run_e2.py`: exit 1, **no `s1-ts.cases.json` written** — the
+45-case namespace lost to one bad window.
+
+**Remedy (this commit).** Both drivers wrap the per-case body in
+try/except. A crashed case is appended as a failure record — case
+identity, `"failure": "<ExceptionType>: <cause>"`, evaluation ranks
+all `None` with `n_candidates` 0 — so it counts as unlocalized in
+every aggregate (§8), and the summary gains `failed_cases` listing
+each failure with its cause (§8 "separately reported"). The key is
+emitted ONLY when failures exist, keeping clean runs byte-identical.
+
+**GREEN (`regate/d022-driver-failure-GREEN.json`).** Same sandbox:
+`run_e2.py` exit 0, ts-2023-01-29-001 recorded as
+FAILED-counted-unlocalized (service_dedup unlocalized 11 = 10 real
++ 1 crashed), remaining 44 cases evaluated normally; `run_e3.py`
+likewise (st-graph exit 65 captured as the failure cause).
+Success-path identity: the fixed `run_e2.py` over the real untouched
+ts runroot reproduces the committed `results/e2/s1-ts.cases.json`
+with **0 differing cases** (modulo `runtime_ms`) and an equal
+summary — the fix cannot change any committed number.
+
+**Verdict impact.** None — enforcement of a frozen policy on a path
+never taken by the real data. All committed artifacts untouched.
+
+**Outcome data seen at decision time:** all; prospective enforcement
+only.
+
+---
+
+## 2026-09-01 — D-023: Conservation gate fails closed on absent counters
+
+**Trigger.** CodeRabbit final-round Minor on
+`scripts/check_ingestion_conservation.py` (review of
+`340e811..baca6df`), verified: every counter comparison used
+`c.get(name, 0)`, so a MISSING counter silently read as zero. An
+expected window whose report was gutted to `{"counters": {}}` with
+empty `events.jsonl`/`provenance.jsonl.gz` satisfied every
+conservation equation as 0 == 0 and passed the D-020 coverage check
+(the directory exists) — the gate failed open on exactly the kind of
+absence it was built to catch.
+
+**RED (`regate/d023-conservation-missingcounter-RED.json`).** Sandbox
+= symlink copy of the D-019 runroot with one expected window gutted as
+above. Pre-fix gate: exit 0, `violations=0` — blind.
+
+**Remedy (this commit).** Two-tier fail-closed rule matching how the
+importer actually writes counters: (a) ANCHOR counters that
+`import_nezha.py` assigns unconditionally (`traceids_listed`,
+`traceids_unique`, `traceids_duplicate_entries`, `trace_rows_read`,
+`log_rows_read`, `log_rows_repaired_tokenization`,
+`log_rows_artifact_style_read`, `events_emitted`) must be PRESENT in
+every window — absence is a named violation proving a gutted or
+foreign report; (b) occurrence counters (`spans_accepted`,
+`logs_accepted`, `alert_events`, `sessions_emitted`) are
+increment-only, so absence is legitimate IFF the corresponding
+emitted count is zero — nonzero emissions without the counter are a
+violation. A naive "missing = violation" rule was tried first and
+falsely flagged 25 real ts windows that carry no `alert_events`
+counter because the window has zero alerts; the two-tier rule keeps
+those true zeros. Added equation: `events_emitted` must equal the
+actual `events.jsonl` line count.
+
+**GREEN (`regate/d023-conservation-missingcounter-caught.json`,
+`d023-conservation-GREEN.json`).** Fixed gate on the sandbox: exit 1,
+the gutted window flagged with 8 named missing-anchor violations; a
+second mutation (real window, `alert_events`=565 deleted from its
+report) flagged as "565 alert events emitted but alert_events counter
+missing" — both fail-closed branches proven. On the real D-019
+runroot: 105/105 windows, 0 violations, ts source duplicate still
+observed, exit 0.
+
+**Verdict impact.** None; prospective gate hardening only.
+
+**Outcome data seen at decision time:** all.

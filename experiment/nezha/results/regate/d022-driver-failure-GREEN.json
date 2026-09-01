@@ -1,0 +1,33 @@
+{
+ "decision": "D-022",
+ "fix": "run_e2.py and run_e3.py wrap the per-case body in try/except; a crashed case is appended as a failure record (identity + 'failure' cause string + evaluation ranks all None, n_candidates 0) so it counts as unlocalized in every aggregate, and the summary gains 'failed_cases' (present ONLY when failures exist, keeping clean runs byte-identical)",
+ "sandbox_green": {
+  "run_e2": {
+   "exit_code": 0,
+   "failed_case": "ts-2023-01-29-001",
+   "failure_recorded": "RuntimeError: command failed (1): .../s1_scorer.py ... (JSONDecodeError in load_scenarios)",
+   "n_cases": 45,
+   "summary_failed_cases": [
+    "ts-2023-01-29-001"
+   ],
+   "service_dedup_unlocalized": 11,
+   "note": "11 = 10 genuinely unlocalized cases of the real ts S1 run + 1 crashed case counted unlocalized per section 8"
+  },
+  "run_e3": {
+   "exit_code": 0,
+   "failed_case": "ts-2023-01-29-001",
+   "failure_recorded": "RuntimeError: command failed (65): .../st-graph ... (corrupt abnormal scenarios)",
+   "n_cases": 45,
+   "summary_failed_cases": [
+    "ts-2023-01-29-001"
+   ]
+  }
+ },
+ "success_path_identity": {
+  "run": "fixed run_e2.py over the real untouched ts runroot /home/user/e2-runs-d019",
+  "exit_code": 0,
+  "cases_differing_vs_committed_s1_ts_cases_json_minus_runtime_ms": 0,
+  "summary_equal": true,
+  "note": "the committed E2/E3 artifacts are untouched by this fix; no failure occurred on real data, so no 'failed_cases' key appears and the outputs are identical"
+ }
+}
