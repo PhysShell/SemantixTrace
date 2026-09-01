@@ -1,0 +1,26 @@
+{
+ "decision": "D-025",
+ "fix": "the case universe is now the COMMITTED manifest manifests/expected-cases.json (101 ids derived from the pinned fault lists, cross-checked against a fresh derivation on every run with a hard error on disagreement) unioned with both files' id sets; absence from s1, s2, or the manifest is a named violation",
+ "new_gate_on_mutation": {
+  "exit_code": 1,
+  "stdout": "cases=101 isolation_violations=1 -> ts-2023-01-29-000",
+  "violations": [
+   {
+    "case_id": "ts-2023-01-29-000",
+    "missing_from": [
+     "s1",
+     "s2"
+    ]
+   }
+  ],
+  "cases": 101,
+  "expected_cases": 101
+ },
+ "new_gate_on_real_results": {
+  "exit_code": 0,
+  "stdout": "cases=101 isolation_violations=0",
+  "cases": 101,
+  "expected_cases": 101,
+  "violations": []
+ }
+}

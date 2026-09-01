@@ -1,0 +1,31 @@
+{
+ "decision": "D-024",
+ "fix": "run_e2.py reads the date's fault list BEFORE the construct import and wraps the import/fold in the failure boundary: on failure every fault of the date is appended as a section-8 failure record (identity, abnormal_window, 'construct window <win>: <Type>: <cause>', ranks None, n_candidates 0) and the driver continues with the next date. run_e3.py needs no change: it performs no construct import (E2 cache) and consumes the normal-window files inside the per-case try, so this failure mode already yields per-case failure records there.",
+ "sandbox_green": {
+  "exit_code": 0,
+  "n_cases": 45,
+  "per_date_total_failed": {
+   "2023-01-29": [
+    28,
+    28
+   ],
+   "2023-01-30": [
+    17,
+    0
+   ]
+  },
+  "failure_cause_recorded": "construct window 2023-01-29 08:50: RuntimeError: command failed (1): .../import_nezha.py ... (IsADirectoryError)",
+  "service_dedup_unlocalized": 36,
+  "note": "36 = 28 construct-failed faults of date 1 + 8 genuinely unlocalized cases among date 2's 17"
+ },
+ "success_path_identity": {
+  "run": "fixed run_e2.py over the real untouched ts runroot /home/user/e2-runs-d019",
+  "exit_code": 0,
+  "cases_differing_vs_committed_s1_ts_cases_json_minus_runtime_ms": 0,
+  "summary_equal": true,
+  "n_cases": [
+   45,
+   45
+  ]
+ }
+}

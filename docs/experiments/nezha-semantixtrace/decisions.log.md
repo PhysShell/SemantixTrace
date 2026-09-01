@@ -967,3 +967,90 @@ observed, exit 0.
 **Verdict impact.** None; prospective gate hardening only.
 
 **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-024: §8 failure boundary extended to the shared construct window
+
+**Trigger.** Codex P2 on PR #20 (twelfth round, exact head `0ea15e4`),
+verified: the D-022 failure boundary wrapped only the per-case body,
+while the per-date construct-window `import_and_fold` in
+`scripts/run_e2.py` sat before it. A construct failure crashes every
+fault of its date, and the exception propagated out of `main()` — the
+namespace aborted with zero failure records, so the frozen §8
+full-denominator policy was still unenforced for exactly the shared
+failure mode the per-case boundary cannot see.
+
+**RED (`regate/d024-construct-abort-RED.json`).** Sandbox ts runroot:
+all rca windows and the 2023-01-30 construct window cached (file
+symlinks to the real runroot); the 2023-01-29 construct window's
+`events.jsonl` replaced by a directory so the importer's write fails
+deterministically. Pre-fix driver: exit 1, **no `s1-ts.cases.json`** —
+45 cases lost. (A chmod-based mutation was tried first and did not
+fail: the session runs as root, which bypasses permission bits.)
+
+**Remedy (this commit).** `run_e2.py` reads the date's fault list
+before the construct import and wraps the import/fold in the failure
+boundary: on failure, every fault of the date is appended as a §8
+failure record (identity, abnormal window, `construct window <win>:
+<cause>`, ranks None) and the driver continues with the next date.
+`run_e3.py` needs no change — it performs no construct import (E2
+cache) and consumes the normal-window files inside the per-case try,
+so the same failure mode already yields per-case records there.
+Enforcement boundary, stated explicitly: everything downstream of
+case enumeration (the fault-list read) is §8-accounted; failures of
+enumeration itself or of namespace-level tooling (template dump)
+still abort loudly with no results file — a visibly absent run, not a
+silently distorted denominator.
+
+**GREEN (`regate/d024-construct-failure-GREEN.json`).** Same sandbox:
+exit 0, n_cases 45 — all 28 faults of 2023-01-29 recorded as
+construct-window failures with the shared cause, all 17 faults of
+2023-01-30 evaluated normally (dedup unlocalized 36 = 28 + 8 genuine).
+Success-path identity: the fixed driver over the real untouched ts
+runroot reproduces the committed `s1-ts.cases.json` with 0 differing
+cases (modulo `runtime_ms`), summary equal.
+
+**Verdict impact.** None — prospective enforcement on a path never
+taken by the real data; committed artifacts untouched.
+
+**Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-025: Isolation-gate case universe certified against a committed manifest
+
+**Trigger.** Codex P2 on PR #20 (twelfth round, exact head `0ea15e4`),
+verified by direct mutation: `scripts/check_s1s2_isolation.py` built
+its case universe as the union of the two result files' own id sets.
+The D-016 union rule catches one-sided truncation, but a case deleted
+from BOTH S1 and S2 vanished from the union entirely — the gate
+compared 100 cases and exited 0, certifying a bilaterally truncated
+experiment against the documented 101/101 claim. The id universe was
+self-certified by the very files under check — the same defect class
+D-020 eliminated from the conservation gate.
+
+**RED (`regate/d025-isolation-bilateral-RED.json`).** Copies of the
+committed e2/e3 results with `ts-2023-01-29-000` deleted from both
+sides (45→44 each): pre-fix gate prints
+`cases=100 isolation_violations=0`, exit 0 — blind.
+
+**Remedy (this commit).** New committed manifest
+`manifests/expected-cases.json`: the frozen 101-case universe (56
+hipster + 45 ts), derived from the pinned fault lists exactly as the
+drivers number cases. The gate loads it, cross-checks it against a
+fresh fault-list derivation on every run (hard error on
+disagreement — mirroring D-020, so neither the file nor the
+derivation can drift), and iterates over manifest ∪ s1-ids ∪ s2-ids;
+absence from s1, s2, or the manifest (a foreign id) is a named
+violation, `missing_from` now listing every absent side.
+
+**GREEN (`regate/d025-isolation-manifest-caught-GREEN.json`).** On the
+mutated results: exit 1, `cases=101`, the bilaterally deleted case
+flagged with `missing_from: [s1, s2]`. On the real committed results:
+`cases=101 isolation_violations=0`, exit 0. 05 §1 updated to state
+the manifest-certified universe.
+
+**Verdict impact.** None; prospective gate hardening only.
+
+**Outcome data seen at decision time:** all.

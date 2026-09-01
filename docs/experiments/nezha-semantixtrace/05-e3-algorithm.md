@@ -23,7 +23,10 @@ precisely the S1↔S2 comparison itself.
 This contract is machine-enforced: `scripts/check_s1s2_isolation.py`
 compares the checked-in S1/S2 candidate multisets per case over every
 field except `anomaly` (provenance included) and exits non-zero on any
-divergence. Round-6 external review caught the contract broken at the
+divergence; since D-025 the case universe itself is certified against
+the committed fault-case manifest (`manifests/expected-cases.json`),
+so a truncated pair of artifacts — even one truncated identically on
+both sides — cannot pass with fewer comparisons. Round-6 external review caught the contract broken at the
 artifact level: the lexicographically sorted transition order (D-011)
 fed the order-sensitive keep-first-max-depth alarm dedup a different
 retention draw than S1's encounter order in 4/101 cases, so part of

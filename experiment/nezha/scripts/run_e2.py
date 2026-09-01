@@ -93,11 +93,41 @@ def main():
             normal_win = f"{date} {NORMAL_WINDOWS[date]}"
             normal_dir = os.path.join(RUNROOT, ns, "construct",
                                       normal_win.replace(" ", "_").replace(":", ""))
-            import_and_fold(ns, normal_win, "construct", normal_dir)
-
             with open(os.path.join(
                     code_dir, "rca_data", date, f"{date}-fault_list.json")) as f:
                 fault_data = json.load(f)
+            t0 = time.time()
+            try:
+                import_and_fold(ns, normal_win, "construct", normal_dir)
+            except Exception as exc:  # noqa: BLE001
+                # Frozen §8 (Codex round-12 P2, D-024): the construct
+                # window is shared by every fault of its date, so its
+                # failure crashes them all — each is counted
+                # unlocalized with the shared cause instead of the
+                # namespace aborting before any record is written.
+                wall_ms = int((time.time() - t0) * 1000)
+                faults = [f_ for hour in fault_data
+                          for f_ in fault_data[hour]]
+                for idx, fault in enumerate(faults):
+                    case_id = f"{ns}-{date}-{idx:03d}"
+                    cases.append({
+                        "case_id": case_id, "dataset": date,
+                        "inject_time": fault["inject_time"],
+                        "inject_pod": fault["inject_pod"],
+                        "inject_type": fault["inject_type"],
+                        "abnormal_window":
+                            abnormal_window(fault["inject_time"]),
+                        "failure": f"construct window {normal_win}: "
+                                   f"{type(exc).__name__}: {exc}",
+                        "evaluation": {"rank_inner": None,
+                                       "rank_service_raw": None,
+                                       "rank_service_dedup": None,
+                                       "n_candidates": 0},
+                        "runtime_ms": wall_ms,
+                    })
+                    print(f"{case_id} FAILED (counted unlocalized): "
+                          f"construct window failed: {exc}", flush=True)
+                continue
             idx = 0
             for hour in fault_data:
                 for fault in fault_data[hour]:
