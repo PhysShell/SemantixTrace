@@ -107,61 +107,83 @@ def main():
                     abn_dir = os.path.join(RUNROOT, ns, "rca",
                                            win.replace(" ", "_").replace(":", ""))
                     t0 = time.time()
-                    import_and_fold(ns, win, "rca", abn_dir)
-                    case_out = os.path.join(abn_dir, f"s1-{case_id}.json")
-                    run([PY, SCORER,
-                         "--normal-scenarios",
-                         os.path.join(normal_dir, "scenarios.jsonl"),
-                         "--normal-events",
-                         os.path.join(normal_dir, "events.jsonl"),
-                         "--abnormal-scenarios",
-                         os.path.join(abn_dir, "scenarios.jsonl"),
-                         "--alarms",
-                         os.path.join(abn_dir, "import-report.json"),
-                         "--out", case_out])
-                    wall_ms = int((time.time() - t0) * 1000)
-
-                    scored = json.load(open(case_out))
-                    svc = service_of(fault["inject_pod"])
                     try:
-                        rc = root_cause_map[svc][fault["inject_type"]]
-                        rc_parts = rc.split("_")
-                    except KeyError:
-                        rc, rc_parts = None, []
-                    ev = evaluate_case(scored["candidates"], rc_parts,
-                                       fault["inject_pod"], templates[ns])
-                    imp_report = json.load(open(
-                        os.path.join(abn_dir, "import-report.json")))
-                    rec = {
-                        "case_id": case_id, "dataset": date,
-                        "inject_time": fault["inject_time"],
-                        "inject_pod": fault["inject_pod"],
-                        "inject_type": fault["inject_type"],
-                        "ground_truth": rc,
-                        "abnormal_window": win,
-                        "representation": "semantixtrace-v2-canonical",
-                        "algorithm": scored["algorithm"],
-                        "parameters": scored["parameters"],
-                        "ingestion": {
-                            "counters": imp_report["counters"],
-                            "rejections": imp_report["rejections"],
-                            "drain3_new_clusters":
-                                imp_report["drain3_new_clusters"],
-                        },
-                        "alarm_list": imp_report.get("alarm_list", []),
-                        "scoring": {k: scored[k] for k in (
-                            "normal_sessions", "abnormal_sessions",
-                            "normal_patterns", "abnormal_patterns",
-                            "unattributed_patterns")},
-                        "candidates": scored["candidates"],
-                        "evaluation": ev,
-                        "runtime_ms": wall_ms,
-                    }
-                    cases.append(rec)
-                    print(f"{case_id} {fault['inject_type']:>14s} "
-                          f"inner={ev['rank_inner']} "
-                          f"svc_dedup={ev['rank_service_dedup']} "
-                          f"ncand={ev['n_candidates']}", flush=True)
+                        import_and_fold(ns, win, "rca", abn_dir)
+                        case_out = os.path.join(abn_dir, f"s1-{case_id}.json")
+                        run([PY, SCORER,
+                             "--normal-scenarios",
+                             os.path.join(normal_dir, "scenarios.jsonl"),
+                             "--normal-events",
+                             os.path.join(normal_dir, "events.jsonl"),
+                             "--abnormal-scenarios",
+                             os.path.join(abn_dir, "scenarios.jsonl"),
+                             "--alarms",
+                             os.path.join(abn_dir, "import-report.json"),
+                             "--out", case_out])
+                        wall_ms = int((time.time() - t0) * 1000)
+
+                        scored = json.load(open(case_out))
+                        svc = service_of(fault["inject_pod"])
+                        try:
+                            rc = root_cause_map[svc][fault["inject_type"]]
+                            rc_parts = rc.split("_")
+                        except KeyError:
+                            rc, rc_parts = None, []
+                        ev = evaluate_case(scored["candidates"], rc_parts,
+                                           fault["inject_pod"], templates[ns])
+                        imp_report = json.load(open(
+                            os.path.join(abn_dir, "import-report.json")))
+                        rec = {
+                            "case_id": case_id, "dataset": date,
+                            "inject_time": fault["inject_time"],
+                            "inject_pod": fault["inject_pod"],
+                            "inject_type": fault["inject_type"],
+                            "ground_truth": rc,
+                            "abnormal_window": win,
+                            "representation": "semantixtrace-v2-canonical",
+                            "algorithm": scored["algorithm"],
+                            "parameters": scored["parameters"],
+                            "ingestion": {
+                                "counters": imp_report["counters"],
+                                "rejections": imp_report["rejections"],
+                                "drain3_new_clusters":
+                                    imp_report["drain3_new_clusters"],
+                            },
+                            "alarm_list": imp_report.get("alarm_list", []),
+                            "scoring": {k: scored[k] for k in (
+                                "normal_sessions", "abnormal_sessions",
+                                "normal_patterns", "abnormal_patterns",
+                                "unattributed_patterns")},
+                            "candidates": scored["candidates"],
+                            "evaluation": ev,
+                            "runtime_ms": wall_ms,
+                        }
+                        cases.append(rec)
+                        print(f"{case_id} {fault['inject_type']:>14s} "
+                              f"inner={ev['rank_inner']} "
+                              f"svc_dedup={ev['rank_service_dedup']} "
+                              f"ncand={ev['n_candidates']}", flush=True)
+                    except Exception as exc:  # noqa: BLE001
+                        # Frozen §8: a fault whose pipeline run crashes
+                        # is counted as unlocalized AND separately
+                        # reported as a failure with its cause — the
+                        # driver must not abort the namespace (Codex
+                        # round-11 P2, D-022).
+                        cases.append({
+                            "case_id": case_id, "dataset": date,
+                            "inject_time": fault["inject_time"],
+                            "inject_pod": fault["inject_pod"],
+                            "inject_type": fault["inject_type"],
+                            "abnormal_window": win,
+                            "failure": f"{type(exc).__name__}: {exc}",
+                            "evaluation": {"rank_inner": None,
+                                           "rank_service_raw": None,
+                                           "rank_service_dedup": None,
+                                           "n_candidates": 0},
+                            "runtime_ms": int((time.time() - t0) * 1000),
+                        })
+                        print(f"{case_id} FAILED (counted unlocalized): "
+                              f"{exc}", flush=True)
 
         n = len(cases)
         agg = {}
@@ -180,6 +202,10 @@ def main():
                    "candidate_sizes": {"min": sizes[0],
                                        "median": sizes[len(sizes) // 2],
                                        "max": sizes[-1]}}
+        failed = [{"case_id": c["case_id"], "failure": c["failure"]}
+                  for c in cases if "failure" in c]
+        if failed:  # §8: failures are separately reported with cause
+            summary["failed_cases"] = failed
         outdir = os.path.join(RUNROOT, "results")
         os.makedirs(outdir, exist_ok=True)
         with open(os.path.join(outdir, f"s1-{ns}.cases.json"), "w") as f:
