@@ -830,3 +830,47 @@ run.
 
 **Outcome data seen at decision time:** all; prospective gate
 hardening only.
+
+---
+
+## 2026-09-01 — D-021: Preregistered §9 paired statistical analyses executed
+
+**Trigger.** Codex P1 on PR #20 (eleventh round, head `baca6df`),
+verified against the frozen text: 00-preregistration.md §9 froze
+"McNemar exact test on @1 hits; bootstrap (10,000 resamples, seed
+20260820) 95% CI for MRR differences" for paired per-case comparison
+between conditions on the same dataset — and a repo-wide search
+confirms these analyses existed nowhere outside the preregistration.
+The generated reports carried point estimates alone: a genuine
+preregistration-compliance gap in how the H1/H2 falsifications were
+reported.
+
+**Remedy (this commit).** `evaluators/paired_stats.py` implements §9
+verbatim (exact binomial McNemar on discordant @1 pairs; Mersenne
+Twister seeded 20260820, index resampling, percentile 95% CI; per
+dataset, no pooling; alpha 0.05; effect sizes regardless). Cases are
+paired by the fault itself (dataset, inject_time, inject_pod,
+inject_type) — verified unique and identical across all condition
+files (the N1 evaluator and S drivers number case_ids differently).
+Machine artifact: `results/e3/paired-stats.json`.
+
+**Results.**
+- H1 (N1 vs S1, both datasets, all three rank levels): McNemar exact
+  p ≤ 1.9×10⁻⁹ (OB service_dedup 1.4×10⁻¹⁴); MRR differences
+  +0.54…+0.89 with 95% CIs bounded away from zero (worst lower bound
+  +0.43). The representation collapse is statistically decisive.
+- H2 (S1 vs S2, both datasets, all levels): McNemar exact
+  p = 0.45…1.0; every MRR-difference 95% CI straddles zero
+  (|point estimate| ≤ 0.042). No S2 advantage — or even direction —
+  is detectable.
+
+**Verdict impact.** None: the analyses complete the frozen reporting
+and support the existing verdicts. H2's falsification rests, as
+frozen, on the §7 useful-effect thresholds (which S2 fails), not on
+an equivalence claim; the non-significant tests add that no direction
+is detectable. Docs re-derived (04, 05 §2, final-report Q5).
+
+**Outcome data seen at decision time:** all — the analyses were
+specified in full (tests, resamples, seed, alpha) before any outcome
+existed; only their execution was late. Results remain exploratory
+per D-001/D-008.

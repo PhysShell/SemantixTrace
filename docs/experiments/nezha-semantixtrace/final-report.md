@@ -63,7 +63,12 @@ accuracy (11.11 → 40.00) — the interleaving itself is the damage.
 No. ActionGraph transition frequencies are definitionally equal to
 adjacent-pair supports; the only frozen S2 delta (Heuristics anomaly
 tie-break) reorders ties for −5.4…+6.7 pp depending on dataset/level,
-both directions, on a base 60–91 pp below the N1 baseline. That the
+both directions, on a base 60–91 pp below the N1 baseline. The
+preregistered §9 paired analyses (D-021,
+`results/e3/paired-stats.json`) find no detectable S1↔S2 difference
+anywhere (McNemar exact p ≥ 0.45; every MRR-difference 95% CI
+straddles zero), while the N1↔S1 collapse behind question 3 is
+statistically decisive (p ≤ 1.9×10⁻⁹, MRR CIs bounded away from zero). That the
 tie-break is the *only* candidate-level delta is machine-gated per
 case since D-015 (a round-6 review found 4/101 retention draws
 confounding the earlier attribution; re-aligned, no AC@1 change). The oracle

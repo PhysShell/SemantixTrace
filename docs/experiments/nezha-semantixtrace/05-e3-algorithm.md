@@ -52,6 +52,15 @@ the re-gate service_dedup fix — hipster unchanged, TT S1
 20.00 → 22.22, D-008 — and again after the encounter-order alignment
 restored the isolation contract — 4 cases re-drawn, D-015.)
 
+Preregistered paired analyses (§9; McNemar exact on @1 hits, bootstrap
+10,000 resamples seed 20260820 95% CI for MRR differences;
+`results/e3/paired-stats.json`, D-021): no S1↔S2 difference is
+detectable on any metric or dataset — McNemar exact p = 0.45…1.0, all
+MRR-difference 95% CIs straddle zero with |point estimate| ≤ 0.042.
+Non-significance does not by itself establish equivalence; the H2
+falsification rests, as frozen, on S2 failing every §7 useful-effect
+threshold — the tests add that not even a direction is detectable.
+
 **H2 verdict: falsified.** Under the frozen kill criteria ("adjacent-edge
 differential performs equivalently"), the graph layer adds no material
 value: both conditions sit 60–91 pp below the N1 baseline, and the only

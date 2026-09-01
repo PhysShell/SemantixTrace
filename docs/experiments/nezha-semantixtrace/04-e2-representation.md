@@ -81,6 +81,15 @@ per-case evidence records with candidates and provenance:
 (Numbers regenerated after the re-gate service_dedup semantics fix;
 hipster unchanged, TT rows moved ≤2.3 pp in both columns — D-008.)
 
+Preregistered paired analyses (§9, run per the frozen spec — McNemar
+exact on @1 hits; bootstrap 10,000 resamples, seed 20260820, 95% CI
+for MRR differences; machine artifact
+`results/e3/paired-stats.json`, D-021): the N1↔S1 gap is
+statistically decisive on every metric and dataset — McNemar exact
+p ≤ 1.9×10⁻⁹ (OB service_dedup p = 1.4×10⁻¹⁴), MRR differences
++0.54…+0.89 with 95% CIs bounded far away from zero (worst lower
+bound +0.43).
+
 Ingestion on the S1 side was clean: zero rejected records across all
 101 cases, zero new drain3 clusters, one tokenization repair class
 (embedded-quote log lines the artifact's C-parser read garbles; counted
