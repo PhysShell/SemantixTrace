@@ -134,7 +134,16 @@ trusting the derivation's stored `verified` flag. Zero failures —
 under a checker with **no special-case success**, mutation-tested for
 blindness: a provenance pointer re-aimed at a different same-pod row
 and a metric input re-aimed at a different-value row are both caught
-(`regate/h4-pointer-mutation-{RED,caught}.json`, D-017). What it does **not** verify is the frozen H4 chain in full:
+(`regate/h4-pointer-mutation-{RED,caught}.json`, D-017). A round-13
+review found the trace-latency-pair branch weaker than the rest
+(child checked for pod only, parent unchecked, value trusted); since
+D-026 trace-derived derivations are verified by full independent
+recomputation from the source CSV (pair list, p90 value and n_samples
+must match exactly), and a standing gate
+(`scripts/check_alarm_derivations.py`) audits **every** materialized
+derivation of every window — all 118 across the 105 windows —
+independently of the importer's own at-materialization check
+(mutation-tested: `regate/d026-*`). What it does **not** verify is the frozen H4 chain in full:
 the segment normalization → pattern/graph transition → supports (n, a)
 → score → root-most pruning → emission is not reconstructed (candidate
 records carry score but no support derivation), and the walk covers S1

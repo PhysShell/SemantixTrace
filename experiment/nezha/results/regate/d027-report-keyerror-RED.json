@@ -1,0 +1,13 @@
+{
+ "decision": "D-027",
+ "finding": "Codex round-13 P2 on scripts/make_e2_report.py lines 96-98: the report generator unconditionally reads c['ingestion']['rejections'] and c['ingestion']['drain3_new_clusters'] for every case, but section-8 failure records (written by run_e2.py since D-022/D-024) intentionally carry no 'ingestion' block — so generating the E2 report for exactly the full-denominator runs the failure policy protects crashes and produces no report",
+ "sandbox": "existing D-022 sandbox results dir (scratchpad/sandbox-d022/results): its s1-ts.cases.json holds 45 ts cases of which ts-2023-01-29-001 is a section-8 failure record (\"failure\": \"RuntimeError: command failed (1): ... s1_scorer.py ...\", all evaluation ranks null, n_candidates 0, no ingestion/scoring/candidates blocks)",
+ "old_script": {
+  "script": "make_e2_report.py at 5d411c7 (pre-fix copy run from scratchpad)",
+  "command": "/home/user/.venv-nezha/bin/python <scratchpad>/prefix-make_e2_report.py /home/user/SemantixTrace/experiment/nezha/results/e0/eval <scratchpad>/sandbox-d022/results",
+  "exit_code": 1,
+  "outcome": "report aborts mid-ts-section after the fault-type breakdown; no ingestion line, no complete report emitted",
+  "cause": "KeyError: 'ingestion' at line 96 (tot_rej = sum(sum(c[\"ingestion\"][\"rejections\"].values()) ...))"
+ },
+ "interpretation": "The D-022/D-024 failure boundary preserved the cases.json artifacts, but the report generator immediately downstream still assumed every case succeeded: any run containing the failure records the section-8 policy exists to count would yield no E2 tables at all."
+}

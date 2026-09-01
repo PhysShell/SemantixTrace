@@ -1,0 +1,21 @@
+{
+ "decision": "D-028",
+ "fix": "run_e3_ablations.py mirrors run_e2.py's section-8 boundaries: per variant and date the fault list is read BEFORE the shared normal-window filter_and_fold, whose failure now appends a failure record for EVERY fault of the date ('normal ablation fold <variant> <window>: <Type>: <cause>', ranks None, n_candidates 0) and continues with the next date; the per-case body (abnormal filter_and_fold + scorer + evaluate) is wrapped the same way with the case's own cause. The per-variant summary gains 'failed_cases' ONLY when failures exist, so clean runs stay byte-identical; the existing aggregation already counts None ranks as unlocalized over the full n.",
+ "sandbox_green": {
+  "exit_code": 0,
+  "corrupted_window": "ts/rca/2023-01-29_1544 (serves exactly ts-2023-01-29-027)",
+  "failure_recorded": "JSONDecodeError: Invalid control character at: line 1 column 19 (char 18)",
+  "per_variant": {
+   "no-alerts": {"n": 45, "failed": ["ts-2023-01-29-027"], "service_dedup_unlocalized": 10},
+   "no-logs": {"n": 45, "failed": ["ts-2023-01-29-027"], "service_dedup_unlocalized": 31},
+   "no-spans": {"n": 45, "failed": ["ts-2023-01-29-027"], "service_dedup_unlocalized": 19}
+  },
+  "note": "44 cases evaluated normally in each variant, failed_cases present per variant, aggregates keep the full 45 denominator. Consistency: no-spans unlocalized is committed+1 (18->19; case 027 scored rank 1 there before the corruption) while no-alerts/no-logs match the committed 10/31 exactly (027 was already genuinely unlocalized in both)."
+ },
+ "success_path_identity": {
+  "run": "fixed run_e3_ablations.py over the real untouched ts runroot /home/user/e2-runs-d019 (ablation folds cached, all scorer runs redone)",
+  "exit_code": 0,
+  "vs_committed_e3_s1_ablations_ts_json": "byte-identical (sha256 dc77904d59fef7bb...789cc74 unchanged)",
+  "note": "ablation case records carry no runtime field, so regeneration is exactly reproducible; no failure on real data, so no failed_cases key appears"
+ }
+}

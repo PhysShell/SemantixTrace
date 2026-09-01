@@ -17,9 +17,13 @@ the *name* of a computation is a failure.
 Reports pass/fail counts; any break in any chain is a failure with its
 reason. Nothing is sampled — every candidate of every case is walked.
 """
+import csv
 import gzip
 import json
 import os
+
+import numpy as np
+import pandas as pd
 
 RUNROOT = os.environ.get("E2_RUNROOT", "/home/user/e2-runs")
 CODE_DIRS = {"hipster": "/home/user/e0-runs/checkout-hipster",
@@ -49,12 +53,35 @@ def load_window(ns, tag):
 class RowCache:
     def __init__(self):
         self.cache = {}
+        self.parsed = {}
 
     def rows(self, path):
         if path not in self.cache:
             with open(path, errors="replace") as f:
                 self.cache[path] = f.read().splitlines()
         return self.cache[path]
+
+    def csv_rows(self, path):
+        """Quoting-aware parse (header, data rows) of a source CSV."""
+        if path not in self.parsed:
+            with open(path, errors="replace", newline="") as f:
+                rows = list(csv.reader(f))
+            self.parsed[path] = (rows[0], rows[1:])
+        return self.parsed[path]
+
+    def artifact_cell(self, path, row, column):
+        """The cell as the ARTIFACT's own parser reads it (pandas'
+        C tokenizer): on some cells its float differs from CPython's
+        strtod by 1 ULP, and the materialized values replicate the
+        artifact's parse — so equality is judged against this parse
+        when the raw-text parse disagrees (D-026)."""
+        key = ("pd", path)
+        if key not in self.cache:
+            self.cache[key] = pd.read_csv(path)
+        df = self.cache[key]
+        if column not in df.columns or row >= len(df):
+            return None
+        return float(df[column][row])
 
 
 def check_source_row(code_dir, rel_file, row, required_tokens, rows_cache):
@@ -97,8 +124,97 @@ def check_metric_cell(code_dir, inp, rows_cache):
         return (f"metric cell not numeric: {inp['file']}:{inp['row'] + 1} "
                 f"col {inp['column']!r}")
     if cell_value != inp.get("value"):
-        return (f"metric value mismatch: {inp['file']}:{inp['row'] + 1} "
-                f"cell {cell_value!r} != recorded {inp.get('value')!r}")
+        # Second tier (D-026): the materialized value replicates the
+        # artifact's pandas parse, which differs from strtod by 1 ULP
+        # on some cells — re-judge against that parser before failing.
+        artifact_value = rows_cache.artifact_cell(path, inp["row"],
+                                                  inp["column"])
+        if artifact_value != inp.get("value"):
+            return (f"metric value mismatch: {inp['file']}:{inp['row'] + 1} "
+                    f"cell {cell_value!r} (artifact parse "
+                    f"{artifact_value!r}) != recorded {inp.get('value')!r}")
+    return None
+
+
+def check_trace_p90_derivation(code_dir, pod, der, rows_cache):
+    """Independently RECOMPUTE a trace-derived NetworkP90 derivation from
+    the referenced source CSV and require the recorded pair list, value
+    and n_samples to match the recomputation exactly (Codex round-13 P1,
+    D-026). The previous per-pair check verified only a pod substring on
+    the child row and nothing on the parent row — a re-aimed pointer or
+    a fabricated pair list passed. The recomputation mirrors the
+    artifact's alarm.get_netwrok_metric semantics (child rows of the
+    pod; parent = LAST row per SpanID; cross-pod links only;
+    (parent_end - child_end)/1e6; p90 if > 2 samples else 10.0) with an
+    independent parser, so child.ParentID == parent.SpanID and the
+    resulting percentile are verified by construction."""
+    inputs = der.get("inputs") or []
+    rels = {inp.get("file") for inp in inputs}
+    if len(rels) != 1:
+        return f"trace derivation references {len(rels)} files: {sorted(rels)}"
+    rel = inputs[0]["file"]
+    path = os.path.join(code_dir, rel)
+    if not os.path.exists(path):
+        return f"source file missing: {rel}"
+    header, data = rows_cache.csv_rows(path)
+    try:
+        c_span = header.index("SpanID")
+        c_par = header.index("ParentID")
+        c_pod = header.index("PodName")
+        c_end = header.index("EndTimeUnixNano")
+    except ValueError as exc:
+        return f"trace CSV {rel} missing column: {exc}"
+    last_row_by_spanid = {}
+    for i, r in enumerate(data):
+        last_row_by_spanid[r[c_span]] = i
+    pairs, latencies = [], []
+    for i, r in enumerate(data):
+        if r[c_pod] != pod:
+            continue
+        li = last_row_by_spanid.get(r[c_par])
+        if li is None:
+            continue  # the artifact's silent KeyError path
+        if data[li][c_pod] != pod:
+            latencies.append(
+                (int(data[li][c_end]) - int(r[c_end])) / 1000000)
+            pairs.append((i, li))
+    value = (float(np.percentile(latencies, 90))
+             if len(latencies) > 2 else 10.0)
+    recorded = [(inp.get("child_row"), inp.get("parent_row"))
+                for inp in inputs]
+    if recorded != pairs:
+        div = next((k for k in range(min(len(recorded), len(pairs)))
+                    if recorded[k] != pairs[k]),
+                   min(len(recorded), len(pairs)))
+        return (f"trace pair list mismatch in {rel}: recorded "
+                f"{len(recorded)} pairs != recomputed {len(pairs)}, "
+                f"first divergence at pair {div}")
+    if der.get("value") != value:
+        return (f"trace p90 value mismatch: recorded {der.get('value')!r} "
+                f"!= recomputed {value!r} from {rel}")
+    if "n_samples" in der and der["n_samples"] != len(latencies):
+        return (f"trace n_samples mismatch: recorded {der['n_samples']} "
+                f"!= recomputed {len(latencies)}")
+    return None
+
+
+def check_threshold_row(code_dir, inp, rows_cache):
+    """Re-parse a fallback-threshold row's NetworkP90(ms) cell and
+    require exact equality with the recorded value (D-026 — same
+    no-trust rule as metric cells since D-017)."""
+    header, data = rows_cache.csv_rows(os.path.join(code_dir, inp["file"]))
+    if "NetworkP90(ms)" not in header:
+        return f"threshold column missing in {inp['file']}"
+    col = header.index("NetworkP90(ms)")
+    if inp["row"] >= len(data) or col >= len(data[inp["row"]]):
+        return f"threshold row out of range: {inp['file']}:{inp['row']}"
+    try:
+        cell = float(data[inp["row"]][col])
+    except ValueError:
+        return f"threshold cell not numeric: {inp['file']}:{inp['row']}"
+    if cell != inp.get("value"):
+        return (f"threshold value mismatch: {inp['file']}:{inp['row']} "
+                f"cell {cell!r} != recorded {inp.get('value')!r}")
     return None
 
 
@@ -118,24 +234,23 @@ def check_alert_derivation(code_dir, prov_rec, report, rows_cache):
     if not der.get("verified"):
         return f"derivation {key!r} not verified against the artifact value"
     pod = prov_rec.get("pod", "")
+    if der.get("kind") == "trace-derived-p90":
+        return check_trace_p90_derivation(code_dir, pod, der, rows_cache)
     for inp in inputs:
-        if "row" in inp:  # metric sample or fallback-threshold row
-            contain = [pod] if inp.get("kind") == "metric-sample" else []
+        if inp.get("kind") == "threshold-row":
             reason = check_source_row(code_dir, inp["file"], inp["row"],
-                                      contain, rows_cache)
+                                      [], rows_cache)
             if reason:
                 return reason
-            if inp.get("kind") == "metric-sample":
-                reason = check_metric_cell(code_dir, inp, rows_cache)
-                if reason:
-                    return reason
-        elif "child_row" in inp:  # trace-derived latency pair
-            reason = check_source_row(code_dir, inp["file"],
-                                      inp["child_row"], [pod], rows_cache)
+            reason = check_threshold_row(code_dir, inp, rows_cache)
             if reason:
                 return reason
-            reason = check_source_row(code_dir, inp["file"],
-                                      inp["parent_row"], [], rows_cache)
+        elif "row" in inp:  # metric sample row
+            reason = check_source_row(code_dir, inp["file"], inp["row"],
+                                      [pod], rows_cache)
+            if reason:
+                return reason
+            reason = check_metric_cell(code_dir, inp, rows_cache)
             if reason:
                 return reason
         else:

@@ -92,12 +92,18 @@ def main():
                        if (c["evaluation"]["rank_service_dedup"] or 99) <= 1)
             print(f"- {label}: {hits}/{len(sub)}")
 
-        # ingestion totals
+        # ingestion totals; §8 failure records carry no ingestion block
+        # (Codex round-13 P2, D-027)
+        evaluated = [c for c in s1_cases if "ingestion" in c]
         tot_rej = sum(sum(c["ingestion"]["rejections"].values())
-                      for c in s1_cases)
-        tot_new = sum(c["ingestion"]["drain3_new_clusters"] for c in s1_cases)
+                      for c in evaluated)
+        tot_new = sum(c["ingestion"]["drain3_new_clusters"] for c in evaluated)
         print(f"\nIngestion: total rejected records across cases = {tot_rej}; "
               f"drain3 new clusters = {tot_new}")
+        failed = [c["case_id"] for c in s1_cases if "failure" in c]
+        if failed:  # §8: report failures separately, clean runs unchanged
+            print(f"\nFailed cases (counted unlocalized, §8): "
+                  f"{len(failed)} — {', '.join(failed)}")
 
 
 if __name__ == "__main__":

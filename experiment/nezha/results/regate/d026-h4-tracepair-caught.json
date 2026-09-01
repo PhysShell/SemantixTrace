@@ -1,0 +1,43 @@
+{
+ "decision": "D-026",
+ "fix": "check_h4_provenance.py: trace-derived-p90 derivations are now verified by FULL INDEPENDENT RECOMPUTATION from the referenced trace CSV (quoting-aware parser; child rows of the pod; parent = last row per SpanID; cross-pod links; (parent_end-child_end)/1e6; p90 if >2 samples else 10.0) with exact equality required on the recorded pair list, value, and n_samples \u2014 child.ParentID == parent.SpanID holds by construction; fallback-threshold rows now re-parse the NetworkP90(ms) cell; NEW standing gate scripts/check_alarm_derivations.py independently audits EVERY materialized derivation of EVERY window (coverage certified against the D-020 expected-window manifest), closing the scope gap",
+ "pre_implementation_identity": "the recomputation was validated against all 28 real trace-derived-p90 derivations before the checker change: 28/28 exact matches on pair lists, values, n_samples",
+ "new_checker_on_mutation": {
+  "exit_code": 1,
+  "stdout": "H4 provenance walk: 1484/1495 candidate chains reconstructed (99.26%) / failures: 11",
+  "detail": "all 11 chains that walk through the fabricated derivation named with 'trace pair list mismatch ... recorded 4 pairs != recomputed 301'"
+ },
+ "audit_gate_mutations": {
+  "sandbox": "all 105 windows' import-reports symlinked; three real-derivation mutations planted",
+  "exit_code": 1,
+  "caught": [
+   {
+    "window": "hipster/rca/2022-08-22_0429",
+    "derivation": "cartservice-579f59597d-wc2lz|NetworkP90(ms)",
+    "reason": "trace pair list mismatch in rca_data/2022-08-22/trace/04_29_trace.csv: recorded 450 pairs != recomputed 450, first divergence at pair 0"
+   },
+   {
+    "window": "hipster/rca/2022-08-22_0454",
+    "derivation": "checkoutservice-578fcf4766-9csqn|NetworkP90(ms)",
+    "reason": "trace p90 value mismatch: recorded 271.1512707 != recomputed 271.1512697 from rca_data/2022-08-22/trace/04_54_trace.csv"
+   },
+   {
+    "window": "hipster/rca/2022-08-23_1247",
+    "derivation": "cartservice-579f59597d-wc2lz|CpuUsageRate(%)",
+    "reason": "metric value mismatch: rca_data/2022-08-23/metric/cartservice-579f59597d-wc2lz_metric.csv:49 cell 100.24525591121115 (artifact parse 100.24525591121116) != recorded 100.74525591121116"
+   }
+  ],
+  "note": "M1 re-aimed parent_row (+1); M2 recorded p90 value +1e-6 with pairs intact; M3 recorded metric value +0.5 \u2014 M3 proves the two-tier cell comparison stays fail-closed"
+ },
+ "green_walked": {
+  "exit_code": 0,
+  "stdout": "H4 provenance walk: 1495/1495 candidate chains reconstructed (100.00%) / failures: 0",
+  "runroot": "/home/user/e2-runs-d019"
+ },
+ "green_audit": {
+  "exit_code": 0,
+  "stdout": "alarm derivations: 118 checked across 105/105 windows {'metric-sample': 90, 'trace-derived-p90': 28} failures=0",
+  "artifact": "see d026-derivation-audit-GREEN.json"
+ },
+ "ulp_note": "the audit initially flagged 3 rca metric cells where CPython float() and pandas' C tokenizer disagree by 1 ULP; the recorded values equal the pandas (artifact's own) parse \u2014 the cell comparison is now two-tier: raw strtod fast path, then the artifact's parser as authority; corruption fails both (M3)"
+}

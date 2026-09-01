@@ -1054,3 +1054,139 @@ the manifest-certified universe.
 **Verdict impact.** None; prospective gate hardening only.
 
 **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-026: Trace-pair provenance verified by full recomputation; all-derivation audit gate
+
+**Trigger.** Codex P1 on PR #20 (thirteenth round, exact head
+`5d411c7`), verified against the code: in
+`scripts/check_h4_provenance.py` the trace-latency-pair branch checked
+only a pod substring on the child row and NOTHING on the parent row —
+no `child.ParentID == parent.SpanID` linkage, no latency, no
+percentile; the derivation's own stored `verified` flag was the only
+value check (exactly the trust D-017 removed for metric cells but left
+for trace pairs).
+
+**Population fact the finding missed (recorded for honesty).** In the
+live 1495-chain population the weak branch is dead code: walked
+candidates point at NORMAL sessions, whose four windows carry only two
+alert chains, both metric-sample; all 28 trace-derived-p90 derivations
+live in rca windows the walk never loads. So corrupt trace pairs could
+not have produced the committed 1495/1495 — but the real gap is WIDER
+than claimed: outside the two walked chains, the entire
+118-derivation population had NO independent verifier at all (only the
+importer's own at-materialization shadow check).
+
+**RED (`regate/d026-h4-tracepair-RED.json`).** Sandbox construct
+runroot with the walked hipster derivation REPLACED by a fabricated
+trace-derived-p90 (4 arbitrary pairs: real child rows of the pod,
+arbitrary foreign parents, `verified: true`). Pre-fix checker:
+**1495/1495, exit 0** — precisely the claimed blindness.
+
+**Remedy (this commit).**
+- `check_h4_provenance.py`: trace-derived-p90 derivations are verified
+  by full independent recomputation from the referenced trace CSV
+  (quoting-aware parser; child rows of the pod; parent = LAST row per
+  SpanID; cross-pod links; `(parent_end − child_end)/1e6`; p90 if > 2
+  samples else 10.0) with exact equality on the recorded pair list,
+  value and n_samples — the ParentID↔SpanID linkage holds by
+  construction. Fallback-threshold rows now re-parse the
+  `NetworkP90(ms)` cell. Validated before the change: the
+  recomputation reproduces all 28 real derivations exactly (28/28
+  pair lists, values, n_samples).
+- NEW standing gate `scripts/check_alarm_derivations.py`: audits EVERY
+  materialized derivation of EVERY window (coverage certified against
+  the D-020 expected-window manifest), never trusting the stored
+  `verified` flag — closing the scope gap above.
+- Parser honesty note: the audit surfaced 3 rca metric cells where
+  CPython `float()` and pandas' C tokenizer disagree by 1 ULP; the
+  recorded values equal the pandas (the artifact's own) parse. The
+  metric-cell comparison is now two-tier — raw strtod fast path, the
+  artifact's parser as authority on disagreement; a corrupted recorded
+  value fails both.
+
+**GREEN (`regate/d026-h4-tracepair-caught.json`,
+`d026-derivation-audit-GREEN.json`).** New checker on the mutation:
+exit 1, 1484/1495 with all 11 chains through the fabricated derivation
+named. Audit-gate mutations (re-aimed `parent_row`; recorded p90 value
++1e-6 with pairs intact; recorded metric value +0.5): all three caught
+with exact reasons, exit 1. Real runroot: walked H4 **1495/1495 exit
+0** unchanged; audit gate **118 derivations across 105/105 windows, 0
+failures, exit 0** (90 metric-sample + 28 trace-derived-p90; the
+fallback-threshold path remains unused). 05 §4 updated.
+
+**Verdict impact.** None — H4-source-attribution keeps exactly its
+stated strength, now under a checker with no weak branch and an
+audit of the full derivation population; frozen H4 remains
+INCONCLUSIVE per D-009.
+
+**Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-027: E2 report generator handles §8 failure records
+
+**Trigger.** Codex P2 on PR #20 (thirteenth round, head `5d411c7`),
+verified: `scripts/make_e2_report.py` read `c["ingestion"]`
+unconditionally, but §8 failure records (D-022/D-024) intentionally
+carry no ingestion block — so generating the E2 report for exactly the
+full-denominator runs the failure handling protects raised `KeyError`
+and produced no report.
+
+**RED (`regate/d027-report-keyerror-RED.json`).** Pre-fix copy against
+a results dir with one §8 failure record (the D-022 sandbox): exit 1,
+`KeyError: 'ingestion'` at the ingestion-totals line, report aborted.
+
+**Remedy (this commit).** Ingestion totals sum over cases that carry
+an ingestion block; when failure records exist, one extra line reports
+them (`Failed cases (counted unlocalized, §8): N — ids`), emitted ONLY
+then, keeping clean-run output byte-identical. Every other per-case
+field access was audited against the failure-record shape — the
+existing None-as-unlocalized aggregation already covers evaluation
+ranks; nothing else needed guarding.
+
+**GREEN (`regate/d027-report-failurecase-GREEN.json`).** Fixed script
+on the failure-record dir: exit 0, complete report, totals over the 44
+evaluated cases, failure line naming ts-2023-01-29-001. Clean-run
+identity: stdout byte-identical to the committed
+`results/e2/e2-tables.md` (sha256 match).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-028: §8 boundaries in the modality-ablation driver
+
+**Trigger.** Codex P2 on PR #20 (thirteenth round, head `5d411c7`),
+verified: `scripts/run_e3_ablations.py` implemented neither the
+per-case §8 boundary (D-022) nor the shared-window boundary (D-024) —
+one filter/fold or scorer crash escaped `main()` and the driver wrote
+NO ablation artifact at all.
+
+**RED (`regate/d028-ablation-abort-RED.json`).** Sandbox ts runroot
+(file symlinks) with one abnormal window's `events.jsonl` corrupted
+(window `2023-01-29_1544`, serving exactly case ts-2023-01-29-027).
+Pre-fix driver: exit 1 on `JSONDecodeError`, no
+`s1-ablations-ts.json`, all 3 variants × 45 cases lost, zero failure
+records.
+
+**Remedy (this commit).** Mirrors `run_e2.py`: per variant and date
+the fault list is read before the shared normal-window fold; that fold
+failing appends a §8 failure record for every fault of the date and
+continues (D-024 boundary); the per-case body is wrapped likewise with
+the case's own cause (D-022 boundary); each variant summary gains
+`failed_cases` ONLY when failures exist. The aggregation already
+counts None ranks as unlocalized over the full n=45 denominator.
+
+**GREEN (`regate/d028-ablation-failure-GREEN.json`).** Same sandbox:
+exit 0; in each of the three variants exactly ts-2023-01-29-027
+recorded as failed (JSONDecodeError cause), 44 cases evaluated,
+denominators intact (no-alerts/no-logs aggregates match the committed
+artifact exactly — case 027 was already genuinely unlocalized there;
+no-spans unlocalized is committed+1 since 027 scored rank 1 there
+pre-corruption). Success-path identity: fixed driver over the real
+runroot regenerates `s1-ablations-ts.json` byte-identical to the
+committed copy (sha256 unchanged).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.

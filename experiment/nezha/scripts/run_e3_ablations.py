@@ -75,10 +75,32 @@ def main():
             normal_dir = os.path.join(
                 RUNROOT, ns, "construct",
                 normal_win.replace(" ", "_").replace(":", ""))
-            v_normal = filter_and_fold(normal_dir, variant, keep)
             with open(os.path.join(code_dir, "rca_data", date,
                                    f"{date}-fault_list.json")) as f:
                 fault_data = json.load(f)
+            try:
+                v_normal = filter_and_fold(normal_dir, variant, keep)
+            except Exception as exc:  # noqa: BLE001
+                # Frozen §8 (Codex round-13 P2, D-028): the normal fold
+                # is shared by every fault of its date — count each as
+                # unlocalized with the shared cause and keep going.
+                faults = [f_ for hour in fault_data
+                          for f_ in fault_data[hour]]
+                for idx, fault in enumerate(faults):
+                    case_id = f"{ns}-{date}-{idx:03d}"
+                    cases.append({
+                        "case_id": case_id,
+                        "inject_type": fault["inject_type"],
+                        "failure": f"normal ablation fold {variant} "
+                                   f"{normal_win}: "
+                                   f"{type(exc).__name__}: {exc}",
+                        "evaluation": {"rank_inner": None,
+                                       "rank_service_raw": None,
+                                       "rank_service_dedup": None,
+                                       "n_candidates": 0}})
+                    print(f"{case_id} FAILED (counted unlocalized): "
+                          f"{exc}", flush=True)
+                continue
             idx = 0
             for hour in fault_data:
                 for fault in fault_data[hour]:
@@ -88,30 +110,44 @@ def main():
                     abn_dir = os.path.join(
                         RUNROOT, ns, "rca",
                         win.replace(" ", "_").replace(":", ""))
-                    v_abn = filter_and_fold(abn_dir, variant, keep)
-                    case_out = os.path.join(v_abn, f"s1-{case_id}.json")
-                    run([PY, SCORER,
-                         "--normal-scenarios",
-                         os.path.join(v_normal, "scenarios.jsonl"),
-                         "--normal-events",
-                         os.path.join(v_normal, "events.jsonl"),
-                         "--abnormal-scenarios",
-                         os.path.join(v_abn, "scenarios.jsonl"),
-                         "--alarms",
-                         os.path.join(abn_dir, "import-report.json"),
-                         "--out", case_out])
-                    scored = json.load(open(case_out))
-                    svc = service_of(fault["inject_pod"])
                     try:
-                        rc = root_cause_map[svc][fault["inject_type"]]
-                        rc_parts = rc.split("_")
-                    except KeyError:
-                        rc, rc_parts = None, []
-                    ev = evaluate_case(scored["candidates"], rc_parts,
-                                       fault["inject_pod"], templates)
-                    cases.append({"case_id": case_id,
-                                  "inject_type": fault["inject_type"],
-                                  "evaluation": ev})
+                        v_abn = filter_and_fold(abn_dir, variant, keep)
+                        case_out = os.path.join(v_abn, f"s1-{case_id}.json")
+                        run([PY, SCORER,
+                             "--normal-scenarios",
+                             os.path.join(v_normal, "scenarios.jsonl"),
+                             "--normal-events",
+                             os.path.join(v_normal, "events.jsonl"),
+                             "--abnormal-scenarios",
+                             os.path.join(v_abn, "scenarios.jsonl"),
+                             "--alarms",
+                             os.path.join(abn_dir, "import-report.json"),
+                             "--out", case_out])
+                        scored = json.load(open(case_out))
+                        svc = service_of(fault["inject_pod"])
+                        try:
+                            rc = root_cause_map[svc][fault["inject_type"]]
+                            rc_parts = rc.split("_")
+                        except KeyError:
+                            rc, rc_parts = None, []
+                        ev = evaluate_case(scored["candidates"], rc_parts,
+                                           fault["inject_pod"], templates)
+                        cases.append({"case_id": case_id,
+                                      "inject_type": fault["inject_type"],
+                                      "evaluation": ev})
+                    except Exception as exc:  # noqa: BLE001
+                        # Frozen §8: crashed case counted unlocalized,
+                        # cause reported (Codex round-13 P2, D-028).
+                        cases.append({
+                            "case_id": case_id,
+                            "inject_type": fault["inject_type"],
+                            "failure": f"{type(exc).__name__}: {exc}",
+                            "evaluation": {"rank_inner": None,
+                                           "rank_service_raw": None,
+                                           "rank_service_dedup": None,
+                                           "n_candidates": 0}})
+                        print(f"{case_id} FAILED (counted unlocalized): "
+                              f"{exc}", flush=True)
         n = len(cases)
         agg = {}
         for mode in ("rank_inner", "rank_service_dedup"):
@@ -124,6 +160,10 @@ def main():
                 "unlocalized": n - len(hit),
             }
         results[variant] = {"n": n, "aggregates": agg, "cases": cases}
+        failed = [{"case_id": c["case_id"], "failure": c["failure"]}
+                  for c in cases if "failure" in c]
+        if failed:  # §8: failures are separately reported with cause
+            results[variant]["failed_cases"] = failed
         print(variant, json.dumps(agg), flush=True)
 
     outdir = os.path.join(RUNROOT, "results")

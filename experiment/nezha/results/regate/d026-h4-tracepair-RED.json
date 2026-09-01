@@ -1,0 +1,14 @@
+{
+ "decision": "D-026",
+ "finding": "Codex round-13 P1 on scripts/check_h4_provenance.py: the trace-latency-pair branch verified only a pod substring on the child row and NOTHING on the parent row \u2014 no child.ParentID == parent.SpanID linkage, no latency, no percentile recomputation; the derivation's own stored 'verified' flag was the only value check (the trust D-017 removed for metric cells but left for trace pairs)",
+ "population_fact": "in the live 1495-chain population the weak branch is DEAD CODE: the walked candidates point at NORMAL sessions, whose windows carry only 2 alert chains, both metric-sample; all 28 trace-derived-p90 derivations live in rca windows the checker never loads \u2014 so the finding's premise (corrupt pairs pass 1495/1495) required fabricating the scenario, and the real gap is WIDER than stated: the entire 118-derivation population had no independent verifier at all outside the 2 walked chains",
+ "mutation": {
+  "sandbox": "construct windows + results symlinked from /home/user/e2-runs-d019; hipster/construct/2022-08-22_0351 import-report copy with the walked metric-sample derivation adservice-5f6585d649-fnmft|MemoryUsageRate(%) REPLACED by a fabricated trace-derived-p90: 4 arbitrary pairs (child rows 44-47 are real rows of the pod, parent rows 0-3 arbitrary foreign rows), verified:true, value kept"
+ },
+ "old_checker": {
+  "commit_lineage": "as of 5d411c7",
+  "exit_code": 0,
+  "stdout": "H4 provenance walk: 1495/1495 candidate chains reconstructed (100.00%) / failures: 0",
+  "interpretation": "exactly the blindness claimed: arbitrary in-range pointers under a self-declared verified flag pass"
+ }
+}
