@@ -1,0 +1,742 @@
+{
+ "decision": "D-030",
+ "finding": "CodeRabbit (same review) Minor on run_e2.py: section-8 failure records lacked the success-record keys, so consumers indexing them crash \u2014 check_s1s2_isolation.py reads ['candidates'] on both sides and raises KeyError on any failed case",
+ "red": {
+  "setup": "isolation gate over e2 = D-022 sandbox result with the OLD-shape failure record (ts-2023-01-29-001, no 'candidates' key) + e3/hipster = committed files",
+  "exit_code": 1,
+  "observed": "unhandled traceback KeyError: 'candidates' \u2014 a crash, not a named violation"
+ },
+ "fix": "failure records are now schema-compatible: run_e2 (both the per-case and the D-024 construct-window paths) adds candidates: [] and ground_truth: null; run_e3 adds those plus abnormal_window and representation; changes are strictly inside except-branches, so clean runs are statically unchanged (success-path identity for both drivers was proven at D-022/D-024 and the success path is untouched)",
+ "green": {
+  "setup": "same sandbox rerun with the fixed run_e2 (new-shape failure record: candidates [], ground_truth null, all identity keys)",
+  "exit_code": 1,
+  "observed": "gate completes and NAMES the case as an isolation violation instead of crashing: ts-2023-01-29-001 with n_candidates_s1=0 vs n_candidates_s2=16 \u2014 semantically right: a case crashed in one condition breaks the tie-break-only attribution for that case and must be flagged as data",
+  "violation": {
+   "case_id": "ts-2023-01-29-001",
+   "n_candidates_s1": 0,
+   "n_candidates_s2": 16,
+   "s1_only_candidates": [],
+   "s2_only_candidates": [
+    {
+     "deepth": 106,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-travel-service TripRepository.findByTripId",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel-service SELECT Trip",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-travel-service-64469b5b48-25zj6",
+     "provenance": {
+      "first_seq": 165,
+      "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f"
+     },
+     "score": 0.7647058823529411
+    },
+    {
+     "deepth": 11,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-train-food-service SELECT ts.train_food",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-train-food-service SELECT ts.train_food_list",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-train-food-service-59bbbdd99b-b67ts",
+     "provenance": {
+      "first_seq": 13,
+      "normal_session": "be9dde8f-1cf9-5d05-8fe8-7585f2eb5f84"
+     },
+     "score": 0.7
+    },
+    {
+     "deepth": 123,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-station-service SELECT ts.station",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:339",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-station-service-7f4f5f6f77-5qb6j",
+     "provenance": {
+      "first_seq": 190,
+      "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f"
+     },
+     "score": 0.8
+    },
+    {
+     "deepth": 129,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-train-service SELECT ts.train_type",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:162",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-train-service-86f5f97bc9-dkqmf",
+     "provenance": {
+      "first_seq": 198,
+      "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f"
+     },
+     "score": 0.7272727272727273
+    },
+    {
+     "deepth": 131,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:55",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:613",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-order-service-5b67c48447-mv5hb",
+     "provenance": {
+      "first_seq": 209,
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071"
+     },
+     "score": 0.6907216494845361
+    },
+    {
+     "deepth": 137,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:115",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-travel-service-64469b5b48-25zj6",
+     "provenance": {
+      "first_seq": 222,
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071"
+     },
+     "score": 1.0
+    },
+    {
+     "deepth": 137,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:116",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:115",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-travel-service-64469b5b48-25zj6",
+     "provenance": {
+      "first_seq": 221,
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071"
+     },
+     "score": 0.6811594202898551
+    },
+    {
+     "deepth": 137,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:204",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-seat-service-5c95b49cff-tdsdz",
+     "provenance": {
+      "first_seq": 220,
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071"
+     },
+     "score": 0.6712328767123288
+    },
+    {
+     "deepth": 14,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-order-other-service /api/v1/orderOtherService/orderOther/{orderId}",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-order-other-service OrderOtherController.getOrderById",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk",
+     "provenance": {
+      "first_seq": 18,
+      "normal_session": "85576790-0d40-5031-95b1-0f82bee0fc25"
+     },
+     "score": 0.7
+    },
+    {
+     "deepth": 145,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:20",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-basic-service-5dc8d4f9fd-46997",
+     "provenance": {
+      "first_seq": 225,
+      "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f"
+     },
+     "score": 1.0
+    },
+    {
+     "deepth": 148,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-seat-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:206",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-seat-service-5c95b49cff-tdsdz",
+     "provenance": {
+      "first_seq": 154,
+      "normal_session": "7d1e6d8d-4366-597c-a994-7c15727cca14"
+     },
+     "score": 0.7014925373134329
+    },
+    {
+     "deepth": 163,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-order-other-service Transaction.commit",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:393",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk",
+     "provenance": {
+      "first_seq": 169,
+      "normal_session": "7d1e6d8d-4366-597c-a994-7c15727cca14"
+     },
+     "score": 0.7
+    },
+    {
+     "deepth": 33,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-contacts-service Transaction.commit",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:98",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-contacts-service-866bd68c97-xcqfx",
+     "provenance": {
+      "first_seq": 45,
+      "normal_session": "0586938e-2604-58e1-8cfd-c3d402334e7f"
+     },
+     "score": 1.0
+    },
+    {
+     "deepth": 37,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-order-other-service OrderOtherRepository.findById",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:394",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk",
+     "provenance": {
+      "first_seq": 41,
+      "normal_session": "fb25d676-22a4-54eb-afab-974b35becec0"
+     },
+     "score": 0.7777777777777778
+    },
+    {
+     "deepth": 45,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-price-service SELECT price_config",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-price-service SELECT ts.price_config",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-price-service-76846864d9-g465z",
+     "provenance": {
+      "first_seq": 55,
+      "normal_session": "bb42b290-b476-5fa2-995b-ba71b2bbbde3"
+     },
+     "score": 0.8333333333333334
+    },
+    {
+     "deepth": 9,
+     "pattern": [
+      [
+       "<unknown>",
+       "span:ts-travel-service Transaction.commit",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-travel-service-64469b5b48-25zj6",
+     "provenance": {
+      "first_seq": 9,
+      "normal_session": "996161eb-31ea-5e86-9033-d8d60d58e071"
+     },
+     "score": 0.7333333333333333
+    }
+   ],
+   "s1_ranks": [
+    null,
+    null,
+    null
+   ],
+   "s2_ranks": [
+    null,
+    3,
+    3
+   ]
+  }
+ },
+ "scope_note": "ablation failure records (D-028) keep their slim shape: no consumer indexes candidates on ablation cases"
+}

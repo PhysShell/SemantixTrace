@@ -110,12 +110,28 @@ def main():
         def key(c):
             return (c["dataset"], c["inject_time"],
                     c["inject_pod"], c["inject_type"])
-        n1 = {key(c): c for c in json.load(open(os.path.join(
-            n1_dir, f"{ns}-service.eval.json")))["cases"]}
-        s1 = {key(c): c["evaluation"] for c in json.load(open(
-            os.path.join(s1_dir, f"s1-{ns}.cases.json")))["cases"]}
-        s2 = {key(c): c["evaluation"] for c in json.load(open(
-            os.path.join(s2_dir, f"s2-{ns}.cases.json")))["cases"]}
+
+        def index(cases, label, value=lambda c: c):
+            # Fail closed on duplicate pairing keys (CodeRabbit,
+            # D-029): a dict comprehension silently overwrites, so a
+            # duplicated fault masking a missing one in ALL inputs
+            # would pass both assertions with a reduced denominator.
+            by = {}
+            for c in cases:
+                k = key(c)
+                if k in by:
+                    raise SystemExit(
+                        f"duplicate pairing key in {label}/{ns}: {k}")
+                by[k] = value(c)
+            return by
+        n1 = index(json.load(open(os.path.join(
+            n1_dir, f"{ns}-service.eval.json")))["cases"], "n1")
+        s1 = index(json.load(open(
+            os.path.join(s1_dir, f"s1-{ns}.cases.json")))["cases"],
+            "s1", lambda c: c["evaluation"])
+        s2 = index(json.load(open(
+            os.path.join(s2_dir, f"s2-{ns}.cases.json")))["cases"],
+            "s2", lambda c: c["evaluation"])
         assert len(n1) == len(s1) == len(s2)
         block = {}
         for metric, f_n1, f_s in (

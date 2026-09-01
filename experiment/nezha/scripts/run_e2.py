@@ -115,10 +115,12 @@ def main():
                         "inject_time": fault["inject_time"],
                         "inject_pod": fault["inject_pod"],
                         "inject_type": fault["inject_type"],
+                        "ground_truth": None,
                         "abnormal_window":
                             abnormal_window(fault["inject_time"]),
                         "failure": f"construct window {normal_win}: "
                                    f"{type(exc).__name__}: {exc}",
+                        "candidates": [],
                         "evaluation": {"rank_inner": None,
                                        "rank_service_raw": None,
                                        "rank_service_dedup": None,
@@ -204,8 +206,13 @@ def main():
                             "inject_time": fault["inject_time"],
                             "inject_pod": fault["inject_pod"],
                             "inject_type": fault["inject_type"],
+                            "ground_truth": None,
                             "abnormal_window": win,
                             "failure": f"{type(exc).__name__}: {exc}",
+                            # schema-compatible with success records so
+                            # downstream consumers (isolation gate) can
+                            # index them (CodeRabbit, D-030)
+                            "candidates": [],
                             "evaluation": {"rank_inner": None,
                                            "rank_service_raw": None,
                                            "rank_service_dedup": None,

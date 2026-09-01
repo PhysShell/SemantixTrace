@@ -1190,3 +1190,58 @@ runroot regenerates `s1-ablations-ts.json` byte-identical to the
 committed copy (sha256 unchanged).
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-029: Paired-stats pairing keys fail closed on duplicates
+
+**Trigger.** CodeRabbit Major (incremental review of
+`baca6df..5d411c7`) on `evaluators/paired_stats.py`, verified by
+direct mutation: the pairing dicts are comprehensions, so a duplicate
+fault key silently overwrites; with the same duplication planted in
+ALL THREE inputs (a duplicated fault masking a missing one), both
+existing assertions pass and every ts comparison silently ran on
+n = 44 instead of 45 (RED: pre-fix exit 0, no complaint;
+`regate/d029-pairing-duplicate-RED-caught.json`). CodeRabbit's own
+scan confirmed the real inputs carry no duplicates — the defect was
+latent, same fail-open class as D-020/D-023/D-025.
+
+**Remedy (this commit).** Indexing goes through a helper that raises
+`SystemExit` naming the first duplicate pairing key and its input
+(`duplicate pairing key in n1/ts: (...)` on the mutation, exit 1).
+
+**GREEN.** The fixed script over the real committed inputs
+regenerates `paired-stats.json` byte-identical to the committed
+artifact. Verdict impact: none.
+
+**Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-01 — D-030: §8 failure records schema-compatible with success records
+
+**Trigger.** CodeRabbit Minor (same review) on `run_e2.py`, verified:
+the D-022/D-024 failure records omitted success-record keys, so
+`check_s1s2_isolation.py` — which indexes `["candidates"]` on both
+sides — raises `KeyError` on any failed case (RED: unhandled
+traceback, a crash rather than a named violation;
+`regate/d030-failure-record-schema-RED-GREEN.json`).
+
+**Remedy (this commit).** Failure records now carry the schema:
+`run_e2.py` (both failure paths) adds `candidates: []` and
+`ground_truth: null`; `run_e3.py` adds those plus `abnormal_window`
+and `representation`. The changes live strictly inside
+except-branches — clean runs are statically unchanged (success-path
+identity proven at D-022/D-024; success paths untouched). Ablation
+records (D-028) keep their slim shape: no consumer indexes
+candidates there.
+
+**GREEN.** The D-022 sandbox rerun with the fixed driver produces the
+new-shape record, and the isolation gate now completes and NAMES the
+crashed case as an isolation violation (ts-2023-01-29-001,
+n_candidates 0 vs 16, exit 1) — the semantically right outcome: a
+case crashed in one condition breaks tie-break-only attribution for
+that case and is flagged as data, not as a crash. Verdict impact:
+none.
+
+**Outcome data seen at decision time:** all.

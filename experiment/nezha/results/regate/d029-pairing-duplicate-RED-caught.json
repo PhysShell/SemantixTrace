@@ -1,0 +1,18 @@
+{
+ "decision": "D-029",
+ "finding": "CodeRabbit (incremental review of baca6df..5d411c7) Major on evaluators/paired_stats.py: pairing dicts are built by comprehension, so duplicate fault keys silently overwrite; if the same duplication (a duplicated fault masking a missing one) appears in ALL THREE inputs, both assertions (len equality, id-set equality) still pass and every test runs on a reduced denominator",
+ "mutation": "copies of the three ts inputs (n1 eval, s1 cases, s2 cases) where case #2's fault identity fields are overwritten with case #1's \u2014 fault ('2023-01-29','2023-01-29 08:43:04','ts-contacts-service-866bd68c97-xcqfx','return') duplicated, one fault silently gone; raw case counts unchanged (45)",
+ "old": {
+  "commit_lineage": "as of bff8367",
+  "exit_code": 0,
+  "observed": "every ts comparison silently ran with n_cases=44 (committed: 45); no complaint",
+  "n_cases_per_comparison": {
+   "all six ts comparisons": 44
+  }
+ },
+ "new": {
+  "exit_code": 1,
+  "stderr": "duplicate pairing key in n1/ts: ('2023-01-29', '2023-01-29 08:43:04', 'ts-contacts-service-866bd68c97-xcqfx', 'return')"
+ },
+ "green": "fixed script over the real committed inputs regenerates paired-stats.json byte-identical to the committed artifact (cmp clean); CodeRabbit's own repo scan confirmed all six real inputs carry unique pairing keys (raw == unique)"
+}
