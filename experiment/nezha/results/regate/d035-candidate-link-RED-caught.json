@@ -1,0 +1,16 @@
+{
+ "decision": "D-035",
+ "finding": "Codex round-15 P1 on scripts/check_h4_provenance.py: the walk verified event<->provenance<->source but never CANDIDATE<->event \u2014 a candidate's (normal_session, first_seq) pointer re-aimed at an unrelated same-pod event passed, validating the wrong chain end-to-end while the candidate-to-event link was false",
+ "semantics_note": "the naive check 'scenarios actions[seq] == pattern[0]' is WRONG for this data: folding drops events, so action index != event seq (1322/1495 match, 117 out-of-bounds, 56 shifted). The correct independent link is at the event level: the fold preserves command_id verbatim, so pattern[0]'s command_id must equal the event's command_id and the candidate's pod must equal the event's pod \u2014 verified to hold 1495/1495 on the real data BEFORE the checker change",
+ "mutation": "copy of s1-ts.cases.json with case ts-2023-01-29-000's first candidate re-aimed from seq 45 to seq 37 \u2014 same session, same pod, different command ('span:ts-contacts-service Transaction.commit' -> 'span:ts-contacts-service /api/v1/contactservice/contacts/{id}')",
+ "old": {
+  "exit_code": 0,
+  "stdout": "H4 provenance walk: 1495/1495 ... failures: 0 \u2014 blind"
+ },
+ "new": {
+  "exit_code": 1,
+  "failure": "candidate/event link mismatch: pattern[0] names 'span:ts-contacts-service Transaction.commit' but event carries 'span:...contacts/{id}'"
+ },
+ "green": "real runroot: 1495/1495, exit 0 \u2014 every candidate's pattern[0] command and pod match its pointed event",
+ "granularity_note": "a re-aim to a DIFFERENT OCCURRENCE with the same pod AND same command remains within the claim's unit: the chain still ends at a genuine occurrence of the same canonical action by the same pod"
+}

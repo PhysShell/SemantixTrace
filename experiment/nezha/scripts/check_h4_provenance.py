@@ -322,6 +322,29 @@ def main():
                     failures.append((case["case_id"], "provenance not found",
                                      sid, seq))
                     continue
+                # The candidate itself must match the event it points
+                # at (Codex round-15 P1, D-035): the walk previously
+                # verified event<->provenance<->source but never
+                # candidate<->event, so a pointer re-aimed at an
+                # unrelated same-pod event validated the wrong chain.
+                # The fold preserves command_id verbatim, so the
+                # pattern's first action must name this event's
+                # command_id and the candidate's pod must be the
+                # event's pod.
+                if ev.get("command_id") != cand["pattern"][0][1]:
+                    failures.append(
+                        (case["case_id"],
+                         f"candidate/event link mismatch: pattern[0] "
+                         f"names {cand['pattern'][0][1]!r} but event "
+                         f"carries {ev.get('command_id')!r}", sid, seq))
+                    continue
+                if cand.get("pod") != ev.get("args", {}).get("pod"):
+                    failures.append(
+                        (case["case_id"],
+                         f"candidate/event pod mismatch: candidate "
+                         f"{cand.get('pod')!r} but event "
+                         f"{ev.get('args', {}).get('pod')!r}", sid, seq))
+                    continue
                 if prov_rec.get("pod") != ev.get("args", {}).get("pod"):
                     failures.append((case["case_id"], "pod mismatch", sid, seq))
                     continue

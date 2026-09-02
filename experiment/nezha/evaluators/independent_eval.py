@@ -286,17 +286,31 @@ def main():
                 alignment_errors.append(
                     {"idx": idx, "log": (case["inject_pod"], case["inject_type"]),
                      "fault_list": (fault["inject_pod"], fault["inject_type"])})
-            cands = case["candidates"] or []
-            rec["n_candidates"] = len(cands)
-            rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
-            rec["rank_historical"] = rank_historical(
-                cands, rc_parts, fault["inject_pod"], templates)
-            rec["rank_dense"] = rank_dense(
-                cands, rc_parts, fault["inject_pod"], templates)
-            raw, dedup = rank_service(cands, fault["inject_pod"])
-            rec["rank_service_raw"] = raw
-            rec["rank_service_dedup"] = dedup
-            rec["candidates"] = cands
+                # A misaligned log case must NOT be scored against this
+                # fault (Codex round-15 P2, D-036): the positional
+                # candidates belong to a different case, so any rank
+                # they yield is fabricated. Frozen §8: the fault stays
+                # in the denominator as unlocalized, cause recorded.
+                rec["alignment_failure"] = {
+                    "log_case": (case["inject_pod"], case["inject_type"])}
+                rec["n_candidates"] = 0
+                rec["rank_historical"] = None
+                rec["rank_dense"] = None
+                rec["rank_service_raw"] = None
+                rec["rank_service_dedup"] = None
+                rec["candidates"] = []
+            else:
+                cands = case["candidates"] or []
+                rec["n_candidates"] = len(cands)
+                rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
+                rec["rank_historical"] = rank_historical(
+                    cands, rc_parts, fault["inject_pod"], templates)
+                rec["rank_dense"] = rank_dense(
+                    cands, rc_parts, fault["inject_pod"], templates)
+                raw, dedup = rank_service(cands, fault["inject_pod"])
+                rec["rank_service_raw"] = raw
+                rec["rank_service_dedup"] = dedup
+                rec["candidates"] = cands
         else:
             rec["missing_in_log"] = True
             counters["cases_missing_in_log"] += 1

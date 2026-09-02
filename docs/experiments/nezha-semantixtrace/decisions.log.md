@@ -1359,3 +1359,67 @@ the summary written; real runroot unchanged (118/0 failures, walked
 H4 1495/1495).
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-035: The H4 walk verifies the candidate ↔ event link itself
+
+**Trigger.** Codex P1 on PR #20 (fifteenth round, exact head
+`122c929`), verified by direct mutation: the walk checked
+event↔provenance↔source but never CANDIDATE↔event — a candidate's
+`(normal_session, first_seq)` pointer re-aimed at an unrelated
+same-pod event passed (pre-fix checker: 1495/1495, exit 0), so the
+whole chain validated the wrong event.
+
+**Semantics note (recorded because the obvious fix is wrong).** The
+naive check "scenario `actions[seq]` == `pattern[0]`" does NOT hold on
+this data: folding drops events, so action index ≠ event seq
+(1322/1495 match, 117 out-of-bounds, 56 shifted). The correct
+independent link is at the event level — the fold preserves
+`command_id` verbatim, so `pattern[0]`'s command must equal the
+pointed event's `command_id`, and the candidate's `pod` must equal
+the event's pod. Verified to hold **1495/1495** on the real data
+BEFORE the checker change.
+
+**Remedy (this commit).** `check_h4_provenance.py` adds both link
+checks before the provenance step; either mismatch is a named
+failure.
+
+**GREEN (`regate/d035-candidate-link-RED-caught.json`).** The
+mutation (seq 45 → 37, same pod, different command) is caught with
+both commands named; real runroot: 1495/1495 exit 0. Granularity
+caveat recorded: a re-aim to a different OCCURRENCE with the same pod
+and same command stays within the claim's unit — the chain still ends
+at a genuine occurrence of the same canonical action by the same pod.
+
+**Verdict impact.** None — H4-source-attribution retains its stated
+strength under a checker that now pins the candidate end of the
+chain. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-036: Misaligned E0/E1 log cases fail closed as §8 failures
+
+**Trigger.** Codex P2 on PR #20 (fifteenth round), verified by direct
+mutation: `evaluators/independent_eval.py` recorded an alignment
+mismatch but still scored the positional candidates against the
+current fault. With ONE case header removed from a copy of the
+hipster artifact log, the pre-fix evaluator reported 47 alignment
+errors yet still scored 32 shifted positions — service_dedup
+silently became top1 36 / AC@1 64.29 (committed: 52 / 92.86):
+fabricated ranks, not a failure.
+
+**Remedy (this commit).** A misaligned position is a §8 failure:
+`alignment_failure` records the log case's identity, all four ranks
+are None, `candidates` empty — the fault stays in the denominator as
+unlocalized; aligned positions evaluate exactly as before.
+
+**GREEN (`regate/d036-alignment-failclosed-RED-GREEN.json`).** On the
+doctored log: 47 alignment_failure records, zero shifted positions
+scored, aggregates degrade honestly. Identity: the fixed evaluator
+over the REAL artifact logs regenerates BOTH committed eval artifacts
+byte-identically (`hipster-service.eval.json`,
+`ts-service.eval.json`; `alignment_errors` is empty on real data, so
+the committed E0/E1 numbers carry no fabricated rank).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
