@@ -1,0 +1,30 @@
+{
+ "decision": "D-037",
+ "finding": "Codex round-16 P1 on check_alarm_derivations.py (equally check_h4_provenance.py): for metric-sample derivations nothing related the derivation-level value back to the validated inputs \u2014 check_metric_cell compares the CSV cell to inp.value and the row checks cover pod/window, so a corrupted der.value with intact inputs passed both gates while the reported alarm value was no longer derived from the referenced telemetry",
+ "mutations": {
+  "audit": "hipster/rca/2022-08-23_1247 cartservice CpuUsageRate der.value +0.5 (inputs intact)",
+  "h4_walk": "hipster/construct/2022-08-22_0351 adservice MemoryUsageRate der.value +0.5 (walked chain)"
+ },
+ "old": {
+  "audit": {
+   "exit_code": 0,
+   "stdout": "118 checked ... failures=0 \u2014 blind"
+  },
+  "h4": {
+   "exit_code": 0,
+   "stdout": "1495/1495 ... failures: 0 \u2014 blind"
+  }
+ },
+ "fix": "in both checkers every validated input's value must equal der.value (the importer selects rows BY that value, so equality holds by construction on honest data); trace-derived derivations already recompute der.value (D-026), threshold rows are covered by the same input-vs-der comparison",
+ "new": {
+  "audit": {
+   "exit_code": 1,
+   "failure": "derivation value 100.74525591121116 != validated input value 100.24525591121116"
+  },
+  "h4": {
+   "exit_code": 1,
+   "failure": "all 11 chains through the mutated derivation named with 'derivation value 81.579... != validated input value 81.079...'"
+  }
+ },
+ "green": "real runroot: audit 118 across 105/105 windows 0 failures; walked H4 1495/1495 \u2014 every input value equals its derivation value"
+}

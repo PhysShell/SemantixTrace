@@ -287,6 +287,13 @@ def check_alert_derivation(code_dir, prov_rec, report, rows_cache, window):
                                                    window, rows_cache))
         else:
             reason = f"derivation {key!r} input has no source pointer: {inp}"
+        # The derivation-level value must equal every validated input
+        # value (Codex round-16 P1, D-037): the importer selects rows
+        # BY that value, so a corrupted der value with intact inputs
+        # previously passed — nothing related the two.
+        if not reason and inp.get("value") != der.get("value"):
+            reason = (f"derivation value {der.get('value')!r} != validated "
+                      f"input value {inp.get('value')!r}")
         if reason:
             return reason
     return None

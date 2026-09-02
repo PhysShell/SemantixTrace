@@ -59,6 +59,11 @@ def check_derivation(code_dir, key, der, rows_cache, window):
                                                    window, rows_cache))
         else:
             reason = f"input has no source pointer: {inp}"
+        # derivation value must equal every validated input value
+        # (Codex round-16 P1, D-037) — see check_h4_provenance
+        if not reason and inp.get("value") != der.get("value"):
+            reason = (f"derivation value {der.get('value')!r} != validated "
+                      f"input value {inp.get('value')!r}")
         if reason:
             return reason
     return None

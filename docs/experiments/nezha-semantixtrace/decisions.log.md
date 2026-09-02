@@ -1423,3 +1423,31 @@ byte-identically (`hipster-service.eval.json`,
 the committed E0/E1 numbers carry no fabricated rank).
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-037: The derivation-level value is tied to its validated inputs
+
+**Trigger.** Codex P1 on PR #20 (sixteenth round, exact head
+`463df6a`), verified by direct mutation on BOTH gates: for
+metric-sample derivations nothing related `der["value"]` back to the
+validated inputs — `check_metric_cell` compares the CSV cell to the
+INPUT's value and the identity checks cover pod/window, so a
+corrupted derivation value with intact inputs passed the audit gate
+(118 checked, 0 failures, exit 0) and the walked H4 check (1495/1495,
+exit 0) while the reported alarm value was no longer derived from the
+referenced telemetry.
+
+**Remedy (this commit).** In both checkers every validated input's
+`value` must equal `der["value"]` — the importer selects metric rows
+BY that value, so equality holds by construction on honest data.
+Trace-derived derivations already recompute `der["value"]` in full
+(D-026); fallback-threshold rows are covered by the same comparison.
+
+**GREEN (`regate/d037-derivation-value-RED-caught.json`).** Both
+mutations (+0.5 on a rca audit derivation; +0.5 on the walked
+construct derivation) are caught with the exact values named; real
+runroot: audit 118 across 105/105 windows with 0 failures, walked H4
+1495/1495 — every input value equals its derivation value.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
