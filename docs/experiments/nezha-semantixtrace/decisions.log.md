@@ -1245,3 +1245,117 @@ that case and is flagged as data, not as a crash. Verdict impact:
 none.
 
 **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-031: Fold caches publish atomically; all 105 cached folds re-verified
+
+**Trigger.** Codex P1 on PR #20 (fourteenth round, exact head
+`7155f76`), verified by direct mutation: `import_and_fold` treated the
+mere existence of `scenarios.jsonl` as a completed fold. An
+interrupted `st-fold` leaves a syntactically valid prefix under the
+cache key, and every later E2/E3/ablation run silently scores the
+incomplete window.
+
+**RED (`regate/d031-cache-poisoning-RED-GREEN.json`).** Sandbox ts
+runroot with one window's `scenarios.jsonl` truncated to a valid
+30-line prefix of the real 61: the pre-fix driver ran to **exit 0
+with no failure record** and produced a materially wrong case —
+ts-2023-01-29-001 scored over 30 sessions instead of 61, 42
+candidates instead of 16, service_dedup rank 5 instead of 3. Exactly
+the claimed silent scoring of an incomplete window.
+
+**Remedy (this commit).** All three cache producers fold/build to
+`<name>.tmp` and publish with `os.replace` only after success:
+`run_e2.py` (`scenarios.jsonl`), `run_e3.py` (`graph.json`),
+`run_e3_ablations.py` (variant `scenarios.jsonl`). The cache
+invariant becomes: the key exists ONLY if the producing step
+completed; an interruption leaves at most a `.tmp` the existence
+check never consults.
+
+**GREEN.** With the partial parked at `scenarios.jsonl.tmp` (the only
+state an interruption can now leave), the fixed driver cache-misses,
+refolds byte-identically to the canonical file, and reproduces the
+committed `s1-ts.cases.json` with 0 differing cases (modulo
+`runtime_ms`), summary equal. The prospective invariant says nothing
+about already-cached files, so every cached fold of the canonical
+runroot was additionally refolded from its `events.jsonl` and
+byte-compared: **105 windows, 0 mismatches** — the committed results
+were built from sound caches.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-032: Metric provenance rows validated against the report's window
+
+**Trigger.** Codex P2 on PR #20 (fourteenth round), verified with a
+LIVE mutation pair: the importer selects metric samples by window AND
+value jointly, but the checkers verified only a pod substring and the
+cell value — and the walked hipster 0351 adservice derivation's file
+really does contain a second row with the identical value
+81.07942708333333 one minute later (03:52, outside the window).
+Re-aiming the input row 0 → 1 passed the pre-fix walked H4 check
+(1495/1495, exit 0) and the pre-fix audit gate.
+
+**Remedy (this commit).** `check_metric_row_identity` (shared by
+`check_h4_provenance.py` and `check_alarm_derivations.py`): the
+referenced row's parsed `PodName` must equal the alarmed pod exactly
+and its `Time` cell must match the report's window via the importer's
+own `re.search(window, Time)`; the window is derived from the runroot
+directory tag (`tag_to_window`).
+
+**GREEN (`regate/d032-metric-window-RED-caught.json`).** On the
+mutation: walked H4 exit 1 with all 11 chains through the derivation
+named "metric row outside window …"; audit gate names the same. Real
+runroot: walked 1495/1495 exit 0; audit 118 derivations, 0 failures —
+every real metric input's Time matches its window.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-033: Alarm ↔ derivation completeness enforced in the audit gate
+
+**Trigger.** Codex P2 on PR #20 (fourteenth round), verified: the
+audit gate iterated only MATERIALIZED derivations, and its own
+docstring deferred completeness to the importer — self-certification.
+A report copy with one derivation deleted (alarm_list intact) was
+checked as 117 instead of 118 and exited 0.
+
+**Remedy (this commit).** Per window the expected key set
+{pod|metric_type} is derived from `alarm_list` exactly as
+`build_derivations` constructs keys; `expected − materialized` and
+`materialized − expected` are both named violations, raised before
+the content audit.
+
+**GREEN (`regate/d033-derivation-completeness-RED-caught.json`).** The
+mutation is caught as "alarm has no materialized derivation"; real
+runroot: expected == materialized in every window, 118 checked, 0
+failures, exit 0.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-034: Malformed derivation inputs fail closed instead of crashing
+
+**Trigger.** CodeRabbit Minor (final round, range
+`5d411c7..7155f76` — its Merge Risk simultaneously dropped to Low),
+verified at unit level against the pre-fix function: a trace
+derivation with `inputs: [{}]` raised `KeyError: 'file'` at
+`inputs[0]["file"]`, and a mix of present and missing file fields
+raised `TypeError` in `sorted({str, None})` — a crash past the
+audit's summary rather than a named failure.
+
+**Remedy (this commit).** Every trace input must be a dict carrying a
+non-empty string `file` before any dereference; otherwise the named
+failure "trace derivation has an input without a source file" flows
+through the normal audit path.
+
+**GREEN (`regate/d034-malformed-input-RED-caught.json`).** A planted
+`inputs: [{}]` mutation yields exit 1 with the violation named and
+the summary written; real runroot unchanged (118/0 failures, walked
+H4 1495/1495).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.

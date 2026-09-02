@@ -64,13 +64,17 @@ def run(cmd, **kw):
 
 
 def import_and_fold(ns, window, phase, out_dir):
-    if os.path.exists(os.path.join(out_dir, "scenarios.jsonl")):
-        return  # cached
+    scen = os.path.join(out_dir, "scenarios.jsonl")
+    if os.path.exists(scen):
+        return  # cached — the key exists ONLY after a completed fold
     os.makedirs(out_dir, exist_ok=True)
     run([PY, IMPORTER, "--ns", ns, "--window", window, "--phase", phase,
          "--code-dir", CODE_DIRS[ns], "--out-dir", out_dir])
-    run([STFOLD, os.path.join(out_dir, "events.jsonl"),
-         os.path.join(out_dir, "scenarios.jsonl")])
+    # Fold to a temp name and publish atomically: an interrupted
+    # st-fold must never leave a syntactically valid prefix under the
+    # cache key (Codex round-14 P1, D-031).
+    run([STFOLD, os.path.join(out_dir, "events.jsonl"), scen + ".tmp"])
+    os.replace(scen + ".tmp", scen)
 
 
 def main():

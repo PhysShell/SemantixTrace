@@ -56,10 +56,13 @@ def main():
                     t0 = time.time()
                     try:
                         if not os.path.exists(graph_json):
+                            # temp + atomic publish, same cache
+                            # invariant as import_and_fold (D-031)
                             run([STGRAPH,
                                  os.path.join(normal_dir, "scenarios.jsonl"),
                                  os.path.join(abn_dir, "scenarios.jsonl"),
-                                 graph_json])
+                                 graph_json + ".tmp"])
+                            os.replace(graph_json + ".tmp", graph_json)
                         case_out = os.path.join(abn_dir, f"s2-{case_id}.json")
                         run([PY, SCORER, "--graph", graph_json,
                              "--normal-scenarios",

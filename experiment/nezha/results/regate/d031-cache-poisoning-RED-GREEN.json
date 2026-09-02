@@ -1,0 +1,24 @@
+{
+ "decision": "D-031",
+ "finding": "Codex round-14 P1 on scripts/run_e2.py import_and_fold: the fold cache treated the MERE EXISTENCE of scenarios.jsonl as a completed fold \u2014 an interrupted st-fold leaves a syntactically valid prefix under the cache key, and every later E2/E3/ablation run silently scores the incomplete window",
+ "red": {
+  "sandbox": "ts runroot (file symlinks; poisoned window ts/rca/2023-01-29_0854 as real copies) with scenarios.jsonl truncated to a valid 30-line prefix of the real 61 lines",
+  "old_driver": {
+   "exit_code": 0,
+   "no_failure_record": true,
+   "silently_wrong_case": "ts-2023-01-29-001: abnormal_sessions 30 vs committed 61; evaluation {'n_candidates': 42, 'rank_service_raw': 8, 'rank_service_dedup': 5} vs committed {'n_candidates': 16, 'rank_service_raw': 3, 'rank_service_dedup': 3}"
+  }
+ },
+ "fix": "all three cache producers fold/build to '<name>.tmp' and publish with os.replace only after success: run_e2 import_and_fold (scenarios.jsonl), run_e3 st-graph (graph.json), run_e3_ablations filter_and_fold (variant scenarios.jsonl). The cache invariant becomes: the key exists ONLY if the producing step completed",
+ "green": {
+  "interrupted_state": "partial file at scenarios.jsonl.tmp, cache key absent \u2014 the only state an interruption can leave under the new protocol",
+  "new_driver": {
+   "exit_code": 0,
+   "refolded_byte_identical_to_canonical": true,
+   "case_matches_committed_minus_runtime_ms": true,
+   "all_45_cases_differing": 0,
+   "summary_equal": true
+  }
+ },
+ "present_cache_integrity": "the prospective invariant says nothing about ALREADY-cached files, so every cached scenarios.jsonl of the canonical runroot was refolded from its events.jsonl and byte-compared: 105 windows, 0 mismatches \u2014 the committed results were built from sound caches"
+}

@@ -21,6 +21,7 @@ import csv
 import gzip
 import json
 import os
+import re
 
 import numpy as np
 import pandas as pd
@@ -32,6 +33,13 @@ NORMAL_DIRS = {
     "hipster": ["2022-08-22_0351", "2022-08-23_1700"],
     "ts": ["2023-01-29_0850", "2023-01-30_1139"],
 }
+
+
+def tag_to_window(tag):
+    """'2022-08-22_0351' -> '2022-08-22 03:51' (the importer's window
+    string, needed to re-validate metric-row Time cells, D-032)."""
+    date, hm = tag.rsplit("_", 1)
+    return f"{date} {hm[:2]}:{hm[2:]}"
 
 
 def load_window(ns, tag):
@@ -149,7 +157,13 @@ def check_trace_p90_derivation(code_dir, pod, der, rows_cache):
     independent parser, so child.ParentID == parent.SpanID and the
     resulting percentile are verified by construction."""
     inputs = der.get("inputs") or []
-    rels = {inp.get("file") for inp in inputs}
+    # A malformed input must be a NAMED failure, not a KeyError/
+    # TypeError crash past the audit's summary (CodeRabbit final
+    # round, D-034).
+    if not all(isinstance(inp, dict) and isinstance(inp.get("file"), str)
+               and inp["file"] for inp in inputs):
+        return "trace derivation has an input without a source file"
+    rels = {inp["file"] for inp in inputs}
     if len(rels) != 1:
         return f"trace derivation references {len(rels)} files: {sorted(rels)}"
     rel = inputs[0]["file"]
@@ -218,7 +232,31 @@ def check_threshold_row(code_dir, inp, rows_cache):
     return None
 
 
-def check_alert_derivation(code_dir, prov_rec, report, rows_cache):
+def check_metric_row_identity(code_dir, inp, pod, window, rows_cache):
+    """The referenced metric row must belong to the alarmed pod AND the
+    report's window (Codex round-14 P2, D-032): the importer selects
+    samples by window and value jointly, so a pointer re-aimed at
+    another same-pod row that happens to carry the same value — but a
+    different Time — previously passed both the pod-substring and the
+    value check. Mirrors the importer's `re.search(window, Time)`."""
+    header, data = rows_cache.csv_rows(os.path.join(code_dir, inp["file"]))
+    for col in ("Time", "PodName"):
+        if col not in header:
+            return f"metric CSV {inp['file']} missing column: {col}"
+    if inp["row"] >= len(data):
+        return f"metric row out of range: {inp['file']}:{inp['row']}"
+    row = data[inp["row"]]
+    if row[header.index("PodName")] != pod:
+        return (f"metric row pod mismatch: {inp['file']}:{inp['row']} "
+                f"PodName {row[header.index('PodName')]!r} != {pod!r}")
+    time_cell = row[header.index("Time")]
+    if not re.search(window, time_cell):
+        return (f"metric row outside window: {inp['file']}:{inp['row']} "
+                f"Time {time_cell!r} does not match window {window!r}")
+    return None
+
+
+def check_alert_derivation(code_dir, prov_rec, report, rows_cache, window):
     """Walk an alert event's provenance into its materialized derivation
     and every one of the derivation's input source records."""
     key = prov_rec.get("derivation")
@@ -238,23 +276,19 @@ def check_alert_derivation(code_dir, prov_rec, report, rows_cache):
         return check_trace_p90_derivation(code_dir, pod, der, rows_cache)
     for inp in inputs:
         if inp.get("kind") == "threshold-row":
-            reason = check_source_row(code_dir, inp["file"], inp["row"],
-                                      [], rows_cache)
-            if reason:
-                return reason
-            reason = check_threshold_row(code_dir, inp, rows_cache)
-            if reason:
-                return reason
+            reason = (check_source_row(code_dir, inp["file"], inp["row"],
+                                       [], rows_cache)
+                      or check_threshold_row(code_dir, inp, rows_cache))
         elif "row" in inp:  # metric sample row
-            reason = check_source_row(code_dir, inp["file"], inp["row"],
-                                      [pod], rows_cache)
-            if reason:
-                return reason
-            reason = check_metric_cell(code_dir, inp, rows_cache)
-            if reason:
-                return reason
+            reason = (check_source_row(code_dir, inp["file"], inp["row"],
+                                       [pod], rows_cache)
+                      or check_metric_cell(code_dir, inp, rows_cache)
+                      or check_metric_row_identity(code_dir, inp, pod,
+                                                   window, rows_cache))
         else:
-            return f"derivation {key!r} input has no source pointer: {inp}"
+            reason = f"derivation {key!r} input has no source pointer: {inp}"
+        if reason:
+            return reason
     return None
 
 
@@ -262,7 +296,8 @@ def main():
     total = passed = 0
     failures = []
     for ns in ("hipster", "ts"):
-        windows = [load_window(ns, tag) for tag in NORMAL_DIRS[ns]]
+        windows = [load_window(ns, tag) + (tag_to_window(tag),)
+                   for tag in NORMAL_DIRS[ns]]
         cases = json.load(open(
             os.path.join(RUNROOT, "results", f"s1-{ns}.cases.json")))["cases"]
         rows_cache = RowCache()
@@ -272,12 +307,13 @@ def main():
                 total += 1
                 sid = cand["provenance"]["normal_session"]
                 seq = cand["provenance"]["first_seq"]
-                ev = prov_rec = report = None
-                for events, prov, rep in windows:
+                ev = prov_rec = report = window = None
+                for events, prov, rep, win in windows:
                     if (sid, seq) in events:
                         ev = events[(sid, seq)]
                         prov_rec = prov.get((sid, seq))
                         report = rep
+                        window = win
                         break
                 if ev is None:
                     failures.append((case["case_id"], "event not found", sid, seq))
@@ -291,7 +327,8 @@ def main():
                     continue
                 if prov_rec.get("rule") == "alert-v1":
                     reason = check_alert_derivation(code_dir, prov_rec,
-                                                    report, rows_cache)
+                                                    report, rows_cache,
+                                                    window)
                     if reason:
                         failures.append((case["case_id"], reason, sid, seq))
                     else:

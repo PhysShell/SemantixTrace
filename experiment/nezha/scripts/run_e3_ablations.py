@@ -54,7 +54,9 @@ def filter_and_fold(window_dir, variant, keep):
                 dropped += 1
     with open(os.path.join(vdir, "filter-report.json"), "w") as f:
         json.dump({"variant": variant, "kept": kept, "dropped": dropped}, f)
-    run([STFOLD, dst, scen])
+    # temp + atomic publish, same cache invariant as run_e2 (D-031)
+    run([STFOLD, dst, scen + ".tmp"])
+    os.replace(scen + ".tmp", scen)
     return vdir
 
 
