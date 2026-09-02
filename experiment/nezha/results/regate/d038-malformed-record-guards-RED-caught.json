@@ -1,0 +1,30 @@
+{
+ "decision": "D-038",
+ "finding": "CodeRabbit final round (range 7155f76..463df6a) Minor: two new dereference sites lacked the D-034 named-failure guard \u2014 check_h4_provenance.py indexed cand['pattern'][0][1] (a malformed pattern crashes the walk with IndexError past the summary) and check_alarm_derivations.py indexed a['pod']/e['metric_type'] in the D-033 expected-key derivation (a pod-less entry with alarms crashes with KeyError; a bare {} entry was SILENTLY SKIPPED \u2014 fail-open)",
+ "mutations": {
+  "h4": "walked candidate's pattern replaced by [[]]",
+  "audit_v1": "bare {} appended to a real alarm_list \u2014 old gate: silently ignored, 118 checked, exit 0 (fail-open)",
+  "audit_v2": "{'alarm':[{'metric_type':...}]} without pod appended \u2014 old gate: KeyError crash"
+ },
+ "old": {
+  "h4": {
+   "exit_code": 1,
+   "observed": "IndexError: list index out of range \u2014 crash, no summary"
+  },
+  "audit": {
+   "v1": "exit 0, blind",
+   "v2": "KeyError: 'pod' \u2014 crash"
+  }
+ },
+ "fix": "the walk validates pattern shape before dereference ('malformed candidate pattern' named failure); the audit validates each alarm_list entry and alarm entry, naming 'malformed alarm_list entry: ...' / 'malformed alarm entry for pod ...' violations and continuing",
+ "new": {
+  "h4": {
+   "exit_code": 1,
+   "failure": "('ts-2023-01-29-000', 'malformed candidate pattern', ...)"
+  },
+  "audit": {
+   "both_variants": "exit 1 with the malformed entry named, summary written"
+  }
+ },
+ "green": "real runroot: walked H4 1495/1495 exit 0; audit 118 across 105/105 windows, 0 failures"
+}

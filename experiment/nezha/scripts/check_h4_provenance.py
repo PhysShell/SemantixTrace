@@ -338,11 +338,21 @@ def main():
                 # pattern's first action must name this event's
                 # command_id and the candidate's pod must be the
                 # event's pod.
-                if ev.get("command_id") != cand["pattern"][0][1]:
+                pat = cand.get("pattern")
+                if (not isinstance(pat, list) or not pat
+                        or not isinstance(pat[0], (list, tuple))
+                        or len(pat[0]) < 2):
+                    # named failure, not an IndexError past the summary
+                    # (CodeRabbit final round, D-038 — D-034's rule)
+                    failures.append((case["case_id"],
+                                     "malformed candidate pattern",
+                                     sid, seq))
+                    continue
+                if ev.get("command_id") != pat[0][1]:
                     failures.append(
                         (case["case_id"],
                          f"candidate/event link mismatch: pattern[0] "
-                         f"names {cand['pattern'][0][1]!r} but event "
+                         f"names {pat[0][1]!r} but event "
                          f"carries {ev.get('command_id')!r}", sid, seq))
                     continue
                 if cand.get("pod") != ev.get("args", {}).get("pod"):

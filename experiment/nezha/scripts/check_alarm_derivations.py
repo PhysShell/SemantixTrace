@@ -89,9 +89,23 @@ def main():
         # alarm_list entry must have a materialized derivation and
         # vice versa — auditing only what WAS materialized let a
         # report that dropped a derivation pass with fewer checks.
-        expected_keys = {f"{a['pod']}|{e['metric_type']}"
-                         for a in rep.get("alarm_list", [])
-                         for e in a.get("alarm", [])}
+        expected_keys = set()
+        for a in rep.get("alarm_list", []):
+            # malformed entries are named violations, never KeyError
+            # crashes past the summary (CodeRabbit final round, D-038)
+            if not isinstance(a, dict) or "pod" not in a:
+                failures.append({"window": tag,
+                                 "reason": f"malformed alarm_list "
+                                           f"entry: {a!r}"})
+                continue
+            for e in a.get("alarm", []):
+                if not isinstance(e, dict) or "metric_type" not in e:
+                    failures.append({"window": tag,
+                                     "reason": f"malformed alarm entry "
+                                               f"for pod {a['pod']}: "
+                                               f"{e!r}"})
+                    continue
+                expected_keys.add(f"{a['pod']}|{e['metric_type']}")
         for key in sorted(expected_keys - set(materialized)):
             failures.append({"window": tag, "derivation": key,
                              "reason": "alarm has no materialized "

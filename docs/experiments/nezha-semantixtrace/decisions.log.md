@@ -1451,3 +1451,29 @@ runroot: audit 118 across 105/105 windows with 0 failures, walked H4
 1495/1495 — every input value equals its derivation value.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-02 — D-038: Named-failure guards on the remaining record dereferences
+
+**Trigger.** CodeRabbit Minor (final round, range `7155f76..463df6a`),
+verified by direct mutation: two sites added in D-033/D-035 indexed
+persisted-record fields without the D-034 named-failure rule. A
+malformed candidate `pattern` crashed the H4 walk with `IndexError`
+past its summary; in the audit gate a pod-less `alarm_list` entry
+carrying alarms crashed with `KeyError`, while a bare `{}` entry was
+SILENTLY SKIPPED — a fail-open the finding did not even claim.
+
+**Remedy (this commit).** The walk validates the pattern's shape
+before dereference ("malformed candidate pattern" named failure); the
+audit validates every `alarm_list` entry and every alarm entry,
+naming malformed ones as violations and continuing through its normal
+summary path.
+
+**GREEN (`regate/d038-malformed-record-guards-RED-caught.json`).**
+All three mutations (pattern `[[]]`; bare `{}`; pod-less entry with
+alarms) yield exit 1 with the malformed record named and the summary
+written; real runroot unchanged — walked H4 1495/1495, audit 118
+across 105/105 windows with 0 failures.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
