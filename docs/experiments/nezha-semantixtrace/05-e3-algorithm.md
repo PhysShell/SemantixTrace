@@ -87,10 +87,14 @@ dataset where S1 retains signal:
 
 Three sharp findings:
 
-1. **Alert events carry no signal in the S-representation** (no-alerts ≈
-   full S1 on every metric). The Nezha algorithm exploits alarms via
-   candidate *decoration*, not via alarm-event patterns; in the linear
-   canonical stream the synthetic alert events are pure vocabulary noise.
+1. **Alert events carry no localization signal in the S-representation.**
+   AC@1 and the unlocalized count are identical to full S1 at both
+   levels; AC@3 and MRR shift only marginally (service 46.67→44.44,
+   MRR 0.386→0.377; inner 26.67→24.44, MRR 0.203→0.197), so no-alerts
+   ≈ full S1 rather than an exact match. The Nezha algorithm exploits
+   alarms via candidate *decoration*, not via alarm-event patterns; in
+   the linear canonical stream the synthetic alert events add no
+   localization power.
 2. **Logs carry most of the remaining signal** (removing them collapses
    service AC@1 to 11% and triples the unlocalized count).
 3. **Span events actively destroy the log signal**: removing them

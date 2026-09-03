@@ -1597,3 +1597,48 @@ the example project, keeping D-010's protection; verified with
 `git check-ignore` on both trees.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-044: Alert events are bound to their referenced derivation
+
+**Trigger.** Codex P1 on PR #20 (eighteenth round, exact head
+`9ffe655`), verified by direct mutation: D-040 re-derives span/log
+commands from their rows but the alert-v1 branch never tied the alert
+EVENT to the derivation it walks. RED: an alert candidate+event
+re-aimed to `alert:CpuUsageRate(%)` while the provenance kept pointing
+at the `...|MemoryUsageRate(%)` derivation walked CLEAN through the
+post-D-040 checker — 1495/1495, exit 0. Two forms were planted: (A)
+event command changed, provenance `metric_type` left; (B) event
+command AND provenance `metric_type` changed, derivation KEY left.
+
+**Remedy (this commit).** The alert branch now requires the three to
+name each other before walking inputs: `ev["command_id"] ==
+f"alert:{metric_type}"` and `prov_rec["derivation"] ==
+f"{pod}|{metric_type}"`.
+
+**GREEN (`regate/d044-alert-binding-RED-GREEN.json`).** Form A is
+caught by the command/metric-type check (11 candidates), form B by the
+derivation-key check (11 candidates); exit 1. Real runroot walks
+1495/1495 with the alert binding verified.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-045: The alert-ablation claim is narrowed to the unchanged metrics
+
+**Trigger.** Codex P2 (same round): the final report and doc 05 said
+alert events "carry no signal at all (no-alerts ≡ full S1)", but the
+committed E3 ablation table shows full S1 → no-alerts moves service
+AC@3 46.67→44.44 and MRR 0.386→0.377, inner AC@3 26.67→24.44 and MRR
+0.203→0.197. Only AC@1 and the unlocalized count are unchanged.
+
+**Remedy (this commit).** Both statements are narrowed to the metrics
+that are actually invariant (AC@1, unlocalized) and note the marginal
+AC@3/MRR shift, writing `no-alerts ≈ full S1` rather than exact
+equivalence. No number changed; the committed ablation table is the
+source. No frozen §7 useful-effect threshold and no hypothesis
+verdict is affected.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.

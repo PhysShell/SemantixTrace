@@ -454,6 +454,29 @@ def main():
                     failures.append((case["case_id"], "pod mismatch", sid, seq))
                     continue
                 if prov_rec.get("rule") == "alert-v1":
+                    # The alert event, its provenance metric type and
+                    # the derivation key must NAME EACH OTHER (Codex
+                    # round-18 P1, D-044): the D-040 re-derivation
+                    # covers span/log rules only, so an alert
+                    # candidate+event re-aimed to another alert:*
+                    # command still validated the ORIGINAL derivation
+                    # and walked clean.
+                    mt = prov_rec.get("metric_type")
+                    if ev.get("command_id") != f"alert:{mt}":
+                        failures.append(
+                            (case["case_id"],
+                             f"alert command {ev.get('command_id')!r} "
+                             f"!= provenance metric type {mt!r}",
+                             sid, seq))
+                        continue
+                    expected_key = f"{prov_rec.get('pod', '')}|{mt}"
+                    if prov_rec.get("derivation") != expected_key:
+                        failures.append(
+                            (case["case_id"],
+                             f"alert derivation key "
+                             f"{prov_rec.get('derivation')!r} != "
+                             f"{expected_key!r}", sid, seq))
+                        continue
                     reason = check_alert_derivation(code_dir, prov_rec,
                                                     report, rows_cache,
                                                     window)

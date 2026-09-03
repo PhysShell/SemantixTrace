@@ -87,8 +87,11 @@ entirely in the log modality: the span-free (log-dominant) ablation
 reaches AC@1 40% on both the inner and service levels — beating the
 full multimodal mix (22.22% service). Resource faults lose nearly
 everything because alarm decoration requires surviving pattern
-candidates. Alert events as vocabulary carry no signal at all
-(no-alerts ≡ full S1).
+candidates. Alert events as vocabulary carry no *localization* signal:
+dropping them leaves AC@1 and the unlocalized count unchanged at both
+levels (service and inner), and shifts AC@3/MRR only marginally
+(service AC@3 46.67→44.44, MRR 0.386→0.377; inner AC@3 26.67→24.44,
+MRR 0.203→0.197) — i.e. no-alerts ≈ full S1, not exact equivalence.
 
 **8. Which SemantixTrace components are justified by evidence?**
 The source-attribution provenance machinery — with the claim stated at
