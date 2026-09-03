@@ -130,6 +130,29 @@ def load_ground_truth(nezha_dir, ns):
     return faults, root_cause
 
 
+CAND_REQUIRED_FIELDS = ("score", "deepth", "pod")
+
+
+def candidate_defect(cands):
+    """Reason string if any parsed candidate is unusable for ranking,
+    else None (CodeRabbit round on 45bebf8, D-049 — completing the
+    D-041/D-046 malformed-candidate family). A candidate must be a
+    dict AND carry every field the rankers dereference BY KEY:
+    `score`/`deepth` in rank_historical and `pod` in match_candidate
+    are bracket-indexed, so a dict missing one KeyErrors past the
+    output write. (`events` is try/except-guarded and `resource` is
+    membership-guarded, so those need no check.) Real Sorted-Result
+    candidates always carry score/deepth/pod, so honest logs never
+    trip this."""
+    for c in cands:
+        if not isinstance(c, dict):
+            return f"candidate list contains a non-dict entry: {c!r}"
+        missing = [k for k in CAND_REQUIRED_FIELDS if k not in c]
+        if missing:
+            return f"candidate missing required field(s) {missing}: {c!r}"
+    return None
+
+
 def match_candidate(cand, root_cause_parts, inject_pod, templates):
     """The artifact's per-candidate match rule, reimplemented."""
     if len(root_cause_parts) == 1:
@@ -314,15 +337,15 @@ def main():
                 rec["rank_service_raw"] = None
                 rec["rank_service_dedup"] = None
                 rec["candidates"] = []
-            elif not all(isinstance(c, dict) for c in
-                         (case["candidates"] or [])):
-                # A parsed candidate list with a non-dict entry is
-                # unusable input, not a legitimate result: fail closed
+            elif (cand_defect := candidate_defect(case["candidates"] or [])):
+                # A parsed candidate list with an unusable entry (a
+                # non-dict, or a dict missing a ranker-required field)
+                # is bad input, not a legitimate result: fail closed
                 # with a named cause rather than crashing the rank
-                # functions on cand.get (CodeRabbit round on 25fc1eb,
-                # D-046) — same §8 record shape as candidates_missing.
-                rec["parse_failure"] = ("candidate list contains a "
-                                        "non-dict entry in artifact log")
+                # functions (CodeRabbit rounds on 25fc1eb/45bebf8,
+                # D-046 + D-049) — same §8 record shape as
+                # candidates_missing.
+                rec["parse_failure"] = cand_defect
                 rec["n_candidates"] = 0
                 rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
                 rec["rank_historical"] = None

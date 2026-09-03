@@ -1708,3 +1708,35 @@ proof: under the old load both datasets' `module.__file__` point at
 dataset binds to its own checkout file. Real walk stays 1495/1495.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-049: Candidate fields validated before ranking
+
+**Trigger.** CodeRabbit actionable Major (round on `45bebf8`, run
+`6f7d44b2`), verified at unit level: D-046 guarded candidate
+DICT-NESS but not required-FIELD presence. `rank_historical`
+bracket-indexes `cand["score"]`/`cand["deepth"]` and `match_candidate`
+bracket-indexes `cand["pod"]` (when a resource candidate's resource
+matches), so a dict missing one KeyErrors past `args.out`. This
+completes the D-041 (missing list) / D-046 (non-dict entry)
+malformed-candidate family.
+
+**Remedy (this commit).** `candidate_defect(cands)` validates every
+entry is a dict AND carries `score`/`deepth`/`pod` — the fields the
+rankers dereference by key (`events` is try/except-guarded, `resource`
+membership-guarded, so neither needs a check). Any defect routes the
+case through the existing §8 `parse_failure` branch (null ranks, fault
+retained in the denominator as unlocalized).
+
+**GREEN (`regate/d049-candidate-fields-RED-GREEN.json`).** RED (unit):
+old `rank_historical` → `KeyError 'score'` on a dict missing score at
+a reached index; old `match_candidate` → `KeyError 'pod'` on a
+1-part resource candidate whose resource matches. GREEN:
+`candidate_defect` names both upfront and returns None for
+real-shaped candidates. Real data: both committed eval artifacts
+regenerate byte-identically (every real candidate carries
+score/deepth/pod). Regression evidence is the regate artifact, per the
+ledger's established mutation-evidence convention.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
