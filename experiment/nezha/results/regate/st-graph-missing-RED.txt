@@ -1,0 +1,21 @@
+RED evidence: E3 tool source missing from the repository (Codex review P1, PR #20)
+date: 2026-08-21T05:01:37Z, head at RED time: d9fbe4dd296c92e883088a9dba2ac328300d42a1
+
+$ git ls-files | grep -c 'st-graph'
+0
+0  (no st-graph source tracked)
+
+$ git check-ignore -v experiment/nezha/adapters/st-fold/src/bin/st-graph.rs
+.gitignore:20:**/bin/	experiment/nezha/adapters/st-fold/src/bin/st-graph.rs
+
+$ grep -n STGRAPH experiment/nezha/scripts/run_e3.py | head -2
+17:STGRAPH = os.path.join(ADAPTERS, "st-fold", "target", "release", "st-graph")
+58:                        run([STGRAPH,
+
+Consequence: on a fresh checkout 'cargo build' in adapters/st-fold produces
+no st-graph binary (src/bin/st-graph.rs absent), run_e3.py fails at the
+first uncached case, and the committed S2 results are not regenerable —
+violating the reproducible-from-clean-checkout quality gate.
+Root cause: root .gitignore rule '**/bin/' (intended for .NET adapter
+output dirs) silently swallowed the Rust src/bin/ convention directory.
+Finding: chatgpt-codex-connector P1, https://github.com/PhysShell/SemantixTrace/pull/20#discussion_r3827303006

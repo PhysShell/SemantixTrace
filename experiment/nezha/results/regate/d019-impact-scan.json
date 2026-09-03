@@ -1,0 +1,136 @@
+{
+ "purpose": "D-019 structural impact scan of all 105 windows, FROZEN BEFORE regeneration; the affected set may not be revised after new rankings are seen - an extra changed case is an impact-radius violation requiring investigation, not an addendum",
+ "scan": "per-window: traceid-CSV duplicate count; traceids_without_spans; emitted-minus-accepted event delta",
+ "affected_windows": [
+  {
+   "window": "hipster/rca/2022-08-22_0746",
+   "defect": "spanless-drop",
+   "delta": -464,
+   "case": "hipster-2022-08-22-022"
+  },
+  {
+   "window": "hipster/rca/2022-08-22_0755",
+   "defect": "spanless-drop",
+   "delta": -784,
+   "case": "hipster-2022-08-22-023"
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1414",
+   "defect": "spanless-drop",
+   "delta": -847,
+   "case": "hipster-2022-08-23-015"
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1423",
+   "defect": "spanless-drop",
+   "delta": -386,
+   "case": "hipster-2022-08-23-016"
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1432",
+   "defect": "spanless-drop",
+   "delta": -169,
+   "case": "hipster-2022-08-23-017"
+  },
+  {
+   "window": "hipster/rca/2022-08-23_1449",
+   "defect": "spanless-drop",
+   "delta": -220,
+   "case": "hipster-2022-08-23-018"
+  },
+  {
+   "window": "ts/rca/2023-01-29_1544",
+   "defect": "duplicate-emission",
+   "delta": 448,
+   "case": "ts-2023-01-29-027"
+  }
+ ],
+ "normal_windows_affected": 0,
+ "unaffected_windows": 98,
+ "current_ranks_of_affected_cases": {
+  "hipster-2022-08-22-022": {
+   "S1": [
+    null,
+    1,
+    1
+   ],
+   "S2": [
+    null,
+    1,
+    1
+   ]
+  },
+  "hipster-2022-08-22-023": {
+   "S1": [
+    null,
+    1,
+    1
+   ],
+   "S2": [
+    null,
+    1,
+    1
+   ]
+  },
+  "hipster-2022-08-23-015": {
+   "S1": [
+    null,
+    null,
+    null
+   ],
+   "S2": [
+    null,
+    null,
+    null
+   ]
+  },
+  "hipster-2022-08-23-016": {
+   "S1": [
+    null,
+    null,
+    null
+   ],
+   "S2": [
+    null,
+    null,
+    null
+   ]
+  },
+  "hipster-2022-08-23-017": {
+   "S1": [
+    null,
+    null,
+    null
+   ],
+   "S2": [
+    null,
+    null,
+    null
+   ]
+  },
+  "hipster-2022-08-23-018": {
+   "S1": [
+    null,
+    3,
+    2
+   ],
+   "S2": [
+    null,
+    9,
+    5
+   ]
+  },
+  "ts-2023-01-29-027": {
+   "S1": [
+    null,
+    null,
+    null
+   ],
+   "S2": [
+    null,
+    null,
+    null
+   ]
+  }
+ }
+}

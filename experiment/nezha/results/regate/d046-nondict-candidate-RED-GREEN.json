@@ -1,0 +1,14 @@
+{
+ "decision": "D-046",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit actionable (round on 25fc1eb, run 680485d3), independent_eval.py: a parsed Sorted-Result candidate list containing a non-dict entry reached the rank functions, which crash on cand.get(...) instead of producing a named \u00a78 parse-failure.",
+ "remedy": "aligned cases whose candidate list has any non-dict entry now take an explicit parse_failure branch (same record shape as candidates_missing/D-041): parse_failure named, ranks None, fault retained in the denominator.",
+ "red": {
+  "mutation": "real hipster artifact.log with a bare string 'bogus-non-dict' appended to the first Sorted Result List",
+  "old": "AttributeError: 'str' object has no attribute 'get' at rank_dense key=(cand.get('score'), cand.get('deepth')); exit 1",
+  "new": "parse_failure record for hipster-2022-08-22-000: 'candidate list contains a non-dict entry in artifact log'; exit 0"
+ },
+ "green": {
+  "real_data": "both committed eval artifacts regenerate BYTE-IDENTICALLY (real logs have only dict candidates)"
+ }
+}

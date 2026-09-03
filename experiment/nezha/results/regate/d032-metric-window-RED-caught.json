@@ -1,0 +1,21 @@
+{
+ "decision": "D-032",
+ "finding": "Codex round-14 P2 on scripts/check_alarm_derivations.py (applies equally to check_h4_provenance.py): a metric input pointer re-aimed at another row of the same pod carrying the SAME numeric value passed \u2014 the pod-substring and value checks never verified the row's Time against the report's window, while the importer selects samples by window AND value jointly",
+ "live_mutation": "a REAL such pair exists in the walked population: hipster construct 0351, adservice MemoryUsageRate(%) \u2014 recorded row 0 (Time 03:51:19, in window) and row 1 (Time 03:52:19, OUTSIDE window) carry the identical value 81.07942708333333; mutation re-aims the input row 0 -> 1",
+ "old": {
+  "h4_checker": "exit 0, 1495/1495 \u2014 blind",
+  "audit_gate": "exit 0, mutated derivation among 117 checked, no failure"
+ },
+ "fix": "check_metric_row_identity (shared by both checkers): the referenced row's parsed PodName must equal the alarmed pod exactly and its Time cell must match the report's window via the importer's own re.search(window, Time); the window is derived from the runroot directory tag",
+ "new": {
+  "h4_checker": {
+   "exit_code": 1,
+   "summary": "1484/1495, all 11 chains through the mutated derivation named 'metric row outside window: ... Time 2022-08-22 03:52:19... does not match window 2022-08-22 03:51'"
+  },
+  "audit_gate": {
+   "exit_code": 1,
+   "failure": "same reason named for the mutated window"
+  }
+ },
+ "green": "real runroot: walked H4 1495/1495 exit 0; audit 118 derivations across 105/105 windows, 0 failures \u2014 every real metric input's Time matches its window"
+}

@@ -1,0 +1,14 @@
+{
+ "decision": "D-047",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit actionable (same round), check_alarm_derivations.py:95: `rep.get(\"alarm_provenance\") or {}` coerced a FALSY non-dict (empty list, False, 0, \"\") to {} before the D-039 isinstance check, so on a no-alarm window a []-typed alarm_provenance was silently accepted (fail-open) \u2014 the D-039 guard only caught truthy non-dicts.",
+ "remedy": "use rep.get(\"alarm_provenance\", {}) so an explicit falsy non-dict reaches the type check.",
+ "red": {
+  "mutation": "a real no-alarm ts window (2023-01-29_1058) with alarm_provenance set to []",
+  "old": "0 malformed-alarm_provenance failures for the window (silently swallowed); no named violation",
+  "new": "named violation 'malformed alarm_provenance: []' for the window; sole delta vs old is +1 failure"
+ },
+ "green": {
+  "real_data": "audit 118 across 105/105 windows, 0 failures (real data uses {} for no-alarm windows)"
+ }
+}

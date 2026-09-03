@@ -1,0 +1,7 @@
+ns=ts n=45 cases_in_log=45 alignment_errors=0
+  historical     AC@1= 86.67% AC@3= 97.78% AC@5= 97.78% MRR=0.915 unlocalized=1
+  dense          AC@1= 88.89% AC@3= 97.78% AC@5= 97.78% MRR=0.926 unlocalized=1
+  service_raw    AC@1= 88.89% AC@3= 97.78% AC@5= 97.78% MRR=0.926 unlocalized=1
+  service_dedup  AC@1= 88.89% AC@3= 97.78% AC@5= 97.78% MRR=0.926 unlocalized=1
+  artifact reported %: [86.666667, 97.777778, 97.777778]
+  artifact-vs-replica mismatches: 0

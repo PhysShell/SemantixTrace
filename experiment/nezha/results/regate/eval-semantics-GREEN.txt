@@ -1,0 +1,5 @@
+ok   N1 dedup tie shares rank: got 1, preregistered 1
+ok   N1 dedup-then-rank (distinct key after tie): got 2, preregistered 2
+ok   N1 dedup non-tie: got 2, preregistered 2
+ok   S1 dedup tie shares rank: got 1, preregistered 1
+ok   S1 duplicate service does not consume a rank: got 2, preregistered 2

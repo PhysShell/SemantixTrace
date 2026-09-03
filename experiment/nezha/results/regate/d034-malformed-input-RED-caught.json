@@ -1,0 +1,15 @@
+{
+ "decision": "D-034",
+ "finding": "CodeRabbit final round Minor on check_h4_provenance.py check_trace_p90_derivation: a malformed derivation input crashed the checker instead of producing a named failure \u2014 inputs [{}] raised KeyError at inputs[0]['file']; a mix of present and missing file fields raised TypeError in sorted({str, None})",
+ "red_unit": {
+  "old_function": {
+   "inputs_empty_dict": "KeyError: 'file'",
+   "inputs_mixed": "TypeError: '<' not supported between instances of 'str' and 'NoneType'"
+  }
+ },
+ "fix": "every input must be a dict carrying a non-empty string 'file' before any dereference; otherwise the named failure 'trace derivation has an input without a source file' is returned through the normal audit path",
+ "green": {
+  "gate_on_planted_malformed_input": "exit 1, violation named for hipster/rca/2022-08-22_0429 with the new reason; summary written normally",
+  "real_runroot": "118 derivations across 105/105 windows, 0 failures, exit 0"
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "cases": 101,
+ "isolation_violations": [
+  {
+   "case_id": "ts-2023-01-29-000",
+   "missing_from": "s2"
+  }
+ ]
+}

@@ -1,0 +1,413 @@
+{
+ "cases": 101,
+ "isolation_violations": [
+  {
+   "case_id": "hipster-2022-08-22-010",
+   "n_candidates_s1": 17,
+   "n_candidates_s2": 17,
+   "s1_only_candidates": [
+    {
+     "deepth": 63,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:27",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:26",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "adservice-5f6585d649-fnmft",
+     "provenance": {
+      "first_seq": 140,
+      "normal_session": "b3fa1f7f-c590-542b-b177-61c3e178101d"
+     },
+     "resource": "MemoryUsageRate(%)",
+     "score": 0.8567493112947658
+    }
+   ],
+   "s2_only_candidates": [
+    {
+     "deepth": 63,
+     "pattern": [
+      [
+       "<unknown>",
+       "alert:MemoryUsageRate(%)",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:frontend hipstershop.Frontend/Recv.",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "1-8"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "adservice-5f6585d649-fnmft",
+     "provenance": {
+      "first_seq": 144,
+      "normal_session": "13cc4813-5204-5daf-b790-c06cca4dc31f"
+     },
+     "resource": "MemoryUsageRate(%)",
+     "score": 1.0
+    }
+   ],
+   "s1_ranks": [
+    7,
+    7,
+    4
+   ],
+   "s2_ranks": [
+    7,
+    7,
+    4
+   ]
+  },
+  {
+   "case_id": "hipster-2022-08-23-010",
+   "n_candidates_s1": 26,
+   "n_candidates_s2": 26,
+   "s1_only_candidates": [
+    {
+     "deepth": 86,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:19",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:frontend hipstershop.CartService/GetCart",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "currencyservice-cf787dd48-vpjrd",
+     "provenance": {
+      "first_seq": 168,
+      "normal_session": "25b4f670-ea8d-5114-b207-3a41b101c6c9"
+     },
+     "resource": "CpuUsageRate(%)",
+     "score": 0.7920560747663551
+    }
+   ],
+   "s2_only_candidates": [
+    {
+     "deepth": 86,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:19",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "log:1",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "currencyservice-cf787dd48-vpjrd",
+     "provenance": {
+      "first_seq": 168,
+      "normal_session": "25b4f670-ea8d-5114-b207-3a41b101c6c9"
+     },
+     "resource": "CpuUsageRate(%)",
+     "score": 0.782608695652174
+    }
+   ],
+   "s1_ranks": [
+    6,
+    6,
+    5
+   ],
+   "s2_ranks": [
+    18,
+    18,
+    8
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-001",
+   "n_candidates_s1": 48,
+   "n_candidates_s2": 48,
+   "s1_only_candidates": [
+    {
+     "deepth": 145,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel2-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "first_seq": 225,
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8"
+     },
+     "resource": "CpuUsageRate(%)",
+     "score": 1.0
+    }
+   ],
+   "s2_only_candidates": [
+    {
+     "deepth": 145,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-other-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "first_seq": 225,
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8"
+     },
+     "resource": "CpuUsageRate(%)",
+     "score": 0.8571428571428571
+    }
+   ],
+   "s1_ranks": [
+    1,
+    1,
+    1
+   ],
+   "s2_ranks": [
+    14,
+    14,
+    7
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-002",
+   "n_candidates_s1": 35,
+   "n_candidates_s2": 35,
+   "s1_only_candidates": [
+    {
+     "deepth": 145,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-travel2-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "first_seq": 225,
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8"
+     },
+     "resource": "NetworkP90(ms)",
+     "score": 0.7777777777777778
+    }
+   ],
+   "s2_only_candidates": [
+    {
+     "deepth": 145,
+     "pattern": [
+      [
+       "<unknown>",
+       "log:134",
+       {
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        }
+       }
+      ],
+      [
+       "<unknown>",
+       "span:ts-preserve-other-service HTTP POST",
+       {
+        "parent_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        },
+        "pod": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "33-128"
+        },
+        "span_id": {
+         "_abstract": "string",
+         "class": "free",
+         "len": "9-32"
+        }
+       }
+      ]
+     ],
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "provenance": {
+      "first_seq": 225,
+      "normal_session": "31f964c9-79b2-5339-a704-bed4863785b8"
+     },
+     "resource": "NetworkP90(ms)",
+     "score": 0.75
+    }
+   ],
+   "s1_ranks": [
+    14,
+    14,
+    8
+   ],
+   "s2_ranks": [
+    22,
+    22,
+    10
+   ]
+  }
+ ]
+}

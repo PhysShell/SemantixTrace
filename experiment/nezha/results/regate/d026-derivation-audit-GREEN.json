@@ -1,0 +1,17 @@
+{
+ "decision": "D-026",
+ "gate": "check_alarm_derivations.py",
+ "runroot": "/home/user/e2-runs-d019",
+ "exit_code": 0,
+ "summary": {
+  "windows_scanned": 105,
+  "expected_windows": 105,
+  "missing_windows": [],
+  "derivations_checked": 118,
+  "derivations_by_kind": {
+   "metric-sample": 90,
+   "trace-derived-p90": 28
+  }
+ },
+ "failures": []
+}

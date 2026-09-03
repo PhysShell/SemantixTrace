@@ -1,0 +1,7 @@
+ns=hipster n=56 cases_in_log=56 alignment_errors=0
+  historical     AC@1= 92.86% AC@3= 96.43% AC@5= 96.43% MRR=0.946 unlocalized=2
+  dense          AC@1= 92.86% AC@3= 96.43% AC@5= 96.43% MRR=0.946 unlocalized=2
+  service_raw    AC@1= 92.86% AC@3= 96.43% AC@5= 96.43% MRR=0.946 unlocalized=2
+  service_dedup  AC@1= 92.86% AC@3= 96.43% AC@5= 96.43% MRR=0.946 unlocalized=2
+  artifact reported %: [92.857143, 96.428571, 96.428571]
+  artifact-vs-replica mismatches: 0

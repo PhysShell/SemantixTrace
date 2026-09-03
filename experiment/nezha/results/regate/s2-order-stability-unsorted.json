@@ -1,0 +1,74 @@
+{
+ "binary": "experiment/nezha/adapters/st-fold/target/release/st-graph",
+ "tag": "unsorted",
+ "windows": 101,
+ "cases": 101,
+ "unstable_windows": [
+  "hipster/2022-08-22 05:20",
+  "ts/2023-01-30 13:08"
+ ],
+ "rank_diff_cases_run1_vs_run2": [
+  {
+   "case": "hipster-2022-08-22-010",
+   "r1": {
+    "n_candidates": 17,
+    "rank_inner": 5,
+    "rank_service_raw": 5,
+    "rank_service_dedup": 4
+   },
+   "r2": {
+    "n_candidates": 17,
+    "rank_inner": 7,
+    "rank_service_raw": 7,
+    "rank_service_dedup": 4
+   }
+  }
+ ],
+ "drift_from_committed_run1": [
+  {
+   "case": "ts-2023-01-30-001",
+   "regen": {
+    "n_candidates": 48,
+    "rank_inner": 14,
+    "rank_service_raw": 14,
+    "rank_service_dedup": 7
+   },
+   "committed": {
+    "n_candidates": 48,
+    "rank_inner": 3,
+    "rank_service_raw": 3,
+    "rank_service_dedup": 3
+   }
+  },
+  {
+   "case": "ts-2023-01-30-002",
+   "regen": {
+    "n_candidates": 35,
+    "rank_inner": 15,
+    "rank_service_raw": 15,
+    "rank_service_dedup": 9
+   },
+   "committed": {
+    "n_candidates": 35,
+    "rank_inner": 22,
+    "rank_service_raw": 22,
+    "rank_service_dedup": 10
+   }
+  },
+  {
+   "case": "ts-2023-01-30-013",
+   "regen": {
+    "n_candidates": 48,
+    "rank_inner": 2,
+    "rank_service_raw": 2,
+    "rank_service_dedup": 2
+   },
+   "committed": {
+    "n_candidates": 48,
+    "rank_inner": 39,
+    "rank_service_raw": 39,
+    "rank_service_dedup": 15
+   }
+  }
+ ]
+}

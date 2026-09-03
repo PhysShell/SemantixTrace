@@ -1,0 +1,13 @@
+{
+ "decision": "D-048",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit actionable (same round), check_h4_provenance.py build_matcher: a bare `import log_parsing` caches by name in sys.modules, so the SECOND dataset (ts) silently reused the FIRST checkout's (hipster) parser. hipster/ts log_parsing.py are byte-identical today, so no walked result was wrong, but the checker was not bound to each dataset's own source.",
+ "remedy": "load each checkout's log_parsing.py via importlib under a dataset-specific module name (nezha_logparse_{ns}).",
+ "mechanism_proof": {
+  "old": "both datasets' module.__file__ == checkout-hipster/log_parsing.py; same module object reused (is -> True)",
+  "new": "hipster.__file__ == checkout-hipster/..., ts.__file__ == checkout-ts/...; distinct module objects"
+ },
+ "green": {
+  "real_data": "H4 walk 1495/1495 with per-checkout parser"
+ }
+}

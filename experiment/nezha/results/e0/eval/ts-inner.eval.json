@@ -1,0 +1,6581 @@
+{
+ "summary": {
+  "ns": "ts",
+  "n_faults_ground_truth": 45,
+  "n_cases_in_log": 45,
+  "alignment_errors": [],
+  "parse_counters": {
+   "lines_total": 806,
+   "sorted_result_lines": 45,
+   "case_header_lines": 45,
+   "ground_truth_lines": 45,
+   "artifact_matched_lines": 44
+  },
+  "artifact_reported": {
+   "percent_lines": [
+    86.666667,
+    97.777778,
+    97.777778
+   ],
+   "fault_number": 45,
+   "metric_labels": [
+    "AIS@1",
+    "AIS@3",
+    "AIS@5"
+   ]
+  },
+  "claim_check_artifact_vs_historical": {
+   "mismatch_count": 0,
+   "mismatches": []
+  },
+  "aggregates": {
+   "historical": {
+    "top1": 39,
+    "AC@1_pct": 86.66666666666667,
+    "top3": 44,
+    "AC@3_pct": 97.77777777777777,
+    "top5": 44,
+    "AC@5_pct": 97.77777777777777,
+    "MRR": 0.914814814814815,
+    "localized": 44,
+    "unlocalized": 1
+   },
+   "dense": {
+    "top1": 40,
+    "AC@1_pct": 88.88888888888889,
+    "top3": 44,
+    "AC@3_pct": 97.77777777777777,
+    "top5": 44,
+    "AC@5_pct": 97.77777777777777,
+    "MRR": 0.925925925925926,
+    "localized": 44,
+    "unlocalized": 1
+   },
+   "service_raw": {
+    "top1": 40,
+    "AC@1_pct": 88.88888888888889,
+    "top3": 44,
+    "AC@3_pct": 97.77777777777777,
+    "top5": 44,
+    "AC@5_pct": 97.77777777777777,
+    "MRR": 0.925925925925926,
+    "localized": 44,
+    "unlocalized": 1
+   },
+   "service_dedup": {
+    "top1": 40,
+    "AC@1_pct": 88.88888888888889,
+    "top3": 44,
+    "AC@3_pct": 97.77777777777777,
+    "top5": 44,
+    "AC@5_pct": 97.77777777777777,
+    "MRR": 0.925925925925926,
+    "localized": 44,
+    "unlocalized": 1
+   }
+  },
+  "candidate_set_sizes": [
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   9,
+   9,
+   10,
+   10,
+   10,
+   10,
+   10,
+   12,
+   12,
+   13,
+   13,
+   13,
+   15,
+   15,
+   16,
+   18,
+   18,
+   19,
+   20,
+   20,
+   20,
+   20,
+   21,
+   22,
+   23,
+   26,
+   26,
+   27,
+   28,
+   32,
+   35,
+   35,
+   36,
+   40,
+   41,
+   41,
+   47,
+   56,
+   63
+  ]
+ },
+ "cases": [
+  {
+   "case_id": "ts-2023-01-29-000",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 08:43:04",
+   "inject_pod": "ts-contacts-service-866bd68c97-xcqfx",
+   "inject_type": "return",
+   "root_cause": "c.s.ContactsServiceImpl#31_c.s.ContactsServiceImpl#34",
+   "n_candidates": 18,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "99_98",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "486_487",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "461_462",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_465",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_478",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "450_452",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "551_553",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "551_552",
+     "score": 0.7727272727272727,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "549_551",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "205_217",
+     "score": 0.7272727272727273,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "620_621",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7142857142857143,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-001",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 08:52:06",
+   "inject_pod": "ts-contacts-service-866bd68c97-xcqfx",
+   "inject_type": "return",
+   "root_cause": "c.s.ContactsServiceImpl#31_c.s.ContactsServiceImpl#34",
+   "n_candidates": 10,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "99_98",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "21_20",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_32",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7333333333333333,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "114_117",
+     "score": 0.6875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "551_552",
+     "score": 0.68,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-002",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 08:58:16",
+   "inject_pod": "ts-contacts-service-866bd68c97-xcqfx",
+   "inject_type": "return",
+   "root_cause": "c.s.ContactsServiceImpl#31_c.s.ContactsServiceImpl#34",
+   "n_candidates": 10,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "99_98",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "387_388",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "620_621",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "549_551",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-003",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:03:53",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-46997",
+   "inject_type": "return",
+   "root_cause": "f.m.s.BasicServiceImpl#405_f.m.s.BasicServiceImpl#418",
+   "n_candidates": 20,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "329_328",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "116_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "114_117",
+     "score": 0.9166666666666666,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "55_613",
+     "score": 0.8301886792452831,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "206_217",
+     "score": 0.7863247863247863,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "207_206",
+     "score": 0.7692307692307693,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "611_117",
+     "score": 0.7586206896551724,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "632_633",
+     "score": 0.7586206896551724,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "208_215",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "611_128",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7333333333333333,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "207_215",
+     "score": 0.7222222222222222,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "329_333",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "323_333",
+     "score": 0.6744186046511628,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-004",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:12:56",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-46997",
+   "inject_type": "return",
+   "root_cause": "f.m.s.BasicServiceImpl#405_f.m.s.BasicServiceImpl#418",
+   "n_candidates": 12,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "329_328",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7692307692307693,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "140_145",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "459_461",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "612_128",
+     "score": 0.6875,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-005",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:21:39",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-46997",
+   "inject_type": "return",
+   "root_cause": "f.m.s.BasicServiceImpl#405_f.m.s.BasicServiceImpl#418",
+   "n_candidates": 20,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "329_328",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "119_128",
+     "score": 0.8571428571428571,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "551_552",
+     "score": 0.85,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "119_118",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_113",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_94",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-006",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:25:39",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-46997",
+   "inject_type": "exception",
+   "root_cause": "f.m.s.BasicServiceImpl#100_f.m.s.BasicServiceImpl#119",
+   "n_candidates": 16,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "135_134",
+     "score": 0.9230769230769231,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "21_20",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "188_192",
+     "score": 0.7692307692307693,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "31_32",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7407407407407407,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "459_461",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 0.7,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "29_30",
+     "score": 0.6842105263157895,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-007",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:30:09",
+   "inject_pod": "ts-food-service-f5756978c-k8vqf",
+   "inject_type": "return",
+   "root_cause": "f.s.FoodServiceImpl#240_f.s.FoodServiceImpl#243",
+   "n_candidates": 10,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "458_457",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "205_217",
+     "score": 0.7272727272727273,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-008",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:34:19",
+   "inject_pod": "ts-food-service-f5756978c-k8vqf",
+   "inject_type": "return",
+   "root_cause": "f.s.FoodServiceImpl#240_f.s.FoodServiceImpl#243",
+   "n_candidates": 26,
+   "artifact_claimed_rank": 3,
+   "rank_historical": 3,
+   "rank_dense": 3,
+   "rank_service_raw": 3,
+   "rank_service_dedup": 3,
+   "candidates": [
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "387_388",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "458_457",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "116_128",
+     "score": 0.9090909090909091,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "620_621",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8888888888888888,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "119_128",
+     "score": 0.8571428571428571,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "551_552",
+     "score": 0.8095238095238095,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "114_117",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7586206896551724,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "549_551",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "206_217",
+     "score": 0.7479674796747967,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "207_206",
+     "score": 0.746268656716418,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "119_611",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "5_632",
+     "score": 0.7333333333333333,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "215_45",
+     "score": 0.7299270072992701,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7142857142857143,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "202_215",
+     "score": 0.6875,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "323_333",
+     "score": 0.6744186046511628,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-009",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:42:26",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-2z9p2",
+   "inject_type": "return",
+   "root_cause": "v.s.i.VerifyCodeServiceImpl#114_v.s.i.VerifyCodeServiceImpl#132",
+   "n_candidates": 10,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "597_596",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-verification-code-service-7b6dc75c45-2z9p2"
+    },
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-010",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:49:34",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-2z9p2",
+   "inject_type": "return",
+   "root_cause": "v.s.i.VerifyCodeServiceImpl#114_v.s.i.VerifyCodeServiceImpl#132",
+   "n_candidates": 41,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "597_596",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-verification-code-service-7b6dc75c45-2z9p2"
+    },
+    {
+     "events": "486_487",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "457_456",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "457_463",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_478",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "452_453",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "461_462",
+     "score": 0.9333333333333333,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8888888888888888,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "450_452",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7692307692307693,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "82_83",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "82_84",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "208_215",
+     "score": 0.7358490566037735,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7333333333333333,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "88_89",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "88_90",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "40_41",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "33_34",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "33_35",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7142857142857143,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "192_193",
+     "score": 0.7,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "192_194",
+     "score": 0.7,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "130_131",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "130_132",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "102_103",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_104",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_106",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "94_95",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "94_96",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "114_117",
+     "score": 0.6875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "328_333",
+     "score": 0.68,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "323_333",
+     "score": 0.6744186046511628,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-011",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 09:58:04",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-2z9p2",
+   "inject_type": "return",
+   "root_cause": "v.s.i.VerifyCodeServiceImpl#114_v.s.i.VerifyCodeServiceImpl#132",
+   "n_candidates": 35,
+   "artifact_claimed_rank": 2,
+   "rank_historical": 2,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "116_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "597_596",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-verification-code-service-7b6dc75c45-2z9p2"
+    },
+    {
+     "events": "486_487",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 1.0,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "114_117",
+     "score": 0.8461538461538461,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "206_217",
+     "score": 0.8141592920353983,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "207_215",
+     "score": 0.8125,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "55_613",
+     "score": 0.8,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "132_145",
+     "score": 0.8,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "207_206",
+     "score": 0.7936507936507936,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "202_215",
+     "score": 0.7857142857142857,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7857142857142857,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "611_128",
+     "score": 0.7741935483870968,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_611",
+     "score": 0.7586206896551724,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "5_632",
+     "score": 0.7586206896551724,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "29_94",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "88_89",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "88_90",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "40_41",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "331_333",
+     "score": 0.723404255319149,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "188_192",
+     "score": 0.7142857142857143,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "328_333",
+     "score": 0.7083333333333334,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "102_103",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_104",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_106",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "29_30",
+     "score": 0.6842105263157895,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-012",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:04:34",
+   "inject_pod": "ts-travel-service-64469b5b48-25zj6",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#451_t.s.TravelServiceImpl#457",
+   "n_candidates": 19,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "115_114",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 0.875,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 0.875,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "620_621",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "27_26",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "119_118",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "128_130",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_94",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7142857142857143,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "208_215",
+     "score": 0.6842105263157895,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "323_333",
+     "score": 0.6744186046511628,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "206_217",
+     "score": 0.6715328467153284,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-013",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:12:48",
+   "inject_pod": "ts-travel-service-64469b5b48-25zj6",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#451_t.s.TravelServiceImpl#457",
+   "n_candidates": 35,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "115_114",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "387_388",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "549_551",
+     "score": 0.9,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "662_663",
+     "score": 0.875,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 0.875,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "323_333",
+     "score": 0.7837837837837838,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "207_215",
+     "score": 0.7761194029850746,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "328_333",
+     "score": 0.7727272727272727,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7719298245614035,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "208_215",
+     "score": 0.7647058823529411,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "206_217",
+     "score": 0.7603305785123967,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "611_117",
+     "score": 0.7586206896551724,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "632_633",
+     "score": 0.7586206896551724,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "207_206",
+     "score": 0.7575757575757576,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "331_333",
+     "score": 0.7555555555555555,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "611_128",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7407407407407407,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "459_461",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "319_321",
+     "score": 0.7142857142857143,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "309_308",
+     "score": 0.7142857142857143,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "310_319",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "82_83",
+     "score": 0.6923076923076923,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "82_84",
+     "score": 0.6923076923076923,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "309_319",
+     "score": 0.6923076923076923,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "612_128",
+     "score": 0.6875,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "1_450",
+     "score": 0.6818181818181818,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-014",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:20:10",
+   "inject_pod": "ts-travel-service-64469b5b48-25zj6",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#451_t.s.TravelServiceImpl#457",
+   "n_candidates": 56,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "115_114",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_487",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "450_452",
+     "score": 1.0,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "132_145",
+     "score": 0.9090909090909091,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "82_83",
+     "score": 0.9,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "82_84",
+     "score": 0.9,
+     "deepth": 10,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "309_319",
+     "score": 0.9,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "61_62",
+     "score": 0.8888888888888888,
+     "deepth": 10,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "61_67",
+     "score": 0.8888888888888888,
+     "deepth": 10,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8888888888888888,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "41_42",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "88_89",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "88_90",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "41_43",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "41_77",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "33_34",
+     "score": 0.8888888888888888,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "33_35",
+     "score": 0.8888888888888888,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-mrzv2"
+    },
+    {
+     "events": "215_369",
+     "score": 0.8823529411764706,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "207_215",
+     "score": 0.8813559322033898,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "192_193",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "192_194",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "130_131",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "130_132",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "102_103",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_104",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "102_106",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "94_95",
+     "score": 0.875,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "94_96",
+     "score": 0.875,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx"
+    },
+    {
+     "events": "29_33",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 0.875,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "29_30",
+     "score": 0.8666666666666667,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "55_54",
+     "score": 0.8571428571428571,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "119_118",
+     "score": 0.8571428571428571,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 0.8571428571428571,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "31_32",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "29_94",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "301_302",
+     "score": 0.8571428571428571,
+     "deepth": 2,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "208_215",
+     "score": 0.8478260869565217,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "202_215",
+     "score": 0.8461538461538461,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "207_368",
+     "score": 0.8333333333333334,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "611_117",
+     "score": 0.7857142857142857,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7857142857142857,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "632_633",
+     "score": 0.7857142857142857,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "329_333",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "331_333",
+     "score": 0.7727272727272727,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "611_128",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "309_308",
+     "score": 0.7142857142857143,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "1_450",
+     "score": 0.7142857142857143,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    },
+    {
+     "events": "549_551",
+     "score": 0.6923076923076923,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-015",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:26:20",
+   "inject_pod": "ts-travel2-service-5c66d57d58-6mp2b",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#366_t.s.TravelServiceImpl#372",
+   "n_candidates": 12,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "306_305",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "119_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "612_128",
+     "score": 0.6875,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-016",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:45:10",
+   "inject_pod": "ts-travel2-service-5c66d57d58-6mp2b",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#366_t.s.TravelServiceImpl#372",
+   "n_candidates": 15,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "306_305",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "329_333",
+     "score": 0.8235294117647058,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7692307692307693,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "551_553",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "551_552",
+     "score": 0.68,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-017",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:50:16",
+   "inject_pod": "ts-travel2-service-5c66d57d58-6mp2b",
+   "inject_type": "exception",
+   "root_cause": "t.s.TravelServiceImpl#366_t.s.TravelServiceImpl#372",
+   "n_candidates": 15,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "306_305",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-6mp2b"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "115_128",
+     "score": 0.8571428571428571,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "620_621",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7692307692307693,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "551_553",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "551_552",
+     "score": 0.7083333333333334,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "114_117",
+     "score": 0.6875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-018",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 10:56:45",
+   "inject_pod": "ts-route-service-b6c59fb57-zv8dt",
+   "inject_type": "exception",
+   "root_cause": "RouteController.queryByIds start_r.c.RouteController#53",
+   "n_candidates": 10,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "353_355",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-route-service-b6c59fb57-zv8dt"
+    },
+    {
+     "events": "387_388",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "549_551",
+     "score": 0.9,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "601_620",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "612_128",
+     "score": 0.6875,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-019",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 11:04:05",
+   "inject_pod": "ts-route-service-b6c59fb57-zv8dt",
+   "inject_type": "exception",
+   "root_cause": "RouteController.queryByIds start_r.c.RouteController#53",
+   "n_candidates": 22,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "353_355",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-route-service-b6c59fb57-zv8dt"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "565_566",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "565_567",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "565_71",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "140_145",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "119_118",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_113",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_94",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "205_217",
+     "score": 0.7272727272727273,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "601_626",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7142857142857143,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "1_450",
+     "score": 0.6818181818181818,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-020",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 11:13:56",
+   "inject_pod": "ts-route-service-b6c59fb57-zv8dt",
+   "inject_type": "exception",
+   "root_cause": "RouteController.queryByIds start_r.c.RouteController#53",
+   "n_candidates": 13,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "353_355",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-route-service-b6c59fb57-zv8dt"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "205_217",
+     "score": 0.7272727272727273,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7272727272727273,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "461_462",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_465",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_478",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-021",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 11:19:59",
+   "inject_pod": "ts-price-service-76846864d9-g465z",
+   "inject_type": "exception",
+   "root_cause": "PriceController.query start_p.c.PriceController#46",
+   "n_candidates": 9,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "188_362",
+     "score": 1.0,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "116_128",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_117",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "140_145",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "55_613",
+     "score": 0.6984126984126984,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-022",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 11:29:03",
+   "inject_pod": "ts-price-service-76846864d9-g465z",
+   "inject_type": "exception",
+   "root_cause": "PriceController.query start_p.c.PriceController#46",
+   "n_candidates": 9,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "188_362",
+     "score": 1.0,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "551_553",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "551_552",
+     "score": 0.85,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "549_551",
+     "score": 0.8181818181818182,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-zqvjb"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "207_215",
+     "score": 0.6842105263157895,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-023",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 11:36:06",
+   "inject_pod": "ts-price-service-76846864d9-g465z",
+   "inject_type": "exception",
+   "root_cause": "PriceController.query start_p.c.PriceController#46",
+   "n_candidates": 41,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "188_362",
+     "score": 1.0,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-g465z"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "205_217",
+     "score": 0.8888888888888888,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "399_400",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "399_403",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "399_405",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "202_215",
+     "score": 0.7857142857142857,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "323_333",
+     "score": 0.7837837837837838,
+     "deepth": 6,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "329_333",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "461_462",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_465",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "461_478",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "611_128",
+     "score": 0.7741935483870968,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "116_128",
+     "score": 0.7692307692307693,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_635",
+     "score": 0.7586206896551724,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "611_117",
+     "score": 0.7586206896551724,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "632_633",
+     "score": 0.7586206896551724,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_118",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_113",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_94",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_110",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "31_130",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "601_620",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "207_206",
+     "score": 0.746268656716418,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7457627118644068,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7407407407407407,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "612_128",
+     "score": 0.7333333333333333,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "207_215",
+     "score": 0.7222222222222222,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "182_183",
+     "score": 0.70703125,
+     "deepth": 13,
+     "pod": "ts-route-service-b6c59fb57-zv8dt"
+    },
+    {
+     "events": "184_185",
+     "score": 0.70703125,
+     "deepth": 13,
+     "pod": "ts-route-service-b6c59fb57-zv8dt"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-024",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 13:31:54",
+   "inject_pod": "ts-contacts-service-866bd68c97-xcqfx",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 20,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "102_103",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-xcqfx",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "611_128",
+     "score": 0.7741935483870968,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "117_128",
+     "score": 0.7681159420289855,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "119_611",
+     "score": 0.7586206896551724,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "114_635",
+     "score": 0.7586206896551724,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "5_632",
+     "score": 0.7586206896551724,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "206_217",
+     "score": 0.7540983606557377,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7457627118644068,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-mv5hb"
+    },
+    {
+     "events": "207_206",
+     "score": 0.7352941176470589,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "459_461",
+     "score": 0.7272727272727273,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf"
+    },
+    {
+     "events": "215_45",
+     "score": 0.7194244604316546,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    },
+    {
+     "events": "486_487",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "202_215",
+     "score": 0.6875,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-tdsdz"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-025",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 14:23:31",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-2z9p2",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 9,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "622_623",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-verification-code-service-7b6dc75c45-2z9p2",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "662_663",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "620_621",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "620_622",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-k7b9j"
+    },
+    {
+     "events": "5_616",
+     "score": 0.8888888888888888,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "387_388",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    },
+    {
+     "events": "387_391",
+     "score": 0.7777777777777778,
+     "deepth": 5,
+     "pod": "ts-order-other-service-6cdbf9b4cc-h7mqk"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-026",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 14:49:57",
+   "inject_pod": "ts-food-service-f5756978c-k8vqf",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 13,
+   "artifact_claimed_rank": 2,
+   "rank_historical": 2,
+   "rank_dense": 2,
+   "rank_service_raw": 2,
+   "rank_service_dedup": 2,
+   "candidates": [
+    {
+     "events": "115_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "461_462",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-k8vqf",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "20_10",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "116_128",
+     "score": 0.9090909090909091,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_487",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "486_169",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    },
+    {
+     "events": "662_663",
+     "score": 0.875,
+     "deepth": 3,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "7_609",
+     "score": 0.875,
+     "deepth": 2,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "450_452",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    },
+    {
+     "events": "140_145",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7407407407407407,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "29_33",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs"
+    },
+    {
+     "events": "5_7",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-h5m2n"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-29-027",
+   "dataset": "2023-01-29",
+   "inject_time": "2023-01-29 15:42:00",
+   "inject_pod": "ts-preserve-service-b5ccf8557-j4txs",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 4,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "29_30",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-service-b5ccf8557-j4txs",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7692307692307693,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "140_145",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-46997"
+    },
+    {
+     "events": "115_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-25zj6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-028",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 11:51:46",
+   "inject_pod": "ts-contacts-service-866bd68c97-dzqgd",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 36,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "102_103",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "102_106",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "141_145",
+     "score": 0.8571428571428571,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "114_128",
+     "score": 0.8181818181818182,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "269_270",
+     "score": 0.8,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "273_275",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "282_283",
+     "score": 0.7857142857142857,
+     "deepth": 5,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "282_292",
+     "score": 0.7857142857142857,
+     "deepth": 5,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "188_192",
+     "score": 0.7647058823529411,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "202_215",
+     "score": 0.75,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "65_66",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_69",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_71",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "528_82",
+     "score": 0.75,
+     "deepth": 6,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "650_651",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "513_523",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "511_523",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "130_131",
+     "score": 0.7272727272727273,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "130_132",
+     "score": 0.7272727272727273,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "200_201",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "200_209",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "620_621",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "620_622",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "368_215",
+     "score": 0.6875,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-029",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 11:59:21",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-llznp",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 32,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "140_145",
+     "score": 1.0,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "130_131",
+     "score": 1.0,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "114_117",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_128",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "321_323",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "202_215",
+     "score": 0.9130434782608695,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "116_128",
+     "score": 0.8666666666666667,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "513_523",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "206_217",
+     "score": 0.8363636363636363,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "5_632",
+     "score": 0.8333333333333334,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "205_204",
+     "score": 0.8275862068965517,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "198_199",
+     "score": 0.7833333333333333,
+     "deepth": 8,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7777777777777778,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_33",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_94",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_282",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "368_217",
+     "score": 0.7454545454545455,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "367_204",
+     "score": 0.7419354838709677,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7301587301587301,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "207_206",
+     "score": 0.6956521739130435,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "368_215",
+     "score": 0.6875,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-030",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:06:12",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-llznp",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 21,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "130_131",
+     "score": 1.0,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "551_552",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-tmwcv"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_128",
+     "score": 0.9,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "202_215",
+     "score": 0.875,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "114_117",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "521_282",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "499_500",
+     "score": 0.875,
+     "deepth": 2,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "513_523",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7777777777777778,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "459_461",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "368_215",
+     "score": 0.6875,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "55_613",
+     "score": 0.6764705882352942,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-031",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:15:56",
+   "inject_pod": "ts-basic-service-5dc8d4f9fd-llznp",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 8,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "130_131",
+     "score": 1.0,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "368_215",
+     "score": 0.7857142857142857,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "650_651",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "427_428",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "114_117",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-032",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:29:29",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-r66rb",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 5,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "622_623",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-verification-code-service-7b6dc75c45-r66rb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 0.8571428571428571,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 0.8571428571428571,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "368_215",
+     "score": 0.7333333333333333,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-033",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:36:54",
+   "inject_pod": "ts-verification-code-service-7b6dc75c45-r66rb",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 6,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "622_623",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-verification-code-service-7b6dc75c45-r66rb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_128",
+     "score": 0.8181818181818182,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_117",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-034",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:44:36",
+   "inject_pod": "ts-food-service-f5756978c-6sb8t",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 26,
+   "artifact_claimed_rank": 2,
+   "rank_historical": 2,
+   "rank_dense": 2,
+   "rank_service_raw": 2,
+   "rank_service_dedup": 2,
+   "candidates": [
+    {
+     "events": "374_527",
+     "score": 1.0,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "269_270",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "407_86",
+     "score": 1.0,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 1.0,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "35_41",
+     "score": 0.875,
+     "deepth": 6,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "188_192",
+     "score": 0.8125,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "102_103",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_104",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_106",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "273_275",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "202_215",
+     "score": 0.75,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "368_217",
+     "score": 0.7192982456140351,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "207_368",
+     "score": 0.71875,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "114_117",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_128",
+     "score": 0.6923076923076923,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "329_333",
+     "score": 0.6896551724137931,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "207_215",
+     "score": 0.6829268292682927,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-035",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:52:04",
+   "inject_pod": "ts-food-service-f5756978c-6sb8t",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 18,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "269_270",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "308_540",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "141_145",
+     "score": 0.8571428571428571,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_522",
+     "score": 0.7931034482758621,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "368_215",
+     "score": 0.7857142857142857,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7777777777777778,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "650_651",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "427_428",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-036",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 12:59:36",
+   "inject_pod": "ts-food-service-f5756978c-6sb8t",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 20,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "269_270",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "308_540",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "368_215",
+     "score": 0.9166666666666666,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_522",
+     "score": 0.8846153846153846,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "114_128",
+     "score": 0.8181818181818182,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "273_275",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "207_368",
+     "score": 0.7419354838709677,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7333333333333333,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "301_302",
+     "score": 0.6956521739130435,
+     "deepth": 2,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-037",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:06:49",
+   "inject_pod": "ts-travel-service-64469b5b48-5rjvb",
+   "inject_type": "cpu_contention",
+   "root_cause": "CpuUsageRate(%)",
+   "n_candidates": 7,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "128_129",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "CpuUsageRate(%)"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "368_215",
+     "score": 0.8461538461538461,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "269_270",
+     "score": 0.8,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "273_275",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "308_540",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "518_521",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-038",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:15:43",
+   "inject_pod": "ts-travel-service-64469b5b48-5rjvb",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 47,
+   "artifact_claimed_rank": 3,
+   "rank_historical": 3,
+   "rank_dense": 3,
+   "rank_service_raw": 3,
+   "rank_service_dedup": 3,
+   "candidates": [
+    {
+     "events": "140_145",
+     "score": 1.0,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "269_270",
+     "score": 1.0,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "128_129",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "273_275",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "122_123",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "122_124",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "650_651",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "459_461",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "632_634",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "40_41",
+     "score": 0.8888888888888888,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_522",
+     "score": 0.8846153846153846,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "427_428",
+     "score": 0.875,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "407_86",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "35_41",
+     "score": 0.875,
+     "deepth": 6,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "504_503",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "1_450",
+     "score": 0.8571428571428571,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    },
+    {
+     "events": "295_296",
+     "score": 0.8461538461538461,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.8461538461538461,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "169_170",
+     "score": 0.84,
+     "deepth": 11,
+     "pod": "ts-route-service-b6c59fb57-dz9bw"
+    },
+    {
+     "events": "169_171",
+     "score": 0.84,
+     "deepth": 11,
+     "pod": "ts-route-service-b6c59fb57-dz9bw"
+    },
+    {
+     "events": "132_145",
+     "score": 0.8235294117647058,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "188_192",
+     "score": 0.8125,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "102_103",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_104",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_106",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "368_215",
+     "score": 0.7857142857142857,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "565_566",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_567",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_71",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_66",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_69",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_71",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "310_319",
+     "score": 0.7222222222222222,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "553_554",
+     "score": 0.7142857142857143,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_557",
+     "score": 0.7142857142857143,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "368_217",
+     "score": 0.7068965517241379,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "202_215",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "207_368",
+     "score": 0.696969696969697,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-039",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:22:22",
+   "inject_pod": "ts-travel-service-64469b5b48-5rjvb",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 23,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "128_129",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "650_651",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "513_523",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "511_523",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_522",
+     "score": 0.8846153846153846,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "620_621",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "620_622",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "504_503",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_33",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_94",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_282",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_616",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "5_499",
+     "score": 0.875,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "427_428",
+     "score": 0.7777777777777778,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "377_378",
+     "score": 0.75,
+     "deepth": 5,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "202_215",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "368_215",
+     "score": 0.6875,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "207_368",
+     "score": 0.6764705882352942,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-040",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:30:52",
+   "inject_pod": "ts-preserve-service-b5ccf8557-l5l4p",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 13,
+   "artifact_claimed_rank": null,
+   "rank_historical": null,
+   "rank_dense": null,
+   "rank_service_raw": null,
+   "rank_service_dedup": null,
+   "candidates": [
+    {
+     "events": "650_651",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "560_559",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_554",
+     "score": 0.8333333333333334,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_557",
+     "score": 0.8333333333333334,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "551_552",
+     "score": 0.7692307692307693,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-tmwcv"
+    },
+    {
+     "events": "114_128",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "308_540",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "140_145",
+     "score": 0.7272727272727273,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "1_450",
+     "score": 0.7058823529411765,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    },
+    {
+     "events": "202_215",
+     "score": 0.6774193548387096,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-041",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:44:44",
+   "inject_pod": "ts-route-service-b6c59fb57-dz9bw",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 40,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "182_183",
+     "score": 1.0,
+     "deepth": 13,
+     "pod": "ts-route-service-b6c59fb57-dz9bw",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "141_145",
+     "score": 1.0,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "650_651",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8888888888888888,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.875,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.875,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "513_512",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "504_503",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_282",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "499_500",
+     "score": 0.875,
+     "deepth": 2,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "513_523",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "521_522",
+     "score": 0.7931034482758621,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "565_566",
+     "score": 0.7894736842105263,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_567",
+     "score": 0.7894736842105263,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_71",
+     "score": 0.7894736842105263,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "560_559",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "553_554",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_557",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "188_192",
+     "score": 0.7647058823529411,
+     "deepth": 12,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "459_461",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "1_450",
+     "score": 0.75,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    },
+    {
+     "events": "143_145",
+     "score": 0.7441860465116279,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "368_215",
+     "score": 0.7333333333333333,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "40_41",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "551_552",
+     "score": 0.7142857142857143,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-tmwcv"
+    },
+    {
+     "events": "427_428",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "620_621",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "620_622",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "329_333",
+     "score": 0.6896551724137931,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "207_368",
+     "score": 0.6764705882352942,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-042",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 13:52:20",
+   "inject_pod": "ts-route-service-b6c59fb57-dz9bw",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 63,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "182_183",
+     "score": 1.0,
+     "deepth": 13,
+     "pod": "ts-route-service-b6c59fb57-dz9bw",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "207_206",
+     "score": 1.0,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "560_559",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_66",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_69",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "65_71",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "551_552",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-execute-service-775f544d9-tmwcv"
+    },
+    {
+     "events": "513_523",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "202_215",
+     "score": 0.9130434782608695,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "35_41",
+     "score": 0.875,
+     "deepth": 6,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "518_521",
+     "score": 0.875,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "141_145",
+     "score": 0.8571428571428571,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "611_128",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "208_215",
+     "score": 0.8484848484848485,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "565_566",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_567",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_71",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "5_632",
+     "score": 0.8333333333333334,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "140_145",
+     "score": 0.8,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "329_333",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "295_296",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "295_297",
+     "score": 0.7857142857142857,
+     "deepth": 7,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "282_283",
+     "score": 0.7857142857142857,
+     "deepth": 5,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "282_292",
+     "score": 0.7857142857142857,
+     "deepth": 5,
+     "pod": "ts-user-service-687d654649-f8jtd"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7777777777777778,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "122_123",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "122_124",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "620_621",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "620_622",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "553_554",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_557",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "61_62",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "61_67",
+     "score": 0.75,
+     "deepth": 10,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "611_117",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "459_461",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "511_523",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "192_193",
+     "score": 0.7272727272727273,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "192_194",
+     "score": 0.7272727272727273,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "130_131",
+     "score": 0.7272727272727273,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "130_132",
+     "score": 0.7272727272727273,
+     "deepth": 8,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "102_103",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_104",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_106",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "211_210",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "33_34",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "33_35",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-bdkcx"
+    },
+    {
+     "events": "94_95",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "94_96",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "200_201",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "200_209",
+     "score": 0.7272727272727273,
+     "deepth": 5,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "308_319",
+     "score": 0.71875,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "327_326",
+     "score": 0.7142857142857143,
+     "deepth": 7,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "321_322",
+     "score": 0.7142857142857143,
+     "deepth": 5,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "1_450",
+     "score": 0.7058823529411765,
+     "deepth": 1,
+     "pod": "frontend-579b9bff58-t2dbm"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "309_308",
+     "score": 0.6956521739130435,
+     "deepth": 4,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "5_301",
+     "score": 0.6956521739130435,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-043",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 14:00:16",
+   "inject_pod": "ts-security-service-cb9788d56-bdkcx",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 28,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "88_89",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-bdkcx",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "33_34",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-bdkcx",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "114_117",
+     "score": 0.875,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "565_566",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_567",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "565_71",
+     "score": 0.8333333333333334,
+     "deepth": 7,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "114_128",
+     "score": 0.8181818181818182,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "202_215",
+     "score": 0.7777777777777778,
+     "deepth": 9,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "521_282",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "499_500",
+     "score": 0.7777777777777778,
+     "deepth": 2,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "553_554",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "553_557",
+     "score": 0.7692307692307693,
+     "deepth": 5,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "55_613",
+     "score": 0.7666666666666667,
+     "deepth": 13,
+     "pod": "ts-order-service-5b67c48447-fj8b7"
+    },
+    {
+     "events": "119_611",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "308_540",
+     "score": 0.75,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "377_378",
+     "score": 0.75,
+     "deepth": 5,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "650_651",
+     "score": 0.75,
+     "deepth": 4,
+     "pod": "ts-cancel-service-756f6c4675-prw5z"
+    },
+    {
+     "events": "5_632",
+     "score": 0.75,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "206_217",
+     "score": 0.7076923076923077,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "427_428",
+     "score": 0.7,
+     "deepth": 9,
+     "pod": "ts-inside-payment-service-6f94c49ccd-t4k6c"
+    },
+    {
+     "events": "620_621",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "620_622",
+     "score": 0.7,
+     "deepth": 4,
+     "pod": "ts-auth-service-7f8d7d756d-kzp47"
+    },
+    {
+     "events": "5_616",
+     "score": 0.7,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "207_206",
+     "score": 0.6857142857142857,
+     "deepth": 10,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    }
+   ]
+  },
+  {
+   "case_id": "ts-2023-01-30-044",
+   "dataset": "2023-01-30",
+   "inject_time": "2023-01-30 14:08:19",
+   "inject_pod": "ts-security-service-cb9788d56-bdkcx",
+   "inject_type": "network_delay",
+   "root_cause": "NetworkP90(ms)",
+   "n_candidates": 27,
+   "artifact_claimed_rank": 1,
+   "rank_historical": 1,
+   "rank_dense": 1,
+   "rank_service_raw": 1,
+   "rank_service_dedup": 1,
+   "candidates": [
+    {
+     "events": "88_89",
+     "score": 1.0,
+     "deepth": 7,
+     "pod": "ts-security-service-cb9788d56-bdkcx",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "33_34",
+     "score": 1.0,
+     "deepth": 5,
+     "pod": "ts-security-service-cb9788d56-bdkcx",
+     "resource": "NetworkP90(ms)"
+    },
+    {
+     "events": "611_635",
+     "score": 1.0,
+     "deepth": 4,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "670_671",
+     "score": 1.0,
+     "deepth": 3,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "632_609",
+     "score": 1.0,
+     "deepth": 2,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "141_145",
+     "score": 0.8571428571428571,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "459_461",
+     "score": 0.8571428571428571,
+     "deepth": 4,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "140_145",
+     "score": 0.8,
+     "deepth": 10,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "269_270",
+     "score": 0.8,
+     "deepth": 9,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "273_275",
+     "score": 0.8,
+     "deepth": 7,
+     "pod": "ts-food-service-f5756978c-6sb8t"
+    },
+    {
+     "events": "512_523",
+     "score": 0.8,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "374_527",
+     "score": 0.7777777777777778,
+     "deepth": 13,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "132_145",
+     "score": 0.7777777777777778,
+     "deepth": 9,
+     "pod": "ts-basic-service-5dc8d4f9fd-llznp"
+    },
+    {
+     "events": "407_86",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "405_533",
+     "score": 0.7777777777777778,
+     "deepth": 8,
+     "pod": "ts-order-other-service-6cdbf9b4cc-swvb5"
+    },
+    {
+     "events": "305_538",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-travel2-service-5c66d57d58-zxw8n"
+    },
+    {
+     "events": "214_543",
+     "score": 0.7777777777777778,
+     "deepth": 7,
+     "pod": "ts-seat-service-5c95b49cff-mxdsg"
+    },
+    {
+     "events": "504_503",
+     "score": 0.7777777777777778,
+     "deepth": 4,
+     "pod": "ts-preserve-other-service-66646bdb5b-l8hp6"
+    },
+    {
+     "events": "5_499",
+     "score": 0.7777777777777778,
+     "deepth": 1,
+     "pod": "ts-gateway-service-6f6cfc45b-d9pnv"
+    },
+    {
+     "events": "169_170",
+     "score": 0.75,
+     "deepth": 11,
+     "pod": "ts-route-service-b6c59fb57-dz9bw"
+    },
+    {
+     "events": "169_171",
+     "score": 0.75,
+     "deepth": 11,
+     "pod": "ts-route-service-b6c59fb57-dz9bw"
+    },
+    {
+     "events": "192_193",
+     "score": 0.7272727272727273,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "192_194",
+     "score": 0.7272727272727273,
+     "deepth": 13,
+     "pod": "ts-price-service-76846864d9-nmjz7"
+    },
+    {
+     "events": "102_104",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "102_106",
+     "score": 0.7272727272727273,
+     "deepth": 7,
+     "pod": "ts-contacts-service-866bd68c97-dzqgd"
+    },
+    {
+     "events": "122_123",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    },
+    {
+     "events": "122_124",
+     "score": 0.7,
+     "deepth": 7,
+     "pod": "ts-travel-service-64469b5b48-5rjvb"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+GREEN evidence: st-graph committed; fresh-checkout regeneration verified
+date: 2026-08-21T05:03:41Z
+
+1. Plain 'git add' succeeded after narrowing '**/bin/' -> 'adapters/**/bin/'
+   (no -f override; the causal ignore rule itself is fixed).
+2. Fresh clone of the branch builds st-graph from scratch:
+   cargo build --release -> target/release/st-graph (31s, no warnings).
+3. Regeneration check: fresh-built st-graph on the cached window pair
+   ts construct 2023-01-29_0850 x rca 2023-01-29_0845:
+   normal_edges=647 abnormal_edges=842 (matches cached graph.json);
+   transition sets EQUAL (647 tuples of (src,dst,n,a,anomaly_n));
+   only the transitions array order differs (HashMap iteration order,
+   a pre-existing, documented pipeline property).

@@ -1,0 +1,26 @@
+{
+ "decision": "D-023",
+ "finding": "CodeRabbit final-round Minor on scripts/check_ingestion_conservation.py: every counter comparison uses c.get(name, 0), so a MISSING required counter is silently treated as zero",
+ "mutation": {
+  "runroot": "copy-by-symlink of /home/user/e2-runs-d019 (104 windows untouched)",
+  "gutted_window": "ts/rca/2023-01-29_0854",
+  "gutted_contents": {
+   "import-report.json": "{\"counters\": {}}",
+   "events.jsonl": "empty file",
+   "provenance.jsonl.gz": "empty gzip"
+  }
+ },
+ "old_gate": {
+  "commit_lineage": "as of 570e8ce",
+  "exit_code": 0,
+  "stdout": "conservation: windows=105/105 violations=0 source-dup-windows-observed=1",
+  "summary_excerpt": {
+   "expected_windows": 105,
+   "discovered_windows": 105,
+   "missing_windows": [],
+   "unexpected_windows": [],
+   "windows_with_violations": 0
+  }
+ },
+ "interpretation": "An expected window that lost ALL its data AND its counter block passes every conservation equation (0==0) and the coverage check (the directory exists). The gate fails open on absent counters."
+}

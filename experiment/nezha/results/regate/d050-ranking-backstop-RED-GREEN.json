@@ -1,0 +1,15 @@
+{
+ "decision": "D-050",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit round on 77b8a15: two items. (1) Major \u2014 a non-string `events` field reaches match_candidate's `cand[\"events\"].split(\"_\")` for two-part root causes, raising AttributeError (the handler catches only KeyError/ValueError); D-049 validated presence of score/deepth/pod but not the TYPE of events, so this was the 4th malformed-candidate variant. (2) Minor \u2014 the D-049 evidence artifact's real_data claim named only the two service eval configs, but run_evals.sh evaluates four (adds hipster-inner, ts-inner).",
+ "remedy": "Owner decision (one-shot, not field-by-field): the per-case ranking block in independent_eval is wrapped in try/except so ANY exception raised while ranking a case's candidates becomes a \u00a78 parse_failure with the cause (null ranks, fault retained in the denominator). This closes the ENTIRE malformed-candidate family \u2014 no field/type variant can crash the evaluator. candidate_defect (D-049) is retained for clear up-front diagnostics on the common structural defects. The D-049 artifact claim is corrected to all four configs, verified.",
+ "red": {
+  "unit": "old match_candidate on a non-string `events` (2-part root cause) -> AttributeError: 'int' object has no attribute 'split'",
+  "integration": "old evaluator (D-049 only) on a log with a non-string-events candidate prepended to every Sorted Result List -> AttributeError, exit 1"
+ },
+ "green": {
+  "integration": "fixed evaluator: 14 two-part-root-cause cases recorded parse_failure 'ranking raised on candidates: AttributeError: ...', exit 0 (no crash)",
+  "real_data": "all FOUR eval configs (hipster-service, hipster-inner, ts-service, ts-inner) regenerate BYTE-IDENTICALLY with the backstop in place"
+ },
+ "note": "closes the D-041/D-046/D-049/D-050 malformed-candidate family definitively via a universal fail-closed backstop rather than continued per-field patching."
+}

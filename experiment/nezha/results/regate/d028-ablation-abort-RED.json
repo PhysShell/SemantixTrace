@@ -1,0 +1,12 @@
+{
+ "decision": "D-028",
+ "finding": "Codex round-13 P2 on scripts/run_e3_ablations.py: the modality-ablation driver implemented neither the frozen section-8 per-case failure boundary (D-022) nor the shared-window boundary (D-024) — the per-variant normal filter_and_fold and the whole per-case body (abnormal filter_and_fold + scorer + evaluate) ran bare in main(), so a single window failure aborted all three variants and the driver wrote NO ablation artifact at all",
+ "sandbox": "ts runroot at scratchpad/sandbox-d028 mirroring /home/user/e2-runs-d019 with real window dirs and FILE symlinks for events.jsonl/scenarios.jsonl/import-report.json (so ablation-<variant> subdirs land in the sandbox, never the real runroot); ts/rca/2023-01-29_1544/events.jsonl replaced by a copy whose FIRST line is the corrupt bytes '{\"broken json line' — that abnormal window serves exactly one fault case, ts-2023-01-29-027",
+ "old_driver": {
+  "script": "run_e3_ablations.py at 5d411c7 (pre-fix copy)",
+  "exit_code": 1,
+  "outcome": "no s1-ablations-ts.json written — all 3 variants x 45 cases lost, zero failure records, not even a per-variant summary line printed (the crash hit mid no-alerts, the first variant)",
+  "cause": "json.decoder.JSONDecodeError: Invalid control character at: line 1 column 19 (char 18), raised by json.loads in filter_and_fold (line 46) through the bare per-case call at main() line 91"
+ },
+ "interpretation": "One corrupt window would have converted 'one unlocalized case per variant' into 'no E3 ablation results at all' — the frozen section-8 full-denominator policy was still unenforced for the ablation driver."
+}

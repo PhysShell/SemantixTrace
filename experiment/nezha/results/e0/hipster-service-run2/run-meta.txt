@@ -1,0 +1,2 @@
+exit_code=0 wall_seconds=2257 workers=8
+dumped 674 clusters to /home/user/e0-runs/hipster-service-run2/templates.json

@@ -1,0 +1,12 @@
+{
+ "binary": "/home/user/SemantixTrace/experiment/nezha/adapters/st-fold/target/release/st-graph",
+ "tag": "fullrec-d019",
+ "windows": 101,
+ "cases": 101,
+ "unstable_windows": [],
+ "rank_diff_cases_run1_vs_run2": [],
+ "drift_from_committed_run1": [],
+ "drift_candidates_from_committed_run1": [],
+ "drift_records_from_committed_run1": [],
+ "summary_mismatches": []
+}

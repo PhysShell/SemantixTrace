@@ -1,0 +1,30 @@
+{
+ "purpose": "D-019 importer differential: old canonical vs fixed importer, all 105 windows",
+ "method": "events.jsonl byte-compare; provenance decompressed byte-compare; import-report compared on shared counters plus rejections/sources/drain3, allowing only the two documented D-019 additive counters and, for 13 earliest-imported ts-2023-01-29 windows, the two counters (log_rows_artifact_style_read, log_rows_repaired_tokenization) that the ORIGINAL run's importer gained only after those windows were imported - a report-schema evolution artifact of the original run, not a behavioral deviation (all shared counters equal, payload byte-identical)",
+ "identical_unaffected_windows": 98,
+ "unaffected_with_historic_counter_gap_only": [
+  "ts/construct/2023-01-29_0850",
+  "ts/rca/2023-01-29_0845",
+  "ts/rca/2023-01-29_0854",
+  "ts/rca/2023-01-29_0900",
+  "ts/rca/2023-01-29_0905",
+  "ts/rca/2023-01-29_0914",
+  "ts/rca/2023-01-29_0923",
+  "ts/rca/2023-01-29_0927",
+  "ts/rca/2023-01-29_0932",
+  "ts/rca/2023-01-29_0936",
+  "ts/rca/2023-01-29_0944",
+  "ts/rca/2023-01-29_0951",
+  "ts/rca/2023-01-29_1000"
+ ],
+ "changed_windows": [
+  "hipster/rca/2022-08-22_0746",
+  "hipster/rca/2022-08-22_0755",
+  "hipster/rca/2022-08-23_1414",
+  "hipster/rca/2022-08-23_1423",
+  "hipster/rca/2022-08-23_1432",
+  "hipster/rca/2022-08-23_1449",
+  "ts/rca/2023-01-29_1544"
+ ],
+ "impact_radius_violations": []
+}

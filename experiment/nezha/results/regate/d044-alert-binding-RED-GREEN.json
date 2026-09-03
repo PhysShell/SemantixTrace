@@ -1,0 +1,40 @@
+{
+ "decision": "D-044",
+ "date": "2026-09-03",
+ "finding": "Codex P1, exact-head round on 9ffe655, check_h4_provenance.py alert-v1 branch: the D-040 command re-derivation covers span/log rules only. An alert candidate+event re-aimed to a different alert:* command, with the provenance record still pointing at the original derivation, passed candidate/event and pod checks and then validated the ORIGINAL derivation's stored inputs \u2014 nothing compared ev['command_id'] with prov_rec['metric_type'] or the derivation key, so the 1495/1495 walk could certify an alert action not derived from the referenced metric.",
+ "remedy": "The alert event command, the provenance metric_type, and the derivation key must name each other: ev['command_id'] == f'alert:{metric_type}' AND prov_rec['derivation'] == f'{pod}|{metric_type}', checked before check_alert_derivation.",
+ "sandbox": "full copy of all 4 construct windows + s1 cases; two mutations on the two uniquely-analysable alert-pointed session events (each referenced by 11 candidates)",
+ "red": {
+  "mutation_A": "event command_id + candidate patterns -> alert:CpuUsageRate(%), provenance metric_type left MemoryUsageRate(%)",
+  "mutation_B": "event command_id + candidate patterns + provenance metric_type -> CpuUsageRate(%), derivation key left ...|MemoryUsageRate(%)",
+  "old_walk": "H4 provenance walk: 1495/1495 (100.00%), failures: 0, exit 0",
+  "old_exit": 0
+ },
+ "green": {
+  "new_walk_on_mutated": {
+   "total": 1495,
+   "passed": 1473,
+   "failures": 22,
+   "by_class": {
+    "alert command != provenance metric type": 11,
+    "alert derivation key mismatch": 11
+   },
+   "examples": [
+    [
+     "hipster-2022-08-23-000",
+     "alert derivation key 'adservice-5f6585d649-fnmft|MemoryUsageRate(%)' != 'adservice-5f6585d649-fnmft|CpuUsageRate(%)'",
+     "2b409407-99e2-552e-9b6b-45a58a4de2ed",
+     144
+    ],
+    [
+     "hipster-2022-08-22-000",
+     "alert command 'alert:CpuUsageRate(%)' != provenance metric type 'MemoryUsageRate(%)'",
+     "13cc4813-5204-5daf-b790-c06cca4dc31f",
+     144
+    ]
+   ]
+  },
+  "new_exit": 1,
+  "real_runroot": "H4 provenance walk: 1495/1495 (100.00%), failures: 0, exit 0"
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "runroot": "/home/user/e2-runs",
+ "windows_checked": 105,
+ "windows_with_violations": 7,
+ "windows_with_source_duplicates_observed": 0,
+ "violations": {
+  "hipster/rca/2022-08-22_0746": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 464,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=25516 but 25052 log events emitted"
+   ]
+  },
+  "hipster/rca/2022-08-22_0755": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 784,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=24907 but 24123 log events emitted"
+   ]
+  },
+  "hipster/rca/2022-08-23_1414": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 847,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=24702 but 23855 log events emitted"
+   ]
+  },
+  "hipster/rca/2022-08-23_1423": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 386,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=25220 but 24834 log events emitted"
+   ]
+  },
+  "hipster/rca/2022-08-23_1432": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 169,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=22349 but 22180 log events emitted"
+   ]
+  },
+  "hipster/rca/2022-08-23_1449": {
+   "duplicate_session_seq_pairs": 0,
+   "accepted_span_rows_unemitted": 0,
+   "accepted_log_rows_unemitted": 220,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "logs_accepted=9911 but 9691 log events emitted"
+   ]
+  },
+  "ts/rca/2023-01-29_1544": {
+   "duplicate_session_seq_pairs": 448,
+   "accepted_span_rows_unemitted": -272,
+   "accepted_log_rows_unemitted": -176,
+   "traceids_duplicate_entries": null,
+   "log_only_sessions_emitted": 0,
+   "problems": [
+    "duplicate (session_id, seq) event keys: 448",
+    "duplicate provenance keys: 448",
+    "spans_accepted=6293 but 6565 span events emitted",
+    "logs_accepted=3204 but 3380 log events emitted",
+    "sessions_emitted=97 but 96 distinct session_ids"
+   ]
+  }
+ }
+}

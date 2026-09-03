@@ -1,0 +1,33 @@
+{
+ "purpose": "D-020 GREEN: manifest-bound conservation gate",
+ "vs_104": {
+  "result": {
+   "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/runroot-104",
+   "expected_windows": 105,
+   "discovered_windows": 104,
+   "missing_windows": [
+    "hipster/rca/2022-08-22_0746"
+   ],
+   "unexpected_windows": [],
+   "windows_with_violations": 1,
+   "windows_with_source_duplicates_observed": 1
+  },
+  "exit": 1
+ },
+ "vs_swap": {
+  "result": {
+   "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/runroot-swap",
+   "expected_windows": 105,
+   "discovered_windows": 105,
+   "missing_windows": [
+    "hipster/rca/2022-08-22_0746"
+   ],
+   "unexpected_windows": [
+    "hipster/rca/2099-01-01_0000"
+   ],
+   "windows_with_violations": 2,
+   "windows_with_source_duplicates_observed": 1
+  },
+  "exit": 1
+ }
+}

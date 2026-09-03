@@ -1,0 +1,19 @@
+{
+ "decision": "D-049",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit actionable Major (round on 45bebf8, run 6f7d44b2), independent_eval.py: D-046 guarded candidate DICT-NESS but not required-FIELD presence. A candidate dict missing a field the rankers dereference by key crashes the evaluator past args.out: rank_historical bracket-indexes cand['score']/cand['deepth'] and match_candidate bracket-indexes cand['pod'] (when a resource candidate's resource matches). Completes the D-041/D-046 malformed-candidate family.",
+ "remedy": "candidate_defect(cands) validates every entry is a dict AND carries score/deepth/pod (the bracket-indexed fields; events is try/except-guarded, resource membership-guarded); any defect routes the case through the \u00a78 parse_failure branch with null ranks and the case retained in the denominator.",
+ "red_unit": {
+  "old_rank_historical_missing_score": "KeyError 'score' (malformed dict at index 1, loop reaches it)",
+  "old_match_candidate_missing_pod": "KeyError 'pod' (1-part resource candidate, resource matches -> pod dereferenced)",
+  "new_candidate_defect": {
+   "missing_score_deepth_pod": "candidate missing required field(s) ['score','deepth','pod']: {'events':'9_9'}",
+   "resource_no_pod": "candidate missing required field(s) ['pod']: ...",
+   "real_shaped": "None (honest candidates pass)"
+  }
+ },
+ "green": {
+  "real_data": "all FOUR eval configs run by run_evals.sh (hipster-service, hipster-inner, ts-service, ts-inner) regenerate BYTE-IDENTICALLY with the fixed evaluator \u2014 every real Sorted-Result candidate carries score/deepth/pod (claim corrected from the two service configs to all four per CodeRabbit round on 77b8a15, D-050)"
+ },
+ "note": "regression evidence is this RED\u2192GREEN artifact, consistent with the repo's regate/*.json mutation-evidence convention used throughout the ledger (no separate pytest-fixture framework is introduced)."
+}

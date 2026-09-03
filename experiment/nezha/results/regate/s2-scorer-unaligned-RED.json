@@ -1,0 +1,11 @@
+{
+ "purpose": "fail-closed RED for the s2_scorer encounter alignment (PR #20 CodeRabbit final-round Minor)",
+ "scorer_at": "57fd8b7",
+ "smoke_input": "graph transition whose pattern never occurs in the normal sessions",
+ "pre_fix_behavior": {
+  "exit": 0,
+  "artifact_written": true,
+  "encounter_unaligned_patterns": 1
+ },
+ "expected_post_fix": "RuntimeError before sorting/materialization, no artifact"
+}

@@ -1,0 +1,78 @@
+{
+ "total": 1494,
+ "passed": 1482,
+ "failures": [
+  [
+   "hipster-2022-08-22-000",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-000",
+   "source row content mismatch: construct_data/2022-08-22/trace/03_51_trace.csv:34 (missing '7e2de279dda5ec20')",
+   "construct_data/2022-08-22/trace/03_51_trace.csv",
+   33
+  ],
+  [
+   "hipster-2022-08-22-001",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-002",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-004",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-005",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-008",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-011",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-016",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-017",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-018",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ],
+  [
+   "hipster-2022-08-22-019",
+   "metric value mismatch: construct_data/2022-08-22/metric/adservice-5f6585d649-fnmft_metric.csv:3 cell 81.125 != recorded 81.07942708333333",
+   "13cc4813-5204-5daf-b790-c06cca4dc31f",
+   144
+  ]
+ ]
+}

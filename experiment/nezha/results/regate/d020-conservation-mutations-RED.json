@@ -1,0 +1,26 @@
+{
+ "purpose": "D-020 RED (completion per owner contract): the f056a32 conservation gate accepts truncated and swapped runroots",
+ "old_checker": "git show f056a32:experiment/nezha/scripts/check_ingestion_conservation.py",
+ "mutation_104": {
+  "construction": "D-019 runroot minus expected window hipster/rca/2022-08-22_0746 (symlink farm)",
+  "old_checker": {
+   "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/runroot-104",
+   "windows_checked": 104,
+   "windows_with_violations": 0,
+   "windows_with_source_duplicates_observed": 1,
+   "violations": {}
+  },
+  "old_exit": 0
+ },
+ "mutation_swap": {
+  "construction": "same minus-one runroot PLUS a copy of hipster/rca/2022-08-22_0755 planted under the foreign tag hipster/rca/2099-01-01_0000 - window count stays 105, defeating any lazy count!=105 check",
+  "old_checker": {
+   "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/runroot-swap",
+   "windows_checked": 105,
+   "windows_with_violations": 0,
+   "windows_with_source_duplicates_observed": 1,
+   "violations": {}
+  },
+  "old_exit": 0
+ }
+}

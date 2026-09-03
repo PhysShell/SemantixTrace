@@ -1,0 +1,12 @@
+{
+ "decision": "D-024",
+ "finding": "Codex round-12 P2 on scripts/run_e2.py: the per-date construct-window import/fold sat OUTSIDE the D-022 per-case failure boundary \u2014 its failure aborted the namespace before any of that date's faults could be recorded as unlocalized, so the frozen section-8 full-denominator policy was still unenforced for this shared failure mode",
+ "sandbox": "ts runroot with all rca windows and the 2023-01-30 construct window cached via file symlinks from /home/user/e2-runs-d019; the 2023-01-29 construct window empty with events.jsonl replaced by a DIRECTORY, so the importer's output write fails deterministically (IsADirectoryError)",
+ "old_driver": {
+  "script": "run_e2.py at 0ea15e4 (post-D-022, pre-fix copy)",
+  "exit_code": 1,
+  "outcome": "no s1-ts.cases.json written \u2014 the whole 45-case ts namespace lost, zero failure records",
+  "cause": "IsADirectoryError raised through import_nezha.py -> run() -> RuntimeError, outside the per-case try"
+ },
+ "note": "a chmod-based unwritable-directory mutation was tried first and did NOT fail: the session runs as root (CAP_DAC_OVERRIDE bypasses permission bits), so the directory-in-place-of-file mutation is used instead"
+}

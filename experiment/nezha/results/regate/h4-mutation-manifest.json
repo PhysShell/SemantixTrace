@@ -1,0 +1,30 @@
+{
+ "purpose": "mutation-test RED for check_h4_provenance.py (PR #20 Codex round-8 P1)",
+ "checker_at": "340e811",
+ "mutation_A": {
+  "window": "hipster/2022-08-22_0351",
+  "record": {
+   "session_id": "3f04f288-89c9-5c2f-a0d9-0a9f5803d87c",
+   "seq": 176,
+   "rule": "span-v1",
+   "pod": "currencyservice-cf787dd48-vpjrd",
+   "span_id": "7e2de279dda5ec20",
+   "file": "construct_data/2022-08-22/trace/03_51_trace.csv"
+  },
+  "row_old_to_new": [
+   33,
+   33
+  ],
+  "property": "new row contains the same pod but NOT the span_id"
+ },
+ "mutation_B": {
+  "window": "hipster/2022-08-22_0351",
+  "derivation": "adservice-5f6585d649-fnmft|MemoryUsageRate(%)",
+  "input_row_old_to_new": [
+   0,
+   2
+  ],
+  "recorded_value": 81.07942708333333,
+  "property": "new row parses to a different value in the recorded column; pod-containment unchanged"
+ }
+}

@@ -1,0 +1,24 @@
+[package]
+name = "st-fold"
+version = "0.1.0"
+edition = "2021"
+description = "E2 experiment tool: fold imported Nezha telemetry sessions through the real SemantixTrace normalizer, emitting per-session scenarios + fold reports"
+publish = false
+
+# Deliberately NOT a workspace member (experiment/ is outside the product
+# workspace); path-deps pin it to the exact in-tree crates under test.
+[workspace]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false }
+trace-core = { path = "../../../../crates/trace-core" }
+trace-schema = { path = "../../../../crates/trace-schema" }
+trace-normalizer = { path = "../../../../crates/trace-normalizer" }
+trace-storage = { path = "../../../../crates/trace-storage" }
+trace-graph = { path = "../../../../crates/trace-graph" }
+petgraph = "0.8"
+
+[profile.release]
+debug = false

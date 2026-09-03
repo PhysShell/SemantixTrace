@@ -1,0 +1,70 @@
+{
+ "binary": "/home/user/SemantixTrace/experiment/nezha/adapters/st-fold/target/release/st-graph",
+ "tag": "sorted",
+ "windows": 101,
+ "cases": 101,
+ "unstable_windows": [],
+ "rank_diff_cases_run1_vs_run2": [],
+ "drift_from_committed_run1": [
+  {
+   "case": "hipster-2022-08-22-010",
+   "regen": {
+    "n_candidates": 17,
+    "rank_inner": 7,
+    "rank_service_raw": 7,
+    "rank_service_dedup": 4
+   },
+   "committed": {
+    "n_candidates": 17,
+    "rank_inner": 5,
+    "rank_service_raw": 5,
+    "rank_service_dedup": 4
+   }
+  },
+  {
+   "case": "hipster-2022-08-23-023",
+   "regen": {
+    "n_candidates": 21,
+    "rank_inner": 14,
+    "rank_service_raw": 14,
+    "rank_service_dedup": 9
+   },
+   "committed": {
+    "n_candidates": 21,
+    "rank_inner": 13,
+    "rank_service_raw": 13,
+    "rank_service_dedup": 8
+   }
+  },
+  {
+   "case": "ts-2023-01-30-001",
+   "regen": {
+    "n_candidates": 48,
+    "rank_inner": 14,
+    "rank_service_raw": 14,
+    "rank_service_dedup": 7
+   },
+   "committed": {
+    "n_candidates": 48,
+    "rank_inner": 3,
+    "rank_service_raw": 3,
+    "rank_service_dedup": 3
+   }
+  },
+  {
+   "case": "ts-2023-01-30-013",
+   "regen": {
+    "n_candidates": 48,
+    "rank_inner": 2,
+    "rank_service_raw": 2,
+    "rank_service_dedup": 2
+   },
+   "committed": {
+    "n_candidates": 48,
+    "rank_inner": 39,
+    "rank_service_raw": 39,
+    "rank_service_dedup": 15
+   }
+  }
+ ]
+}

@@ -1,0 +1,2 @@
+exit_code=0 wall_seconds=360
+dumped 694 clusters to /home/user/e0-runs/ts-service/templates.json

@@ -1,0 +1,22 @@
+{
+ "decision": "D-041",
+ "date": "2026-09-03",
+ "finding": "Codex P2, exact-head round on 94cd0b6, independent_eval.py: a case whose Sorted-Result candidate list was missing/unparseable had candidates_missing set by the parser but the scoring branch coerced it to an ordinary empty list \u2014 the \u00a78 failure was counted in the denominator but its record was indistinguishable from a legitimate zero-candidate result and carried no cause.",
+ "red": {
+  "mutation": "copy of the real hipster artifact.log with one Sorted Result List line removed (line 6)",
+  "old_record": {
+   "case_id": "hipster-2022-08-22-000",
+   "n_candidates": 0,
+   "parse_failure": null
+  },
+  "new_record": {
+   "case_id": "hipster-2022-08-22-000",
+   "n_candidates": 0,
+   "parse_failure": "candidate list missing or unparseable in artifact log"
+  },
+  "aggregates": "identical between old and new (denominator already correct): dedup AC@1 91.0714... on the mutated log, cases_without_candidate_list=1 in both"
+ },
+ "green": {
+  "real_data": "both committed eval artifacts regenerate BYTE-IDENTICALLY with the fixed evaluator (hipster-service.eval.json, ts-service.eval.json); candidates_missing never fires on real logs"
+ }
+}

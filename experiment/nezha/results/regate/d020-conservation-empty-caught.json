@@ -1,0 +1,642 @@
+{
+ "runroot": "/tmp/claude-0/-home-user/d05a3949-48d7-57f2-9304-ddf0e6dcee77/scratchpad/empty-runroot",
+ "windows_expected": 105,
+ "windows_checked": 0,
+ "windows_missing": [
+  "hipster/construct/2022-08-22_0351",
+  "hipster/construct/2022-08-23_1700",
+  "hipster/rca/2022-08-22_0355",
+  "hipster/rca/2022-08-22_0404",
+  "hipster/rca/2022-08-22_0412",
+  "hipster/rca/2022-08-22_0420",
+  "hipster/rca/2022-08-22_0429",
+  "hipster/rca/2022-08-22_0438",
+  "hipster/rca/2022-08-22_0446",
+  "hipster/rca/2022-08-22_0454",
+  "hipster/rca/2022-08-22_0503",
+  "hipster/rca/2022-08-22_0511",
+  "hipster/rca/2022-08-22_0520",
+  "hipster/rca/2022-08-22_0529",
+  "hipster/rca/2022-08-22_0537",
+  "hipster/rca/2022-08-22_0545",
+  "hipster/rca/2022-08-22_0554",
+  "hipster/rca/2022-08-22_0603",
+  "hipster/rca/2022-08-22_0637",
+  "hipster/rca/2022-08-22_0654",
+  "hipster/rca/2022-08-22_0703",
+  "hipster/rca/2022-08-22_0712",
+  "hipster/rca/2022-08-22_0719",
+  "hipster/rca/2022-08-22_0728",
+  "hipster/rca/2022-08-22_0746",
+  "hipster/rca/2022-08-22_0755",
+  "hipster/rca/2022-08-23_1203",
+  "hipster/rca/2022-08-23_1212",
+  "hipster/rca/2022-08-23_1220",
+  "hipster/rca/2022-08-23_1229",
+  "hipster/rca/2022-08-23_1237",
+  "hipster/rca/2022-08-23_1247",
+  "hipster/rca/2022-08-23_1255",
+  "hipster/rca/2022-08-23_1304",
+  "hipster/rca/2022-08-23_1312",
+  "hipster/rca/2022-08-23_1321",
+  "hipster/rca/2022-08-23_1329",
+  "hipster/rca/2022-08-23_1339",
+  "hipster/rca/2022-08-23_1347",
+  "hipster/rca/2022-08-23_1356",
+  "hipster/rca/2022-08-23_1405",
+  "hipster/rca/2022-08-23_1414",
+  "hipster/rca/2022-08-23_1423",
+  "hipster/rca/2022-08-23_1432",
+  "hipster/rca/2022-08-23_1449",
+  "hipster/rca/2022-08-23_1457",
+  "hipster/rca/2022-08-23_1506",
+  "hipster/rca/2022-08-23_1514",
+  "hipster/rca/2022-08-23_1523",
+  "hipster/rca/2022-08-23_1531",
+  "hipster/rca/2022-08-23_1540",
+  "hipster/rca/2022-08-23_1549",
+  "hipster/rca/2022-08-23_1558",
+  "hipster/rca/2022-08-23_1607",
+  "hipster/rca/2022-08-23_1615",
+  "hipster/rca/2022-08-23_1624",
+  "hipster/rca/2022-08-23_1633",
+  "hipster/rca/2022-08-23_1642",
+  "ts/construct/2023-01-29_0850",
+  "ts/construct/2023-01-30_1139",
+  "ts/rca/2023-01-29_0845",
+  "ts/rca/2023-01-29_0854",
+  "ts/rca/2023-01-29_0900",
+  "ts/rca/2023-01-29_0905",
+  "ts/rca/2023-01-29_0914",
+  "ts/rca/2023-01-29_0923",
+  "ts/rca/2023-01-29_0927",
+  "ts/rca/2023-01-29_0932",
+  "ts/rca/2023-01-29_0936",
+  "ts/rca/2023-01-29_0944",
+  "ts/rca/2023-01-29_0951",
+  "ts/rca/2023-01-29_1000",
+  "ts/rca/2023-01-29_1006",
+  "ts/rca/2023-01-29_1014",
+  "ts/rca/2023-01-29_1022",
+  "ts/rca/2023-01-29_1028",
+  "ts/rca/2023-01-29_1047",
+  "ts/rca/2023-01-29_1052",
+  "ts/rca/2023-01-29_1058",
+  "ts/rca/2023-01-29_1106",
+  "ts/rca/2023-01-29_1115",
+  "ts/rca/2023-01-29_1121",
+  "ts/rca/2023-01-29_1131",
+  "ts/rca/2023-01-29_1138",
+  "ts/rca/2023-01-29_1333",
+  "ts/rca/2023-01-29_1425",
+  "ts/rca/2023-01-29_1451",
+  "ts/rca/2023-01-29_1544",
+  "ts/rca/2023-01-30_1153",
+  "ts/rca/2023-01-30_1201",
+  "ts/rca/2023-01-30_1208",
+  "ts/rca/2023-01-30_1217",
+  "ts/rca/2023-01-30_1231",
+  "ts/rca/2023-01-30_1238",
+  "ts/rca/2023-01-30_1246",
+  "ts/rca/2023-01-30_1254",
+  "ts/rca/2023-01-30_1301",
+  "ts/rca/2023-01-30_1308",
+  "ts/rca/2023-01-30_1317",
+  "ts/rca/2023-01-30_1324",
+  "ts/rca/2023-01-30_1332",
+  "ts/rca/2023-01-30_1346",
+  "ts/rca/2023-01-30_1354",
+  "ts/rca/2023-01-30_1402",
+  "ts/rca/2023-01-30_1410"
+ ],
+ "windows_unexpected": [],
+ "windows_with_violations": 105,
+ "windows_with_source_duplicates_observed": 0,
+ "violations": {
+  "hipster/construct/2022-08-22_0351": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/construct/2022-08-23_1700": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0355": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0404": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0412": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0420": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0429": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0438": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0446": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0454": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0503": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0511": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0520": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0529": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0537": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0545": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0554": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0603": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0637": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0654": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0703": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0712": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0719": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0728": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0746": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-22_0755": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1203": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1212": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1220": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1229": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1237": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1247": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1255": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1304": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1312": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1321": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1329": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1339": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1347": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1356": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1405": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1414": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1423": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1432": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1449": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1457": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1506": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1514": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1523": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1531": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1540": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1549": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1558": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1607": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1615": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1624": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1633": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "hipster/rca/2022-08-23_1642": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/construct/2023-01-29_0850": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/construct/2023-01-30_1139": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0845": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0854": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0900": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0905": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0914": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0923": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0927": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0932": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0936": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0944": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_0951": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1000": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1006": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1014": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1022": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1028": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1047": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1052": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1058": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1106": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1115": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1121": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1131": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1138": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1333": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1425": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1451": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-29_1544": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1153": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1201": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1208": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1217": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1231": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1238": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1246": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1254": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1301": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1308": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1317": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1324": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1332": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1346": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1354": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1402": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  },
+  "ts/rca/2023-01-30_1410": {
+   "problems": [
+    "expected window MISSING from runroot"
+   ]
+  }
+ }
+}

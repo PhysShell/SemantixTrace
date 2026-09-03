@@ -1,0 +1,15 @@
+{
+ "decision": "D-033",
+ "finding": "Codex round-14 P2 on scripts/check_alarm_derivations.py: the gate audited only MATERIALIZED derivations \u2014 a report retaining an alarm in alarm_list but missing its alarm_provenance entry was simply checked less (117 instead of 118) and still exited 0; the gate's own docstring had deferred completeness to the importer, i.e. self-certification",
+ "mutation": "copy of hipster/rca/2022-08-23_1247 import-report with the derivation adservice-5f6585d649-fnmft|MemoryUsageRate(%) DELETED, alarm_list intact",
+ "old": {
+  "exit_code": 0,
+  "stdout": "alarm derivations: 117 checked across 105/105 windows ... failures=0 \u2014 blind"
+ },
+ "fix": "per window the expected key set {pod|metric_type} is derived from alarm_list exactly as build_derivations constructs keys; expected minus materialized and materialized minus expected are both named violations, checked BEFORE auditing contents",
+ "new": {
+  "exit_code": 1,
+  "failure": "{'window': 'hipster/rca/2022-08-23_1247', 'derivation': 'adservice-...|MemoryUsageRate(%)', 'reason': 'alarm has no materialized derivation'}"
+ },
+ "green": "real runroot: expected == materialized in every window; 118 checked, 0 failures, exit 0"
+}

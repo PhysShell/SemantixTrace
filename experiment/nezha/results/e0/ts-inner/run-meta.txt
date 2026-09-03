@@ -1,0 +1,2 @@
+exit_code=0 wall_seconds=348
+dumped 694 clusters to /home/user/e0-runs/ts-inner/templates.json

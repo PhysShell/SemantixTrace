@@ -1,0 +1,7 @@
+{
+ "purpose": "comparator RED for the run1<->run2 stability check (PR #20 CodeRabbit final-round Major)",
+ "gate_at": "57fd8b7",
+ "demonstration": "two scored outputs identical except candidate order",
+ "old_multiset_comparison_says_stable": true,
+ "full_record_comparison_says_stable": false
+}

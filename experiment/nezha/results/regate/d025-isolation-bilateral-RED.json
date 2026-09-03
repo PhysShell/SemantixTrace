@@ -1,0 +1,17 @@
+{
+ "decision": "D-025",
+ "finding": "Codex round-12 P2 on scripts/check_s1s2_isolation.py: the case universe was the union of the two result files' own id sets, so a case deleted from BOTH S1 and S2 vanished from the union \u2014 the gate compared 100 cases and exited 0, certifying a bilaterally truncated experiment against the documented 101/101 claim",
+ "mutation": {
+  "results_dir": "copies of committed e2/e3 result files; case ts-2023-01-29-000 deleted from BOTH s1-ts.cases.json and s2-ts.cases.json (45 -> 44 each); hipster files untouched"
+ },
+ "old_gate": {
+  "commit_lineage": "as of 0ea15e4",
+  "exit_code": 0,
+  "stdout": "cases=100 isolation_violations=0",
+  "summary": {
+   "cases": 100,
+   "isolation_violations": []
+  }
+ },
+ "interpretation": "The D-016 union rule catches one-sided truncation only; the id universe was self-certified by the very files under check."
+}

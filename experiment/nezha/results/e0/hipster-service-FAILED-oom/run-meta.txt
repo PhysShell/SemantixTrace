@@ -1,0 +1,2 @@
+exit_code=137 wall_seconds=1234
+dumped 674 clusters to /home/user/e0-runs/hipster-service/templates.json

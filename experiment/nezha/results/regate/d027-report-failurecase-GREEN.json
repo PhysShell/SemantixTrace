@@ -1,0 +1,19 @@
+{
+ "decision": "D-027",
+ "fix": "make_e2_report.py sums the ingestion totals over only the cases that have an 'ingestion' block (evaluated cases) and, when section-8 failure records are present, prints one extra line 'Failed cases (counted unlocalized, §8): N — id1, ...'; the line is emitted only when failures exist so clean-run output stays byte-identical. All other per-case field accesses (evaluation ranks, n_candidates, identity keys) were checked against the failure-record shape and are present in it, so no further guards were needed.",
+ "sandbox_green": {
+  "command": "/home/user/.venv-nezha/bin/python /home/user/SemantixTrace/experiment/nezha/scripts/make_e2_report.py /home/user/SemantixTrace/experiment/nezha/results/e0/eval <scratchpad>/sandbox-d022/results",
+  "exit_code": 0,
+  "n_cases": 45,
+  "cases_with_ingestion": 44,
+  "ingestion_line": "Ingestion: total rejected records across cases = 0; drain3 new clusters = 0 (sums independently reconfirmed over the 44 evaluated cases)",
+  "failure_line": "Failed cases (counted unlocalized, §8): 1 — ts-2023-01-29-001"
+ },
+ "success_path_identity": {
+  "run": "fixed make_e2_report.py with args results/e0/eval and /home/user/e2-runs-d019/results (the canonical 105-window runroot)",
+  "exit_code": 0,
+  "vs_committed": "experiment/nezha/results/e2/e2-tables.md",
+  "byte_identical": true,
+  "sha256": "8796e3dc8359352496dd2dd8856a7674f783e3fb94e4ca5e2451b11fed73c69f"
+ }
+}

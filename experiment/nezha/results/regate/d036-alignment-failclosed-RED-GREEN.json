@@ -1,0 +1,15 @@
+{
+ "decision": "D-036",
+ "finding": "Codex round-15 P2 on evaluators/independent_eval.py: on a case-alignment mismatch the evaluator RECORDED the error but still scored the positional candidates against the wrong fault \u2014 every shifted position contributed fabricated ranks to the E0/E1 aggregates",
+ "mutation": "copy of the hipster artifact.log with ONE case header removed (case idx 9 of 56)",
+ "old": {
+  "exit_code": 0,
+  "observed": "47 alignment errors recorded, yet 32 shifted positions were still scored: service_dedup aggregates silently became top1=36/AC@1 64.29 (committed: top1=52/92.86) \u2014 corrupted, not failed closed"
+ },
+ "fix": "a misaligned position is now a \u00a78 failure: alignment_failure recorded with the log case's identity, all ranks None, candidates [], n_candidates 0 \u2014 the fault stays in the denominator as unlocalized; aligned positions evaluate exactly as before",
+ "new": {
+  "exit_code": 0,
+  "observed": "47 alignment_failure records, 0 shifted positions positionally scored; aggregates degrade honestly (top1=7, unlocalized 48) with no fabricated hits"
+ },
+ "identity": "the fixed evaluator over the REAL artifact logs regenerates BOTH committed eval artifacts byte-identically (hipster-service.eval.json and ts-service.eval.json, cmp clean; alignment_errors [] on real data)"
+}

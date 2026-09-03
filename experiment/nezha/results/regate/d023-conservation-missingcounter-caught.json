@@ -1,0 +1,39 @@
+{
+ "decision": "D-023",
+ "fix": "check_ingestion_conservation.py fails closed on absent counters: ANCHOR counters (unconditionally assigned by the importer: traceids_listed/unique/duplicate_entries, trace_rows_read, log_rows_read, log_rows_repaired_tokenization, log_rows_artifact_style_read, events_emitted) must be PRESENT; occurrence counters (spans_accepted, logs_accepted, alert_events, sessions_emitted) may be absent only when the corresponding emitted count is zero; events_emitted must equal the actual events.jsonl line count",
+ "mutations": {
+  "M1_gutted_window": {
+   "window": "ts/rca/2023-01-29_0854",
+   "contents": "empty events.jsonl, empty provenance.jsonl.gz, import-report.json = {\"counters\": {}}",
+   "old_gate": "exit 0, violations=0 (RED)",
+   "new_gate_violations": [
+    "required counter missing: traceids_listed",
+    "required counter missing: traceids_unique",
+    "required counter missing: traceids_duplicate_entries",
+    "required counter missing: trace_rows_read",
+    "required counter missing: log_rows_read",
+    "required counter missing: log_rows_repaired_tokenization",
+    "required counter missing: log_rows_artifact_style_read",
+    "required counter missing: events_emitted"
+   ]
+  },
+  "M2_deleted_occurrence_counter": {
+   "window": "hipster/rca/2022-08-22_0355",
+   "contents": "real window files; alert_events (=565) deleted from counters",
+   "new_gate_violations": [
+    "565 alert events emitted but alert_events counter missing"
+   ]
+  }
+ },
+ "new_gate": {
+  "exit_code": 1,
+  "summary_excerpt": {
+   "expected_windows": 105,
+   "discovered_windows": 105,
+   "missing_windows": [],
+   "unexpected_windows": [],
+   "windows_with_violations": 2
+  }
+ },
+ "note": "25 ts windows legitimately carry no alert_events counter (zero alerts in window; Counter is increment-only) \u2014 a naive 'missing = violation' rule falsely flags them; the anchor/occurrence split keeps those true zeros while still catching both mutations."
+}

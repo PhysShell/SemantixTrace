@@ -1,0 +1,37 @@
+{
+ "purpose": "D-019 preregistered decision-rule recheck: frozen H1/H2 metrics and section-7 useful-effect thresholds, old vs repaired data",
+ "evaluations_changed": [
+  {
+   "condition": "S1",
+   "case": "ts-2023-01-29-027",
+   "fields": [
+    "n_candidates"
+   ],
+   "detail": {
+    "n_candidates": [
+     9,
+     10
+    ]
+   }
+  },
+  {
+   "condition": "S2",
+   "case": "ts-2023-01-29-027",
+   "fields": [
+    "n_candidates"
+   ],
+   "detail": {
+    "n_candidates": [
+     9,
+     10
+    ]
+   }
+  }
+ ],
+ "rank_fields_changed": 0,
+ "aggregate_tables_byte_identical": {
+  "e2-tables.md": true,
+  "e3-tables.md": true
+ },
+ "outcome": "The only evaluation-level change in either condition is n_candidates 9->10 for ts-2023-01-29-027 (S1 and S2); no rank field of any case changed, and both generated aggregate tables are byte-identical to the pre-repair canonical. No frozen useful-effect threshold changes its pass/fail state. Per the preregistered rule the scientific verdict is NOT reopened: H1 falsified, H2 falsified, PIVOT stand."
+}
