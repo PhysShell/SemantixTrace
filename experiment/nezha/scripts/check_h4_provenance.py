@@ -5,7 +5,14 @@ datasets), mechanically reconstruct the chain
   candidate -> (normal_session, first_seq) -> canonical event in
   events.jsonl -> provenance record in provenance.jsonl.gz -> source
   file + row in the Nezha dataset -> row content consistent with the
-  event (pod matches; span/log id matches).
+  event (pod matches; span/log id matches) -> canonical command
+  RE-DERIVED from the row itself (Codex round-17 P1, D-040): span
+  commands are recomputed as span:{service_of(PodName)}
+  {OperationName}, and log rows must match the recorded drain3
+  cluster under the artifact's own preprocessing and the checkout's
+  shipped template state (match-only; sound because every
+  import-report records drain3_new_clusters == 0 — the vocabulary is
+  closed on this dataset).
 
 Alert events get NO special-case success: their provenance record must
 name a materialized derivation (import-report.json `alarm_provenance`)
@@ -22,9 +29,16 @@ import gzip
 import json
 import os
 import re
+import sys
+import tempfile
 
 import numpy as np
 import pandas as pd
+
+ADAPTERS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        "..", "adapters")
+sys.path.insert(0, ADAPTERS)
+from import_nezha import make_miner, service_of  # noqa: E402
 
 RUNROOT = os.environ.get("E2_RUNROOT", "/home/user/e2-runs")
 CODE_DIRS = {"hipster": "/home/user/e0-runs/checkout-hipster",
@@ -110,6 +124,79 @@ def check_source_row(code_dir, rel_file, row, required_tokens, rows_cache):
             return (f"source row content mismatch: {rel_file}:{rownum} "
                     f"(missing {tok!r})")
     return None
+
+
+def build_matcher(ns, code_dir):
+    """Match-only drain3 miner over the checkout's SHIPPED template
+    state, plus the artifact's own log preprocessing (pod_to_service),
+    for re-deriving log cluster ids row-locally (Codex round-17 P1,
+    D-040). Sound on this dataset because every import-report records
+    drain3_new_clusters == 0: cluster assignment during import never
+    left the shipped state. make_miner copies the state to a scratch
+    dir, so the checkout is never mutated."""
+    sys.path.insert(0, code_dir)
+    import log_parsing as nezha_logparse  # noqa: E402
+    miner = make_miner(code_dir, ns, tempfile.mkdtemp(prefix="d040-"))
+    return miner, nezha_logparse.pod_to_service
+
+
+def check_command_derivation(code_dir, prov_rec, ev, rows_cache, miner,
+                             pod_to_service):
+    """The event->source TRANSFORM itself (Codex round-17 P1, D-040):
+    identity tokens (D-017) prove the pointed row is the recorded one,
+    but nothing proved the canonical command was DERIVED from that
+    row — a same-pod row sharing the span id with a different
+    OperationName, or a log pointer re-aimed to a row of another
+    drain3 identity, still walked clean. span-v1 commands are exactly
+    recomputed from the row; log-v1 commands must name the provenance
+    cluster AND the row's body must match that cluster under the
+    artifact's own preprocessing and the shipped drain3 state."""
+    path = os.path.join(code_dir, prov_rec["file"])
+    header, data = rows_cache.csv_rows(path)
+    row = prov_rec["row"]
+    if not isinstance(row, int) or row < 0 or row >= len(data):
+        return f"source row out of range: {prov_rec['file']}:{row}"
+    cells = data[row]
+
+    def col(name):
+        try:
+            i = header.index(name)
+        except ValueError:
+            return None
+        return cells[i] if i < len(cells) else None
+
+    if prov_rec.get("rule") == "span-v1":
+        pod, op = col("PodName"), col("OperationName")
+        if pod is None or op is None:
+            return (f"span source row lacks PodName/OperationName: "
+                    f"{prov_rec['file']}:{row}")
+        expected = f"span:{service_of(pod)} {op}"
+        if ev.get("command_id") != expected:
+            return (f"span command not derived from source row: row "
+                    f"yields {expected!r} but event carries "
+                    f"{ev.get('command_id')!r}")
+        return None
+    if prov_rec.get("rule") == "log-v1":
+        cid = prov_rec.get("cluster_id")
+        if ev.get("command_id") != f"log:{cid}":
+            return (f"log command {ev.get('command_id')!r} != provenance "
+                    f"cluster {cid!r}")
+        raw, pod = col("Log"), col("PodName")
+        if raw is None or pod is None:
+            return (f"log source row lacks Log/PodName: "
+                    f"{prov_rec['file']}:{row}")
+        try:
+            log_message, _svc = pod_to_service(raw, pod)
+        except Exception as exc:  # noqa: BLE001 - named, never a crash
+            return (f"log body does not preprocess: "
+                    f"{type(exc).__name__}: {exc}")
+        m = miner.match(log_message)
+        if m is None or m.cluster_id != cid:
+            return (f"log row does not match recorded cluster {cid!r}: "
+                    f"shipped-state match is "
+                    f"{getattr(m, 'cluster_id', None)!r}")
+        return None
+    return f"unknown provenance rule: {prov_rec.get('rule')!r}"
 
 
 def check_metric_cell(code_dir, inp, rows_cache):
@@ -309,6 +396,7 @@ def main():
             os.path.join(RUNROOT, "results", f"s1-{ns}.cases.json")))["cases"]
         rows_cache = RowCache()
         code_dir = CODE_DIRS[ns]
+        miner, pod_to_service = build_matcher(ns, code_dir)
         for case in cases:
             for cand in case["candidates"]:
                 total += 1
@@ -382,9 +470,13 @@ def main():
                 # substring accepts any row of the same pod, and a
                 # fallback consulted only after a pod mismatch never
                 # fires on such a mis-pointed row.
-                reason = check_source_row(code_dir, src_file,
-                                          prov_rec["row"], [pod, span],
-                                          rows_cache)
+                reason = (check_source_row(code_dir, src_file,
+                                           prov_rec["row"], [pod, span],
+                                           rows_cache)
+                          or check_command_derivation(code_dir, prov_rec,
+                                                      ev, rows_cache,
+                                                      miner,
+                                                      pod_to_service))
                 if reason:
                     failures.append((case["case_id"], reason,
                                      src_file, prov_rec["row"]))

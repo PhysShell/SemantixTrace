@@ -19,7 +19,11 @@ fuzz/coverage/
 # .NET build output (adapters/Trace.Wpf, etc.). Scoped to adapters/ —
 # a bare '**/bin/' also swallows Rust's src/bin/ convention directory
 # and silently untracked an experiment binary's source (PR #20, D-010).
+# examples/ holds .NET projects too, so it gets the same rule (Codex
+# round-17 P2, D-043) — the D-010 scoping had silently unignored
+# examples/DeclarationApp.Demo build output.
 adapters/**/bin/
+examples/**/bin/
 **/obj/
 *.user
 *.suo

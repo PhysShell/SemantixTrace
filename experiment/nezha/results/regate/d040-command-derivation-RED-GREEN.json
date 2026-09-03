@@ -1,0 +1,32 @@
+{
+ "decision": "D-040",
+ "date": "2026-09-03",
+ "finding": "Codex P1, exact-head round on 94cd0b6, check_h4_provenance.py: the walk verified row identity tokens (D-017) and the candidate<->event link (D-035) but never that the canonical command was DERIVED from the referenced source row \u2014 a broken event-to-source transform (or a pointer re-aimed among rows sharing pod+span id, or a log row of another drain3 identity) still certified 1495/1495.",
+ "remedy": "span-v1: the command is exactly recomputed from the row as span:{service_of(PodName)} {OperationName} and must equal the event's command_id. log-v1: the event command must name the provenance cluster AND the row's Log body, preprocessed by the artifact's own pod_to_service, must match that cluster under a match-only drain3 miner loaded from the checkout's SHIPPED template state \u2014 sound because every import-report records drain3_new_clusters == 0 (closed vocabulary; verified across all 105 windows).",
+ "sandbox": "full copy of all 4 construct windows + s1 cases files; two mutations kept INTERNALLY consistent (event command_id + candidate pattern[0][1] + provenance cluster_id changed together) so every pre-D-040 check still passes",
+ "red": {
+  "mutations": [
+   "span event (construct 2022-08-22_0351, seq 176): command op 'Carry' -> 'CarryX', pattern updated to match",
+   "log event (same window, seq 174): command log:22 -> log:23, provenance cluster_id 22 -> 23, pattern updated to match"
+  ],
+  "old_walk": [
+   "H4 provenance walk: 1495/1495 candidate chains reconstructed (100.00%)",
+   "failures: 0"
+  ],
+  "old_exit": 0
+ },
+ "green": {
+  "new_walk_on_mutated": [
+   "H4 provenance walk: 1493/1495 candidate chains reconstructed (99.87%)",
+   "failures: 2",
+   "   ('hipster-2022-08-22-000', \"span command not derived from source row: row yields 'span:currencyservice hipstershop.CurrencyService/Carry' but event carries 'span:currencyservice hipstershop.CurrencyService/CarryX'\", 'construct_data/2022-08-22/trace/03_51_trace.csv', 21651)",
+   "   ('hipster-2022-08-22-000', 'log row does not match recorded cluster 23: shipped-state match is 22', 'construct_data/2022-08-22/log/03_51_log.csv', 23293)"
+  ],
+  "new_exit": 1,
+  "real_runroot": [
+   "H4 provenance walk: 1495/1495 candidate chains reconstructed (100.00%)",
+   "failures: 0"
+  ],
+  "real_exit": 0
+ }
+}

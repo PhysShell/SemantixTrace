@@ -1,0 +1,15 @@
+{
+ "decision": "D-042",
+ "date": "2026-09-03",
+ "finding": "Codex P2, exact-head round on 94cd0b6, check_s1s2_isolation.py: the id->record maps kept the LAST record per case_id, so a 102-record artifact still certified '101/101' and a conflicting duplicate vanished before candidate comparison (fail-open family of D-029).",
+ "red": {
+  "mutation": "s1-hipster.cases.json: first copy of hipster-2022-08-22-000 mutated to drop one candidate (a real S1/S2 conflict), pristine duplicate appended LAST (57 hipster records)",
+  "old_gate": "cases=101 isolation_violations=0",
+  "old_exit": 0
+ },
+ "green": {
+  "new_gate": "cases=101 isolation_violations=1 -> hipster-2022-08-22-000",
+  "new_exit": 1,
+  "real_data": "old and fixed gate BYTE-IDENTICAL on stdout and out.json over the committed results: cases=101 isolation_violations=0"
+ }
+}

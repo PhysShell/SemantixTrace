@@ -17,6 +17,7 @@ while the artifacts disagree, this gate exits 1.
 Usage: check_s1s2_isolation.py [results-dir] [out.json]
 """
 import json
+from collections import Counter
 import os
 import sys
 
@@ -83,6 +84,16 @@ def main():
                                          f"s1-{ns}.cases.json")))
         s2 = json.load(open(os.path.join(base, "e3",
                                          f"s2-{ns}.cases.json")))
+        # Duplicate ids fail closed (Codex round-17 P2, D-042): the
+        # id->record maps silently keep the LAST record per id, so a
+        # 102-record artifact still certified "101/101" and a
+        # conflicting duplicate vanished before candidate comparison —
+        # the same fail-open family as the pairing keys (D-029).
+        for side, arr in (("s1", s1["cases"]), ("s2", s2["cases"])):
+            counts = Counter(c["case_id"] for c in arr)
+            for cid in sorted(k for k, n in counts.items() if n > 1):
+                violations.append({"case_id": cid, "duplicate_in": side,
+                                   "count": counts[cid]})
         s1_by_id = {c["case_id"]: c for c in s1["cases"]}
         s2_by_id = {c["case_id"]: c for c in s2["cases"]}
         # Universe = committed expected manifest ∪ both id sets: a case

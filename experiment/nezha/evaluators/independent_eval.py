@@ -299,6 +299,21 @@ def main():
                 rec["rank_service_raw"] = None
                 rec["rank_service_dedup"] = None
                 rec["candidates"] = []
+            elif case.get("candidates_missing"):
+                # Frozen §8 (Codex round-17 P2, D-041): a case whose
+                # candidate list is missing or unparseable is a
+                # REPORTED failure with its cause on the record — not
+                # a silent, indistinguishable zero-candidate result.
+                # The fault stays in the denominator as unlocalized.
+                rec["parse_failure"] = ("candidate list missing or "
+                                       "unparseable in artifact log")
+                rec["n_candidates"] = 0
+                rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
+                rec["rank_historical"] = None
+                rec["rank_dense"] = None
+                rec["rank_service_raw"] = None
+                rec["rank_service_dedup"] = None
+                rec["candidates"] = []
             else:
                 cands = case["candidates"] or []
                 rec["n_candidates"] = len(cands)

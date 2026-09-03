@@ -1507,3 +1507,93 @@ fixed gate are BYTE-IDENTICAL on stdout and out.json — audit 118
 across 105/105 windows, 0 failures.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-040: The canonical command is re-derived from its source row
+
+**Trigger.** Codex P1 on PR #20 (seventeenth round, exact head
+`94cd0b6`), verified by direct mutation: the walk proved row IDENTITY
+(D-017 pod+span tokens) and the candidate↔event link (D-035) but
+never that the command was DERIVED from the referenced row. Two
+internally consistent mutations (event command + candidate pattern +
+provenance changed together — a span op renamed `Carry`→`CarryX`; a
+log command and its provenance re-aimed from cluster 22 to 23) walked
+CLEAN through the old checker: 1495/1495, exit 0.
+
+**Remedy (this commit).** `check_command_derivation`: span-v1
+commands are exactly recomputed from the row
+(`span:{service_of(PodName)} {OperationName}`); log-v1 commands must
+name the provenance cluster AND the row's body — preprocessed by the
+artifact's own `pod_to_service` — must match that cluster under a
+match-only drain3 miner loaded from the checkout's SHIPPED template
+state. Sound because the vocabulary is closed on this dataset: all
+105 import-reports record `drain3_new_clusters == 0` (verified before
+implementation). The checkout state is copied to scratch, never
+mutated.
+
+**GREEN (`regate/d040-command-derivation-RED-GREEN.json`).** Both
+mutations are named exactly (recomputed vs carried command; claimed
+vs shipped-state cluster), exit 1; the REAL walk passes 1495/1495
+with the transform verified end-to-end.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-041: Missing candidate lists are reported §8 failures
+
+**Trigger.** Codex P2 (same round), verified by direct mutation: with
+one Sorted-Result line removed from a copy of the real artifact log,
+the parser set `candidates_missing` but the scoring branch coerced it
+to an ordinary empty list — the §8 failure was already IN the
+denominator, but its record was indistinguishable from a legitimate
+zero-candidate result and carried no cause.
+
+**Remedy (this commit).** An aligned case with `candidates_missing`
+takes an explicit branch: `parse_failure` names the cause on the
+record, ranks stay None, the fault stays in the denominator.
+
+**GREEN (`regate/d041-candidates-missing-failclosed-RED-GREEN.json`).**
+On the mutated log the failure is named while every aggregate equals
+the old evaluator's (the denominator was already correct); on the
+real artifact logs BOTH committed eval artifacts regenerate
+byte-identically — `candidates_missing` never fires on real data.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-042: Duplicate case ids fail the isolation gate
+
+**Trigger.** Codex P2 (same round), verified by direct mutation: the
+gate's id→record maps kept the LAST record per `case_id`, so an
+s1 artifact with 57 hipster records — the first copy of a case
+mutated into a REAL S1/S2 candidate conflict, a pristine duplicate
+appended last — still certified `cases=101 isolation_violations=0`,
+exit 0. The same fail-open family as the pairing keys (D-029).
+
+**Remedy (this commit).** Record multiplicity is certified before the
+maps are built: any duplicated `case_id` on either side is a named
+violation.
+
+**GREEN (`regate/d042-duplicate-caseid-RED-caught.json`).** The
+planted duplicate is named with its side and count, exit 1; on the
+committed results the old and fixed gate are byte-identical
+(`cases=101 isolation_violations=0`).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-043: examples/ regains the .NET build-output ignore
+
+**Trigger.** Codex P2 (same round): D-010 narrowed `**/bin/` to
+`adapters/**/bin/` to protect Rust's `src/bin` sources, which
+silently unignored `examples/DeclarationApp.Demo` build output.
+
+**Remedy (this commit).** `examples/**/bin/` restores the rule for
+the example project, keeping D-010's protection; verified with
+`git check-ignore` on both trees.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
