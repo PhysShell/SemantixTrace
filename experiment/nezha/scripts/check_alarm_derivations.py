@@ -92,7 +92,11 @@ def main():
         ns = tag.split("/")[0]
         window = tag_to_window(tag.split("/")[-1])
         rep = json.load(open(rp))
-        materialized = rep.get("alarm_provenance") or {}
+        # `.get(default)` NOT `... or {}`: a falsy non-dict (empty
+        # list, False, 0, "") must reach the type check below, not be
+        # silently coerced to {} and skip it (CodeRabbit round on
+        # 25fc1eb, D-047 — the D-039 guard had this hole).
+        materialized = rep.get("alarm_provenance", {})
         # container types fail closed with named violations too
         # (CodeRabbit exact-head round, D-039)
         if not isinstance(materialized, dict):

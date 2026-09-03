@@ -314,6 +314,22 @@ def main():
                 rec["rank_service_raw"] = None
                 rec["rank_service_dedup"] = None
                 rec["candidates"] = []
+            elif not all(isinstance(c, dict) for c in
+                         (case["candidates"] or [])):
+                # A parsed candidate list with a non-dict entry is
+                # unusable input, not a legitimate result: fail closed
+                # with a named cause rather than crashing the rank
+                # functions on cand.get (CodeRabbit round on 25fc1eb,
+                # D-046) — same §8 record shape as candidates_missing.
+                rec["parse_failure"] = ("candidate list contains a "
+                                        "non-dict entry in artifact log")
+                rec["n_candidates"] = 0
+                rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
+                rec["rank_historical"] = None
+                rec["rank_dense"] = None
+                rec["rank_service_raw"] = None
+                rec["rank_service_dedup"] = None
+                rec["candidates"] = []
             else:
                 cands = case["candidates"] or []
                 rec["n_candidates"] = len(cands)

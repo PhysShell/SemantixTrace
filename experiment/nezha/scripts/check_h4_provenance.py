@@ -134,8 +134,18 @@ def build_matcher(ns, code_dir):
     drain3_new_clusters == 0: cluster assignment during import never
     left the shipped state. make_miner copies the state to a scratch
     dir, so the checkout is never mutated."""
-    sys.path.insert(0, code_dir)
-    import log_parsing as nezha_logparse  # noqa: E402
+    # Load THIS checkout's log_parsing under a dataset-specific module
+    # name (CodeRabbit round on 25fc1eb, D-048): a bare
+    # `import log_parsing` caches by name in sys.modules, so the second
+    # dataset would silently reuse the first checkout's parser. The
+    # hipster/ts files are byte-identical today so no result was wrong,
+    # but the checker must bind each dataset to its own source.
+    import importlib.util
+    sys.path.insert(0, code_dir)  # for log_parsing's sibling imports
+    spec = importlib.util.spec_from_file_location(
+        f"nezha_logparse_{ns}", os.path.join(code_dir, "log_parsing.py"))
+    nezha_logparse = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(nezha_logparse)
     miner = make_miner(code_dir, ns, tempfile.mkdtemp(prefix="d040-"))
     return miner, nezha_logparse.pod_to_service
 

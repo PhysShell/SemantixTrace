@@ -1642,3 +1642,69 @@ source. No frozen §7 useful-effect threshold and no hypothesis
 verdict is affected.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-046: Non-dict candidate entries fail closed in the evaluator
+
+**Trigger.** CodeRabbit actionable (round on `25fc1eb`, run
+`680485d3`), verified by direct mutation: a parsed Sorted-Result
+candidate list with a non-dict entry reached the rank functions and
+crashed on `cand.get(...)` rather than producing a named §8
+parse-failure.
+
+**Remedy (this commit).** An aligned case whose candidate list has any
+non-dict entry now takes an explicit `parse_failure` branch — same
+record shape as `candidates_missing` (D-041): cause named, ranks None,
+fault retained in the denominator.
+
+**GREEN (`regate/d046-nondict-candidate-RED-GREEN.json`).** RED: the
+real hipster log with a bare string appended to the first Sorted
+Result List → `AttributeError: 'str' object has no attribute 'get'`
+in `rank_dense`, exit 1. GREEN: named `parse_failure` for that case,
+exit 0. Real logs (only dict candidates) regenerate both committed
+eval artifacts byte-identically.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-047: Falsy non-dict alarm_provenance reaches the type check
+
+**Trigger.** CodeRabbit actionable (same round), verified by direct
+mutation: `rep.get("alarm_provenance") or {}` coerced a FALSY non-dict
+(empty list, `False`, `0`, `""`) to `{}` BEFORE the D-039 isinstance
+guard, so on a no-alarm window a `[]`-typed `alarm_provenance` was
+silently accepted — the D-039 guard only caught truthy non-dicts.
+
+**Remedy (this commit).** `rep.get("alarm_provenance", {})` — an
+explicit falsy non-dict now reaches the type check and is named.
+
+**GREEN (`regate/d047-falsy-provenance-RED-GREEN.json`).** RED: a real
+no-alarm ts window with `alarm_provenance = []` produced ZERO named
+failures for that window under the old gate (swallowed); GREEN names
+`malformed alarm_provenance: []`. Real runroot: audit 118 across
+105/105 windows, 0 failures (real no-alarm windows use `{}`).
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-048: The H4 walk binds each dataset to its own log_parsing
+
+**Trigger.** CodeRabbit actionable (same round): `build_matcher`'s bare
+`import log_parsing` caches by name in `sys.modules`, so the second
+dataset (ts) silently reused the first checkout's (hipster) parser.
+The hipster/ts `log_parsing.py` are byte-identical today, so no walked
+result was wrong, but the checker was not bound to each dataset's own
+source.
+
+**Remedy (this commit).** Load each checkout's `log_parsing.py` via
+`importlib` under a dataset-specific module name (`nezha_logparse_{ns}`).
+
+**GREEN (`regate/d048-module-caching-RED-GREEN.json`).** Mechanism
+proof: under the old load both datasets' `module.__file__` point at
+`checkout-hipster` and the object is reused; under the new load each
+dataset binds to its own checkout file. Real walk stays 1495/1495.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
