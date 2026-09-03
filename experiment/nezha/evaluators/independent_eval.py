@@ -355,16 +355,39 @@ def main():
                 rec["candidates"] = []
             else:
                 cands = case["candidates"] or []
-                rec["n_candidates"] = len(cands)
-                rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
-                rec["rank_historical"] = rank_historical(
-                    cands, rc_parts, fault["inject_pod"], templates)
-                rec["rank_dense"] = rank_dense(
-                    cands, rc_parts, fault["inject_pod"], templates)
-                raw, dedup = rank_service(cands, fault["inject_pod"])
-                rec["rank_service_raw"] = raw
-                rec["rank_service_dedup"] = dedup
-                rec["candidates"] = cands
+                try:
+                    rh = rank_historical(
+                        cands, rc_parts, fault["inject_pod"], templates)
+                    rd = rank_dense(
+                        cands, rc_parts, fault["inject_pod"], templates)
+                    raw, dedup = rank_service(cands, fault["inject_pod"])
+                except Exception as exc:  # noqa: BLE001
+                    # Universal fail-closed backstop (CodeRabbit round on
+                    # 77b8a15, D-050): ANY exception while ranking a case's
+                    # candidates becomes a §8 parse_failure with its cause,
+                    # never a crash that aborts the run before args.out is
+                    # written. candidate_defect (D-049) still names the
+                    # common structural defects up front; this closes the
+                    # whole malformed-candidate family — no field-by-field
+                    # variant (e.g. a non-string `events` reaching
+                    # match_candidate's .split) can terminate the evaluator.
+                    rec["parse_failure"] = (f"ranking raised on candidates: "
+                                            f"{type(exc).__name__}: {exc}")
+                    rec["n_candidates"] = 0
+                    rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
+                    rec["rank_historical"] = None
+                    rec["rank_dense"] = None
+                    rec["rank_service_raw"] = None
+                    rec["rank_service_dedup"] = None
+                    rec["candidates"] = []
+                else:
+                    rec["n_candidates"] = len(cands)
+                    rec["artifact_claimed_rank"] = case["artifact_claimed_rank"]
+                    rec["rank_historical"] = rh
+                    rec["rank_dense"] = rd
+                    rec["rank_service_raw"] = raw
+                    rec["rank_service_dedup"] = dedup
+                    rec["candidates"] = cands
         else:
             rec["missing_in_log"] = True
             counters["cases_missing_in_log"] += 1

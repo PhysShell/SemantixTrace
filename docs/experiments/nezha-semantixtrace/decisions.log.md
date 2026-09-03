@@ -1740,3 +1740,38 @@ score/deepth/pod). Regression evidence is the regate artifact, per the
 ledger's established mutation-evidence convention.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-050: Universal fail-closed backstop around per-case ranking
+
+**Trigger.** CodeRabbit round on `77b8a15`, two items. (1) Major: a
+non-string `events` field reaches `match_candidate`'s
+`cand["events"].split("_")` for two-part root causes, raising
+`AttributeError` (the handler catches only `KeyError`/`ValueError`);
+D-049 validated presence of score/deepth/pod but not the *type* of
+`events`, making this the fourth malformed-candidate variant. (2)
+Minor: the D-049 evidence artifact's `real_data` claim named only the
+two service eval configs, while `run_evals.sh` evaluates four.
+
+**Owner decision.** Close the family in one stroke rather than continue
+per-field patching: wrap the per-case ranking block in try/except so
+ANY exception raised while ranking a case's candidates becomes a §8
+`parse_failure` with its cause (null ranks, fault retained in the
+denominator). No field/type variant can crash the evaluator now.
+`candidate_defect` (D-049) is retained for clear up-front diagnostics
+on the common structural defects. The D-049 artifact claim is corrected
+to all four configs (verified byte-identical).
+
+**GREEN (`regate/d050-ranking-backstop-RED-GREEN.json`).** RED (unit):
+old `match_candidate` on a non-string `events` → `AttributeError`. RED
+(integration): the old evaluator on a log with a non-string-events
+candidate prepended to every Sorted-Result list → `AttributeError`,
+exit 1. GREEN: the fixed evaluator records `parse_failure` for the 14
+two-part-root-cause cases that reach it, exit 0. All FOUR eval configs
+(hipster/ts × service/inner) regenerate byte-identically with the
+backstop in place.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
+This closes the D-041/D-046/D-049/D-050 malformed-candidate family via a
+universal fail-closed backstop.

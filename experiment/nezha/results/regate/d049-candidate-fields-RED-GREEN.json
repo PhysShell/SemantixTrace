@@ -13,7 +13,7 @@
   }
  },
  "green": {
-  "real_data": "both committed eval artifacts (hipster-service, ts-service) regenerate BYTE-IDENTICALLY with the fixed evaluator \u2014 every real Sorted-Result candidate carries score/deepth/pod"
+  "real_data": "all FOUR eval configs run by run_evals.sh (hipster-service, hipster-inner, ts-service, ts-inner) regenerate BYTE-IDENTICALLY with the fixed evaluator \u2014 every real Sorted-Result candidate carries score/deepth/pod (claim corrected from the two service configs to all four per CodeRabbit round on 77b8a15, D-050)"
  },
  "note": "regression evidence is this RED\u2192GREEN artifact, consistent with the repo's regate/*.json mutation-evidence convention used throughout the ledger (no separate pytest-fixture framework is introduced)."
 }
