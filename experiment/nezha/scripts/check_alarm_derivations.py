@@ -40,6 +40,12 @@ from check_h4_provenance import (  # noqa: E402
 def check_derivation(code_dir, key, der, rows_cache, window):
     pod = key.split("|", 1)[0]
     inputs = der.get("inputs") or []
+    # collection/record types are validated before iteration so a
+    # malformed report yields named violations through the summary
+    # path, never a TypeError/AttributeError crash (CodeRabbit
+    # exact-head round, D-039)
+    if not isinstance(inputs, list):
+        return f"malformed inputs collection: {inputs!r}"
     if not inputs:
         return "derivation has no source inputs"
     if not der.get("verified"):
@@ -47,6 +53,8 @@ def check_derivation(code_dir, key, der, rows_cache, window):
     if der.get("kind") == "trace-derived-p90":
         return check_trace_p90_derivation(code_dir, pod, der, rows_cache)
     for inp in inputs:
+        if not isinstance(inp, dict):
+            return f"malformed input record: {inp!r}"
         if inp.get("kind") == "threshold-row":
             reason = (check_source_row(code_dir, inp["file"], inp["row"],
                                        [], rows_cache)
@@ -85,12 +93,25 @@ def main():
         window = tag_to_window(tag.split("/")[-1])
         rep = json.load(open(rp))
         materialized = rep.get("alarm_provenance") or {}
+        # container types fail closed with named violations too
+        # (CodeRabbit exact-head round, D-039)
+        if not isinstance(materialized, dict):
+            failures.append({"window": tag,
+                             "reason": f"malformed alarm_provenance: "
+                                       f"{materialized!r}"})
+            materialized = {}
         # Completeness fails closed (Codex round-14 P2, D-033): every
         # alarm_list entry must have a materialized derivation and
         # vice versa — auditing only what WAS materialized let a
         # report that dropped a derivation pass with fewer checks.
         expected_keys = set()
-        for a in rep.get("alarm_list", []):
+        alarm_list = rep.get("alarm_list", [])
+        if not isinstance(alarm_list, list):
+            failures.append({"window": tag,
+                             "reason": f"malformed alarm_list: "
+                                       f"{alarm_list!r}"})
+            alarm_list = []
+        for a in alarm_list:
             # malformed entries are named violations, never KeyError
             # crashes past the summary (CodeRabbit final round, D-038)
             if not isinstance(a, dict) or "pod" not in a:
@@ -98,7 +119,14 @@ def main():
                                  "reason": f"malformed alarm_list "
                                            f"entry: {a!r}"})
                 continue
-            for e in a.get("alarm", []):
+            alarms = a.get("alarm", [])
+            if not isinstance(alarms, list):
+                failures.append({"window": tag,
+                                 "reason": f"malformed alarm collection "
+                                           f"for pod {a['pod']}: "
+                                           f"{alarms!r}"})
+                continue
+            for e in alarms:
                 if not isinstance(e, dict) or "metric_type" not in e:
                     failures.append({"window": tag,
                                      "reason": f"malformed alarm entry "
@@ -116,6 +144,11 @@ def main():
                                        "entry"})
         for key, der in materialized.items():
             n_der += 1
+            if not isinstance(der, dict):
+                failures.append({"window": tag, "derivation": key,
+                                 "reason": f"malformed derivation "
+                                           f"record: {der!r}"})
+                continue
             kinds[der.get("kind")] += 1
             reason = check_derivation(CODE_DIRS[ns], key, der, caches[ns],
                                       window)

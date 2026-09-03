@@ -1,0 +1,77 @@
+{
+ "decision": "D-039",
+ "date": "2026-09-03",
+ "finding": "CodeRabbit actionable, exact-head round on 94cd0b6 (range 463df6a..94cd0b6), check_alarm_derivations.py:93: alarm_list and nested alarm collections are iterated without a container type check, so a malformed report crashes the audit gate with TypeError instead of a named malformed-record violation. Verified by direct mutation; the same family also crashed on non-dict alarm_provenance, non-dict derivation records, and non-list derivation inputs (beyond the finding).",
+ "old_gate": "git show 94cd0b6:experiment/nezha/scripts/check_alarm_derivations.py",
+ "sandbox": "single-window runroot copies of hipster/rca/2022-08-22_0355 (pinned runroot untouched)",
+ "red": [
+  {
+   "mutation": "alarm_list = null",
+   "old_gate": "TypeError: 'NoneType' object is not iterable at 'for a in rep.get(\"alarm_list\", [])' (the exact line the finding names)",
+   "old_result": "uncaught exception: exit 1 via traceback, NO summary line, NO out.json written"
+  },
+  {
+   "mutation": "alarm_list entry {pod: ..., alarm: null}",
+   "old_gate": "TypeError: 'NoneType' object is not iterable at 'for e in a.get(\"alarm\", [])'",
+   "old_result": "uncaught exception: exit 1 via traceback, NO summary line, NO out.json written"
+  },
+  {
+   "mutation": "alarm_provenance = ['not-a-dict']",
+   "old_gate": "AttributeError: 'list' object has no attribute 'items' (same family, beyond the finding)",
+   "old_result": "uncaught exception: exit 1 via traceback, NO summary line, NO out.json written"
+  },
+  {
+   "mutation": "one derivation record replaced by the string 'bogus-derivation'",
+   "old_gate": "AttributeError: 'str' object has no attribute 'get' at kinds[der.get('kind')] (beyond the finding)",
+   "old_result": "uncaught exception: exit 1 via traceback, NO summary line, NO out.json written"
+  },
+  {
+   "mutation": "one derivation's inputs = 'notalist'",
+   "old_gate": "AttributeError: 'str' object has no attribute 'get' in check_derivation (beyond the finding)",
+   "old_result": "uncaught exception: exit 1 via traceback, NO summary line, NO out.json written"
+  }
+ ],
+ "green": [
+  {
+   "mutation": "alarm_list = null",
+   "fixed_summary": "alarm derivations: 2 checked across 1/105 windows {'metric-sample': 2} failures=107",
+   "first_named_failure": "{'window': 'hipster/rca/2022-08-22_0355', 'reason': 'malformed alarm_list: None'}",
+   "exit": 1,
+   "out_json_written": true
+  },
+  {
+   "mutation": "alarm_list entry {pod: ..., alarm: null}",
+   "fixed_summary": "alarm derivations: 2 checked across 1/105 windows {'metric-sample': 2} failures=106",
+   "first_named_failure": "{'window': 'hipster/rca/2022-08-22_0355', 'reason': 'malformed alarm collection for pod frontend-579b9bff58-t2dbm: None'}",
+   "exit": 1,
+   "out_json_written": true
+  },
+  {
+   "mutation": "alarm_provenance = ['not-a-dict']",
+   "fixed_summary": "alarm derivations: 0 checked across 1/105 windows {} failures=107",
+   "first_named_failure": "{'window': 'hipster/rca/2022-08-22_0355', 'reason': \"malformed alarm_provenance: ['not-a-dict']\"}",
+   "exit": 1,
+   "out_json_written": true
+  },
+  {
+   "mutation": "one derivation record replaced by the string 'bogus-derivation'",
+   "fixed_summary": "alarm derivations: 2 checked across 1/105 windows {'metric-sample': 1} failures=105",
+   "first_named_failure": "{'window': 'hipster/rca/2022-08-22_0355', 'derivation': 'adservice-5f6585d649-fnmft|MemoryUsageRate(%)', 'reason': \"malformed derivation record: 'bogus-derivation'\"}",
+   "exit": 1,
+   "out_json_written": true
+  },
+  {
+   "mutation": "one derivation's inputs = 'notalist'",
+   "fixed_summary": "alarm derivations: 2 checked across 1/105 windows {'metric-sample': 2} failures=105",
+   "first_named_failure": "{'window': 'hipster/rca/2022-08-22_0355', 'derivation': 'adservice-5f6585d649-fnmft|MemoryUsageRate(%)', 'reason': \"malformed inputs collection: 'notalist'\"}",
+   "exit": 1,
+   "out_json_written": true
+  }
+ ],
+ "real_data_equivalence": {
+  "runroot": "/home/user/e2-runs-d019",
+  "old_vs_fixed": "stdout and out.json BYTE-IDENTICAL",
+  "summary": "alarm derivations: 118 checked across 105/105 windows {'metric-sample': 90, 'trace-derived-p90': 28} failures=0",
+  "exit": 0
+ }
+}

@@ -1477,3 +1477,33 @@ written; real runroot unchanged — walked H4 1495/1495, audit 118
 across 105/105 windows with 0 failures.
 
 **Verdict impact.** None. **Outcome data seen at decision time:** all.
+
+---
+
+## 2026-09-03 — D-039: Container-type guards in the derivation audit
+
+**Trigger.** CodeRabbit actionable (exact-head round on `94cd0b6`,
+range `463df6a..94cd0b6`), verified by direct mutation: D-038 guarded
+the SHAPE of `alarm_list` entries and alarm entries but not the TYPE
+of the containers themselves. A null `alarm_list` crashed the audit
+gate with `TypeError` at the exact line the finding names — exit 1
+via traceback, no summary, no out.json. Four same-family mutations
+(null nested `alarm`; list-typed `alarm_provenance`; a derivation
+record replaced by a string; string-typed derivation `inputs`)
+likewise crashed with `TypeError`/`AttributeError` before the
+summary — the last three beyond what the finding claimed.
+
+**Remedy (this commit).** Every container and record is type-checked
+before iteration or dereference: non-list `alarm_list` and nested
+`alarm`, non-dict `alarm_provenance`, non-dict derivation records,
+non-list `inputs`, and non-dict input records are named violations
+through the normal summary/exit path, with coverage accounting
+intact.
+
+**GREEN (`regate/d039-malformed-collection-RED-caught.json`).** All
+five mutations yield exit 1 with the malformed container/record named
+first and summary + out.json written; real runroot: the old and the
+fixed gate are BYTE-IDENTICAL on stdout and out.json — audit 118
+across 105/105 windows, 0 failures.
+
+**Verdict impact.** None. **Outcome data seen at decision time:** all.
